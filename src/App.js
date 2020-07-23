@@ -10,12 +10,6 @@ function App() {
       // handle success
       console.log(response);
     });
-  // axios
-  //   .get("https://pokeapi.co/api/v2/pokemon/ditto")
-  //   .then(function (response) {
-  //     // handle success
-  //     console.log(response);
-  //   });
 
   return (
     <div className="App">
