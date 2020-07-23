@@ -11,6 +11,7 @@ function App() {
       console.log(response);
     });
 
+  console.log("Testing");
   return (
     <div className="App">
       <header className="App-header">
