@@ -1,8 +1,22 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import axios from "axios";
 
 function App() {
+  axios
+    .get("http://ec2-3-133-94-54.us-east-2.compute.amazonaws.com:3000/")
+    .then(function (response) {
+      // handle success
+      console.log(response);
+    });
+  // axios
+  //   .get("https://pokeapi.co/api/v2/pokemon/ditto")
+  //   .then(function (response) {
+  //     // handle success
+  //     console.log(response);
+  //   });
+
   return (
     <div className="App">
       <header className="App-header">
