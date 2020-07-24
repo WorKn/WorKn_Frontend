@@ -22,7 +22,7 @@ jobs:
           npm install
       - name: Staging Build
         run: |
-          npm build
+          npm run-script build
       - name: Unit Tests
         run: |
           npm test
