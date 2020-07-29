@@ -14,19 +14,7 @@ function App() {
   console.log("Testing");
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello WorKn.</p>
-        <p>Hello Test.</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Test your components here</h1>
     </div>
   );
 }
