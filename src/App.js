@@ -1,6 +1,8 @@
 import React from "react";
 import "./App.css";
 import axios from "axios";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import LandingPage from "./pages/landing-page/LandingPage";
 
 function App() {
   axios
@@ -12,10 +14,21 @@ function App() {
 
   console.log("Testing");
   return (
-    <div className="App">
-      <h1>Test your components here</h1>
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/" exact component={LandingPage}></Route>
+          <Route path="/dummy" component={DummyPage}></Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
+
+const DummyPage = () => (
+  <div>
+    <h1>DummyPage</h1>
+  </div>
+);
 
 export default App;
