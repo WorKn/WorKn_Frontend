@@ -10,3 +10,4 @@ const Banner = ({image}) => {
 }
 
 export default  Banner;
+
