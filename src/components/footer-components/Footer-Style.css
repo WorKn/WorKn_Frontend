@@ -1,0 +1,17 @@
+.Footer {
+  vertical-align: bottom;
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
+  border-top: 1px solid #dddddd !important;
+  box-sizing: border-box;
+}
+
+.middle-content img {
+  width: 20px;
+  height: 20px;
+}
+
+.flogo img {
+  width: 15%;
+  height: 15%;
+}
