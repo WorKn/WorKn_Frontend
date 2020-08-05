@@ -1,0 +1,35 @@
+.ctext-separator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paired-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.paired-container {
+  display: flex;
+  width: 100%;
+  /* flex-wrap: wrap; */
+}
+
+.lspacer {
+  margin-left: 20px;
+}
+
+.dspacer {
+  margin-bottom: 16px;
+}
+
+@media only screen and (max-width: 1700px) {
+  .paired-container {
+    flex-wrap: wrap;
+  }
+
+  .lspacer {
+    margin-left: 0px;
+  }
+}
