@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Modal from "./Modal.tsx";
+import Modal from "../components/modal-components/Modal";
 
 export const useModal = () => {
   const [isVisible, setIsVisible] = useState(false);
