@@ -7,7 +7,7 @@
   background-color: #f7f7f7;
   width: 100vw;
   height: 25vh;
-  padding: 30px 200px;
+  padding: 10px 200px;
   bottom: 0;
   color: rgb(110, 108, 108);
   border-top: 1px solid #f7f7f7 !important;
@@ -109,8 +109,8 @@ a:active {
   display: flex;
   justify-content: flex-start;
   align-items: start;
-  width: 140px;
-  height: 35px;
+  width: 155px;
+  height: 38px;
 }
 
 .flogo {
@@ -121,8 +121,9 @@ a:active {
 .flogo p {
   display: flex;
   justify-content: flex-end;
-  align-items: flex-end;
-  margin: 10px 0px 0px 0px;
+  align-items: flex-start;
+  margin: 3px 0px 0px 0px;
+  font-size: 13px;
 }
 
 .fnavbar {
