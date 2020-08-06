@@ -57,13 +57,13 @@ const Footer = () => {
             />
           </div>
           <div>
+            <Icon path={"https://twitter.com/WorKn"} media={"3mO0prt.png"} />
+          </div>
+          <div>
             <Icon
               path={"https://www.instagram.com/WorKn/"}
               media={"uxM8asb.png"}
             />
-          </div>
-          <div>
-            <Icon path={"https://twitter.com/WorKn"} media={"3mO0prt.png"} />
           </div>
         </div>
         <div className="down-content">
