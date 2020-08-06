@@ -1,6 +1,6 @@
 .Banner-image-container {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   position: fixed;
   width: 100vw;
   max-height: 50vh;
