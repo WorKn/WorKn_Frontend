@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="right-foot">
         <div className="up-text">
           {/* TODO:al hacer click te lleva a tu inbox y prepara un correo para ser enviado a esa direccion */}
-          Email: 
+          Email:
           <a href="https://www.google.com/intl/es-419/gmail/about/#">
             workninfo@gmail.com
           </a>
