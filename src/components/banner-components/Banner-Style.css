@@ -1,0 +1,14 @@
+.Banner-image-container {
+  display: flex;
+  flex-wrap: wrap;
+  position: fixed;
+  width: 100vw;
+  max-height: 50vh;
+}
+
+.Banner-image-container img {
+  justify-content: flex-start;
+  align-self: flex-start;
+  width: 100%;
+  max-height: 50vh;
+}
