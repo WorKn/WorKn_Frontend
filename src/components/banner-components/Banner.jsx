@@ -1,13 +1,13 @@
 import React from "react";
-import "./Banner-Style.css"
+import "./Banner-Style.css";
 
-const Banner = ({image}) => {
-    return(
-        <div className="Banner-image-container">
-            <img src={image} alt="Banner-media"/>
-        </div>
-    )
-}
+const Banner = ({ image }) => {
+  const URL = `https://imgur.com/${image}`;
+  return (
+    <div className="Banner-image-container">
+      <img src={URL} alt="Banner-media" />
+    </div>
+  );
+};
 
-export default  Banner;
-
+export default Banner;
