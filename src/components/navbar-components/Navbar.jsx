@@ -9,33 +9,35 @@ const Header = () => (
     <div className="header">
         <div className="left-items">
 
-            <Link className="logo" to="/">
-                <img src="https://i.imgur.com/klMjRck.png" alt=""/>
+            <Link to="/">
+                <img className="logo" src="https://i.imgur.com/klMjRck.png" alt=""/>
             </Link>
 
-            <Link className="ofertas" to="#">
+            <Link className="option" to="#">
                 Ofertas
             </Link>
-            <Link className="Exploración" to="#">
+            <Link className="option" to="#">
                 Exploración
             </Link>
-            <Link className="resumen" to="#">
+            <Link className="option" to="#">
                 Resumen
             </Link>
-            <Link className="mensajeria" to="#">
+            <Link className="option" to="#">
                 Mensajeria
             </Link>
 
         </div>
 
         <div className="right-items">
-            <div className="login">
-                Inicia Sesión
-            </div>
-            <div className="register">
+            <Link className="option login" to="#">
+                Iniciar sesión
+            </Link>
+            <Link className="option register" to="#">
                 Registrate
-            </div>
-
+            </Link>
+            <button>
+                <img src="https://i.imgur.com/JCXGx2c.png" alt="" className="hamburger"/>
+            </button>
         </div>
 
     </div>
