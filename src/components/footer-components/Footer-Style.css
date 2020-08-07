@@ -1,7 +1,7 @@
 .Footer {
   display: flex;
   flex-wrap: wrap;
-  position: fixed;
+  /* position: fixed; */
   justify-content: space-between;
   align-items: center;
   background-color: #ffffff;
