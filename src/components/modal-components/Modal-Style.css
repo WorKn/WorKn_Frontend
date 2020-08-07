@@ -25,18 +25,8 @@
   height: auto;
   max-width: 36%;
   overflow-y: auto;
-  /* background-color: white; */
   background: linear-gradient(90deg, #fff 94%, #5bba6f 50%);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   z-index: 101;
-  padding: 60px;
   border-radius: 10px;
 }
-
-/* .close {
-  position: fixed;
-  padding: 0;
-  margin-left: 85%;
-  margin-right: 0;
-  color: #fff;
-} */
