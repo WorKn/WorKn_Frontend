@@ -4,33 +4,32 @@
   position: fixed;
   justify-content: space-between;
   align-items: center;
-  background-color: #f7f7f7;
+  background-color: #ffffff;
   width: 100vw;
   height: 25vh;
   padding: 10px 200px;
   bottom: 0;
-  color: rgb(110, 108, 108);
-  border-top: 1px solid #f7f7f7 !important;
-  font-size: 14px;
+  color: #7e7e7e;
+  font-size: 13px;
 }
 
 a:link {
-  color: rgb(110, 108, 108);
+  color: #7e7e7e;
   text-decoration: none;
 }
 
 a:visited {
-  color: rgb(110, 108, 108);
+  color: #7e7e7e;
   text-decoration: none;
 }
 
 a:hover {
-  color: rgb(110, 108, 108);
+  color: #7e7e7e;
   text-decoration: none;
 }
 
 a:active {
-  color: rgb(110, 108, 108);
+  color: #7e7e7e;
   text-decoration: none;
 }
 
@@ -49,25 +48,25 @@ a:active {
 }
 
 .up-text a:link {
-  color: rgb(7, 158, 57);
+  color: #00ba6b;
   text-decoration: none;
   margin-left: 5px;
 }
 
 .up-text a:visited {
-  color: rgb(3, 114, 27);
+  color: #00ba6b;
   text-decoration: none;
   margin-left: 5px;
 }
 
 .up-text a:hover {
-  color: rgb(3, 114, 27);
+  color: #00ba6b;
   text-decoration: none;
   margin-left: 5px;
 }
 
 .up-text a:active {
-  color: rgb(3, 114, 27);
+  color: #00ba6b;
   text-decoration: none;
   margin-left: 5px;
 }
@@ -110,20 +109,12 @@ a:active {
   justify-content: flex-start;
   align-items: start;
   width: 155px;
-  height: 38px;
+  height: 50px;
 }
 
 .flogo {
   justify-content: flex-start;
   flex-wrap: wrap;
-}
-
-.flogo p {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-  margin: 3px 0px 0px 0px;
-  font-size: 13px;
 }
 
 .fnavbar {
@@ -134,6 +125,8 @@ a:active {
 }
 
 .fobj {
+  color: #333234;
+  font-weight: 300;
   display: flex;
   justify-content: space-between;
   align-self: flex-start;
