@@ -15,6 +15,7 @@ const JumbotronComponent = ({
             <img
               src="https://i.imgur.com/SE2JiQf.png"
               className="button-image"
+              alt="icon"
             ></img>
             {bText}
           </div>
