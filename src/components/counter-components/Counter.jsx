@@ -1,5 +1,4 @@
 import React from "react";
-import "./Counter-Style.css";
 import { useCountUp } from "react-countup";
 
 const Counter = () => {
@@ -17,7 +16,7 @@ const Counter = () => {
           <span ref={countUpRef} />
         </div>
       )}
-      <div>{countUp}</div>
+      <div className="counter">{countUp}</div>
     </div>
   );
 };
