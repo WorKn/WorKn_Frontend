@@ -62,25 +62,31 @@ const RegisterPageC2 = () => {
             name="userMail"
             ref={register}
           />
-          <span className="popup-text">Fecha de Nacimiento</span>
+          <div class="paired-container">
+            <div class="paired-input">
+              <span className="popup-text">Contraseña</span>
+              <input
+                className="form-input"
+                name="userPassword"
+                type="password"
+                ref={register}
+              />
+            </div>
+            <div className="paired-input lspacer">
+              <span className="popup-text">Confirmar contraseña</span>
+              <input
+                className="form-input"
+                name="userPasswordConfirm"
+                type="password"
+                ref={register}
+              />
+            </div>
+          </div>
+          <span className="popup-text">Fecha de nacimiento</span>
           <input
             className="form-input"
-            type="text"
             name="userBirthday"
-            ref={register}
-          />
-          <span className="popup-text">Contraseña</span>
-          <input
-            className="form-input"
-            name="userPassword"
-            type="password"
-            ref={register}
-          />
-          <span className="popup-text">Confirmar Contraseña</span>
-          <input
-            className="form-input"
-            name="userPasswordConfirm"
-            type="password"
+            type="text"
             ref={register}
           />
           <input
