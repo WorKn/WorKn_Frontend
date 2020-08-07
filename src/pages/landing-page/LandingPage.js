@@ -4,7 +4,7 @@ import Footer from "../../components/footer-components/Footer.jsx";
 import Banner from "../../components/banner-components/Banner.jsx";
 import CounterBanner from "../../components/counter-components/Counter-Banner";
 
-function LandingPage() {
+const LandingPage = () => {
   return (
     <div>
       <h1>This is our landing page</h1>
@@ -14,6 +14,6 @@ function LandingPage() {
       <Footer />
     </div>
   );
-}
+};
 
 export default LandingPage;
