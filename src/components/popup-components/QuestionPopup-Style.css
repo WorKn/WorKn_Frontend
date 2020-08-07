@@ -1,0 +1,19 @@
+.popup-btitle {
+  color: #363537;
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.info-container {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.info-container p {
+  font-size: 14px;
+}
+
+.icon {
+  margin-right: 10px;
+}
