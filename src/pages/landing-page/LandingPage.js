@@ -5,7 +5,6 @@ import Banner from "../../components/banner-components/Banner.jsx";
 import Footer from "../../components/footer-components/Footer.jsx";
 import Header from "../../components/navbar-components/Navbar.jsx";
 import JumbotronComponent from "../../components/jumbotron-components/Jumbotron.jsx";
-import { findAllByPlaceholderText } from "@testing-library/react";
 
 const LandingPage = () => {
   const CTAComponent = {
