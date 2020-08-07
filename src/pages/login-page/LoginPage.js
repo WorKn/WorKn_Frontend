@@ -6,13 +6,13 @@ import QuestionPopup from "../../components/popup-components/QuestionPopup";
 import { useForm } from "react-hook-form";
 
 const LoginPage = React.memo(() => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const {
     show: showQuestionModal,
     RenderModal: QuestionModal,
-    hide: hideQuestionModal,
+    // hide: hideQuestionModal,
   } = useModal();
-
+  const onSubmit = (data) => {};
   return (
     <div className="login-wrapper">
       <QuestionModal>
@@ -20,7 +20,7 @@ const LoginPage = React.memo(() => {
       </QuestionModal>
       <div className="green-line">
         <div>
-          <form action="" className="sizing-container">
+          <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
             <div className="logo-container">
               <img
                 className="logo-header"
@@ -30,9 +30,19 @@ const LoginPage = React.memo(() => {
             </div>
             <span className="popup-title">Inicio de sesión</span>
             <span className="popup-text">Correo</span>
-            <input className="form-input" type="text" ref={register} />
+            <input
+              className="form-input"
+              type="text"
+              ref={register}
+              name="user"
+            />
             <span className="popup-text">Contraseña</span>
-            <input className="form-input" type="password" ref={register} />
+            <input
+              className="form-input"
+              type="password"
+              ref={register}
+              name="password"
+            />
             <div className="text-separator">
               <div>
                 <input className="form-checkbox" type="checkbox" />

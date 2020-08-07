@@ -1,15 +1,14 @@
 import React from "react";
 import "./RegisterPage-Style.css";
 import "../../App.css";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import updateAction from "./updateAction";
 import { useStateMachine } from "little-state-machine";
-import { register } from "../../serviceWorker";
 
 const RegisterPageC2 = () => {
   const { state, action } = useStateMachine(updateAction);
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit } = useForm({
     defaultValues: state.userInformation,
   });
   const { push } = useHistory();

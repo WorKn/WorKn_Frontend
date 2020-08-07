@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./RegisterPage-Style.css";
 import "../../App.css";
 import { useHistory } from "react-router-dom";
@@ -8,7 +8,7 @@ import { useStateMachine } from "little-state-machine";
 
 const RegisterPage = () => {
   const { state, action } = useStateMachine(updateAction);
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit } = useForm({
     defaultValues: state.userInformation,
   });
   const { push } = useHistory();
