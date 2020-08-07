@@ -15,10 +15,7 @@ const Modal = React.memo(({ children, closeModal }: Props) => {
   return ReactDOM.createPortal(
     <div className={"modal-wrapper"}>
       <div onClick={closeModal} className={"modal-backdrop"}></div>
-      <div className={"modal-box"}>
-        {/* <button onClick={closeModal}>Close</button> */}
-        {children}
-      </div>
+      <div className={"modal-box"}>{children}</div>
     </div>,
     domEl
   );
