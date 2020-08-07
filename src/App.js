@@ -13,6 +13,7 @@ import RegisterPageC2 from "./pages/register-page/RegisterPage-C2";
 import QuestionPopup from "./components/popup-components/QuestionPopup";
 
 function App() {
+
   const { location } = useContext(__RouterContext);
 
   const transitions = useTransition(location, (location) => location.pathname, {

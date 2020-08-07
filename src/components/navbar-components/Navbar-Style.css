@@ -1,0 +1,50 @@
+.header {
+    display: flex;
+    height: 80px;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    align-items: center;
+}
+
+.logo {
+    width: 207px;
+    height: 48px;
+    cursor: pointer;
+}
+
+.left-items{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 39%;
+}
+
+.option {
+    text-decoration: none;
+    padding-top: 13px;
+    font-family: montserrat;
+    color:#4D4E52;
+}
+
+.option.login {
+    color:#5BBA6F;
+}
+
+.option.register {
+    color:#5BBA6F;
+}
+
+.right-items{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 20%;
+}
+
+.hamburger {
+    width: 114px;
+    height: 48px;
+    cursor: pointer;
+}
+
