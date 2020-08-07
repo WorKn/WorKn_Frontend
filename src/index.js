@@ -1,14 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+import "font-awesome/css/font-awesome.min.css";
+import { BrowserRouter } from "react-router-dom";
+import { StateMachineProvider, createStore } from "little-state-machine";
+
+createStore({
+  userInformation: {
+    userName: "",
+    userLastName: "",
+    userMail: "",
+    userPassword: "",
+    userPasswordConfirm: "",
+    userBirthday: "",
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StateMachineProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </StateMachineProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

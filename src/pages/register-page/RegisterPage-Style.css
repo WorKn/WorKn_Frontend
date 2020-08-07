@@ -1,0 +1,119 @@
+.register-wrapper {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("https://i.imgur.com/VloYU9M.jpg");
+}
+
+.logo-header {
+  width: 180px;
+  margin-bottom: 16px;
+}
+
+.logo-container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.ctext-separator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paired-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.paired-container {
+  display: flex;
+  width: 100%;
+}
+
+.lspacer {
+  margin-left: 20px;
+}
+
+.dspacer {
+  margin-bottom: 16px;
+}
+
+.role-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+}
+
+.role-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 20px;
+  margin-bottom: 16px;
+  width: 200px;
+}
+
+.role-img {
+  width: 150px;
+  margin-bottom: 16px;
+  transition: transform 0.5s ease;
+  cursor: pointer;
+}
+
+.role-img:hover {
+  transform: scale(1.1);
+}
+
+.role-title {
+  color: #5bba6f;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.role-text {
+  color: #4d4e52;
+  font-size: 13px;
+  font-weight: 300;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.nomargin {
+  margin-bottom: 0px;
+}
+
+.sub-title {
+  font-size: 14px;
+  font-weight: 300;
+  color: #7e7e7e;
+  margin-bottom: 28px;
+}
+
+.backtick {
+  font-size: 14px;
+  color: #5bba6f;
+  text-decoration: none;
+}
+
+.backtick i {
+  margin-right: 10px;
+}
+
+@media only screen and (max-width: 1700px) {
+  .paired-container {
+    flex-wrap: wrap;
+  }
+
+  .lspacer {
+    margin-left: 0px;
+  }
+}
