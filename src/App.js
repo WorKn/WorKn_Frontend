@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./App.css";
 import axios from "axios";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { __RouterContext } from "react-router";
 import { useTransition, animated } from "react-spring";
 import LandingPage from "./pages/landing-page/LandingPage";
