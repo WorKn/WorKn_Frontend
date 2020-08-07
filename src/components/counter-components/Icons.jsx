@@ -4,7 +4,7 @@ const Icon = ({ media }) => {
   const URL = `https://imgur.com/${media}`;
   return (
     <div className="icon">
-      <img src={URL} alt="app" />
+      <img className="img-flex" src={URL} alt="app" />
     </div>
   );
 };
