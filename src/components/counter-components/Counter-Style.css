@@ -1,0 +1,31 @@
+.CB-banner {
+  display: flex;
+  flex-wrap: wrap;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f7f7;
+  width: 100vw;
+  height: 40vh;
+  padding: 10px 100px;
+  color: rgb(110, 108, 108);
+  font-size: 14px;
+}
+
+.CB-container {
+}
+
+img {
+  width: 70px;
+  height: 70px;
+}
+
+.CB-container {
+  display: flex;
+  justify-items: space-around;
+}
+
+.obj-container {
+  display: flex;
+  justify-items: center;
+}
