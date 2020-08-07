@@ -1,31 +1,56 @@
 .CB-banner {
   display: flex;
-  flex-wrap: wrap;
-  position: fixed;
   justify-content: center;
   align-items: center;
-  background-color: #f7f7f7;
+  background-color: #ffffff;
   width: 100vw;
-  height: 40vh;
+  height: 270px;
   padding: 10px 100px;
-  color: rgb(110, 108, 108);
+  color: 333234;
   font-size: 14px;
-}
-
-.CB-container {
-}
-
-img {
-  width: 70px;
-  height: 70px;
-}
-
-.CB-container {
-  display: flex;
-  justify-items: space-around;
 }
 
 .obj-container {
   display: flex;
-  justify-items: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 25px;
+}
+
+.up-content {
+  margin-bottom: 10px;
+}
+
+.counter {
+  color: #00ba6b;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  flex: 0 1 auto;
+  width: 70px;
+  height: 70px;
+}
+
+.up-text {
+  text-align: center;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.down-text {
+  text-align: center;
+  font-weight: 300;
+  color: #7e7e7e;
+  font-size: 12px;
+}
+
+b {
+  color: #00ba6b;
 }

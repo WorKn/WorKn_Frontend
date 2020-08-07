@@ -7,34 +7,34 @@ function CounterBanner() {
   return (
     <div className="CB-banner">
       <div className="obj-container">
-        <div className="counter">
+        <div className="up-content">
           <Icon media={"ZeBUdRh.png"} />
           <Counter />
         </div>
         <span className="up-text">Usuarios Registrados</span>
-        <div className="down-text">
+        <span className="down-text">
           en nuestra <b>plataforma</b>
-        </div>
+        </span>
       </div>
       <div className="obj-container">
-        <div className="counter">
+        <div className="up-content">
           <Icon media={"sZ4Bg4L.png"} />
           <Counter />
         </div>
         <span className="up-text">Empresas o negocios</span>
-        <div className="down-text">
+        <span className="down-text">
           buscando <b>empleados</b> como tú
-        </div>
+        </span>
       </div>
       <div className="obj-container">
-        <div className="counter">
+        <div className="up-content">
           <Icon media={"qeh182O.png"} />
           <Counter />
         </div>
         <span className="up-text">Matches Realizados</span>
-        <div className="down-text">
+        <span className="down-text">
           encontramos la <b>oferta</b> perfecta
-        </div>
+        </span>
       </div>
     </div>
   );
