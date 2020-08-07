@@ -1,0 +1,161 @@
+.Footer {
+  display: flex;
+  flex-wrap: wrap;
+  position: fixed;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  width: 100vw;
+  height: 25vh;
+  padding: 10px 200px;
+  bottom: 0;
+  color: #7e7e7e;
+  font-size: 13px;
+}
+
+a:link {
+  color: #7e7e7e;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #7e7e7e;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #7e7e7e;
+  text-decoration: none;
+}
+
+a:active {
+  color: #7e7e7e;
+  text-decoration: none;
+}
+
+.right-foot {
+  order: 2;
+  justify-content: flex-end;
+  align-self: center;
+  flex-wrap: wrap;
+}
+
+.up-text {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+
+.up-text a:link {
+  color: #00ba6b;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.up-text a:visited {
+  color: #00ba6b;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.up-text a:hover {
+  color: #00ba6b;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.up-text a:active {
+  color: #00ba6b;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.down-text {
+  display: flex;
+  justify-content: flex-end;
+  align-self: flex-end;
+}
+
+.Rights {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.utobj {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-content: flex-start;
+  margin: 0px 10px 0px 0px;
+}
+
+.left-foot {
+  order: 1;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.up-content {
+  display: flex;
+  justify-content: space-between;
+  align-self: flex-start;
+}
+
+.up-content img {
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  width: 155px;
+  height: 50px;
+}
+
+.flogo {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.fnavbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-self: flex-start;
+}
+
+.fobj {
+  color: #333234;
+  font-weight: 300;
+  display: flex;
+  justify-content: space-between;
+  align-self: flex-start;
+  margin: 10px 20px 0px 20px;
+}
+
+.middle-content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.middle-content img {
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px 20px 20px 0px;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.down-content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.down-content span {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
