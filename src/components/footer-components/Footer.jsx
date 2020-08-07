@@ -8,17 +8,14 @@ const Footer = () => {
     <div className="Footer">
       <div className="right-foot">
         <div className="up-text">
-          {/* TODO:al hacer click te lleva a tu inbox y prepara un correo para ser enviado a esa direccion */}
           Email:
-          <a href="https://www.google.com/intl/es-419/gmail/about/#">
-            workninfo@gmail.com
-          </a>
+          <a href="mailto:workninfo@gmail.com">workninfo@gmail.com</a>
         </div>
         <div className="down-text">
-          <Link className="utobj" to="#">
+          <Link className="utobj" target="_blank" to="/Terms">
             Terms of Service.
           </Link>
-          <Link className="utobj" to="#">
+          <Link className="utobj" target="_blank" to="/Privacy">
             Privacy Policy.
           </Link>
           <div className="Rights">
@@ -30,21 +27,20 @@ const Footer = () => {
         <div className="up-content">
           <div className="flogo">
             <Link to="/">
-              <img src="https://imgur.com/klMjRck.png" alt="workn-logo" />
+              <img src="https://imgur.com/21FKDzL.png" alt="workn-logo" />
             </Link>
-            <p>Find your missing piece</p>
           </div>
           <div className="fnavbar">
-            <Link className="fobj" to="#">
+            <Link className="fobj" target="_blank" to="/Ofertas">
               Ofertas
             </Link>
-            <Link className="fobj" to="#">
+            <Link className="fobj" target="_blank" to="/Exploracion">
               Exploración
             </Link>
-            <Link className="fobj" to="#">
+            <Link className="fobj" target="_blank" to="/Resumen">
               Resumen
             </Link>
-            <Link className="fobj" to="#">
+            <Link className="fobj" target="_blank" to="/Mensajeria">
               Mensajería
             </Link>
           </div>
