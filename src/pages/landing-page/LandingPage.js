@@ -2,6 +2,7 @@ import React from "react";
 import "./LandingPage-Style.css";
 import CounterBanner from "../../components/counter-components/Counter-Banner";
 import Banner from "../../components/banner-components/Banner.jsx";
+import Footer from "../../components/footer-components/Footer.jsx";
 
 
 function LandingPage() {
@@ -11,6 +12,7 @@ function LandingPage() {
       <button>Tester</button>
       <Banner image={"kiwVnMm.png"} />
       <CounterBanner />
+      <Footer />
     </div>
   );
 }
