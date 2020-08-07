@@ -1,7 +1,7 @@
 .Banner-image-container {
   display: flex;
   flex-wrap: wrap;
-  position: fixed;
+  /* position: fixed; */
   width: 100vw;
   max-height: 50vh;
 }
