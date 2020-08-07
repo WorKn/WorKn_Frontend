@@ -39,13 +39,6 @@ const RegisterPageC1 = () => {
           </div>
           <span className="popup-title">Cuéntanos sobre ti </span>
 
-          <span className="popup-text">Fecha de nacimiento</span>
-          <input
-            className="form-input"
-            name="userBirthday"
-            type="text"
-            ref={register}
-          />
           <span className="popup-text">Cómo pretendes usar Workn?</span>
           <div className="role-container">
             <div className="role-inner">
@@ -74,7 +67,7 @@ const RegisterPageC1 = () => {
               </p>
             </div>
           </div>
-          <input type="submit" value="Temporal" />
+          {/* <input type="submit" value="Temporal" /> */}
         </form>
       </div>
     </div>
