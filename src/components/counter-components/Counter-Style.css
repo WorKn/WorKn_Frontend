@@ -1,0 +1,56 @@
+.CB-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  width: 100vw;
+  height: 270px;
+  padding: 10px 100px;
+  color: 333234;
+  font-size: 14px;
+}
+
+.obj-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 25px;
+}
+
+.up-content {
+  margin-bottom: 10px;
+}
+
+.counter {
+  color: #00ba6b;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+}
+
+.img-flex {
+  flex: 0 1 auto;
+  width: 70px;
+  height: 70px;
+}
+
+.up-text {
+  text-align: center;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.down-text {
+  text-align: center;
+  font-weight: 300;
+  color: #7e7e7e;
+  font-size: 12px;
+}
+
+b {
+  color: #00ba6b;
+}
