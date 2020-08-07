@@ -3,8 +3,10 @@ import "./LoginPage-Style.css";
 import "../../App.css";
 import { useModal } from "../../hooks/useModal";
 import QuestionPopup from "../../components/popup-components/QuestionPopup";
+import { useForm } from "react-hook-form";
 
 const LoginPage = React.memo(() => {
+  const { register, handleSubmit, errors } = useForm();
   const {
     show: showQuestionModal,
     RenderModal: QuestionModal,
@@ -28,9 +30,9 @@ const LoginPage = React.memo(() => {
             </div>
             <span className="popup-title">Inicio de sesión</span>
             <span className="popup-text">Correo</span>
-            <input className="form-input" type="text" />
+            <input className="form-input" type="text" ref={register} />
             <span className="popup-text">Contraseña</span>
-            <input className="form-input" type="password" />
+            <input className="form-input" type="password" ref={register} />
             <div className="text-separator">
               <div>
                 <input className="form-checkbox" type="checkbox" />
