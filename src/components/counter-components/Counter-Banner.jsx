@@ -7,17 +7,18 @@ function CounterBanner() {
   return (
     <div className="CB-banner">
       <div className="obj-container">
-        <div className="up-content">
+        <div className="up-content2">
           <Icon media={"ZeBUdRh.png"} />
           <Counter />
         </div>
         <span className="up-text">Usuarios Registrados</span>
         <span className="down-text">
-          en nuestra <b>plataforma</b>
+          en nuestra
+          <b>plataforma</b>
         </span>
       </div>
       <div className="obj-container">
-        <div className="up-content">
+        <div className="up-content2">
           <Icon media={"sZ4Bg4L.png"} />
           <Counter />
         </div>
@@ -27,7 +28,7 @@ function CounterBanner() {
         </span>
       </div>
       <div className="obj-container">
-        <div className="up-content">
+        <div className="up-content2">
           <Icon media={"qeh182O.png"} />
           <Counter />
         </div>
