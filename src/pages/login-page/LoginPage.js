@@ -4,6 +4,7 @@ import "../../App.css";
 import { useModal } from "../../hooks/useModal";
 import QuestionPopup from "../../components/popup-components/QuestionPopup";
 import { useForm } from "react-hook-form";
+import testing from "../../utils/apiRequests";
 
 const LoginPage = React.memo(() => {
   const { register, handleSubmit } = useForm();

@@ -8,8 +8,8 @@ import LoginPage from "./pages/login-page/LoginPage.js";
 import RegisterPage from "./pages/register-page/RegisterPage";
 import RegisterPageC1 from "./pages/register-page/RegisterPage-C1";
 import RegisterPageC2 from "./pages/register-page/RegisterPage-C2";
-
 import QuestionPopup from "./components/popup-components/QuestionPopup";
+require("dotenv").config({ path: "./.env" });
 
 function App() {
   const { location } = useContext(__RouterContext);
