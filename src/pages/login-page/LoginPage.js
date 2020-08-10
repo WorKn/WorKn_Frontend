@@ -8,6 +8,7 @@ import testing from "../../utils/apiRequests";
 import { ErrorMessage } from "@hookform/error-message";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
+import { userLogin } from "../../utils/apiRequests";
 
 const LoginPage = React.memo(() => {
   const { register, handleSubmit, errors } = useForm();
@@ -20,9 +21,10 @@ const LoginPage = React.memo(() => {
   } = useModal();
 
   const onSubmit = (data) => {
+    userLogin(data);
     action(data);
-    console.log(data);
   };
+
   return (
     <div className="login-wrapper">
       <QuestionModal>
