@@ -43,11 +43,11 @@ const LoginPage = React.memo(() => {
               className="form-input"
               type="email"
               ref={register({ required: "Por favor ingrese su correo" })}
-              name="user"
+              name="email"
             />
             <ErrorMessage
               errors={errors}
-              name="user"
+              name="email"
               render={({ message }) => (
                 <div className="input__errormsg">
                   <i class="fa fa-asterisk"></i> {message}
