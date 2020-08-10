@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import "./App.css";
-import axios from "axios";
 import { Switch, Route } from "react-router-dom";
 import { __RouterContext } from "react-router";
 import { useTransition, animated } from "react-spring";
@@ -13,7 +12,6 @@ import RegisterPageC2 from "./pages/register-page/RegisterPage-C2";
 import QuestionPopup from "./components/popup-components/QuestionPopup";
 
 function App() {
-
   const { location } = useContext(__RouterContext);
 
   const transitions = useTransition(location, (location) => location.pathname, {
@@ -21,14 +19,6 @@ function App() {
     enter: { opacity: 1, transform: "translate(0%,0)" },
     leave: { opacity: 0, transform: "translate(-50%,0)" },
   });
-
-  axios
-    .get("http://ec2-3-133-94-54.us-east-2.compute.amazonaws.com:3000/")
-    .then(function (response) {
-      // handle success
-      console.log(response);
-    });
-
 
   return (
     <div className="App">
