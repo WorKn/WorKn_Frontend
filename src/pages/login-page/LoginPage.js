@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./LoginPage-Style.css";
 import "../../App.css";
 import { useModal } from "../../hooks/useModal";
@@ -12,6 +12,7 @@ import { userLogin } from "../../utils/apiRequests";
 const LoginPage = React.memo(() => {
   const { register, handleSubmit, errors } = useForm();
   const { action } = useStateMachine(updateAction);
+  const [userInfo, setUserInfo] = useState("");
 
   const {
     show: showQuestionModal,
@@ -22,6 +23,7 @@ const LoginPage = React.memo(() => {
   const onSubmit = (data) => {
     userLogin(data).then((res) => {
       console.log(res);
+      setUserInfo(res);
     });
     action(data);
   };
@@ -74,6 +76,7 @@ const LoginPage = React.memo(() => {
                 </div>
               )}
             />
+            <div className="input__errormsg">{userInfo.message}</div>
             <div className="text-separator">
               <div>
                 <input className="form-checkbox" type="checkbox" />

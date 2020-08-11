@@ -25,6 +25,6 @@ export const userLogin = async (user) => {
     });
     return response;
   } catch (e) {
-    return e;
+    return e.response.data;
   }
 };
