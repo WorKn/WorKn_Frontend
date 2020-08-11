@@ -21,7 +21,6 @@ const LoginPage = React.memo(() => {
   } = useModal();
 
   const onSubmit = (data) => {
-    userLogin(data);
     action(data);
   };
 
