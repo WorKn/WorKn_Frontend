@@ -4,15 +4,13 @@ import "../../App.css";
 import { useModal } from "../../hooks/useModal";
 import QuestionPopup from "../../components/popup-components/QuestionPopup";
 import { useForm } from "react-hook-form";
-import testing from "../../utils/apiRequests";
 import { ErrorMessage } from "@hookform/error-message";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
-import { userLogin } from "../../utils/apiRequests";
 
 const LoginPage = React.memo(() => {
   const { register, handleSubmit, errors } = useForm();
-  const { state, action } = useStateMachine(updateAction);
+  const { action } = useStateMachine(updateAction);
 
   const {
     show: showQuestionModal,
