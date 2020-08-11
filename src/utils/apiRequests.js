@@ -15,12 +15,3 @@ export const testing = async () => {
     return e;
   }
 };
-
-export const userLogin = async () => {
-  try {
-    const response = await axios.post(`${HOST}/api/v1/users/login`);
-    return response;
-  } catch (e) {
-    return e;
-  }
-};
