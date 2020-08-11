@@ -4,15 +4,26 @@ import "../../App.css";
 import { useModal } from "../../hooks/useModal";
 import QuestionPopup from "../../components/popup-components/QuestionPopup";
 import { useForm } from "react-hook-form";
+import testing from "../../utils/apiRequests";
+import { ErrorMessage } from "@hookform/error-message";
+import { useStateMachine } from "little-state-machine";
+import updateAction from "../../updateAction";
+import { userLogin } from "../../utils/apiRequests";
 
 const LoginPage = React.memo(() => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
+  const { state, action } = useStateMachine(updateAction);
+
   const {
     show: showQuestionModal,
     RenderModal: QuestionModal,
     // hide: hideQuestionModal,
   } = useModal();
-  const onSubmit = (data) => {};
+
+  const onSubmit = (data) => {
+    action(data);
+  };
+
   return (
     <div className="login-wrapper">
       <QuestionModal>
@@ -32,16 +43,34 @@ const LoginPage = React.memo(() => {
             <span className="popup-text">Correo</span>
             <input
               className="form-input"
-              type="text"
-              ref={register}
-              name="user"
+              type="email"
+              ref={register({ required: "Por favor ingrese su correo" })}
+              name="email"
+            />
+            <ErrorMessage
+              errors={errors}
+              name="email"
+              render={({ message }) => (
+                <div className="input__errormsg">
+                  <i class="fa fa-asterisk"></i> {message}
+                </div>
+              )}
             />
             <span className="popup-text">Contraseña</span>
             <input
               className="form-input"
               type="password"
-              ref={register}
+              ref={register({ required: "Por favor ingrese su contraseña" })}
               name="password"
+            />
+            <ErrorMessage
+              errors={errors}
+              name="password"
+              render={({ message }) => (
+                <div className="input__errormsg">
+                  <i class="fa fa-asterisk"></i> {message}
+                </div>
+              )}
             />
             <div className="text-separator">
               <div>
@@ -54,9 +83,11 @@ const LoginPage = React.memo(() => {
                 </a>
               </span>
             </div>
-            <span className="custom-button bg-green">
-              <span>Acceder</span>
-            </span>
+            <input
+              className="custom-button bg-green"
+              type="submit"
+              value="Acceder"
+            />
             <span onClick={showQuestionModal} className="custom-button bg-gray">
               <span>Regístrate</span>
             </span>
