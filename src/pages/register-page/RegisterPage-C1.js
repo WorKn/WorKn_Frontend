@@ -3,7 +3,7 @@ import "./RegisterPage-Style.css";
 import "../../App.css";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import updateAction from "./updateAction";
+import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 // import { register } from "../../serviceWorker";
 
