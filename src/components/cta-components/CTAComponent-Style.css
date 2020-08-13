@@ -1,0 +1,45 @@
+.jumbotron-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #F7F7F7;
+    width: 100vw;
+    padding: 60px 200px;
+    
+}
+
+.jumbotron-text{
+    flex: 0 1 37vw;
+    
+}
+
+.jumbotron-title{
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #333234;
+}
+
+.jumbotron-content{
+    margin-bottom: 35px;
+    color: #7E7E7E;
+    font-size: 18px;
+}
+
+.button-style{
+    width: 350px;
+    height: 80px;
+    background-color: #00ba6b;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 2em;
+    align-items: center;
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+    
+}
+
+.inverted{
+    order: -1;
+}
