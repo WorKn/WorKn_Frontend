@@ -1,50 +1,56 @@
-.header {
+.navbar {
     display: flex;
-    height: 80px;
-    width: 100%;
-    justify-content: space-between;
-    margin-bottom: 25px;
     align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    width: 100vw;
+    margin-bottom: 25px;
+    background-color: #ffffff;
+    padding: 10px 2.5%;
+    flex: 1;
 }
 
-.logo {
+.navbar__logo {
     width: 207px;
     height: 48px;
     cursor: pointer;
 }
 
-.left-items{
-    display: flex;
+
+.navbar__left-items{
+    display: inline-flex;
     align-items: center;
-    justify-content: space-evenly;
-    width: 39%;
+    justify-content: space-between;
+    
 }
 
-.option {
+.navbar__right-items{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.navbar__link {
     text-decoration: none;
-    padding-top: 13px;
+    /* padding-top: 13px; */
     font-family: montserrat;
     color:#4D4E52;
+    margin: 5%;
+    
 }
 
-.option.login {
+.navbar__link--highlighted {
     color:#5BBA6F;
 }
 
-.option.register {
-    color:#5BBA6F;
-}
 
-.right-items{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 20%;
-}
-
-.hamburger {
+.navbar__hamburger {
     width: 114px;
     height: 48px;
     cursor: pointer;
+    width: 100%;
 }
+
+
 

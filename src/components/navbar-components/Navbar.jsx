@@ -5,42 +5,44 @@ import './Navbar-Style.css';
 import { Link } from "react-router-dom";
 
 
-const Header = () => (
-    <div className="header">
-        <div className="left-items">
+const Navbar = () => (
+    <div className="navbar">
+        <div className="navbar__left-items"> 
 
             <Link to="/">
-                <img className="logo" src="https://i.imgur.com/klMjRck.png" alt=""/>
+                {/* <div className="logo-container"> */}
+                    <img className="navbar__logo" src="https://i.imgur.com/klMjRck.png" alt=""/>
+                {/* </div> */}
             </Link>
 
-            <Link className="option" to="#">
+            <Link className="navbar__link" to="#">
                 Ofertas
             </Link>
-            <Link className="option" to="#">
+            <Link className="navbar__link" to="#">
                 Exploración
             </Link>
-            <Link className="option" to="#">
+            <Link className="navbar__link" to="#">
                 Resumen
             </Link>
-            <Link className="option" to="#">
+            <Link className="navbar__link" to="#">
                 Mensajeria
             </Link>
 
         </div>
 
-        <div className="right-items">
-            <Link className="option login" to="#">
+        <div className="navbar__right-items">
+            <Link className="navbar__link navbar__link--highlighted" to="#">
                 Iniciar sesión
             </Link>
-            <Link className="option register" to="#">
+            <Link className="navbar__link navbar__link--highlighted" to="#">
                 Registrate
             </Link>
             <button>
-                <img src="https://i.imgur.com/JCXGx2c.png" alt="" className="hamburger"/>
+                <img src="https://i.imgur.com/JCXGx2c.png" alt="" className="navbar__hamburger"/>
             </button>
         </div>
 
     </div>
 );
 
-export default Header;
+export default Navbar;
