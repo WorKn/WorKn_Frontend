@@ -76,6 +76,13 @@ const LoginPage = React.memo(() => {
                 </div>
               )}
             />
+            {typeof userInfo.data != "undefined" ? (
+              <div className="input__errormsg">
+                Bienvenido, {userInfo.data.data.user.name}
+              </div>
+            ) : (
+              ""
+            )}
             <div className="input__errormsg">{userInfo.message}</div>
             <div className="text-separator">
               <div>
