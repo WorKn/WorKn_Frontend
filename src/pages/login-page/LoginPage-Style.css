@@ -153,14 +153,25 @@ input:focus {
   margin-bottom: 16px;
 }
 
-.input__errormsg {
+.input__msg {
   display: flex;
   flex-direction: row;
-  color: red;
   font-size: 12px;
   margin-bottom: 15px;
 }
 
+.input__msg i {
+  margin-right: 5px;
+}
+
+.input__msg--error {
+  color: red;
+}
+
+.input__msg--success {
+  color: green;
+}
+=======
 .input__errormsg i {
   margin-right: 5px;
 }
