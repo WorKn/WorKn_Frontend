@@ -13,7 +13,6 @@ const LoginPage = React.memo(() => {
   const { register, handleSubmit, errors } = useForm();
   const { action } = useStateMachine(updateAction);
   const [userInfo, setUserInfo] = useState("");
-
   const {
     show: showQuestionModal,
     RenderModal: QuestionModal,
@@ -86,6 +85,7 @@ const LoginPage = React.memo(() => {
             <div className="input__msg input__msg--error">
               {userInfo.message}
             </div>
+
             <div className="text-separator">
               <div>
                 <input className="form-checkbox" type="checkbox" />

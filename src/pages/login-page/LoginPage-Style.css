@@ -171,3 +171,7 @@ input:focus {
 .input__msg--success {
   color: green;
 }
+=======
+.input__errormsg i {
+  margin-right: 5px;
+}
