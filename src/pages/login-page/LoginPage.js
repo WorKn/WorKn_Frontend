@@ -55,7 +55,7 @@ const LoginPage = React.memo(() => {
               errors={errors}
               name="email"
               render={({ message }) => (
-                <div className="input__errormsg">
+                <div className="input__msg input__msg--error">
                   <i class="fa fa-asterisk"></i> {message}
                 </div>
               )}
@@ -71,19 +71,21 @@ const LoginPage = React.memo(() => {
               errors={errors}
               name="password"
               render={({ message }) => (
-                <div className="input__errormsg">
+                <div className="input__msg input__msg--error">
                   <i class="fa fa-asterisk"></i> {message}
                 </div>
               )}
             />
             {typeof userInfo.data != "undefined" ? (
-              <div className="input__errormsg">
+              <div className="input__msg input__msg--success">
                 Bienvenido, {userInfo.data.data.user.name}
               </div>
             ) : (
               ""
             )}
-            <div className="input__errormsg">{userInfo.message}</div>
+            <div className="input__msg input__msg--error">
+              {userInfo.message}
+            </div>
             <div className="text-separator">
               <div>
                 <input className="form-checkbox" type="checkbox" />
