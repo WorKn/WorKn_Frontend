@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./LoginPage-Style.css";
 import "../../App.css";
 import { useModal } from "../../hooks/useModal";
@@ -7,10 +7,12 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
+import { userLogin } from "../../utils/apiRequests";
 
 const LoginPage = React.memo(() => {
   const { register, handleSubmit, errors } = useForm();
   const { action } = useStateMachine(updateAction);
+  const [userInfo, setUserInfo] = useState("");
 
   const {
     show: showQuestionModal,
@@ -19,6 +21,10 @@ const LoginPage = React.memo(() => {
   } = useModal();
 
   const onSubmit = (data) => {
+    userLogin(data).then((res) => {
+      console.log(res);
+      setUserInfo(res);
+    });
     action(data);
   };
 
@@ -49,7 +55,7 @@ const LoginPage = React.memo(() => {
               errors={errors}
               name="email"
               render={({ message }) => (
-                <div className="input__errormsg">
+                <div className="input__msg input__msg--error">
                   <i class="fa fa-asterisk"></i> {message}
                 </div>
               )}
@@ -65,11 +71,21 @@ const LoginPage = React.memo(() => {
               errors={errors}
               name="password"
               render={({ message }) => (
-                <div className="input__errormsg">
+                <div className="input__msg input__msg--error">
                   <i class="fa fa-asterisk"></i> {message}
                 </div>
               )}
             />
+            {typeof userInfo.data != "undefined" ? (
+              <div className="input__msg input__msg--success">
+                Bienvenido, {userInfo.data.data.user.name}
+              </div>
+            ) : (
+              ""
+            )}
+            <div className="input__msg input__msg--error">
+              {userInfo.message}
+            </div>
             <div className="text-separator">
               <div>
                 <input className="form-checkbox" type="checkbox" />

@@ -15,3 +15,16 @@ export const testing = async () => {
     return e;
   }
 };
+
+export const userLogin = async (user) => {
+  console.log(user);
+  try {
+    const response = await axios.post(`${HOST}/api/v1/users/login`, {
+      email: user.email,
+      password: user.password,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
