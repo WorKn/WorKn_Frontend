@@ -35,9 +35,9 @@ const Navbar = () => (
             <Link className="navbar__link navbar__link--highlighted" to="#">
                 Registrate
             </Link>
-            <button>
+            {/* <button>
                 <img src="https://i.imgur.com/JCXGx2c.png" alt="" className="navbar__hamburger"/>
-            </button>
+            </button> */}
         </div>
 
     </div>
