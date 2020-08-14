@@ -35,7 +35,7 @@ const RegisterPage = () => {
               <input
                 className="form-input"
                 type="text"
-                name="userName"
+                name="name"
                 ref={register}
               />
             </div>
@@ -44,7 +44,7 @@ const RegisterPage = () => {
               <input
                 className="form-input"
                 type="text"
-                name="userLastName"
+                name="name"
                 ref={register}
               />
             </div>
@@ -52,8 +52,8 @@ const RegisterPage = () => {
           <span className="popup-text">Correo</span>
           <input
             className="form-input"
-            type="text"
-            name="userMail"
+            type="email"
+            name="email"
             ref={register}
           />
           <div class="paired-container">
@@ -61,7 +61,7 @@ const RegisterPage = () => {
               <span className="popup-text">Contraseña</span>
               <input
                 className="form-input"
-                name="userPassword"
+                name="password"
                 type="password"
                 ref={register}
               />
@@ -70,7 +70,7 @@ const RegisterPage = () => {
               <span className="popup-text">Confirmar contraseña</span>
               <input
                 className="form-input"
-                name="userPasswordConfirm"
+                name="passwordConfirm"
                 type="password"
                 ref={register}
               />
@@ -79,8 +79,8 @@ const RegisterPage = () => {
           <span className="popup-text">Fecha de nacimiento</span>
           <input
             className="form-input"
-            name="userBirthday"
-            type="text"
+            name="birthday"
+            type="date"
             ref={register}
           />
           <input
@@ -88,7 +88,6 @@ const RegisterPage = () => {
             type="submit"
             value="Siguiente"
           />
-
           <div className="ctext-separator">
             <span className="remind-me">
               Ya tienes cuenta? {""}

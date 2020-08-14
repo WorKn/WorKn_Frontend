@@ -5,21 +5,20 @@ import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
-// import { register } from "../../serviceWorker";
+import { userSignup } from "../../utils/apiRequests";
 
 const RegisterPageC1 = () => {
   const { state, action } = useStateMachine(updateAction);
-  const { handleSubmit } = useForm({
-    defaultValues: state.userInformation,
-  });
+  const { register, handleSubmit } = useForm();
   const { push } = useHistory();
   const onSubmit = (data) => {
     action(data);
+    userSignup(state.userInformation).then((res) => {
+      console.log(res);
+      // setUserInfo(res);
+    });
     push("/loginpage");
   };
-
-  console.log(state.userInformation);
-
   return (
     <div className="register-wrapper">
       <div className="green-line">
@@ -29,7 +28,6 @@ const RegisterPageC1 = () => {
               <i class="fa fa-chevron-left"></i>Volver
             </a>
           </span>
-
           <div className="logo-container">
             <img
               className="logo-header"
@@ -38,7 +36,6 @@ const RegisterPageC1 = () => {
             />
           </div>
           <span className="popup-title">Cuéntanos sobre ti </span>
-
           <span className="popup-text">Cómo pretendes usar Workn?</span>
           <div className="role-container">
             <div className="role-inner">
@@ -67,7 +64,15 @@ const RegisterPageC1 = () => {
               </p>
             </div>
           </div>
-          {/* <input type="submit" value="Temporal" /> */}
+          <select className="form__select" name="userType" ref={register}>
+            <option value="applicant">Aplicante</option>
+            <option value="offerer">Ofertante</option>
+          </select>
+          <input
+            className="custom-button bg-green"
+            type="submit"
+            value="Regístrate"
+          />
         </form>
       </div>
     </div>
