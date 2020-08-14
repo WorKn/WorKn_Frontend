@@ -9,7 +9,7 @@ import { useStateMachine } from "little-state-machine";
 
 const RegisterPage = () => {
   const { state, action } = useStateMachine(updateAction);
-  const { register, handleSubmit, errors, watch } = useForm({
+  const { register, handleSubmit, watch } = useForm({
     defaultValues: state.userInformation,
   });
   const { push } = useHistory();
