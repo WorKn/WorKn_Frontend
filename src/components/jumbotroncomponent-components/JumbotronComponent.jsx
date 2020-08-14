@@ -3,7 +3,7 @@ import React from "react";
 import "./JumbotronComponent-Style.css";
 
 const JumbotronComponent = ({
-  params: {imageUrl },
+  params: {imageUrl},
 }) => (
   <div className="jumbotron-container">
 
