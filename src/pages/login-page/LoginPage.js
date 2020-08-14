@@ -20,11 +20,11 @@ const LoginPage = React.memo(() => {
   } = useModal();
 
   const onSubmit = (data) => {
+    action(data);
     userLogin(data).then((res) => {
       console.log(res);
       setUserInfo(res);
     });
-    action(data);
   };
 
   return (

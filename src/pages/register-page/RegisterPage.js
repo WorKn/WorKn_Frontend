@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./RegisterPage-Style.css";
 import "../../App.css";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
+// import { ErrorMessage } from "@hookform/error-message";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 
 const RegisterPage = () => {
   const { state, action } = useStateMachine(updateAction);
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, watch } = useForm({
     defaultValues: state.userInformation,
   });
   const { push } = useHistory();
@@ -16,6 +17,8 @@ const RegisterPage = () => {
     action(data);
     push("/registerpagec1");
   };
+  const password = useRef({});
+  password.current = watch("password", "");
 
   return (
     <div className="register-wrapper">
@@ -35,8 +38,8 @@ const RegisterPage = () => {
               <input
                 className="form-input"
                 type="text"
-                name="userName"
-                ref={register}
+                name="name"
+                ref={register({ required: "Por favor ingrese su nombre" })}
               />
             </div>
             <div className="paired-input lspacer">
@@ -44,51 +47,64 @@ const RegisterPage = () => {
               <input
                 className="form-input"
                 type="text"
-                name="userLastName"
-                ref={register}
+                name="lastname"
+                ref={register({ required: "Por favor ingrese su apellido" })}
               />
             </div>
           </div>
           <span className="popup-text">Correo</span>
           <input
             className="form-input"
-            type="text"
-            name="userMail"
-            ref={register}
+            type="email"
+            name="email"
+            ref={register({ required: "Por favor ingrese su correo" })}
           />
+
           <div class="paired-container">
             <div class="paired-input">
               <span className="popup-text">Contraseña</span>
               <input
                 className="form-input"
-                name="userPassword"
+                name="password"
                 type="password"
-                ref={register}
+                ref={register({
+                  required: "Por favor ingrese su contraseña",
+                  minLength: {
+                    value: 8,
+                    message: "Su contraseña debe tener al menos 8 caracteres",
+                  },
+                })}
               />
             </div>
             <div className="paired-input lspacer">
               <span className="popup-text">Confirmar contraseña</span>
               <input
                 className="form-input"
-                name="userPasswordConfirm"
+                name="passwordConfirm"
                 type="password"
-                ref={register}
+                ref={register({
+                  validate: (value) =>
+                    value === password.current ||
+                    "Las contraseñas no coinciden",
+                })}
               />
             </div>
           </div>
           <span className="popup-text">Fecha de nacimiento</span>
           <input
             className="form-input"
-            name="userBirthday"
-            type="text"
-            ref={register}
+            name="birthday"
+            type="date"
+            ref={register({
+              required: "Por favor ingrese su fecha de nacimiento",
+            })}
           />
+
           <input
             className="custom-button bg-green"
             type="submit"
             value="Siguiente"
           />
-
           <div className="ctext-separator">
             <span className="remind-me">
               Ya tienes cuenta? {""}
