@@ -7,7 +7,7 @@ import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 
 const RegisterPageC1 = () => {
-  const { state, action } = useStateMachine(updateAction);
+  const { action } = useStateMachine(updateAction);
   const { register, handleSubmit } = useForm();
   const { push } = useHistory();
   const onSubmit = (data) => {
