@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
-import { userSignup } from "../../utils/apiRequests";
 
 const RegisterPageC1 = () => {
   const { state, action } = useStateMachine(updateAction);
@@ -13,10 +12,6 @@ const RegisterPageC1 = () => {
   const { push } = useHistory();
   const onSubmit = (data) => {
     action(data);
-    userSignup(state.userInformation).then((res) => {
-      console.log(res);
-      // setUserInfo(res);
-    });
     push("/loginpage");
   };
   return (
