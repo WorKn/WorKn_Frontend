@@ -3,7 +3,7 @@ import React from "react";
 import "./CTAComponent-Style.css";
 
 const CTAComponent = ({
-  params: {imageUrl },
+  params: { h1Text, pText, bText, imageUrl, inverted },
 }) => (
   <div className="jumbotron-container">
 
@@ -24,4 +24,3 @@ const CTAComponent = ({
 );
 
 export default CTAComponent;
-
