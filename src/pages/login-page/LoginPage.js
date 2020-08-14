@@ -26,6 +26,10 @@ const LoginPage = React.memo(() => {
       setUserInfo(res);
     });
     action(data);
+    userLogin(data).then((res) => {
+      console.log(res);
+      setUserInfo(res);
+    });
   };
 
   return (
@@ -86,6 +90,7 @@ const LoginPage = React.memo(() => {
             <div className="input__msg input__msg--error">
               {userInfo.message}
             </div>
+
             <div className="text-separator">
               <div>
                 <input className="form-checkbox" type="checkbox" />

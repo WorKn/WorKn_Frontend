@@ -171,3 +171,11 @@ input:focus {
 .input__msg--success {
   color: green;
 }
+
+.input__msg--error {
+  color: red;
+}
+
+.input__msg--success {
+  color: green;
+}

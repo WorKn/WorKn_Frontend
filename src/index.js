@@ -9,12 +9,12 @@ import { StateMachineProvider, createStore } from "little-state-machine";
 
 createStore({
   userInformation: {
-    userName: "",
-    userLastName: "",
-    userMail: "",
-    userPassword: "",
-    userPasswordConfirm: "",
-    userBirthday: "",
+    name: "",
+    email: "",
+    birthday: "",
+    password: "",
+    passwordConfirm: "",
+    userType: "",
   },
 });
 
