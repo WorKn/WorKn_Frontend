@@ -3,20 +3,23 @@ import "./RegisterPage-Style.css";
 import "../../App.css";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-// import { ErrorMessage } from "@hookform/error-message";
+import { ErrorMessage } from "@hookform/error-message";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
+import { getAge } from "../../utils/ageCalculation";
 
 const RegisterPage = () => {
   const { state, action } = useStateMachine(updateAction);
-  const { register, handleSubmit, watch } = useForm({
+  const { register, handleSubmit, errors, watch } = useForm({
     defaultValues: state.userInformation,
   });
+
   const { push } = useHistory();
   const onSubmit = (data) => {
     action(data);
     push("/registerpagec1");
   };
+
   const password = useRef({});
   password.current = watch("password", "");
 
@@ -41,6 +44,15 @@ const RegisterPage = () => {
                 name="name"
                 ref={register({ required: "Por favor ingrese su nombre" })}
               />
+              <ErrorMessage
+                errors={errors}
+                name="name"
+                render={({ message }) => (
+                  <div className="input__msg input__msg--error">
+                    <i class="fa fa-asterisk"></i> {message}
+                  </div>
+                )}
+              />
             </div>
             <div className="paired-input lspacer">
               <span className="popup-text">Apellido</span>
@@ -49,6 +61,15 @@ const RegisterPage = () => {
                 type="text"
                 name="lastname"
                 ref={register({ required: "Por favor ingrese su apellido" })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="lastname"
+                render={({ message }) => (
+                  <div className="input__msg input__msg--error">
+                    <i class="fa fa-asterisk"></i> {message}
+                  </div>
+                )}
               />
             </div>
           </div>
@@ -59,7 +80,15 @@ const RegisterPage = () => {
             name="email"
             ref={register({ required: "Por favor ingrese su correo" })}
           />
-
+          <ErrorMessage
+            errors={errors}
+            name="email"
+            render={({ message }) => (
+              <div className="input__msg input__msg--error">
+                <i class="fa fa-asterisk"></i> {message}
+              </div>
+            )}
+          />
           <div class="paired-container">
             <div class="paired-input">
               <span className="popup-text">Contraseña</span>
@@ -75,6 +104,15 @@ const RegisterPage = () => {
                   },
                 })}
               />
+              <ErrorMessage
+                errors={errors}
+                name="password"
+                render={({ message }) => (
+                  <div className="input__msg input__msg--error">
+                    <i class="fa fa-asterisk"></i> {message}
+                  </div>
+                )}
+              />
             </div>
             <div className="paired-input lspacer">
               <span className="popup-text">Confirmar contraseña</span>
@@ -88,6 +126,15 @@ const RegisterPage = () => {
                     "Las contraseñas no coinciden",
                 })}
               />
+              <ErrorMessage
+                errors={errors}
+                name="passwordConfirm"
+                render={({ message }) => (
+                  <div className="input__msg input__msg--error">
+                    <i class="fa fa-asterisk"></i> {message}
+                  </div>
+                )}
+              />
             </div>
           </div>
           <span className="popup-text">Fecha de nacimiento</span>
@@ -97,9 +144,20 @@ const RegisterPage = () => {
             type="date"
             ref={register({
               required: "Por favor ingrese su fecha de nacimiento",
+              validate: (value) =>
+                getAge(value) >= 16 ||
+                "Debes ser mayor de 16 años para utilizar WorKn",
             })}
           />
-
+          <ErrorMessage
+            errors={errors}
+            name="birthday"
+            render={({ message }) => (
+              <div className="input__msg input__msg--error">
+                <i class="fa fa-asterisk"></i> {message}
+              </div>
+            )}
+          />
           <input
             className="custom-button bg-green"
             type="submit"
