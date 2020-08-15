@@ -20,6 +20,17 @@ const RegisterPage = () => {
   const password = useRef({});
   password.current = watch("password", "");
 
+  function getAge(DOB) {
+    var today = new Date();
+    var birthDate = new Date(DOB);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age = age - 1;
+    }
+    return age;
+  }
+
   return (
     <div className="register-wrapper">
       <div className="green-line">
@@ -141,6 +152,8 @@ const RegisterPage = () => {
             type="date"
             ref={register({
               required: "Por favor ingrese su fecha de nacimiento",
+              validate: (value) =>
+                getAge(value) >= 16 || "Debes ser mayor de 16 años",
             })}
           />
           <ErrorMessage
