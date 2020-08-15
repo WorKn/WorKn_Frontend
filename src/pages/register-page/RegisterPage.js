@@ -158,6 +158,7 @@ const RegisterPage = () => {
               </div>
             )}
           />
+
           <input
             className="custom-button bg-green"
             type="submit"

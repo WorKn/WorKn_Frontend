@@ -118,6 +118,10 @@
   margin-bottom: 16px;
 }
 
+.form__select--invisible {
+  display: none;
+}
+
 @media only screen and (max-width: 1700px) {
   .paired-container {
     flex-wrap: wrap;
