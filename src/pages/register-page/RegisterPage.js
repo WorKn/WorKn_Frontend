@@ -6,30 +6,22 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
+import { getAge } from "../../utils/ageCalculation";
 
 const RegisterPage = () => {
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, errors, watch } = useForm({
     defaultValues: state.userInformation,
   });
+
   const { push } = useHistory();
   const onSubmit = (data) => {
     action(data);
     push("/registerpagec1");
   };
+
   const password = useRef({});
   password.current = watch("password", "");
-
-  function getAge(DOB) {
-    var today = new Date();
-    var birthDate = new Date(DOB);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age = age - 1;
-    }
-    return age;
-  }
 
   return (
     <div className="register-wrapper">
@@ -153,7 +145,8 @@ const RegisterPage = () => {
             ref={register({
               required: "Por favor ingrese su fecha de nacimiento",
               validate: (value) =>
-                getAge(value) >= 16 || "Debes ser mayor de 16 años",
+                getAge(value) >= 16 ||
+                "Debes ser mayor de 16 años para utilizar WorKn",
             })}
           />
           <ErrorMessage
