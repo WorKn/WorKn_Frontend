@@ -28,3 +28,20 @@ export const userLogin = async (user) => {
     return e.response.data;
   }
 };
+
+export const userSignup = async (user) => {
+  console.log(user);
+  try {
+    const response = await axios.post(`${HOST}/api/v1/users/signup`, {
+      name: user.name,
+      email: user.email,
+      birthday: user.birthday,
+      password: user.password,
+      passwordConfirm: user.passwordConfirm,
+      userType: user.userType,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
