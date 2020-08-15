@@ -1,21 +1,27 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./RegisterPage-Style.css";
 import "../../App.css";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
+import { ErrorMessage } from "@hookform/error-message";
+import { getAge } from "../../utils/ageCalculation";
 
 const RegisterPageC2 = () => {
   const { state, action } = useStateMachine(updateAction);
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, watch, errors } = useForm({
     defaultValues: state.userInformation,
   });
   const { push } = useHistory();
   const onSubmit = (data) => {
+    state.userInformation.userType = "offerer";
     action(data);
-    push("/loginpage");
+    // push("/loginpage");
   };
+
+  const password = useRef({});
+  password.current = watch("password", "");
 
   console.log(state.userInformation);
 
@@ -30,7 +36,7 @@ const RegisterPageC2 = () => {
               alt="logo"
             />
           </div>
-          <span className="popup-title nomargin">Registra tu cuenta </span>
+          <span className="popup-title">Registra tu cuenta </span>
           <span className="sub-title">
             Primero crearemos tu cuenta de administrador de la empresa o negocio
           </span>
@@ -40,8 +46,17 @@ const RegisterPageC2 = () => {
               <input
                 className="form-input"
                 type="text"
-                name="userName"
-                ref={register}
+                name="name"
+                ref={register({ required: "Por favor ingrese su nombre" })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="name"
+                render={({ message }) => (
+                  <div className="input__msg input__msg--error">
+                    <i class="fa fa-asterisk"></i> {message}
+                  </div>
+                )}
               />
             </div>
             <div className="paired-input lspacer">
@@ -49,51 +64,118 @@ const RegisterPageC2 = () => {
               <input
                 className="form-input"
                 type="text"
-                name="userLastName"
-                ref={register}
+                name="lastname"
+                ref={register({ required: "Por favor ingrese su apellido" })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="lastname"
+                render={({ message }) => (
+                  <div className="input__msg input__msg--error">
+                    <i class="fa fa-asterisk"></i> {message}
+                  </div>
+                )}
               />
             </div>
           </div>
           <span className="popup-text">Correo</span>
           <input
             className="form-input"
-            type="text"
-            name="userMail"
-            ref={register}
+            type="email"
+            name="email"
+            ref={register({ required: "Por favor ingrese su correo" })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="email"
+            render={({ message }) => (
+              <div className="input__msg input__msg--error">
+                <i class="fa fa-asterisk"></i> {message}
+              </div>
+            )}
           />
           <div class="paired-container">
             <div class="paired-input">
               <span className="popup-text">Contraseña</span>
               <input
                 className="form-input"
-                name="userPassword"
+                name="password"
                 type="password"
-                ref={register}
+                ref={register({
+                  required: "Por favor ingrese su contraseña",
+                  minLength: {
+                    value: 8,
+                    message: "Su contraseña debe tener al menos 8 caracteres",
+                  },
+                })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="password"
+                render={({ message }) => (
+                  <div className="input__msg input__msg--error">
+                    <i class="fa fa-asterisk"></i> {message}
+                  </div>
+                )}
               />
             </div>
             <div className="paired-input lspacer">
               <span className="popup-text">Confirmar contraseña</span>
               <input
                 className="form-input"
-                name="userPasswordConfirm"
+                name="passwordConfirm"
                 type="password"
-                ref={register}
+                ref={register({
+                  validate: (value) =>
+                    value === password.current ||
+                    "Las contraseñas no coinciden",
+                })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="passwordConfirm"
+                render={({ message }) => (
+                  <div className="input__msg input__msg--error">
+                    <i class="fa fa-asterisk"></i> {message}
+                  </div>
+                )}
               />
             </div>
           </div>
           <span className="popup-text">Fecha de nacimiento</span>
           <input
             className="form-input"
-            name="userBirthday"
-            type="text"
-            ref={register}
+            name="birthday"
+            type="date"
+            ref={register({
+              required: "Por favor ingrese su fecha de nacimiento",
+              validate: (value) =>
+                getAge(value) >= 16 ||
+                "Debes ser mayor de 16 años para utilizar WorKn",
+            })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="birthday"
+            render={({ message }) => (
+              <div className="input__msg input__msg--error">
+                <i class="fa fa-asterisk"></i> {message}
+              </div>
+            )}
           />
           <input
             className="custom-button bg-green"
             type="submit"
-            value="Regístrate"
+            value="Siguiente"
           />
-
+          <div className="ctext-separator">
+            <span className="remind-me">
+              Ya tienes cuenta? {""}
+              <a className="popup-link " href="/loginpage">
+                Inicia sesión
+              </a>
+            </span>
+          </div>
           <div className="line-separator">
             <span className="hl"></span>
             <span className="spacer">o</span>
