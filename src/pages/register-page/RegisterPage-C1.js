@@ -3,13 +3,14 @@ import "./RegisterPage-Style.css";
 import "../../App.css";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import { userSignup } from "../../utils/apiRequests";
 
 const RegisterPageC1 = () => {
   const { state, action } = useStateMachine(updateAction);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const { push } = useHistory();
   const onSubmit = (data) => {
     action(data);
@@ -65,10 +66,25 @@ const RegisterPageC1 = () => {
               </p>
             </div>
           </div>
-          <select className="form__select" name="userType" ref={register}>
+          <select
+            className="form__select"
+            name="userType"
+            ref={register({
+              required: "Por favor ingrese el tipo de usuario que desea crear",
+            })}
+          >
             <option value="applicant">Aplicante</option>
             <option value="offerer">Ofertante</option>
           </select>
+          <ErrorMessage
+            errors={errors}
+            name="userType"
+            render={({ message }) => (
+              <div className="input__msg input__msg--error">
+                <i class="fa fa-asterisk"></i> {message}
+              </div>
+            )}
+          />
           <input
             className="custom-button bg-green"
             type="submit"
