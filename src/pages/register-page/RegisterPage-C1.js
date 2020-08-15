@@ -14,6 +14,7 @@ const RegisterPageC1 = () => {
   const { push } = useHistory();
   const onSubmit = (data) => {
     action(data);
+    state.userInformation.organizationRole = "";
     userSignup(state.userInformation).then((res) => {
       console.log(res);
       // setUserInfo(res);

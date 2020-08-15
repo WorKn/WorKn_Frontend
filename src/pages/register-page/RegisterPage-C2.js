@@ -7,6 +7,7 @@ import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import { ErrorMessage } from "@hookform/error-message";
 import { getAge } from "../../utils/ageCalculation";
+import { userSignup } from "../../utils/apiRequests";
 
 const RegisterPageC2 = () => {
   const { state, action } = useStateMachine(updateAction);
@@ -16,8 +17,13 @@ const RegisterPageC2 = () => {
   const { push } = useHistory();
   const onSubmit = (data) => {
     state.userInformation.userType = "offerer";
+    state.userInformation.organizationRole = "owner";
     action(data);
-    // push("/loginpage");
+    userSignup(state.userInformation).then((res) => {
+      console.log(res);
+      // setUserInfo(res);
+    });
+    push("/loginpage");
   };
 
   const password = useRef({});

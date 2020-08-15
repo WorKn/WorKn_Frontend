@@ -15,6 +15,7 @@ createStore({
     password: "",
     passwordConfirm: "",
     userType: "",
+    organizationRole: "",
   },
 });
 
