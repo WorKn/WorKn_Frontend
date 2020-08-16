@@ -23,27 +23,12 @@
   flex-wrap: wrap;
   order: 1;
   height: 20vh;
-}
-
-.right-foot__right-up {
-  align-self: flex-end;
+  padding-top: 10px;
 }
 
 .right-foot__right-up a {
   color: #00ba6b;
   text-decoration: none;
-}
-
-.right-foot__right-down {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.right-foot__Rights {
-  display: flex;
-  flex-wrap: wrap;
-  align-self: flex-end;
 }
 
 .left-foot {
@@ -71,6 +56,8 @@
   display: flex;
   flex-direction: row;
   justify-items: flex-start;
+  width: 25vh;
+  height: 55px;
 }
 
 .left-foot__navbar {
@@ -79,7 +66,12 @@
   flex-wrap: wrap;
   justify-content: space-between;
   width: 25vw;
-  text-decoration: none;
+  padding-top: 10px;
+  margin-left: 20px;
+}
+
+.left-foot__nobj {
+  margin-right: 5px;
 }
 
 .left-foot__middle-content {
@@ -102,4 +94,99 @@
   width: 20px;
   height: 20px;
   margin-right: 5px;
+}
+
+@media screen and (max-width: 799px) {
+  .Footer {
+    flex-direction: column;
+    justify-content: center;
+    width: 100vw;
+    height: 50vh;
+    bottom: 0;
+    color: #7e7e7e;
+    font-size: 11px;
+  }
+
+  .right-foot {
+    align-items: center;
+    height: 10vh;
+    width: 60vw;
+    padding-top: 0px;
+  }
+
+  .right-foot__right-down {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 40vw;
+  }
+
+  .right-foot__utobj {
+    margin-left: 5px;
+  }
+
+  .left-foot {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-self: flex-start;
+    width: 60vw;
+    height: 30vh;
+  }
+
+  .left-foot__up-content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 60vw;
+  }
+
+  .left-foot__up-content img {
+    width: 170px;
+    height: 80px;
+  }
+
+  .left-foot__logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    width: 60vw;
+    height: 100px;
+  }
+
+  .left-foot__navbar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 60vw;
+    height: 5vh;
+    padding-top: 0px;
+    margin-left: 0px;
+  }
+
+  .left-foot__nobj {
+    margin: 0 10px 0 10px;
+  }
+
+  .left-foot__middle-content {
+    justify-content: center;
+    align-items: center;
+    width: 60vw;
+    height: 5vh;
+  }
+
+  .left-foot__down-content {
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 5vh;
+    width: 60vw;
+  }
+
+  .icon-footer img {
+    margin: 0 10px 0 10px;
+  }
 }

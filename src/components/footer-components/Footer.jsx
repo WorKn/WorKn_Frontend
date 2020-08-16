@@ -18,10 +18,8 @@ const Footer = () => {
           <Link className="right-foot__utobj" target="_blank" to="/Privacy">
             Privacy Policy.
           </Link>
-          <div className="right-foot__Rights">
-            &copy;{new Date().getFullYear()} WorKn All rights reserved.
-          </div>
         </div>
+        &copy;{new Date().getFullYear()} WorKn All rights reserved.
       </div>
       <div className="left-foot">
         <div className="left-foot__up-content">
