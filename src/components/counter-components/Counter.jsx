@@ -4,7 +4,7 @@ import { useCountUp } from "react-countup";
 const Counter = () => {
   const { countUp } = useCountUp({
     start: 0,
-    end: 12345000,
+    end: 18340,
     delay: 0,
     duration: 1.8,
     separator: ",",
@@ -16,7 +16,7 @@ const Counter = () => {
           <span ref={countUpRef} />
         </div>
       )}
-      <div className="counter-container__counter">{countUp}</div>
+      <div>{countUp}</div>
     </div>
   );
 };
