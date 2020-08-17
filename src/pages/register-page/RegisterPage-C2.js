@@ -53,6 +53,8 @@ const RegisterPageC2 = () => {
                 className="form-input"
                 type="text"
                 name="name"
+                pattern="[a-zA-Z]*"
+                title="Por favor no incluya números en su nombre"
                 ref={register({ required: "Por favor ingrese su nombre" })}
               />
               <ErrorMessage
@@ -71,6 +73,8 @@ const RegisterPageC2 = () => {
                 className="form-input"
                 type="text"
                 name="lastname"
+                pattern="[a-zA-Z]*"
+                title="Por favor no incluya números en su apellido"
                 ref={register({ required: "Por favor ingrese su apellido" })}
               />
               <ErrorMessage
@@ -152,7 +156,9 @@ const RegisterPageC2 = () => {
           <input
             className="form-input"
             name="birthday"
+            id="birthday"
             type="date"
+            min="1899-01-01"
             ref={register({
               required: "Por favor ingrese su fecha de nacimiento",
               validate: (value) =>
