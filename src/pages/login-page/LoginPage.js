@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./LoginPage-Style.css";
 import "../../App.css";
 import { useModal } from "../../hooks/useModal";
@@ -8,8 +8,10 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
 import { userLogin } from "../../utils/apiRequests";
+import { useHistory } from "react-router-dom";
+import auth from "../../utils/authHelper";
 
-const LoginPage = React.memo(() => {
+const LoginPage = React.memo((props) => {
   const { register, handleSubmit, errors } = useForm();
   const { action } = useStateMachine(updateAction);
   const [userInfo, setUserInfo] = useState("");
@@ -19,13 +21,26 @@ const LoginPage = React.memo(() => {
     // hide: hideQuestionModal,
   } = useModal();
 
+  const { push } = useHistory();
   const onSubmit = (data) => {
     action(data);
     userLogin(data).then((res) => {
-      console.log(res);
       setUserInfo(res);
     });
   };
+
+  useEffect(() => {
+    if (userInfo.data !== undefined && userInfo.data.status === "success") {
+      auth.login();
+      setTimeout(() => {
+        console.log("authenticated");
+        console.log(auth.isAuthenticated());
+        push("/profilepage");
+      }, 2000);
+    } else {
+      console.log("hay bobo");
+    }
+  }, [userInfo, push]);
 
   return (
     <div className="login-wrapper">
