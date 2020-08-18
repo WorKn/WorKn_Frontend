@@ -34,3 +34,9 @@
   cursor: pointer;
   border: none;
 }
+
+@media only screen and (max-width: 808px) {
+  .Announcement-container {
+    font-size: 9px;
+  }
+}
