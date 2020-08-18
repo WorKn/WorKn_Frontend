@@ -10,10 +10,11 @@ import updateAction from "../../updateAction";
 import { userLogin } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import auth from "../../utils/authHelper";
+import Cookies from "js-cookie";
 
 const LoginPage = React.memo((props) => {
   const { register, handleSubmit, errors } = useForm();
-  const { action } = useStateMachine(updateAction);
+  const { action, state } = useStateMachine(updateAction);
   const [userInfo, setUserInfo] = useState("");
   const {
     show: showQuestionModal,
@@ -29,16 +30,27 @@ const LoginPage = React.memo((props) => {
     });
   };
 
+  // const readCookie = () => {
+  //   const user = Cookies.get("user");
+  //   if (user) {
+  //     auth.login();
+  //     console.log(auth.isAuthenticated());
+  //     push("/profilepage");
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   readCookie();
+  // }, []);
+
   useEffect(() => {
     if (userInfo.data !== undefined && userInfo.data.status === "success") {
+      Cookies.set("jwt", userInfo.data.token);
+    }
+    const user = Cookies.get("jwt");
+    if (user) {
       auth.login();
-      setTimeout(() => {
-        console.log("authenticated");
-        console.log(auth.isAuthenticated());
-        push("/profilepage");
-      }, 2000);
-    } else {
-      console.log("hay bobo");
+      push("/profilepage");
     }
   }, [userInfo, push]);
 
