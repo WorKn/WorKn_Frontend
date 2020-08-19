@@ -16,6 +16,7 @@ const LoginPage = React.memo((props) => {
   const { register, handleSubmit, errors } = useForm();
   const { action, state } = useStateMachine(updateAction);
   const [userInfo, setUserInfo] = useState("");
+  // const [registerCompleted, setRegisterCompleted] = useState(false);
   const {
     show: showQuestionModal,
     RenderModal: QuestionModal,
@@ -24,11 +25,18 @@ const LoginPage = React.memo((props) => {
 
   const { push } = useHistory();
   const onSubmit = (data) => {
-    action(data);
     userLogin(data).then((res) => {
       setUserInfo(res);
     });
   };
+
+  useEffect(() => {
+    action(userInfo);
+  }, [userInfo]);
+
+  // console.log(state.userInformation.data.data.user);
+
+  // console.log(state.userInfomation);
 
   // const readCookie = () => {
   //   const user = Cookies.get("user");

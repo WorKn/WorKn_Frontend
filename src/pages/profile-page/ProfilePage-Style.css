@@ -1,0 +1,38 @@
+.pagewrap {
+  background-color: #f7f7f7;
+  width: 100vw;
+}
+
+.profilewrap {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row;
+  margin: 5% 12%;
+}
+
+.profilewrap__img {
+  max-width: 100%;
+  flex: 1 1 1;
+  height: auto;
+}
+
+.formss {
+  flex: 2;
+}
+
+.klk {
+  margin-right: 140px;
+}
+
+@media (max-width: 1320px) {
+  .profilewrap {
+    flex-flow: column;
+    margin: 5% 6%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .klk {
+    margin-right: 0;
+  }
+}

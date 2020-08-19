@@ -10,11 +10,19 @@ import { StateMachineProvider, createStore } from "little-state-machine";
 createStore({
   userInformation: {
     name: "",
+    lastname: "",
+    bio: "",
+    identificationNumber: "",
+    location: "",
+    phone: "",
     email: "",
     birthday: "",
     password: "",
     passwordConfirm: "",
     userType: "",
+    category: "",
+    tags: "",
+    organization: "",
     organizationRole: "",
   },
 });
