@@ -28,13 +28,11 @@ createStore({
 });
 
 ReactDOM.render(
-  <React.StrictMode>
-    <StateMachineProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </StateMachineProvider>
-  </React.StrictMode>,
+  <StateMachineProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StateMachineProvider>,
   document.getElementById("root")
 );
 

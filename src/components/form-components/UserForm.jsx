@@ -6,6 +6,8 @@ import { useHistory } from "react-router-dom";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import CustomButton from "../button-components/CustomButton";
+import TagInput from "../input-components/TagInput";
+import { updateProfile } from "../../utils/apiRequests";
 
 const UserForm = () => {
   const { state, action } = useStateMachine(updateAction);
@@ -14,14 +16,20 @@ const UserForm = () => {
   });
   const onSubmit = (data) => {
     action(data);
-    push("/registerpagec1");
+    console.log(data);
+    // console.log(state.userInformation);
+    updateProfile(data).then((res) => {
+      console.log(res);
+    });
+    // push("/registerpagec1");
   };
   const { push } = useHistory();
   const password = useRef({});
   password.current = watch("password", "");
+  // console.log(state.userInformation.data.data.user);
 
   return (
-    <form className="userform">
+    <form className="userform" onSubmit={handleSubmit(onSubmit)}>
       <div className="userform__2col">
         <div className="userform__LIP">
           <span className="userform__label">Nombre</span>
@@ -41,8 +49,8 @@ const UserForm = () => {
             type="text"
             name="lastname"
             pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su nombre"
-            ref={register({ required: "Por favor ingrese su nombre" })}
+            title="Por favor no incluya números en su apellido"
+            ref={register({ required: "Por favor ingrese su apellido" })}
           />
         </div>
       </div>
@@ -51,8 +59,8 @@ const UserForm = () => {
         <input
           className="userform__input"
           type="text"
-          name="name"
-          pattern="[a-zA-Z]*"
+          name="identificationNumber"
+          // pattern="[a-zA-Z]*"
           title="Por favor no incluya números en su nombre"
           ref={register({ required: "Por favor ingrese su nombre" })}
         />
@@ -62,8 +70,8 @@ const UserForm = () => {
         <input
           className="userform__input userform__input--lg"
           type="text"
-          name="name"
-          pattern="[a-zA-Z]*"
+          name="bio"
+          // pattern="[a-zA-Z]*"
           title="Por favor no incluya números en su nombre"
           ref={register({ required: "Por favor ingrese su nombre" })}
         />
@@ -74,8 +82,8 @@ const UserForm = () => {
           <input
             className="userform__input"
             type="text"
-            name="name"
-            pattern="[a-zA-Z]*"
+            name="phone"
+            // pattern="[a-zA-Z]*"
             title="Por favor no incluya números en su nombre"
             ref={register({ required: "Por favor ingrese su nombre" })}
           />
@@ -85,8 +93,8 @@ const UserForm = () => {
           <input
             className="userform__input"
             type="text"
-            name="name"
-            pattern="[a-zA-Z]*"
+            name="phonee"
+            // pattern="[a-zA-Z]*"
             title="Por favor no incluya números en su nombre"
             ref={register({ required: "Por favor ingrese su nombre" })}
           />
@@ -105,18 +113,23 @@ const UserForm = () => {
       </div>
       <div className="userform__LIP">
         <span className="userform__label">Área del saber deseada</span>
-        <select
+        {/* <select
           className="userform__select"
           name="category"
           ref={register({
             required: "Por favor ingrese el tipo de usuario que desea crear",
           })}
         >
-          <option value="applicant">Software</option>
-          <option value="offerer">Multimedia</option>
-        </select>
+          <option value="">Software</option>
+          <option value="">Multimedia</option>
+        </select> */}
       </div>
-
+      <input
+        className="custom-button bg-green"
+        type="submit"
+        value="Regístrate"
+      />
+      <TagInput></TagInput>
       <CustomButton></CustomButton>
 
       {/* <div className="paired-container">

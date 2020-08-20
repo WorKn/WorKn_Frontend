@@ -60,6 +60,7 @@ const LoginPage = React.memo((props) => {
       auth.login();
       push("/profilepage");
     }
+    console.log(userInfo);
   }, [userInfo, push]);
 
   return (
