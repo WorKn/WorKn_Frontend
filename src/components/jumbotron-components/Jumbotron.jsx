@@ -3,31 +3,23 @@ import React from "react";
 import "./Jumbotron-Style.css";
 
 const JumbotronComponent = ({
-  params: { h1Text, pText, bText, imageUrl, inverted },
+  params: {imageUrl},
 }) => (
   <div className="jumbotron-container">
-    <div className="jumbotron-text">
-      <h1 className="jumbotron-title">{h1Text}</h1>
-      <p className="jumbotron-content">{pText}</p>
-      {bText ? (
-        <a href="/loginpage">
-          <div className="button-style">
-            <img
-              src="https://i.imgur.com/SE2JiQf.png"
-              className="button-image"
-              alt="icon"
-            ></img>
-            {bText}
-          </div>
-        </a>
-      ) : null}
-    </div>
 
     {imageUrl ? (
-      <div className={inverted ? "CTA-image inverted" : "CTA-image"}>
-        <img src={imageUrl} alt="A CTA" />
-      </div>
+        <div className="jumbotron-container__image">
+            <img src={imageUrl} alt="A CTA" />
+        </div>
     ) : null}
+    <div className="jumbotron-container__jumbotron-text">
+      <h1 className="jumbotron-container__title">En Workn buscamos ayudarte</h1>
+      <p className="jumbotron-container__description">Encargándonos de unir automáticamente <b>profesionales</b>, <b>empresas</b> y <b>freelancers</b> en nuestra plataforma 
+      mediante <b>ofertas</b> que nos permiten saber lo que necesitas y dónde te necesitan.
+      </p>
+      
+    </div>
+
   </div>
 );
 
