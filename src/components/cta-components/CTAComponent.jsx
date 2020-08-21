@@ -5,13 +5,13 @@ import "./CTAComponent-Style.css";
 const CTAComponent = ({
   params: { imageUrl }
 }) => (
-  <div className="jumbotron-container">
+  <div className="cta-container">
 
-    <div className="jumbotron-container__jumbotron-text">
-      <h1 className="jumbotron-container__title">De forma rápida y sencilla</h1>
-      <p className="jumbotron-container__description">Crea y encuentra ofertas de trabajo perfectas para tus necesidades.</p>
+    <div className="cta-container__jumbotron-text">
+      <h1 className="cta-container__title">De forma rápida y sencilla</h1>
+      <p className="cta-container__description">Crea y encuentra ofertas de trabajo perfectas para tus necesidades.</p>
       <a href="/loginpage">
-          <div className="jumbotron-container__ctabutton">
+          <div className="cta-container__ctabutton">
             <img
               src="https://i.imgur.com/SE2JiQf.png"
               className="button-image"
@@ -23,7 +23,7 @@ const CTAComponent = ({
     </div>
 
     {imageUrl ? (
-        <div className="jumbotron-container__image">
+        <div className="cta-container__image">
             <img src={imageUrl} alt="A CTA" />
         </div>
     ) : null}
