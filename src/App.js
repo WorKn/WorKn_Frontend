@@ -9,11 +9,14 @@ import RegisterPage from "./pages/register-page/RegisterPage";
 import RegisterPageC1 from "./pages/register-page/RegisterPage-C1";
 import RegisterPageC2 from "./pages/register-page/RegisterPage-C2";
 import QuestionPopup from "./components/popup-components/QuestionPopup";
+import UserProfilePage from "./pages/profile-page/UserProfilePage";
+import EmpresaProfilePage from "./pages/profile-page/EmpresaProfilePage";
+
+import { ProtectedRoute } from "./components/route-components/ProtectedRoute";
 require("dotenv").config({ path: "./.env" });
 
 function App() {
   const { location } = useContext(__RouterContext);
-
   const transitions = useTransition(location, (location) => location.pathname, {
     from: { opacity: 0, transform: "translate(100%,0)" },
     enter: { opacity: 1, transform: "translate(0%,0)" },
@@ -36,6 +39,17 @@ function App() {
               path="/landingpage/question"
               component={QuestionPopup}
             />
+            <ProtectedRoute
+              exact
+              path="/userprofilepage"
+              component={UserProfilePage}
+            />
+            <Route
+              exact
+              path="/empresaprofilepage"
+              component={EmpresaProfilePage}
+            />
+            <Route path="*" component={() => "404 NOT FOUND"} />
           </Switch>
         </animated.div>
       ))}

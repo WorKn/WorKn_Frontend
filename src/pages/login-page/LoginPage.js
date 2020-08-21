@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./LoginPage-Style.css";
 import "../../App.css";
 import { useModal } from "../../hooks/useModal";
@@ -8,24 +8,66 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
 import { userLogin } from "../../utils/apiRequests";
+import { useHistory } from "react-router-dom";
+import auth from "../../utils/authHelper";
+import Cookies from "js-cookie";
 
-const LoginPage = React.memo(() => {
+const LoginPage = React.memo((props) => {
   const { register, handleSubmit, errors } = useForm();
-  const { action } = useStateMachine(updateAction);
+  const { action, state } = useStateMachine(updateAction);
   const [userInfo, setUserInfo] = useState("");
+  const [userObject, setUserObject] = useState("");
+
+  // const [registerCompleted, setRegisterCompleted] = useState(false);
   const {
     show: showQuestionModal,
     RenderModal: QuestionModal,
     // hide: hideQuestionModal,
   } = useModal();
 
+  const { push } = useHistory();
   const onSubmit = (data) => {
-    action(data);
     userLogin(data).then((res) => {
+      if (res.data != undefined) {
+        setUserInfo(res.data.data.user);
+      }
+      setUserObject(res);
       console.log(res);
-      setUserInfo(res);
     });
   };
+
+  useEffect(() => {
+    action(userInfo);
+  }, [userInfo]);
+
+  // console.log(state.userInformation.data.data.user);
+
+  // console.log(state.userInfomation);
+
+  // const readCookie = () => {
+  //   const user = Cookies.get("user");
+  //   if (user) {
+  //     auth.login();
+  //     console.log(auth.isAuthenticated());
+  //     push("/userprofilepage");
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   readCookie();
+  // }, []);
+
+  useEffect(() => {
+    if (userObject.data != undefined && userObject.data.status === "success") {
+      Cookies.set("jwt", userObject.data.token);
+    }
+
+    const user = Cookies.get("jwt");
+    if (user) {
+      auth.login();
+      push("/userprofilepage");
+    }
+  }, [userInfo, userObject, push]);
 
   return (
     <div className="login-wrapper">
@@ -75,15 +117,16 @@ const LoginPage = React.memo(() => {
                 </div>
               )}
             />
-            {typeof userInfo.data != "undefined" ? (
+            {typeof userObject.data !== "undefined" &&
+            userObject.data.status === "success" ? (
               <div className="input__msg input__msg--success">
-                Bienvenido, {userInfo.data.data.user.name}
+                Bienvenido, {userObject.data.data.user.name}
               </div>
             ) : (
               ""
             )}
             <div className="input__msg input__msg--error">
-              {userInfo.message}
+              {userObject.message}
             </div>
 
             <div className="text-separator">

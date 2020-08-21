@@ -17,6 +17,7 @@ const RegisterPage = () => {
   const { push } = useHistory();
   const onSubmit = (data) => {
     action(data);
+    console.log(data);
     push("/registerpagec1");
   };
 
