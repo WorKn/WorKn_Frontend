@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import "./QuestionPopup-Style.css";
 import "../../App.css";
-import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { updatePassword } from "../../utils/apiRequests";
@@ -17,7 +16,7 @@ const PasswordPopup = () => {
 
   const onSubmit = (data) => {
     updatePassword(data).then((res) => {
-      if (res.data != undefined) {
+      if (res.data !== undefined) {
         Cookies.set("jwt", res.data.token);
       }
       push("/loginpage");

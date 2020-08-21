@@ -14,7 +14,7 @@ import Cookies from "js-cookie";
 
 const LoginPage = React.memo((props) => {
   const { register, handleSubmit, errors } = useForm();
-  const { action, state } = useStateMachine(updateAction);
+  const { action } = useStateMachine(updateAction);
   const [userInfo, setUserInfo] = useState("");
   const [userObject, setUserObject] = useState("");
 
@@ -28,7 +28,7 @@ const LoginPage = React.memo((props) => {
   const { push } = useHistory();
   const onSubmit = (data) => {
     userLogin(data).then((res) => {
-      if (res.data != undefined) {
+      if (res.data !== undefined) {
         setUserInfo(res.data.data.user);
       }
       setUserObject(res);
@@ -38,7 +38,7 @@ const LoginPage = React.memo((props) => {
 
   useEffect(() => {
     action(userInfo);
-  }, [userInfo]);
+  }, [userInfo, action]);
 
   // console.log(state.userInformation.data.data.user);
 
@@ -58,7 +58,7 @@ const LoginPage = React.memo((props) => {
   // }, []);
 
   useEffect(() => {
-    if (userObject.data != undefined && userObject.data.status === "success") {
+    if (userObject.data !== undefined && userObject.data.status === "success") {
       Cookies.set("jwt", userObject.data.token);
     }
 

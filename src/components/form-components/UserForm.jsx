@@ -8,7 +8,6 @@ import { useStateMachine } from "little-state-machine";
 // import CustomButton from "../button-components/CustomButton";
 import TagInput from "../input-components/TagInput";
 import { updateProfile } from "../../utils/apiRequests";
-import Cookies from "js-cookie";
 
 const UserForm = () => {
   const { state, action } = useStateMachine(updateAction);
@@ -23,7 +22,6 @@ const UserForm = () => {
     });
     // push("/registerpagec1");
   };
-  const { push } = useHistory();
   const password = useRef({});
   password.current = watch("password", "");
   // console.log(state.userInformation.data.data.user);

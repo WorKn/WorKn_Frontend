@@ -4,20 +4,20 @@ import Cookies from "js-cookie";
 import Header from "../../components/navbar-components/Navbar";
 import Banner from "../../components/banner-components/Banner";
 import "./UserProfilePage-Style.css";
-import UserForm from "../../components/form-components/UserForm";
-import CustomButton from "../../components/button-components/CustomButton";
+// import UserForm from "../../components/form-components/UserForm";
+// import CustomButton from "../../components/button-components/CustomButton";
 import Footer from "../../components/footer-components/Footer";
-import { StateMachineContext } from "little-state-machine";
+// import { StateMachineContext } from "little-state-machine";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
 import { useModal } from "../../hooks/useModal";
-import PasswordPopup from "../../components/popup-components/PasswordPopup";
+// import PasswordPopup from "../../components/popup-components/PasswordPopup";
 
 const EmpresaProfilePage = (props) => {
-  const { state, action } = useStateMachine(updateAction);
+  //   const { state, action } = useStateMachine(updateAction);
   const {
     show: showPasswordModal,
-    RenderModal: PasswordModal,
+    // RenderModal: PasswordModal,
     // hide: hideQuestionModal,
   } = useModal();
 
