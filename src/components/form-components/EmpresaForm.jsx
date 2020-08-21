@@ -8,7 +8,7 @@ import { useStateMachine } from "little-state-machine";
 // import CustomButton from "../button-components/CustomButton";
 import TagInput from "../input-components/TagInput";
 import { updateProfile } from "../../utils/apiRequests";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 const EmpresaForm = () => {
   const { state, action } = useStateMachine(updateAction);

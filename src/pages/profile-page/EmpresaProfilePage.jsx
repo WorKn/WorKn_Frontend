@@ -8,8 +8,8 @@ import "./UserProfilePage-Style.css";
 // import CustomButton from "../../components/button-components/CustomButton";
 import Footer from "../../components/footer-components/Footer";
 // import { StateMachineContext } from "little-state-machine";
-import { useStateMachine } from "little-state-machine";
-import updateAction from "../../updateAction";
+// import { useStateMachine } from "little-state-machine";
+// import updateAction from "../../updateAction";
 import { useModal } from "../../hooks/useModal";
 // import PasswordPopup from "../../components/popup-components/PasswordPopup";
 
