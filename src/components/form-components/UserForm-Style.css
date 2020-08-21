@@ -7,7 +7,6 @@
   display: flex;
   flex-flow: column;
   justify-content: space-between;
-  margin-bottom: 16px;
   width: 100%;
 }
 
@@ -33,6 +32,7 @@
   border-radius: 5px;
   height: 45px;
   padding: 20px;
+  margin-bottom: 16px;
 }
 
 .userform__select {

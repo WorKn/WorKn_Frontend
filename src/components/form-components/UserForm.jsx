@@ -38,9 +38,18 @@ const UserForm = () => {
             className="userform__input"
             type="text"
             name="name"
-            // pattern="[a-zA-Z]*"
+            pattern="[a-zA-Z]*"
             title="Por favor no incluya números en su nombre"
             ref={register({ required: "Por favor ingrese su nombre" })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="name"
+            render={({ message }) => (
+              <div className="input__msg input__msg--error">
+                <i class="fa fa-asterisk"></i> {message}
+              </div>
+            )}
           />
         </div>
         <div className="userform__LIP userform__LIP--separated">
@@ -53,6 +62,15 @@ const UserForm = () => {
             title="Por favor no incluya números en su apellido"
             ref={register({ required: "Por favor ingrese su apellido" })}
           />
+          <ErrorMessage
+            errors={errors}
+            name="lastname"
+            render={({ message }) => (
+              <div className="input__msg input__msg--error">
+                <i class="fa fa-asterisk"></i> {message}
+              </div>
+            )}
+          />
         </div>
       </div>
       <div className="userform__LIP">
@@ -62,8 +80,22 @@ const UserForm = () => {
           type="text"
           name="identificationNumber"
           // pattern="[a-zA-Z]*"
-          title="Por favor no incluya números en su nombre"
-          ref={register({ required: "Por favor ingrese su nombre" })}
+          ref={register({
+            required: "Por favor ingrese su ID",
+            maxLength: {
+              value: 11,
+              message: "Su ID debe tener 11 digitos",
+            },
+          })}
+        />
+        <ErrorMessage
+          errors={errors}
+          name="identificationNumber"
+          render={({ message }) => (
+            <div className="input__msg input__msg--error">
+              <i class="fa fa-asterisk"></i> {message}
+            </div>
+          )}
         />
       </div>
       <div className="userform__LIP">
@@ -73,8 +105,23 @@ const UserForm = () => {
           type="text"
           name="bio"
           // pattern="[a-zA-Z]*"
-          title="Por favor no incluya números en su nombre"
-          ref={register({ required: "Por favor ingrese su nombre" })}
+          ref={register({
+            required:
+              "Por favor ingrese su biografía, de menos de 400 caracteres",
+            maxLength: {
+              value: 400,
+              message: "Por faovr utilice menos de 400 caracteres",
+            },
+          })}
+        />
+        <ErrorMessage
+          errors={errors}
+          name="bio"
+          render={({ message }) => (
+            <div className="input__msg input__msg--error">
+              <i class="fa fa-asterisk"></i> {message}
+            </div>
+          )}
         />
       </div>
       <div className="userform__2col">

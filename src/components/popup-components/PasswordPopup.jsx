@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./QuestionPopup-Style.css";
 import "../../App.css";
 import { NavLink } from "react-router-dom";
@@ -7,7 +7,9 @@ import { ErrorMessage } from "@hookform/error-message";
 import { updatePassword } from "../../utils/apiRequests";
 
 const PasswordPopup = () => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, watch } = useForm();
+  const newPassword = useRef({});
+  newPassword.current = watch("newPassword", "");
 
   const onSubmit = (data) => {
     // console.log(data);
@@ -27,8 +29,16 @@ const PasswordPopup = () => {
             type="password"
             name="currentPassword"
             // pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su nombre"
-            ref={register({ required: "Por favor ingrese su nombre" })}
+            ref={register({ required: "Por favor ingrese su constraseña" })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="currentPassword"
+            render={({ message }) => (
+              <div className="input__msg input__msg--error">
+                <i class="fa fa-asterisk"></i> {message}
+              </div>
+            )}
           />
         </div>
         <div className="userform__LIP">
@@ -38,8 +48,19 @@ const PasswordPopup = () => {
             type="password"
             name="newPassword"
             // pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su nombre"
-            ref={register({ required: "Por favor ingrese su nombre" })}
+            ref={register({
+              required:
+                "Por favor ingrese su nueva contraseña, debe tener al menos 8 dígitos",
+            })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="newPassword"
+            render={({ message }) => (
+              <div className="input__msg input__msg--error">
+                <i class="fa fa-asterisk"></i> {message}
+              </div>
+            )}
           />
         </div>
         <div className="userform__LIP">
@@ -50,7 +71,19 @@ const PasswordPopup = () => {
             name="newPasswordConfirm"
             // pattern="[a-zA-Z]*"
             title="Por favor no incluya números en su nombre"
-            ref={register({ required: "Por favor ingrese su nombre" })}
+            ref={register({
+              validate: (value) =>
+                value === newPassword.current || "Las contraseñas no coinciden",
+            })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="newPasswordConfirm"
+            render={({ message }) => (
+              <div className="input__msg input__msg--error">
+                <i class="fa fa-asterisk"></i> {message}
+              </div>
+            )}
           />
         </div>
         <input
@@ -63,7 +96,8 @@ const PasswordPopup = () => {
           <i className="fa fa-info icon"></i>
           <p>
             Te recomendamos crear una constraseña fuerte, que contenga símbolos,
-            números y al menos un caracter en mayúsculas
+            números y al menos un caracter en mayúsculas. Recuerda usar 8
+            dígitos o más.
           </p>
         </div>
         {/*
