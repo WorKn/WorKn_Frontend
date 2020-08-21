@@ -37,7 +37,7 @@ export const testing = async () => {
 };
 
 export const userLogin = async (user) => {
-  console.log(user);
+  // console.log(user);
   try {
     const response = await axios.post(`${HOST}/api/v1/users/login`, {
       email: user.email,
@@ -50,7 +50,7 @@ export const userLogin = async (user) => {
 };
 
 export const userSignup = async (user) => {
-  console.log(user);
+  // console.log(user);
   try {
     const response = await axios.post(`${HOST}/api/v1/users/signup`, {
       name: user.name,
@@ -68,7 +68,7 @@ export const userSignup = async (user) => {
 };
 
 export const updateProfile = async (user) => {
-  console.log(user);
+  // console.log(user);
   try {
     const response = await axios.patch(`${HOST}/api/v1/users/updateMyProfile`, {
       name: user.name,

@@ -6,6 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 import "font-awesome/css/font-awesome.min.css";
 import { BrowserRouter } from "react-router-dom";
 import { StateMachineProvider, createStore } from "little-state-machine";
+import { DevTool } from "little-state-machine-devtools";
 
 createStore({
   userInformation: {
@@ -28,11 +29,14 @@ createStore({
 });
 
 ReactDOM.render(
-  <StateMachineProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StateMachineProvider>,
+  <React.StrictMode>
+    <StateMachineProvider>
+      <DevTool />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </StateMachineProvider>
+  </React.StrictMode>,
   document.getElementById("root")
 );
 

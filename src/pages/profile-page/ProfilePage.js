@@ -6,6 +6,7 @@ import Banner from "../../components/banner-components/Banner";
 import "./ProfilePage-Style.css";
 import UserForm from "../../components/form-components/UserForm";
 import CustomButton from "../../components/button-components/CustomButton";
+import Footer from "../../components/footer-components/Footer";
 
 const ProfilePage = (props) => {
   return (
@@ -45,6 +46,7 @@ const ProfilePage = (props) => {
       >
         Logout
       </button>
+      <Footer></Footer>
     </div>
   );
 };

@@ -16,6 +16,8 @@ const LoginPage = React.memo((props) => {
   const { register, handleSubmit, errors } = useForm();
   const { action, state } = useStateMachine(updateAction);
   const [userInfo, setUserInfo] = useState("");
+  const [userObject, setUserObject] = useState("");
+
   // const [registerCompleted, setRegisterCompleted] = useState(false);
   const {
     show: showQuestionModal,
@@ -26,7 +28,8 @@ const LoginPage = React.memo((props) => {
   const { push } = useHistory();
   const onSubmit = (data) => {
     userLogin(data).then((res) => {
-      setUserInfo(res);
+      setUserInfo(res.data.data.user);
+      setUserObject(res);
     });
   };
 
@@ -52,16 +55,15 @@ const LoginPage = React.memo((props) => {
   // }, []);
 
   useEffect(() => {
-    if (userInfo.data !== undefined && userInfo.data.status === "success") {
-      Cookies.set("jwt", userInfo.data.token);
+    if (userObject.data !== undefined && userObject.data.status === "success") {
+      Cookies.set("jwt", userObject.data.token);
     }
     const user = Cookies.get("jwt");
     if (user) {
       auth.login();
       push("/profilepage");
     }
-    console.log(userInfo);
-  }, [userInfo, push]);
+  }, [userInfo, userObject, push]);
 
   return (
     <div className="login-wrapper">

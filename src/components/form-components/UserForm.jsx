@@ -12,10 +12,11 @@ import { updateProfile } from "../../utils/apiRequests";
 const UserForm = () => {
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, errors, watch } = useForm({
-    defaultValues: state.userInformation.data.data.user,
+    defaultValues: state.userInformation,
   });
   const onSubmit = (data) => {
     action(data);
+
     console.log(data);
     // console.log(state.userInformation);
     updateProfile(data).then((res) => {
@@ -37,7 +38,7 @@ const UserForm = () => {
             className="userform__input"
             type="text"
             name="name"
-            pattern="[a-zA-Z]*"
+            // pattern="[a-zA-Z]*"
             title="Por favor no incluya números en su nombre"
             ref={register({ required: "Por favor ingrese su nombre" })}
           />
