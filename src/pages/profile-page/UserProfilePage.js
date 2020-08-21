@@ -12,6 +12,7 @@ import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
 import { useModal } from "../../hooks/useModal";
 import PasswordPopup from "../../components/popup-components/PasswordPopup";
+import AnnouncementBanner from "../../components/announcemnet-components/Announcement-Banner";
 
 const UserProfilePage = (props) => {
   const { state, action } = useStateMachine(updateAction);
@@ -28,6 +29,7 @@ const UserProfilePage = (props) => {
       </PasswordModal>
       <Header />
       <Banner image={"kiwVnMm.png"} />
+      <AnnouncementBanner></AnnouncementBanner>
       <div className="profilewrap">
         <div className="klk">
           <img

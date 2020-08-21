@@ -9,6 +9,7 @@ import { useStateMachine } from "little-state-machine";
 import TagInput from "../input-components/TagInput";
 import { updateProfile } from "../../utils/apiRequests";
 import Cookies from "js-cookie";
+import { Pic_Selector } from "../../components/profile-pic-selection-components/Profile-selection-component";
 
 const UserForm = () => {
   const { state, action } = useStateMachine(updateAction);
@@ -30,6 +31,10 @@ const UserForm = () => {
 
   return (
     <form className="userform" onSubmit={handleSubmit(onSubmit)}>
+      {" "}
+      <div className="userform__LIP">
+        <Pic_Selector></Pic_Selector>
+      </div>
       <div className="userform__2col">
         <div className="userform__LIP">
           <span className="userform__label">Nombre</span>
@@ -146,7 +151,6 @@ const UserForm = () => {
           />
         </div>
       </div>
-
       <div className="userform__footer">
         <span className="userform__title">
           Selecciona tu categoría y tus etiquetas
@@ -171,7 +175,6 @@ const UserForm = () => {
           <option value="">Multimedia</option>
         </select> */}
       </div>
-
       <div className="userform__LIP">
         <span className="userform__label">Selecciona tus etiquetas</span>
         <TagInput></TagInput>
@@ -182,7 +185,6 @@ const UserForm = () => {
         value="Guardar Perfil"
       />
       {/* <CustomButton></CustomButton> */}
-
       {/* <div className="paired-container">
         <div className="paired-input">
           <span className="popup-text">Nombre</span>

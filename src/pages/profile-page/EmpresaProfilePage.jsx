@@ -12,6 +12,9 @@ import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
 import { useModal } from "../../hooks/useModal";
 import PasswordPopup from "../../components/popup-components/PasswordPopup";
+import MembersPopup from "../../components/popup-components/MembersPopup";
+
+import AnnouncementBanner from "../../components/announcemnet-components/Announcement-Banner";
 
 const EmpresaProfilePage = (props) => {
   const { state, action } = useStateMachine(updateAction);
@@ -21,14 +24,23 @@ const EmpresaProfilePage = (props) => {
     // hide: hideQuestionModal,
   } = useModal();
 
+  const {
+    show: showMembersModal,
+    RenderModal: MembersModal,
+    // hide: hideQuestionModal,
+  } = useModal();
+
   return (
     <div className="pagewrap">
       <PasswordModal>
         <PasswordPopup></PasswordPopup>
       </PasswordModal>
-
+      <MembersModal>
+        <MembersPopup></MembersPopup>
+      </MembersModal>
       <Header />
       <Banner image={"kiwVnMm.png"} />
+      <AnnouncementBanner></AnnouncementBanner>
       <div className="profilewrap">
         <div className="klk">
           <img
@@ -47,7 +59,7 @@ const EmpresaProfilePage = (props) => {
               <i className="fa fa-cog userprofile__icon"></i>
               Cambiar constraseña
             </button>
-            <button className="userprofile__action">
+            <button className="userprofile__action" onClick={showMembersModal}>
               <i className="fa fa-cog userprofile__icon"></i>
               Manejar usuarios
             </button>
@@ -74,7 +86,6 @@ const EmpresaProfilePage = (props) => {
           <EmpresaForm></EmpresaForm>
         </div>
       </div>
-
       <Footer></Footer>
     </div>
   );
