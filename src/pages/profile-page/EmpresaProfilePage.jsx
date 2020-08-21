@@ -3,7 +3,7 @@ import Auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 import Header from "../../components/navbar-components/Navbar";
 import Banner from "../../components/banner-components/Banner";
-import "./ProfilePage-Style.css";
+import "./UserProfilePage-Style.css";
 import UserForm from "../../components/form-components/UserForm";
 import CustomButton from "../../components/button-components/CustomButton";
 import Footer from "../../components/footer-components/Footer";
@@ -13,7 +13,7 @@ import updateAction from "../../updateAction";
 import { useModal } from "../../hooks/useModal";
 import PasswordPopup from "../../components/popup-components/PasswordPopup";
 
-const ProfilePage = (props) => {
+const EmpresaProfilePage = (props) => {
   const { state, action } = useStateMachine(updateAction);
   const {
     show: showPasswordModal,
@@ -23,9 +23,9 @@ const ProfilePage = (props) => {
 
   return (
     <div className="pagewrap">
-      <PasswordModal>
+      {/* <PasswordModal>
         <PasswordPopup></PasswordPopup>
-      </PasswordModal>
+      </PasswordModal> */}
       <Header />
       <Banner image={"kiwVnMm.png"} />
       <div className="profilewrap">
@@ -61,9 +61,7 @@ const ProfilePage = (props) => {
             </button>
           </div>
         </div>
-        <div className="formss">
-          <UserForm></UserForm>
-        </div>
+        <div className="formss">{/* <UserForm></UserForm> */}</div>
       </div>
 
       <Footer></Footer>
@@ -71,4 +69,4 @@ const ProfilePage = (props) => {
   );
 };
 
-export default ProfilePage;
+export default EmpresaProfilePage;

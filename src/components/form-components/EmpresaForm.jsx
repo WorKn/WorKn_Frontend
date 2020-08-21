@@ -10,7 +10,7 @@ import TagInput from "../input-components/TagInput";
 import { updateProfile } from "../../utils/apiRequests";
 import Cookies from "js-cookie";
 
-const UserForm = () => {
+const EmpresaForm = () => {
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, errors, watch } = useForm({
     defaultValues: state.userInformation,
@@ -282,4 +282,4 @@ const UserForm = () => {
   );
 };
 
-export default UserForm;
+export default EmpresaForm;

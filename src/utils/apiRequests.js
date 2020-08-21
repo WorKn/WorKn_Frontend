@@ -1,4 +1,6 @@
 import axios from "axios";
+import Cookies from "js-cookie";
+
 require("dotenv").config({ path: "./.env" });
 
 let HOST = "";
@@ -6,9 +8,13 @@ let HOST = "";
 if (process.env.REACT_APP_ENV === "staging") {
   HOST = process.env.REACT_APP_STAGING_HOST;
 }
+// const { action, state } = useStateMachine(updateAction);
 
-const accessToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmM2Y0ZjQ3MTJlN2YzMjE0NmM1Y2JjOCIsImlhdCI6MTU5Nzk4OTgzOSwiZXhwIjoxNjA1NzY1ODM5fQ.awPUbRbTa0j6RI9T_MeWhn17lP4vUprIdgNBBJDOxLc";
+const accessToken = Cookies.get("jwt");
+// console.log(
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmM2Y0ZjQ3MTJlN2YzMjE0NmM1Y2JjOCIsImlhdCI6MTU5ODAzNTAwMSwiZXhwIjoxNjA1ODExMDAxfQ.vdxWNJsZZp_7byenl3QWJ-BVh1VZPslhXzG7pQScL7c"
+// );
+// console.log(accessToken);
 
 // const authAxios = axios.create({
 //   baseURL: HOST,

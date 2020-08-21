@@ -5,16 +5,22 @@ import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { updatePassword } from "../../utils/apiRequests";
+import { useHistory } from "react-router-dom";
+
+import Cookies from "js-cookie";
 
 const PasswordPopup = () => {
   const { register, handleSubmit, errors, watch } = useForm();
   const newPassword = useRef({});
   newPassword.current = watch("newPassword", "");
+  const { push } = useHistory();
 
   const onSubmit = (data) => {
-    // console.log(data);
     updatePassword(data).then((res) => {
-      console.log(res);
+      if (res.data != undefined) {
+        Cookies.set("jwt", res.data.token);
+      }
+      push("/loginpage");
     });
   };
 
@@ -51,6 +57,10 @@ const PasswordPopup = () => {
             ref={register({
               required:
                 "Por favor ingrese su nueva contraseña, debe tener al menos 8 dígitos",
+              minLength: {
+                value: 8,
+                message: "Por favor utilice más de 8 caracteres",
+              },
             })}
           />
           <ErrorMessage

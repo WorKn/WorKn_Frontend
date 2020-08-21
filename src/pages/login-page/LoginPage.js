@@ -28,8 +28,11 @@ const LoginPage = React.memo((props) => {
   const { push } = useHistory();
   const onSubmit = (data) => {
     userLogin(data).then((res) => {
-      setUserInfo(res.data.data.user);
+      if (res.data != undefined) {
+        setUserInfo(res.data.data.user);
+      }
       setUserObject(res);
+      console.log(res);
     });
   };
 
@@ -46,7 +49,7 @@ const LoginPage = React.memo((props) => {
   //   if (user) {
   //     auth.login();
   //     console.log(auth.isAuthenticated());
-  //     push("/profilepage");
+  //     push("/userprofilepage");
   //   }
   // };
 
@@ -55,13 +58,14 @@ const LoginPage = React.memo((props) => {
   // }, []);
 
   useEffect(() => {
-    if (userObject.data !== undefined && userObject.data.status === "success") {
+    if (userObject.data != undefined && userObject.data.status === "success") {
       Cookies.set("jwt", userObject.data.token);
     }
+
     const user = Cookies.get("jwt");
     if (user) {
       auth.login();
-      push("/profilepage");
+      push("/userprofilepage");
     }
   }, [userInfo, userObject, push]);
 
@@ -113,15 +117,16 @@ const LoginPage = React.memo((props) => {
                 </div>
               )}
             />
-            {typeof userInfo.data != "undefined" ? (
+            {typeof userObject.data !== "undefined" &&
+            userObject.data.status === "success" ? (
               <div className="input__msg input__msg--success">
-                Bienvenido, {userInfo.data.data.user.name}
+                Bienvenido, {userObject.data.data.user.name}
               </div>
             ) : (
               ""
             )}
             <div className="input__msg input__msg--error">
-              {userInfo.message}
+              {userObject.message}
             </div>
 
             <div className="text-separator">
