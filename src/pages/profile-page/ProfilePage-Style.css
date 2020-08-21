@@ -16,6 +16,32 @@
   height: auto;
 }
 
+.userprofile__action {
+  display: flex;
+  margin-top: 16px;
+  width: 50%;
+  justify-content: flex-start;
+  color: #00ba6b;
+  font-size: 15px;
+  border: none;
+  background-color: white;
+  padding: 15px;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
+.userprofile__action:hover {
+  transform: scale(1.05);
+}
+
+.userprofile__icon {
+  margin-right: 10px;
+}
+
+.userprofile__link {
+  text-decoration: none;
+}
+
 .formss {
   flex: 2;
 }

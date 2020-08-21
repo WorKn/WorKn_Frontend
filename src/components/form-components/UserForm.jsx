@@ -114,6 +114,7 @@ const UserForm = () => {
       </div>
       <div className="userform__LIP">
         <span className="userform__label">Área del saber deseada</span>
+        <TagInput></TagInput>
         {/* <select
           className="userform__select"
           name="category"
@@ -125,13 +126,17 @@ const UserForm = () => {
           <option value="">Multimedia</option>
         </select> */}
       </div>
+
+      <div className="userform__LIP">
+        <span className="userform__label">Selecciona tus etiquetas</span>
+        <TagInput></TagInput>
+      </div>
       <input
         className="custom-button bg-green"
         type="submit"
-        value="Regístrate"
+        value="Guardar Perfil"
       />
-      <TagInput></TagInput>
-      <CustomButton></CustomButton>
+      {/* <CustomButton></CustomButton> */}
 
       {/* <div className="paired-container">
         <div className="paired-input">

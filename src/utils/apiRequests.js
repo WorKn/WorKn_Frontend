@@ -8,7 +8,7 @@ if (process.env.REACT_APP_ENV === "staging") {
 }
 
 const accessToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmM2RmNzhjMzlmZTk3NTczYzI5NTQzNiIsImlhdCI6MTU5Nzg5NjU5NSwiZXhwIjoxNjA1NjcyNTk1fQ.1yotILcnP_GQ9jt5UUfshK9ldXxsE8OaMS25XTdxMdY";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmM2Y0ZjQ3MTJlN2YzMjE0NmM1Y2JjOCIsImlhdCI6MTU5Nzk4OTgzOSwiZXhwIjoxNjA1NzY1ODM5fQ.awPUbRbTa0j6RI9T_MeWhn17lP4vUprIdgNBBJDOxLc";
 
 // const authAxios = axios.create({
 //   baseURL: HOST,
@@ -80,6 +80,23 @@ export const updateProfile = async (user) => {
       tags: user.tags,
       category: user.category,
     });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const updatePassword = async (user) => {
+  console.log(user);
+  try {
+    const response = await axios.patch(
+      `${HOST}/api/v1/users/updateMyPassword`,
+      {
+        currentPassword: user.currentPassword,
+        newPassword: user.newPassword,
+        newPasswordConfirm: user.newPasswordConfirm,
+      }
+    );
     return response;
   } catch (e) {
     return e.response.data;
