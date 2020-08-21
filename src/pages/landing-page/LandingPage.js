@@ -5,6 +5,7 @@ import Banner from "../../components/banner-components/Banner.jsx";
 import Footer from "../../components/footer-components/Footer.jsx";
 import Header from "../../components/navbar-components/Navbar.jsx";
 import JumbotronComponent from "../../components/jumbotron-components/Jumbotron.jsx";
+import CtaComponent from "../../components/cta-components/CTAComponent";
 
 const LandingPage = () => {
   const CTAComponent = {
@@ -25,7 +26,7 @@ const LandingPage = () => {
     <div>
       <Header />
       <Banner image={"kiwVnMm.png"} />
-      <JumbotronComponent params={CTAComponent}></JumbotronComponent>
+      <CtaComponent params={CTAComponent}></CtaComponent>
       <CounterBanner />
       <JumbotronComponent params={helpJumbotron}></JumbotronComponent>
       <Footer />

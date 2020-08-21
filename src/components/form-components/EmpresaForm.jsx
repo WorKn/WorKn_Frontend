@@ -52,7 +52,7 @@ const EmpresaForm = () => {
           />
         </div>
         <div className="userform__LIP userform__LIP--separated">
-          <span className="userform__label">Apellido</span>
+          <span className="userform__label">RNC</span>
           <input
             className="userform__input"
             type="text"
@@ -73,7 +73,7 @@ const EmpresaForm = () => {
         </div>
       </div>
       <div className="userform__LIP">
-        <span className="userform__label">Identificación</span>
+        <span className="userform__label">Ubicación</span>
         <input
           className="userform__input"
           type="text"
@@ -97,7 +97,7 @@ const EmpresaForm = () => {
         />
       </div>
       <div className="userform__LIP">
-        <span className="userform__label">Biografia</span>
+        <span className="userform__label">Descripcion</span>
         <input
           className="userform__input userform__input--lg"
           type="text"
@@ -147,7 +147,7 @@ const EmpresaForm = () => {
         </div>
       </div>
 
-      <div className="userform__footer">
+      {/* <div className="userform__footer">
         <span className="userform__title">
           Selecciona tu categoría y tus etiquetas
         </span>
@@ -156,26 +156,16 @@ const EmpresaForm = () => {
           en tus mismas áreas de conocimiento, la categoría sirve para filtrar
           dichas etiquetas de una manera más precisa.
         </span>
-      </div>
-      <div className="userform__LIP">
+      </div> */}
+      {/* <div className="userform__LIP">
         <span className="userform__label">Área del saber deseada</span>
         <TagInput></TagInput>
-        {/* <select
-          className="userform__select"
-          name="category"
-          ref={register({
-            required: "Por favor ingrese el tipo de usuario que desea crear",
-          })}
-        >
-          <option value="">Software</option>
-          <option value="">Multimedia</option>
-        </select> */}
       </div>
 
       <div className="userform__LIP">
         <span className="userform__label">Selecciona tus etiquetas</span>
         <TagInput></TagInput>
-      </div>
+      </div> */}
       <input
         className="custom-button bg-green"
         type="submit"

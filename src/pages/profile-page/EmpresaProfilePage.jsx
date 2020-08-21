@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import Header from "../../components/navbar-components/Navbar";
 import Banner from "../../components/banner-components/Banner";
 import "./UserProfilePage-Style.css";
-import UserForm from "../../components/form-components/UserForm";
+import EmpresaForm from "../../components/form-components/EmpresaForm";
 import CustomButton from "../../components/button-components/CustomButton";
 import Footer from "../../components/footer-components/Footer";
 import { StateMachineContext } from "little-state-machine";
@@ -23,15 +23,16 @@ const EmpresaProfilePage = (props) => {
 
   return (
     <div className="pagewrap">
-      {/* <PasswordModal>
+      <PasswordModal>
         <PasswordPopup></PasswordPopup>
-      </PasswordModal> */}
+      </PasswordModal>
+
       <Header />
       <Banner image={"kiwVnMm.png"} />
       <div className="profilewrap">
         <div className="klk">
           <img
-            src="https://i.imgur.com/of8M7Z2.png"
+            src="https://i.imgur.com/PZF6dTN.png"
             className="profilewrap__img"
             alt=""
           />
@@ -45,6 +46,14 @@ const EmpresaProfilePage = (props) => {
             <button className="userprofile__action" onClick={showPasswordModal}>
               <i className="fa fa-cog userprofile__icon"></i>
               Cambiar constraseña
+            </button>
+            <button className="userprofile__action">
+              <i className="fa fa-cog userprofile__icon"></i>
+              Manejar usuarios
+            </button>
+            <button className="userprofile__action">
+              <i className="fa fa-cog userprofile__icon"></i>
+              Manejar ofertas
             </button>
             <button
               className="userprofile__action"
@@ -61,7 +70,9 @@ const EmpresaProfilePage = (props) => {
             </button>
           </div>
         </div>
-        <div className="formss">{/* <UserForm></UserForm> */}</div>
+        <div className="formss">
+          <EmpresaForm></EmpresaForm>
+        </div>
       </div>
 
       <Footer></Footer>
