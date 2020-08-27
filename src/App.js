@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { __RouterContext } from "react-router";
 import { useTransition, animated } from "react-spring";
 import LandingPage from "./pages/landing-page/LandingPage";
@@ -25,11 +25,12 @@ function App() {
 
   return (
     <div className="App">
-      <Route exact path="/" component={LandingPage} />
-      <Route exact path="/LandingPage" component={LandingPage} />
       {transitions.map(({ item, props, key }) => (
         <animated.div key={key} style={props}>
           <Switch location={item}>
+            <Route exact path="/" component={LandingPage} />
+            <Route exact path="/LandingPage" component={LandingPage} />
+            <Redirect exact from="/" to="/LandingPage" />
             <Route exact path="/registerpage" component={RegisterPage} />
             <Route exact path="/registerpagec1" component={RegisterPageC1} />
             <Route exact path="/registerpagec2" component={RegisterPageC2} />
