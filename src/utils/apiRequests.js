@@ -42,6 +42,15 @@ export const testing = async () => {
   }
 };
 
+export const getMe = async () => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/users/me`);
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
 export const userLogin = async (user) => {
   // console.log(user);
   try {
