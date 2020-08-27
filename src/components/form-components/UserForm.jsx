@@ -17,8 +17,10 @@ const UserForm = () => {
     defaultValues: state.userInformation,
   });
   const onSubmit = (data) => {
-    action(data);
     updateProfile(data).then((res) => {
+      if (data !== undefined && res.statusText == "OK") {
+        action(data);
+      }
       // Cookies.set("jwt", userObject.data.token);
       console.log(res);
     });

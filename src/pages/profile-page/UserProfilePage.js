@@ -52,7 +52,7 @@ const UserProfilePage = (props) => {
               className="userprofile__action"
               onClick={() => {
                 Cookies.remove("jwt");
-                // state.userInformation = null;
+                state.userInformation = null;
                 Auth.logout(() => {
                   props.history.push("/");
                 });
