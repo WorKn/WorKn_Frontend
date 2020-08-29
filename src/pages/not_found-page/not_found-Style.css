@@ -11,13 +11,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 300px;
+  height: 100vh;
   width: 500px;
   color: #7e7e7e;
 }
-.not_found-container h1 {
-  color: #333234;
-  font-size: 400%;
+
+.not_found-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 25vw;
 }
 
 .not_found-container h2 {
@@ -63,6 +67,15 @@
     font-size: 15px;
     color: #7e7e7e;
   }
+
+  .not_found-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+  }
+
   .not_found-container h1 {
     color: #333234;
     font-size: 250%;
