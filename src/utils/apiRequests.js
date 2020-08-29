@@ -105,3 +105,21 @@ export const updatePassword = async (user) => {
     return e.response.data;
   }
 };
+
+//Organizations
+
+export const createOrganization = async (org) => {
+  // console.log(user);
+  try {
+    const response = await axios.post(`${HOST}/api/v1/organizations`, {
+      name: org.name,
+      RNC: org.RNC,
+      location: org.location,
+      phone: org.phone,
+      email: org.email,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
