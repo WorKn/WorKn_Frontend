@@ -5,7 +5,6 @@ import Header from "../../components/navbar-components/Navbar";
 import Banner from "../../components/banner-components/Banner";
 import "./UserProfilePage-Style.css";
 import UserForm from "../../components/form-components/UserForm";
-import CustomButton from "../../components/button-components/CustomButton";
 import Footer from "../../components/footer-components/Footer";
 import { StateMachineContext } from "little-state-machine";
 import { useStateMachine } from "little-state-machine";
@@ -15,7 +14,7 @@ import PasswordPopup from "../../components/popup-components/PasswordPopup";
 import AnnouncementBanner from "../../components/announcemnet-components/Announcement-Banner";
 
 const UserProfilePage = (props) => {
-  const { state, action } = useStateMachine(updateAction);
+  const { action } = useStateMachine(updateAction);
   const {
     show: showPasswordModal,
     RenderModal: PasswordModal,
@@ -52,7 +51,7 @@ const UserProfilePage = (props) => {
               className="userprofile__action"
               onClick={() => {
                 Cookies.remove("jwt");
-                state.userInformation = null;
+                window.STATE_MACHINE_RESET();
                 Auth.logout(() => {
                   props.history.push("/");
                 });

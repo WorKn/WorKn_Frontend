@@ -171,6 +171,24 @@ input:focus {
 .input__msg--success {
   color: green;
 }
-======= .input__errormsg i {
+.input__errormsg i {
   margin-right: 5px;
+}
+
+@media only screen and (max-width: 1100px) {
+  .green-line {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .green-line {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .green-line {
+    width: 100%;
+  }
 }
