@@ -17,12 +17,12 @@ const UserForm = () => {
     defaultValues: state.userInformation,
   });
   const onSubmit = (data) => {
-    action(data);
-    updateProfile(data).then((res) => {
-      // Cookies.set("jwt", userObject.data.token);
-      console.log(res);
-    });
-    // push("/registerpagec1");
+    // updateProfile(data).then((res) => {
+    //   if (data !== undefined && res.statusText == "OK") {
+    //     action(data);
+    //   }
+    //   console.log(res);
+    // });
   };
   const { push } = useHistory();
   const password = useRef({});
