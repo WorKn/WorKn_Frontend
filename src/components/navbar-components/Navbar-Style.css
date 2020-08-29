@@ -39,12 +39,35 @@
 }
 
 .navbar__hamburger {
-    width: 114px;
-    height: 48px;
-    cursor: pointer;
-    width: 100%;
+    width: 38px;
+    object-fit: contain;
 }
 
 .navbar__link--highlighted{
     color: #00ba6b;
+}
+
+.navbar__profile-button{
+    display: flex;
+    align-items: center;
+    background-color: #f7f7f7;
+    font-size: 1em;
+    border: none;
+    border-radius: 30px;
+    padding: 2px 7px;
+}
+
+.navbar__profile-button span {
+    margin: 0px 6px;
+}
+
+.navbar__img-holder{
+    /* background-color: white; */
+    border: 2px solid #00ba6b;
+    border-radius: 50%;
+    margin: 3px 0px;
+}
+
+.navbar__profile-button > * {
+    padding: 0px 3px;
 }
