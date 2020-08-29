@@ -8,20 +8,8 @@ let HOST = "";
 if (process.env.REACT_APP_ENV === "staging") {
   HOST = process.env.REACT_APP_STAGING_HOST;
 }
-// const { action, state } = useStateMachine(updateAction);
 
 const accessToken = Cookies.get("jwt");
-// console.log(
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmM2Y0ZjQ3MTJlN2YzMjE0NmM1Y2JjOCIsImlhdCI6MTU5ODAzNTAwMSwiZXhwIjoxNjA1ODExMDAxfQ.vdxWNJsZZp_7byenl3QWJ-BVh1VZPslhXzG7pQScL7c"
-// );
-// console.log(accessToken);
-
-// const authAxios = axios.create({
-//   baseURL: HOST,
-//   headers: {
-//     Authorization: `Bearer ${accessToken}`,
-//   },
-// });
 
 axios.interceptors.request.use(
   (config) => {

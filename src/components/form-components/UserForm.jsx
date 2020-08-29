@@ -1,34 +1,38 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./UserForm-Style.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { useHistory } from "react-router-dom";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
-// import CustomButton from "../button-components/CustomButton";
 import TagInput from "../input-components/TagInput";
-import { updateProfile } from "../../utils/apiRequests";
-import Cookies from "js-cookie";
+import { updateProfile, getMe } from "../../utils/apiRequests";
 import { Pic_Selector } from "../../components/profile-pic-selection-components/Profile-selection-component";
 
 const UserForm = () => {
+  const [updated, setUpdated] = useState("");
   const { state, action } = useStateMachine(updateAction);
+  const { push } = useHistory();
+  const password = useRef({});
   const { register, handleSubmit, errors, watch } = useForm({
     defaultValues: state.userInformation,
   });
-  const onSubmit = (data) => {
-    // updateProfile(data).then((res) => {
-    //   if (data !== undefined && res.statusText == "OK") {
-    //     action(data);
-    //   }
-    //   console.log(res);
-    // });
-  };
-  const { push } = useHistory();
-  const password = useRef({});
   password.current = watch("password", "");
-  // console.log(state.userInformation.data.data.user);
-
+  const onSubmit = (data) => {
+    console.log(data);
+    updateProfile(data).then((res) => {
+      setUpdated(res);
+      console.log(res);
+    });
+  };
+  useEffect(() => {
+    getMe().then((res) => {
+      if (res.data !== undefined) {
+        action(res.data.data.data);
+        console.log(res);
+      }
+    });
+  }, [updated]);
   return (
     <form className="userform" onSubmit={handleSubmit(onSubmit)}>
       {" "}
@@ -129,7 +133,7 @@ const UserForm = () => {
       </div>
       <div className="userform__2col">
         <div className="userform__LIP">
-          <span className="userform__label">Telefono celular</span>
+          <span className="userform__label">Telefono</span>
           <input
             className="userform__input"
             type="text"
@@ -139,7 +143,7 @@ const UserForm = () => {
             ref={register({ required: "Por favor ingrese su nombre" })}
           />
         </div>
-        <div className="userform__LIP userform__LIP--separated">
+        {/* <div className="userform__LIP userform__LIP--separated">
           <span className="userform__label">Telefono</span>
           <input
             className="userform__input"
@@ -149,7 +153,7 @@ const UserForm = () => {
             title="Por favor no incluya números en su nombre"
             ref={register({ required: "Por favor ingrese su nombre" })}
           />
-        </div>
+        </div> */}
       </div>
       <div className="userform__footer">
         <span className="userform__title">
@@ -179,6 +183,15 @@ const UserForm = () => {
         <span className="userform__label">Selecciona tus etiquetas</span>
         <TagInput></TagInput>
       </div>
+      {typeof updated.data !== "undefined" &&
+      updated.data.status === "success" ? (
+        <div className="input__msg input__msg--success">
+          {updated.data.data.user.name}, tu perfil fue actualizado correctamente
+        </div>
+      ) : (
+        ""
+      )}
+      <div className="input__msg input__msg--error">{updated.message}</div>
       <input
         className="custom-button bg-green"
         type="submit"
