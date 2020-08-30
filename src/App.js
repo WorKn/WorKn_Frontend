@@ -11,6 +11,7 @@ import RegisterPageC2 from "./pages/register-page/RegisterPage-C2";
 import QuestionPopup from "./components/popup-components/QuestionPopup";
 import UserProfilePage from "./pages/profile-page/UserProfilePage";
 import EmpresaProfilePage from "./pages/profile-page/EmpresaProfilePage";
+import EmailValidation from "./components/emailvalidation-components/EmailValidation";
 
 import { ProtectedRoute } from "./components/route-components/ProtectedRoute";
 require("dotenv").config({ path: "./.env" });
@@ -49,6 +50,7 @@ function App() {
               path="/empresaprofilepage"
               component={EmpresaProfilePage}
             />
+            <Route exact path="/emailvalidation/:token" component={EmailValidation} />
             <Route path="*" component={() => "404 NOT FOUND"} />
           </Switch>
         </animated.div>
