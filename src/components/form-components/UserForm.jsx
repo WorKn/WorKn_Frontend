@@ -10,7 +10,7 @@ import { updateProfile, getMe } from "../../utils/apiRequests";
 import { Pic_Selector } from "../../components/profile-pic-selection-components/Profile-selection-component";
 
 const UserForm = () => {
-  const [updated, setUpdated] = useState("");
+  const [updated, setUpdated] = useState(false);
   const { state, action } = useStateMachine(updateAction);
   const { push } = useHistory();
   const password = useRef({});
@@ -21,17 +21,22 @@ const UserForm = () => {
   const onSubmit = (data) => {
     console.log(data);
     updateProfile(data).then((res) => {
-      setUpdated(res);
+      setUpdated(true);
       console.log(res);
     });
   };
+
   useEffect(() => {
-    getMe().then((res) => {
-      if (res.data !== undefined) {
-        action(res.data.data.data);
-        console.log(res);
-      }
-    });
+    if (state.userInformation.userType !== "") {
+      getMe().then((res) => {
+        if (res.data !== undefined) {
+          action(res.data.data.data);
+          console.log(res);
+        }
+      });
+    } else {
+      console.log("loading");
+    }
   }, [updated]);
   return (
     <form className="userform" onSubmit={handleSubmit(onSubmit)}>
