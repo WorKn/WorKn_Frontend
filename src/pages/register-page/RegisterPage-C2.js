@@ -7,7 +7,7 @@ import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import { ErrorMessage } from "@hookform/error-message";
 import { getAge } from "../../utils/ageCalculation";
-import { userSignup } from "../../utils/apiRequests";
+import { orgUserSignup } from "../../utils/apiRequests";
 
 const RegisterPageC2 = () => {
   const { state, action } = useStateMachine(updateAction);
@@ -19,7 +19,7 @@ const RegisterPageC2 = () => {
     state.userInformation.userType = "offerer";
     state.userInformation.organizationRole = "owner";
     action(data);
-    userSignup(state.userInformation).then((res) => {
+    orgUserSignup(state.userInformation).then((res) => {
       console.log(res);
       // setUserInfo(res);
     });
@@ -29,7 +29,7 @@ const RegisterPageC2 = () => {
   const password = useRef({});
   password.current = watch("password", "");
 
-  console.log(state.userInformation);
+  // console.log(state.userInformation);
 
   return (
     <div className="register-wrapper">
