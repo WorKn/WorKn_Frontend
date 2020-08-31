@@ -70,6 +70,25 @@ export const userSignup = async (user) => {
   }
 };
 
+export const orgUserSignup = async (user) => {
+  // console.log(user);
+  try {
+    const response = await axios.post(`${HOST}/api/v1/users/signup`, {
+      name: user.name,
+      lastname: user.lastname,
+      email: user.email,
+      birthday: user.birthday,
+      password: user.password,
+      passwordConfirm: user.passwordConfirm,
+      userType: user.userType,
+      organizationRole: user.organizationRole,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
 export const updateProfile = async (user) => {
   // console.log(user);
   try {
@@ -100,6 +119,25 @@ export const updatePassword = async (user) => {
         newPasswordConfirm: user.newPasswordConfirm,
       }
     );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+//Organizations
+
+export const createOrganization = async (org) => {
+  // console.log(user);
+  try {
+    const response = await axios.post(`${HOST}/api/v1/organizations`, {
+      name: org.name,
+      RNC: org.RNC,
+      description: org.description,
+      location: org.location,
+      phone: org.phone,
+      email: org.email,
+    });
     return response;
   } catch (e) {
     return e.response.data;
