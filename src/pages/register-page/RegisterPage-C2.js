@@ -24,11 +24,15 @@ const RegisterPageC2 = () => {
   };
 
   useEffect(() => {
-    orgUserSignup(state.userInformation).then((res) => {
-      console.log(res);
-      // setUserInfo(res);
-    });
-    push("/loginpage");
+    if (state.userInformation.userType !== "") {
+      orgUserSignup(state.userInformation).then((res) => {
+        console.log(res);
+        // setUserInfo(res);
+      });
+      push("/loginpage");
+    } else {
+      console.log("loading");
+    }
   }, [gotResponse]);
 
   const password = useRef({});
