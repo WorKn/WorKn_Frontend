@@ -59,7 +59,10 @@ const Navbar = () => {
           >
             Iniciar sesión
           </Link>
-          <Link className="navbar__link navbar__link--highlighted" to="#">
+          <Link
+            className="navbar__link navbar__link--highlighted"
+            to="/registerpage"
+          >
             Registrate
           </Link>
         </div>
