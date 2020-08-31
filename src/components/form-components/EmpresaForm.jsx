@@ -15,15 +15,14 @@ const EmpresaForm = () => {
   const { state, action } = useStateMachine(updateAction);
   // const [orgInfo, setOrgInfo] = useState("");
   const { register, handleSubmit, errors, watch } = useForm({
-    defaultValues: state.userInformation.organization,
+    defaultValues: state.userInformation.data.organization,
   });
   const onSubmit = (data) => {
     if (!state.userInformation.organization) {
       console.log("no hay org, creating");
       createOrganization(data).then((res) => {
         if (res.data !== undefined) {
-          console.log(data);
-          action(res.data.data);
+          action(res.data);
           console.log(res);
         }
       });

@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import Header from "../../components/navbar-components/Navbar";
 import Banner from "../../components/banner-components/Banner";
 import "./UserProfilePage-Style.css";
+import "./EmpresaProfilePage-Style.css";
 import EmpresaForm from "../../components/form-components/EmpresaForm";
 import CustomButton from "../../components/button-components/CustomButton";
 import Footer from "../../components/footer-components/Footer";
@@ -13,7 +14,7 @@ import updateAction from "../../updateAction";
 import { useModal } from "../../hooks/useModal";
 import PasswordPopup from "../../components/popup-components/PasswordPopup";
 import MembersPopup from "../../components/popup-components/MembersPopup";
-
+import { Link } from "react-router-dom";
 import AnnouncementBanner from "../../components/announcemnet-components/Announcement-Banner";
 
 const EmpresaProfilePage = (props) => {
@@ -43,13 +44,27 @@ const EmpresaProfilePage = (props) => {
       <AnnouncementBanner></AnnouncementBanner>
       <div className="profilewrap">
         <div className="klk">
+          {typeof state.userInformation.organization !== "undefined" ? (
+            <span className="profile__header">
+              {state.userInformation.organization.name}
+            </span>
+          ) : (
+            <span className="profile__header">Nombres de la Empresa</span>
+          )}
+          <Link to="/userprofilepage" style={{ textDecoration: "none" }}>
+            <div className="profile__backtick">
+              <i className="fa fa-chevron-left icon"></i>
+              <span>Volver al perfil de propietario</span>
+            </div>
+          </Link>
+
           <img
             src="https://i.imgur.com/PZF6dTN.png"
             className="profilewrap__img"
             alt=""
           />
           <div className="userform__footer">
-            <span className="userform__title">Panel de control de usuario</span>
+            <span className="userform__title">Panel de control de empresa</span>
             <span className="userform__text">
               Aquí podrás gestionar tu información confidencial, recuerda nunca
               dar tu constraseña a ningún usuario a través de WorKn, los
