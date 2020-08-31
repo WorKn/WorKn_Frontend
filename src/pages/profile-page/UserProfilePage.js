@@ -5,6 +5,7 @@ import Header from "../../components/navbar-components/Navbar";
 import Banner from "../../components/banner-components/Banner";
 import "./UserProfilePage-Style.css";
 import UserForm from "../../components/form-components/UserForm";
+import { useHistory } from "react-router-dom";
 import Footer from "../../components/footer-components/Footer";
 import { StateMachineContext } from "little-state-machine";
 import { useStateMachine } from "little-state-machine";
@@ -12,9 +13,12 @@ import updateAction from "../../updateAction";
 import { useModal } from "../../hooks/useModal";
 import PasswordPopup from "../../components/popup-components/PasswordPopup";
 import AnnouncementBanner from "../../components/announcemnet-components/Announcement-Banner";
+import { Link } from "react-router-dom";
 
 const UserProfilePage = (props) => {
   const { action } = useStateMachine(updateAction);
+  const { push } = useHistory();
+
   const {
     show: showPasswordModal,
     RenderModal: PasswordModal,
@@ -47,6 +51,12 @@ const UserProfilePage = (props) => {
               <i className="fa fa-cog userprofile__icon"></i>
               Cambiar constraseña
             </button>
+            <Link to="/empresaprofilepage" style={{ textDecoration: "none" }}>
+              <button className="userprofile__action">
+                <i className="fa fa-cog userprofile__icon"></i>
+                Manejar organizacion
+              </button>
+            </Link>
             <button
               className="userprofile__action"
               onClick={() => {
@@ -60,6 +70,12 @@ const UserProfilePage = (props) => {
               <i className="fa fa-sign-out userprofile__icon"></i>
               Cerrar sesión
             </button>
+            {/* <span className="userform__title">Manejo de organizacion</span>
+            <span className="userform__text">
+              Te permitirá crear y manejar tu empresa, incluyendo la agregación
+              y eliminación de miembros, ofertas de trabajo y demostraciones de
+              interés por posibles empleados para tu organización.
+            </span> */}
           </div>
         </div>
         <div className="formss">

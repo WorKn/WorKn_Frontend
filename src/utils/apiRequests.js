@@ -39,6 +39,17 @@ export const getMe = async () => {
   }
 };
 
+export const getMyOrganization = async () => {
+  try {
+    const response = await axios.get(
+      `${HOST}/api/v1/organizations/myOrganization`
+    );
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
 export const userLogin = async (user) => {
   // console.log(user);
   try {
