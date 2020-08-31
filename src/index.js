@@ -25,7 +25,6 @@ createStore({
     tags: "",
     organization: "",
     organizationRole: "",
-    organizationObject: "",
   },
 });
 
