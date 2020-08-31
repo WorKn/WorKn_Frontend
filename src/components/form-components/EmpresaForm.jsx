@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./UserForm-Style.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -7,22 +7,24 @@ import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 // import CustomButton from "../button-components/CustomButton";
 import TagInput from "../input-components/TagInput";
-import { createOrganization } from "../../utils/apiRequests";
+import { createOrganization, getMyOrganization } from "../../utils/apiRequests";
 import Cookies from "js-cookie";
 import { Pic_Selector } from "../../components/profile-pic-selection-components/Profile-selection-component";
 
 const EmpresaForm = () => {
+  const [updated, setUpdated] = useState("");
   const { state, action } = useStateMachine(updateAction);
-  // const [orgInfo, setOrgInfo] = useState("");
+  const [orgInfo, setOrgInfo] = useState("");
   const { register, handleSubmit, errors, watch } = useForm({
-    defaultValues: state.userInformation.data.organization,
+    defaultValues: state.userInformation.data,
   });
   const onSubmit = (data) => {
     if (!state.userInformation.organization) {
       console.log("no hay org, creating");
       createOrganization(data).then((res) => {
         if (res.data !== undefined) {
-          action(res.data);
+          // action(res.data.data);
+          setUpdated(res);
           console.log(res);
         }
       });
@@ -30,6 +32,14 @@ const EmpresaForm = () => {
       console.log("hay org, updating");
     }
   };
+  useEffect(() => {
+    getMyOrganization().then((res) => {
+      if (res.data !== undefined) {
+        action(res.data.data);
+        console.log(res);
+      }
+    });
+  }, [updated]);
   const { push } = useHistory();
   const password = useRef({});
   password.current = watch("password", "");

@@ -44,9 +44,9 @@ const EmpresaProfilePage = (props) => {
       <AnnouncementBanner></AnnouncementBanner>
       <div className="profilewrap">
         <div className="klk">
-          {typeof state.userInformation.organization !== "undefined" ? (
+          {typeof state.userInformation.data !== "undefined" ? (
             <span className="profile__header">
-              {state.userInformation.organization.name}
+              {state.userInformation.data.name}
             </span>
           ) : (
             <span className="profile__header">Nombres de la Empresa</span>
