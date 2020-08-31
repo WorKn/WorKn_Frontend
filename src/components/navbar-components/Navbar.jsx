@@ -43,9 +43,10 @@ const Navbar = () => {
               <span>Perfil</span>
               <div className="navbar__img-holder">
                 <img
-                  src="https://i0.wp.com/postmatura.al/wp-content/uploads/2018/10/blank-profile-picture-png.png?fit=512%2C512&ssl=1"
+                  // src="https://i0.wp.com/postmatura.al/wp-content/uploads/2018/10/blank-profile-picture-png.png?fit=512%2C512&ssl=1"
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Elon_Musk_Royal_Society.jpg/250px-Elon_Musk_Royal_Society.jpg"
                   alt=""
-                  className="navbar__hamburger"
+                  className="navbar__profile-pic"
                 />
               </div>
             </button>
