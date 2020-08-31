@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./RegisterPage-Style.css";
 import "../../App.css";
 import { useHistory } from "react-router-dom";
@@ -10,6 +10,7 @@ import { getAge } from "../../utils/ageCalculation";
 import { userSignup } from "../../utils/apiRequests";
 
 const RegisterPageC2 = () => {
+  const [gotResponse, setGotResponse] = useState(false);
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, watch, errors } = useForm({
     defaultValues: state.userInformation,
@@ -19,12 +20,16 @@ const RegisterPageC2 = () => {
     state.userInformation.userType = "offerer";
     state.userInformation.organizationRole = "owner";
     action(data);
+    setGotResponse(true);
+  };
+
+  useEffect(() => {
     userSignup(state.userInformation).then((res) => {
       console.log(res);
       // setUserInfo(res);
     });
     push("/loginpage");
-  };
+  }, [gotResponse]);
 
   const password = useRef({});
   password.current = watch("password", "");
