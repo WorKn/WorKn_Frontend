@@ -7,7 +7,7 @@
 
 .info-container {
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .info-container p {
@@ -16,4 +16,5 @@
 
 .icon {
   margin-right: 10px;
+  color: #00ba6b;
 }

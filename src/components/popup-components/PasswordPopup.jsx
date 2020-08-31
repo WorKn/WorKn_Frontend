@@ -1,15 +1,18 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./QuestionPopup-Style.css";
+import "./PasswordPopup-Style.css";
 import "../../App.css";
 import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { updatePassword } from "../../utils/apiRequests";
+import { updatePassword, updateProfile } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
-
 import Cookies from "js-cookie";
+import Auth from "../../utils/authHelper";
+import { propTypes } from "react-bootstrap/esm/Image";
 
-const PasswordPopup = () => {
+const PasswordPopup = (props) => {
+  const [update, setUpdate] = useState();
   const { register, handleSubmit, errors, watch } = useForm();
   const newPassword = useRef({});
   newPassword.current = watch("newPassword", "");
@@ -17,12 +20,27 @@ const PasswordPopup = () => {
 
   const onSubmit = (data) => {
     updatePassword(data).then((res) => {
-      if (res.data != undefined) {
+      if (res.data !== undefined) {
+        console.log(res);
+        console.log(res.data.token);
+        setUpdate(res);
         Cookies.set("jwt", res.data.token);
       }
-      push("/loginpage");
     });
   };
+
+  // const relogUser = () => {
+  //   Auth.logout(() => {
+  //     push("/loginpage");
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   if (passwordUpdated == true) {
+  //     console.log("por favor vuelva a iniciar sesion");
+  //     // relogUser();
+  //   }
+  // }, [passwordUpdated, setPasswordUpdated]);
 
   return (
     <div className="popup-wrapper">
@@ -96,6 +114,28 @@ const PasswordPopup = () => {
             )}
           />
         </div>
+        {typeof update !== "undefined" && update.data.status == "success" ? (
+          <div className="info-container">
+            <i className="fa fa-check icon"></i>
+            <p>
+              Su contraseña ha sido cambiada exitosamente,{" "}
+              <button
+                className="response__msg"
+                onClick={() => {
+                  Cookies.remove("jwt");
+                  window.STATE_MACHINE_RESET();
+                  Auth.logout(() => {
+                    push("/");
+                  });
+                }}
+              >
+                por favor vuelva a iniciar sesion
+              </button>
+            </p>
+          </div>
+        ) : (
+          ""
+        )}
         <input
           className="custom-button bg-green"
           type="submit"

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./UserForm-Style.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -7,22 +7,29 @@ import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 // import CustomButton from "../button-components/CustomButton";
 import TagInput from "../input-components/TagInput";
-import { updateProfile } from "../../utils/apiRequests";
+import { createOrganization } from "../../utils/apiRequests";
 import Cookies from "js-cookie";
 import { Pic_Selector } from "../../components/profile-pic-selection-components/Profile-selection-component";
 
 const EmpresaForm = () => {
   const { state, action } = useStateMachine(updateAction);
+  // const [orgInfo, setOrgInfo] = useState("");
   const { register, handleSubmit, errors, watch } = useForm({
-    defaultValues: state.userInformation,
+    defaultValues: state.userInformation.organization,
   });
   const onSubmit = (data) => {
-    action(data);
-    updateProfile(data).then((res) => {
-      // Cookies.set("jwt", userObject.data.token);
-      console.log(res);
-    });
-    // push("/registerpagec1");
+    if (!state.userInformation.organization) {
+      console.log("no hay org, creating");
+      createOrganization(data).then((res) => {
+        if (res.data !== undefined) {
+          console.log(data);
+          action(res.data.data);
+          console.log(res);
+        }
+      });
+    } else {
+      console.log("hay org, updating");
+    }
   };
   const { push } = useHistory();
   const password = useRef({});
@@ -41,9 +48,9 @@ const EmpresaForm = () => {
             className="userform__input"
             type="text"
             name="name"
-            pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su nombre"
-            ref={register({ required: "Por favor ingrese su nombre" })}
+            ref={register({
+              required: "Por favor ingrese el nombre de la empresa",
+            })}
           />
           <ErrorMessage
             errors={errors}
@@ -60,14 +67,19 @@ const EmpresaForm = () => {
           <input
             className="userform__input"
             type="text"
-            name="lastname"
-            pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su apellido"
-            ref={register({ required: "Por favor ingrese su apellido" })}
+            name="RNC"
+            pattern="[0-9]+"
+            title="Por solo incluya numeros en el campo"
+            ref={register({
+              maxLength: {
+                value: 9,
+                message: "Por favor utilice 9 caracteres para su RNC",
+              },
+            })}
           />
           <ErrorMessage
             errors={errors}
-            name="lastname"
+            name="RNC"
             render={({ message }) => (
               <div className="input__msg input__msg--error">
                 <i class="fa fa-asterisk"></i> {message}
@@ -76,49 +88,44 @@ const EmpresaForm = () => {
           />
         </div>
       </div>
-      <div className="userform__LIP">
+      {/* <div className="userform__LIP">
         <span className="userform__label">Ubicación</span>
         <input
           className="userform__input"
           type="text"
-          name="identificationNumber"
+          name="location"
           // pattern="[a-zA-Z]*"
           ref={register({
-            maxLength: {
-              value: 11,
-              message: "Su ID debe tener 11 digitos",
-            },
+            required: "Por favor ingrese la ubicacion de la empresa",
           })}
         />
         <ErrorMessage
           errors={errors}
-          name="identificationNumber"
+          name="location"
           render={({ message }) => (
             <div className="input__msg input__msg--error">
               <i class="fa fa-asterisk"></i> {message}
             </div>
           )}
         />
-      </div>
+      </div> */}
       <div className="userform__LIP">
         <span className="userform__label">Descripcion</span>
         <input
           className="userform__input userform__input--lg"
           type="text"
-          name="bio"
+          name="description"
           // pattern="[a-zA-Z]*"
           ref={register({
-            required:
-              "Por favor ingrese su biografía, de menos de 400 caracteres",
             maxLength: {
               value: 400,
-              message: "Por faovr utilice menos de 400 caracteres",
+              message: "Por favor utilice menos de 400 caracteres",
             },
           })}
         />
         <ErrorMessage
           errors={errors}
-          name="bio"
+          name="description"
           render={({ message }) => (
             <div className="input__msg input__msg--error">
               <i class="fa fa-asterisk"></i> {message}
@@ -128,27 +135,44 @@ const EmpresaForm = () => {
       </div>
       <div className="userform__2col">
         <div className="userform__LIP">
-          <span className="userform__label">Telefono celular</span>
-          <input
-            className="userform__input"
-            type="text"
-            name="phone"
-            // pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su nombre"
-            ref={register({ required: "Por favor ingrese su nombre" })}
-          />
-        </div>
-        <div className="userform__LIP userform__LIP--separated">
           <span className="userform__label">Telefono</span>
           <input
             className="userform__input"
             type="text"
-            name="phonee"
+            name="phone"
+            ref={register}
             // pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su nombre"
-            ref={register({ required: "Por favor ingrese su nombre" })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="phone"
+            render={({ message }) => (
+              <div className="input__msg input__msg--error">
+                <i class="fa fa-asterisk"></i> {message}
+              </div>
+            )}
           />
         </div>
+      </div>
+      <div className="userform__LIP">
+        <span className="userform__label">Correo</span>
+        <input
+          className="userform__input"
+          type="email"
+          name="email"
+          ref={register({
+            required: "Por favor ingrese el correo de la empresa",
+          })}
+        />
+        <ErrorMessage
+          errors={errors}
+          name="email"
+          render={({ message }) => (
+            <div className="input__msg input__msg--error">
+              <i class="fa fa-asterisk"></i> {message}
+            </div>
+          )}
+        />
       </div>
 
       {/* <div className="userform__footer">
@@ -173,7 +197,7 @@ const EmpresaForm = () => {
       <input
         className="custom-button bg-green"
         type="submit"
-        value="Guardar Perfil"
+        value="Guardar Perfil de Empresa"
       />
       {/* <CustomButton></CustomButton> */}
 
