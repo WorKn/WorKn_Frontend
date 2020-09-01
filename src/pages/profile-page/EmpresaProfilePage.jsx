@@ -64,10 +64,12 @@ const EmpresaProfilePage = (props) => {
             alt=""
           />
           <div className="userform__footer">
-            <span className="userform__title">Panel de control de empresa</span>
+            <span className="userform__title">
+              Panel de control de organización
+            </span>
             <span className="userform__text">
-              Aquí podrás gestionar tu información confidencial, recuerda nunca
-              dar tu constraseña a ningún usuario a través de WorKn, los
+              Aquí podrás gestionar la información de tu organización, recuerda
+              nunca dar tu constraseña a ningún usuario a través de WorKn, los
               administradores nunca te la solicitarán.
             </span>
             <button className="userprofile__action" onClick={showPasswordModal}>

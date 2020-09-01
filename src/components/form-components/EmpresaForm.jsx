@@ -203,6 +203,17 @@ const EmpresaForm = () => {
         <span className="userform__label">Selecciona tus etiquetas</span>
         <TagInput></TagInput>
       </div> */}
+
+      <div>
+        <div className="userform__footer">
+          <span className="userform__title">Mantén tu perfil actualizado</span>
+          <span className="userform__text">
+            Recuerda que esta información será vista por los usuarios que deseen
+            conocer tu organización, mantenla actualizada y crea una descripción
+            llamativa. Ten en cuenta que solo puedes modificar el RNC una vez.
+          </span>
+        </div>
+      </div>
       <input
         className="custom-button bg-green"
         type="submit"

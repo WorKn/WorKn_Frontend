@@ -38,9 +38,9 @@ const UserForm = () => {
       console.log("loading");
     }
   }, [updated]);
+
   return (
     <form className="userform" onSubmit={handleSubmit(onSubmit)}>
-      {" "}
       <div className="userform__LIP">
         <Pic_Selector></Pic_Selector>
       </div>
@@ -160,33 +160,43 @@ const UserForm = () => {
           />
         </div> */}
       </div>
-      <div className="userform__footer">
-        <span className="userform__title">
-          Selecciona tu categoría y tus etiquetas
-        </span>
-        <span className="userform__text">
-          Las etiqueta sirven para emparejarte con ofertas de trabajo y personas
-          en tus mismas áreas de conocimiento, la categoría sirve para filtrar
-          dichas etiquetas de una manera más precisa.
-        </span>
-      </div>
-      <div className="userform__LIP">
-        <span className="userform__label">Área del saber deseada</span>
-        <TagInput></TagInput>
-        {/* <select
-          className="userform__select"
-          name="category"
-          ref={register({
-            required: "Por favor ingrese el tipo de usuario que desea crear",
-          })}
-        >
-          <option value="">Software</option>
-          <option value="">Multimedia</option>
-        </select> */}
-      </div>
-      <div className="userform__LIP">
-        <span className="userform__label">Selecciona tus etiquetas</span>
-        <TagInput></TagInput>
+      <div>
+        {typeof state.userInformation.organizationRole !== "undefined" &&
+        state.userInformation.organizationRole !== "owner" ? (
+          <div>
+            <div className="userform__footer">
+              <span className="userform__title">
+                Selecciona tu categoría y tus etiquetas
+              </span>
+              <span className="userform__text">
+                Las etiqueta sirven para emparejarte con ofertas de trabajo y
+                personas en tus mismas áreas de conocimiento, la categoría sirve
+                para filtrar dichas etiquetas de una manera más precisa.
+              </span>
+            </div>
+            <div className="userform__LIP">
+              <span className="userform__label">Área del saber deseada</span>
+              <TagInput></TagInput>
+              {/* <select
+                className="userform__select"
+                name="category"
+                ref={register({
+                  required:
+                    "Por favor ingrese el tipo de usuario que desea crear",
+                })}
+              >
+                <option value="">Software</option>
+                <option value="">Multimedia</option>
+              </select> */}
+            </div>
+            <div className="userform__LIP">
+              <span className="userform__label">Selecciona tus etiquetas</span>
+              <TagInput></TagInput>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
       {typeof updated.data !== "undefined" &&
       updated.data.status === "success" ? (
