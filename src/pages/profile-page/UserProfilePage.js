@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 import Header from "../../components/navbar-components/Navbar";
@@ -16,7 +16,7 @@ import AnnouncementBanner from "../../components/announcemnet-components/Announc
 import { Link } from "react-router-dom";
 
 const UserProfilePage = (props) => {
-  const { action } = useStateMachine(updateAction);
+  const { action, state } = useStateMachine(updateAction);
   const { push } = useHistory();
 
   const {
@@ -24,7 +24,6 @@ const UserProfilePage = (props) => {
     RenderModal: PasswordModal,
     // hide: hideQuestionModal,
   } = useModal();
-
   return (
     <div className="pagewrap">
       <PasswordModal>
@@ -51,12 +50,17 @@ const UserProfilePage = (props) => {
               <i className="fa fa-cog userprofile__icon"></i>
               Cambiar constraseña
             </button>
-            <Link to="/empresaprofilepage" style={{ textDecoration: "none" }}>
-              <button className="userprofile__action">
-                <i className="fa fa-cog userprofile__icon"></i>
-                Manejar organizacion
-              </button>
-            </Link>
+            {typeof state.userInformation.organizationRole !== "undefined" &&
+            state.userInformation.organizationRole == "owner" ? (
+              <Link to="/empresaprofilepage" style={{ textDecoration: "none" }}>
+                <button className="userprofile__action">
+                  <i className="fa fa-cog userprofile__icon"></i>
+                  Manejar organización
+                </button>
+              </Link>
+            ) : (
+              ""
+            )}
             <button
               className="userprofile__action"
               onClick={() => {
@@ -82,7 +86,6 @@ const UserProfilePage = (props) => {
           <UserForm></UserForm>
         </div>
       </div>
-
       <Footer></Footer>
     </div>
   );
