@@ -78,7 +78,7 @@ const EmpresaProfilePage = (props) => {
             </button> */}
             <button className="userprofile__action" onClick={showMembersModal}>
               <i className="fa fa-cog userprofile__icon"></i>
-              Manejar usuarios
+              Manejar invitaciones de miembros
             </button>
             <button className="userprofile__action">
               <i className="fa fa-cog userprofile__icon"></i>

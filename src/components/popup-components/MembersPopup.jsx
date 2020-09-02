@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./QuestionPopup-Style.css";
 import "../../App.css";
 import { NavLink } from "react-router-dom";
@@ -11,19 +11,21 @@ import { useStateMachine } from "little-state-machine";
 import Cookies from "js-cookie";
 
 const MembersPopup = () => {
+  const [invited, setInvited] = useState("");
   const { state, action } = useStateMachine(updateAction);
-  const { register, handleSubmit, errors, watch } = useForm();
+  const { register, handleSubmit, errors, watch, reset } = useForm();
   const newPassword = useRef({});
   newPassword.current = watch("newPassword", "");
   const { push } = useHistory();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data, e) => {
     data.id = state.userInformation.organization;
     sendInvitation(data).then((res) => {
       console.log(data);
-      if (res.data != undefined) {
+      if (res.data !== undefined) {
         console.log(res);
-        // Cookies.set("jwt", res.data.token);
+        setInvited(res);
+        e.target.reset();
       }
     });
   };
@@ -31,9 +33,9 @@ const MembersPopup = () => {
   return (
     <div className="popup-wrapper">
       <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
-        <span className="popup-btitle">Manejo de miembros</span>
+        <span className="popup-btitle">Manejo de invitaciones</span>
         <div className="userform__LIP">
-          <span className="userform__label">Agregar usuario</span>
+          <span className="userform__label">Ingrese el correo</span>
           <input
             className="form-input"
             type="email"
@@ -53,7 +55,14 @@ const MembersPopup = () => {
             )}
           />
         </div>
-        <span className="userform__label">Usuarios de la organización</span>
+        {typeof invited.data !== "undefined" &&
+        invited.data.status == "success" ? (
+          <div className="input__msg input__msg--success">
+            <i class="fa fa-check"></i> Usuario invitado correctamente
+          </div>
+        ) : (
+          ""
+        )}
 
         <input
           className="custom-button bg-green"
@@ -64,9 +73,9 @@ const MembersPopup = () => {
         <div className="info-container">
           <i className="fa fa-info icon"></i>
           <p>
-            Te recomendamos crear una constraseña fuerte, que contenga símbolos,
-            números y al menos un caracter en mayúsculas. Recuerda usar 8
-            dígitos o más.
+            Ingresa aquí el correo del usuario que quieras invitar a formar
+            parte de tu organización, recuerda que por medio de ese correo podrá
+            crear su cuenta para utilizar WorKn.
           </p>
         </div>
         {/*
