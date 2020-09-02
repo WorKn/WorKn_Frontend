@@ -72,10 +72,10 @@ const EmpresaProfilePage = (props) => {
               nunca dar tu constraseña a ningún usuario a través de WorKn, los
               administradores nunca te la solicitarán.
             </span>
-            <button className="userprofile__action" onClick={showPasswordModal}>
+            {/* <button className="userprofile__action" onClick={showPasswordModal}>
               <i className="fa fa-cog userprofile__icon"></i>
               Cambiar constraseña
-            </button>
+            </button> */}
             <button className="userprofile__action" onClick={showMembersModal}>
               <i className="fa fa-cog userprofile__icon"></i>
               Manejar usuarios

@@ -7,12 +7,17 @@ import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 // import CustomButton from "../button-components/CustomButton";
 import TagInput from "../input-components/TagInput";
-import { createOrganization, getMyOrganization } from "../../utils/apiRequests";
+import {
+  createOrganization,
+  getMyOrganization,
+  editOrganization,
+} from "../../utils/apiRequests";
 import Cookies from "js-cookie";
 import { Pic_Selector } from "../../components/profile-pic-selection-components/Profile-selection-component";
 
 const EmpresaForm = () => {
   const [updated, setUpdated] = useState("");
+  const [disabled, setDisabled] = useState(false);
   const { state, action } = useStateMachine(updateAction);
   const [orgInfo, setOrgInfo] = useState("");
   const { register, handleSubmit, errors, watch } = useForm({
@@ -23,20 +28,28 @@ const EmpresaForm = () => {
       console.log("no hay org, creating");
       createOrganization(data).then((res) => {
         if (res.data !== undefined) {
-          // action(res.data.data);
           setUpdated(res);
-          console.log(res);
+          // console.log(res);
         }
       });
     } else {
       console.log("hay org, updating");
+      data.id = state.userInformation.organization;
+      editOrganization(data).then((res) => {
+        console.log(res);
+        if (res.data !== undefined) {
+          setDisabled(true);
+          setUpdated(res);
+          // console.log(res);
+        }
+      });
     }
   };
   useEffect(() => {
     getMyOrganization().then((res) => {
       if (res.data !== undefined) {
         action(res.data.data);
-        console.log(res);
+        // console.log(res);
       }
     });
   }, [updated]);
@@ -74,6 +87,7 @@ const EmpresaForm = () => {
         <div className="userform__LIP userform__LIP--separated">
           <span className="userform__label">RNC</span>
           <input
+            disabled={disabled}
             className="userform__input"
             type="text"
             name="RNC"
