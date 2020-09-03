@@ -125,7 +125,6 @@ export const validateEmail = async (token) => {
     );
     return response.data.status;
   } catch (e) {
-    console.log("kattia");
-    return false;
+    return e.response.data;
   }
 };

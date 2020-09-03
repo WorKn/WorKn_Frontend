@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import { Link } from "react-router-dom";
+
 import "./EmailValidation-Style.css";
 
 import { validateEmail } from "../../utils/apiRequests";
@@ -23,16 +25,45 @@ const EmailValidation = ({
   }, []);
 
   return (
-    <div className="email-validation__body">
+    <div className="email-validation__container">
       {validated ? (
-        <h1 className="email-validation__title">
-          Usuario validado correctamente
-        </h1>
+        <div className="email-validation__body">
+          <img
+            src="https://i.imgur.com/rzMTQaf.png"
+            alt=""
+            className="email-validation__img"
+          />
+          <h1 className="email-validation__title">
+            Usuario validado correctamente
+          </h1>
+          <span>
+            Su usuario ha sido validado correctamente, por favor, puede volver
+            al menu de inicio a través del siguiente botón
+          </span>
+          <Link to="/" className="email-validation__button">
+            <div>Volver a inicio</div>
+          </Link>
+        </div>
       ) : (
-        <h1 className="email-validation__title">Se lo mamaste a Dracula</h1>
+        <div className="email-validation__body">
+          <img
+            src="https://i.imgur.com/siTaWZ0.png"
+            alt=""
+            className="email-validation__img"
+          />
+          <h1 className="email-validation__title">
+            Error al validar su correo
+          </h1>
+          <span>
+            Lo sentimos, aparentemente un error interno no ha permitido validar
+            su usuario, por favor, puede volver al menu de inicio a través del
+            siguiente botón
+          </span>
+          <Link to="/" className="email-validation__button">
+            <div>Volver a inicio</div>
+          </Link>
+        </div>
       )}
-
-      <h1 className="lolxd54321">Validation Page</h1>
     </div>
   );
 };
