@@ -117,3 +117,30 @@ export const updatePassword = async (user) => {
     return e.response.data;
   }
 };
+
+export const sendEmail = async (email) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/users/forgotPassword`, {
+      email: email,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const resetPassword = async (user) => {
+  console.log(user);
+  try {
+    const response = await axios.patch(
+      `${HOST}/api/v1/users/resetPassword/${user.myToken}`,
+      {
+        password: user.password,
+        passwordConfirm: user.passwordConfirm,
+      }
+    );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};

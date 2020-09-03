@@ -135,7 +135,7 @@ const LoginPage = React.memo((props) => {
                 <span className="popup-text remind-me">Recuerdame</span>
               </div>
               <span className="remind-me">
-                <a className="popup-link " href="/dummy">
+                <a className="popup-link " href="/forgotPassword">
                   ¿Olvidaste tu contraseña?
                 </a>
               </span>

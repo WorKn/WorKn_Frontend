@@ -11,7 +11,8 @@ import RegisterPageC2 from "./pages/register-page/RegisterPage-C2";
 import QuestionPopup from "./components/popup-components/QuestionPopup";
 import UserProfilePage from "./pages/profile-page/UserProfilePage";
 import EmpresaProfilePage from "./pages/profile-page/EmpresaProfilePage";
-
+import ForgotPasswordPage from "./pages/forgotpassword-page/ForgotPasswordPage.jsx";
+import NewPasswordPage from "./pages/newpassword-page/NewPasswordPage.jsx";
 import { ProtectedRoute } from "./components/route-components/ProtectedRoute";
 require("dotenv").config({ path: "./.env" });
 
@@ -34,6 +35,16 @@ function App() {
             <Route exact path="/registerpagec1" component={RegisterPageC1} />
             <Route exact path="/registerpagec2" component={RegisterPageC2} />
             <Route exact path="/loginpage" component={LoginPage} />
+            <Route
+              exact
+              path="/forgotPassword"
+              component={ForgotPasswordPage}
+            ></Route>
+            <Route
+              exact
+              path="/resetPassword/:token"
+              component={NewPasswordPage}
+            ></Route>
             <Route
               exact
               path="/landingpage/question"
