@@ -6,7 +6,11 @@ import { useHistory } from "react-router-dom";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import TagInput from "../input-components/TagInput";
-import { updateProfile, getMe } from "../../utils/apiRequests";
+import {
+  updateProfile,
+  getMe,
+  getMyOrganization,
+} from "../../utils/apiRequests";
 import { Pic_Selector } from "../../components/profile-pic-selection-components/Profile-selection-component";
 
 const UserForm = () => {
@@ -31,6 +35,12 @@ const UserForm = () => {
       getMe().then((res) => {
         if (res.data !== undefined) {
           action(res.data.data.data);
+          console.log(res);
+        }
+      });
+      getMyOrganization().then((res) => {
+        if (res.data !== undefined) {
+          action(res.data.data);
           console.log(res);
         }
       });

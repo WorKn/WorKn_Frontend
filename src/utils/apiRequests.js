@@ -39,17 +39,6 @@ export const getMe = async () => {
   }
 };
 
-export const getMyOrganization = async () => {
-  try {
-    const response = await axios.get(
-      `${HOST}/api/v1/organizations/myOrganization`
-    );
-    return response;
-  } catch (e) {
-    return e;
-  }
-};
-
 export const userLogin = async (user) => {
   // console.log(user);
   try {
@@ -138,6 +127,17 @@ export const updatePassword = async (user) => {
 
 //Organizations
 
+export const getMyOrganization = async () => {
+  try {
+    const response = await axios.get(
+      `${HOST}/api/v1/organizations/myOrganization`
+    );
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
 export const createOrganization = async (org) => {
   // console.log(user);
   try {
@@ -149,6 +149,40 @@ export const createOrganization = async (org) => {
       phone: org.phone,
       email: org.email,
     });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const editOrganization = async (org) => {
+  // console.log(user);
+  try {
+    const response = await axios.post(
+      `${HOST}/api/v1/organizations/${org.id}`,
+      {
+        name: org.name,
+        RNC: org.RNC,
+        description: org.description,
+        location: org.location,
+        phone: org.phone,
+        email: org.email,
+      }
+    );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const sendInvitation = async (org) => {
+  try {
+    const response = await axios.post(
+      `${HOST}/api/v1/organizations/${org.id}/members/invite`,
+      {
+        members: [org.email],
+      }
+    );
     return response;
   } catch (e) {
     return e.response.data;

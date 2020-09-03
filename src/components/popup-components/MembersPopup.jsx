@@ -1,45 +1,53 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./QuestionPopup-Style.css";
 import "../../App.css";
 import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { updatePassword } from "../../utils/apiRequests";
+import { sendInvitation } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
-
+import updateAction from "../../updateAction";
+import { useStateMachine } from "little-state-machine";
 import Cookies from "js-cookie";
 
 const MembersPopup = () => {
-  const { register, handleSubmit, errors, watch } = useForm();
+  const [invited, setInvited] = useState("");
+  const { state, action } = useStateMachine(updateAction);
+  const { register, handleSubmit, errors, watch, reset } = useForm();
   const newPassword = useRef({});
   newPassword.current = watch("newPassword", "");
   const { push } = useHistory();
 
-  const onSubmit = (data) => {
-    updatePassword(data).then((res) => {
-      if (res.data != undefined) {
-        Cookies.set("jwt", res.data.token);
+  const onSubmit = (data, e) => {
+    data.id = state.userInformation.organization;
+    sendInvitation(data).then((res) => {
+      console.log(data);
+      if (res.data !== undefined) {
+        console.log(res);
+        setInvited(res);
+        e.target.reset();
       }
-      push("/loginpage");
     });
   };
 
   return (
     <div className="popup-wrapper">
       <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
-        <span className="popup-btitle">Manejo de miembros</span>
+        <span className="popup-btitle">Manejo de invitaciones</span>
         <div className="userform__LIP">
-          <span className="userform__label">Agregar usuario</span>
+          <span className="userform__label">Ingrese el correo</span>
           <input
             className="form-input"
-            type="password"
-            name="currentPassword"
+            type="email"
+            name="email"
             // pattern="[a-zA-Z]*"
-            ref={register({ required: "Por favor ingrese su constraseña" })}
+            ref={register({
+              required: "Por favor ingrese el correo a invitar",
+            })}
           />
           <ErrorMessage
             errors={errors}
-            name="currentPassword"
+            name="email"
             render={({ message }) => (
               <div className="input__msg input__msg--error">
                 <i class="fa fa-asterisk"></i> {message}
@@ -47,70 +55,27 @@ const MembersPopup = () => {
             )}
           />
         </div>
-        {/* <div className="userform__LIP">
-          <span className="userform__label">Ingrese su nueva contraseña</span>
-          <input
-            className="form-input"
-            type="password"
-            name="newPassword"
-            // pattern="[a-zA-Z]*"
-            ref={register({
-              required:
-                "Por favor ingrese su nueva contraseña, debe tener al menos 8 dígitos",
-              minLength: {
-                value: 8,
-                message: "Por favor utilice más de 8 caracteres",
-              },
-            })}
-          />
-          <ErrorMessage
-            errors={errors}
-            name="newPassword"
-            render={({ message }) => (
-              <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
-              </div>
-            )}
-          />
-        </div>
-        <div className="userform__LIP">
-          <span className="userform__label">Confirme su nueva contraseña</span>
-          <input
-            className="form-input"
-            type="password"
-            name="newPasswordConfirm"
-            // pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su nombre"
-            ref={register({
-              validate: (value) =>
-                value === newPassword.current || "Las contraseñas no coinciden",
-            })}
-          />
-          <ErrorMessage
-            errors={errors}
-            name="newPasswordConfirm"
-            render={({ message }) => (
-              <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
-              </div>
-            )}
-          />
-        </div> */}
-        <span className="userform__label">Usuarios de la organización</span>
-        <span className="userform__label">Invitaciones enviadas</span>
+        {typeof invited.data !== "undefined" &&
+        invited.data.status == "success" ? (
+          <div className="input__msg input__msg--success">
+            <i class="fa fa-check"></i> Usuario invitado correctamente
+          </div>
+        ) : (
+          ""
+        )}
 
         <input
           className="custom-button bg-green"
           type="submit"
-          value="Guardar cambios"
+          value="Invitar Usuario"
         />
 
         <div className="info-container">
           <i className="fa fa-info icon"></i>
           <p>
-            Te recomendamos crear una constraseña fuerte, que contenga símbolos,
-            números y al menos un caracter en mayúsculas. Recuerda usar 8
-            dígitos o más.
+            Ingresa aquí el correo del usuario que quieras invitar a formar
+            parte de tu organización, recuerda que por medio de ese correo podrá
+            crear su cuenta para utilizar WorKn.
           </p>
         </div>
         {/*
