@@ -144,7 +144,7 @@ export const createOrganization = async (org) => {
     const response = await axios.post(`${HOST}/api/v1/organizations`, {
       name: org.name,
       RNC: org.RNC,
-      description: org.description,
+      bio: org.bio,
       location: org.location,
       phone: org.phone,
       email: org.email,
@@ -158,12 +158,12 @@ export const createOrganization = async (org) => {
 export const editOrganization = async (org) => {
   // console.log(user);
   try {
-    const response = await axios.post(
+    const response = await axios.patch(
       `${HOST}/api/v1/organizations/${org.id}`,
       {
         name: org.name,
         RNC: org.RNC,
-        description: org.description,
+        bio: org.bio,
         location: org.location,
         phone: org.phone,
         email: org.email,

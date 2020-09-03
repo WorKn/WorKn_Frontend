@@ -13,6 +13,7 @@ import UserProfilePage from "./pages/profile-page/UserProfilePage";
 import EmpresaProfilePage from "./pages/profile-page/EmpresaProfilePage";
 
 import { ProtectedRoute } from "./components/route-components/ProtectedRoute";
+import addMember from "./pages/addmember-page/AddMemberPage";
 require("dotenv").config({ path: "./.env" });
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
               path="/empresaprofilepage"
               component={EmpresaProfilePage}
             />
+            <Route exact path="/addMember" component={addMember} />
             <Route path="*" component={() => "404 NOT FOUND"} />
           </Switch>
         </animated.div>

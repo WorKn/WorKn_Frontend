@@ -5,12 +5,12 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useHistory } from "react-router-dom";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
-// import CustomButton from "../button-components/CustomButton";
 import TagInput from "../input-components/TagInput";
 import {
   createOrganization,
   getMyOrganization,
   editOrganization,
+  getMe,
 } from "../../utils/apiRequests";
 import Cookies from "js-cookie";
 import { Pic_Selector } from "../../components/profile-pic-selection-components/Profile-selection-component";
@@ -50,6 +50,12 @@ const EmpresaForm = () => {
       if (res.data !== undefined) {
         action(res.data.data);
         // console.log(res);
+      }
+    });
+    getMe().then((res) => {
+      if (res.data !== undefined) {
+        action(res.data.data.data);
+        console.log(res);
       }
     });
   }, [updated]);
@@ -137,7 +143,7 @@ const EmpresaForm = () => {
         <input
           className="userform__input userform__input--lg"
           type="text"
-          name="description"
+          name="bio"
           // pattern="[a-zA-Z]*"
           ref={register({
             maxLength: {
@@ -148,7 +154,7 @@ const EmpresaForm = () => {
         />
         <ErrorMessage
           errors={errors}
-          name="description"
+          name="bio"
           render={({ message }) => (
             <div className="input__msg input__msg--error">
               <i class="fa fa-asterisk"></i> {message}
