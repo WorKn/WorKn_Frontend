@@ -223,7 +223,6 @@ const EmpresaForm = () => {
         <span className="userform__label">Selecciona tus etiquetas</span>
         <TagInput></TagInput>
       </div> */}
-
       <div>
         <div className="userform__footer">
           <span className="userform__title">Mantén tu perfil actualizado</span>
@@ -234,6 +233,16 @@ const EmpresaForm = () => {
           </span>
         </div>
       </div>
+      {typeof updated.data !== "undefined" &&
+      updated.data.status === "success" ? (
+        <div className="input__msg input__msg--success">
+          El perfil de {updated.data.data.organization.name} fue actualizado
+          correctamente
+        </div>
+      ) : (
+        ""
+      )}
+      <div className="input__msg input__msg--error">{updated.message}</div>
       <input
         className="custom-button bg-green"
         type="submit"

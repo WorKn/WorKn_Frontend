@@ -89,6 +89,26 @@ export const orgUserSignup = async (user) => {
   }
 };
 
+export const invitedUserSignup = async (user) => {
+  // console.log(user);
+  try {
+    const response = await axios.post(`${HOST}/api/v1/users/signup`, {
+      name: user.name,
+      lastname: user.lastname,
+      email: user.email,
+      birthday: user.birthday,
+      password: user.password,
+      passwordConfirm: user.passwordConfirm,
+      userType: user.userType,
+      organizationRole: user.organizationRole,
+      organization: user.organization,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
 export const updateProfile = async (user) => {
   // console.log(user);
   try {

@@ -6,9 +6,13 @@ import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import { ErrorMessage } from "@hookform/error-message";
 import { getAge } from "../../utils/ageCalculation";
-import { orgUserSignup } from "../../utils/apiRequests";
+import { invitedUserSignup } from "../../utils/apiRequests";
 
-const AddMember = () => {
+const AddMember = ({
+  match: {
+    params: { token, orgid },
+  },
+}) => {
   const [gotResponse, setGotResponse] = useState(false);
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, watch, errors } = useForm({
@@ -16,15 +20,23 @@ const AddMember = () => {
   });
   const { push } = useHistory();
   const onSubmit = (data) => {
+    // console.log(token);
+    // console.log(orgid);
     state.userInformation.userType = "offerer";
     state.userInformation.organizationRole = "owner";
+    state.userInformation.organization = orgid;
     action(data);
     setGotResponse(true);
+    console.log(state.userInformation);
+
+    // state.userInformation.organizationRole = "owner";
+    // action(data);
+    // setGotResponse(true);
   };
 
   useEffect(() => {
-    if (state.userInformation.userType !== "") {
-      orgUserSignup(state.userInformation).then((res) => {
+    if (state.userInformation.organization !== "") {
+      invitedUserSignup(state.userInformation).then((res) => {
         console.log(res);
         // setUserInfo(res);
       });
