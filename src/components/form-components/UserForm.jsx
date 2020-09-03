@@ -14,7 +14,7 @@ import {
 import { Pic_Selector } from "../../components/profile-pic-selection-components/Profile-selection-component";
 
 const UserForm = () => {
-  const [updated, setUpdated] = useState(false);
+  const [updated, setUpdated] = useState("");
   const { state, action } = useStateMachine(updateAction);
   const { push } = useHistory();
   const password = useRef({});
@@ -25,7 +25,7 @@ const UserForm = () => {
   const onSubmit = (data) => {
     console.log(data);
     updateProfile(data).then((res) => {
-      setUpdated(true);
+      setUpdated(res);
       console.log(res);
     });
   };
@@ -205,7 +205,19 @@ const UserForm = () => {
             </div>
           </div>
         ) : (
-          ""
+          <div>
+            <div className="userform__footer">
+              <span className="userform__title">
+                Mantén tu perfil actualizado
+              </span>
+              <span className="userform__text">
+                Recuerda que esta información será vista por los usuarios que
+                deseen interactuar contigo, mantenla actualizada y crea una
+                descripción llamativa. Ten en cuenta que solo puedes modificar
+                tu Identificación una vez.
+              </span>
+            </div>
+          </div>
         )}
       </div>
       {typeof updated.data !== "undefined" &&

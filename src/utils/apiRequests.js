@@ -89,6 +89,26 @@ export const orgUserSignup = async (user) => {
   }
 };
 
+export const invitedUserSignup = async (user) => {
+  // console.log(user);
+  try {
+    const response = await axios.post(`${HOST}/api/v1/users/signup`, {
+      name: user.name,
+      lastname: user.lastname,
+      email: user.email,
+      birthday: user.birthday,
+      password: user.password,
+      passwordConfirm: user.passwordConfirm,
+      userType: user.userType,
+      organizationRole: user.organizationRole,
+      organization: user.organization,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
 export const updateProfile = async (user) => {
   // console.log(user);
   try {
@@ -144,7 +164,7 @@ export const createOrganization = async (org) => {
     const response = await axios.post(`${HOST}/api/v1/organizations`, {
       name: org.name,
       RNC: org.RNC,
-      description: org.description,
+      bio: org.bio,
       location: org.location,
       phone: org.phone,
       email: org.email,
@@ -158,12 +178,12 @@ export const createOrganization = async (org) => {
 export const editOrganization = async (org) => {
   // console.log(user);
   try {
-    const response = await axios.post(
+    const response = await axios.patch(
       `${HOST}/api/v1/organizations/${org.id}`,
       {
         name: org.name,
         RNC: org.RNC,
-        description: org.description,
+        bio: org.bio,
         location: org.location,
         phone: org.phone,
         email: org.email,
