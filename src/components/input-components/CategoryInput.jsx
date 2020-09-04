@@ -50,7 +50,7 @@ const CategoryInput = (props) => {
       <AsyncSelect
         components={animatedComponent}
         onChange={setSelectedCategory}
-        placeholder={"Escribe tu tag..."}
+        placeholder={"ej: Software."}
         loadOptions={loadOptions}
         onInputChange={onChange}
         value={selectedCategory}
