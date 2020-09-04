@@ -5,15 +5,12 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useHistory } from "react-router-dom";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
-import TagInput from "../input-components/TagInput";
 import {
   updateProfile,
   getMe,
   getMyOrganization,
 } from "../../utils/apiRequests";
 import { Pic_Selector } from "../../components/profile-pic-selection-components/Profile-selection-component";
-import Select from "react-select";
-import makeAnimated from "react-select/animated";
 import CategoryInput from "../input-components/CategoryInput";
 import categoryContext from "../../utils/categoryContext";
 import TagsInput from "../input-components/TagsInput";
@@ -32,6 +29,7 @@ const UserForm = () => {
   password.current = watch("password", "");
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
+    console.log(selectedCategory.value);
     let newArray = [];
     selectedTags.forEach((tag) => newArray.push(tag.value));
     data.tags = newArray;
@@ -213,7 +211,9 @@ const UserForm = () => {
                   <span className="userform__label">
                     Selecciona tus etiquetas
                   </span>
-                  <TagsInput></TagsInput>
+                  <TagsInput
+                    query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
+                  ></TagsInput>
                 </div>
               </div>
             ) : (

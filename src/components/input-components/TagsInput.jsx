@@ -11,8 +11,6 @@ const TagsInput = (props) => {
   const [tags, setTags] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState([]);
   const { selectedTags, setSelectedTags } = useContext(tagsContext);
-  const category = selectedCategory;
-
   const animatedComponent = makeAnimated();
 
   useEffect(() => {
@@ -50,7 +48,6 @@ const TagsInput = (props) => {
   return (
     <categoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
       <div className="taginput">
-        {/* <div>{this.state.filteredCategories.map(this.renderEveryTag)}</div> */}
         <AsyncSelect
           components={animatedComponent}
           isMulti
