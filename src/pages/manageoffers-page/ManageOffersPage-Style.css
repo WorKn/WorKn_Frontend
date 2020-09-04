@@ -1,9 +1,10 @@
-.pagewrap {
+.manageoffers__background {
   background-color: #f7f7f7;
   width: 100vw;
+  height: 100vh;
 }
 
-.profilewrap {
+.manageoffers__container {
   display: flex;
   justify-content: space-between;
   flex-flow: row;
@@ -16,7 +17,7 @@
   height: auto;
 }
 
-.userprofile__action {
+.manageoffers__action {
   display: flex;
   margin-top: 16px;
   width: 50%;
@@ -30,39 +31,14 @@
   transition: transform 0.5s ease;
 }
 
-.userprofile__action:hover {
+.manageoffers__action:hover {
   transform: scale(1.05);
 }
 
-.userprofile__icon {
+.manageoffers__icon {
   margin-right: 10px;
 }
 
-.userprofile__link {
+.manageoffers__body a {
   text-decoration: none;
-}
-
-.formss {
-  flex: 2;
-}
-
-.klk {
-  margin-right: 140px;
-}
-
-.profilewrap a {
-  text-decoration: none;
-}
-
-@media (max-width: 1320px) {
-  .profilewrap {
-    flex-flow: column;
-    margin: 5% 6%;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .klk {
-    margin-right: 0;
-  }
 }

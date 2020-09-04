@@ -12,6 +12,8 @@ import QuestionPopup from "./components/popup-components/QuestionPopup";
 import UserProfilePage from "./pages/profile-page/UserProfilePage";
 import EmpresaProfilePage from "./pages/profile-page/EmpresaProfilePage";
 import EmailValidation from "./components/emailvalidation-components/EmailValidation";
+import ManageOffersPage from "./pages/manageoffers-page/ManageOffersPage";
+import CreateOfferPage from "./pages/createoffer-page/CreateOfferPage";
 
 import { ProtectedRoute } from "./components/route-components/ProtectedRoute";
 require("dotenv").config({ path: "./.env" });
@@ -50,7 +52,20 @@ function App() {
               path="/empresaprofilepage"
               component={EmpresaProfilePage}
             />
-            <Route exact path="/emailvalidation/:token" component={EmailValidation} />
+            <Route exact path="/manageoffers" component={ManageOffersPage} />
+            <Route
+              exact
+              path="/manageoffers/createoffer"
+              component={CreateOfferPage}
+            />
+            {/* <Route exact path="/manageoffers/editoffer" component={ManageOffersPage} />
+            <Route exact path="/manageoffers/deleteoffer" component={ManageOffersPage} /> */}
+
+            <Route
+              exact
+              path="/emailvalidation/:token"
+              component={EmailValidation}
+            />
             <Route path="*" component={() => "404 NOT FOUND"} />
           </Switch>
         </animated.div>

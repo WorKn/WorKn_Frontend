@@ -13,6 +13,7 @@ import updateAction from "../../updateAction";
 import { useModal } from "../../hooks/useModal";
 import PasswordPopup from "../../components/popup-components/PasswordPopup";
 import MembersPopup from "../../components/popup-components/MembersPopup";
+import { Link } from "react-router-dom";
 
 import AnnouncementBanner from "../../components/announcemnet-components/Announcement-Banner";
 
@@ -63,10 +64,12 @@ const EmpresaProfilePage = (props) => {
               <i className="fa fa-cog userprofile__icon"></i>
               Manejar usuarios
             </button>
-            <button className="userprofile__action">
-              <i className="fa fa-cog userprofile__icon"></i>
-              Manejar ofertas
-            </button>
+            <Link to="/manageoffers">
+              <button className="userprofile__action">
+                <i className="fa fa-cog userprofile__icon"></i>
+                Manejar ofertas
+              </button>
+            </Link>
             <button
               className="userprofile__action"
               onClick={() => {
