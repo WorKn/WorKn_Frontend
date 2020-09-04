@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./LandingPage-Style.css";
 import CounterBanner from "../../components/counter-components/Counter-Banner";
 import Banner from "../../components/banner-components/Banner.jsx";
@@ -6,7 +6,6 @@ import Footer from "../../components/footer-components/Footer.jsx";
 import Header from "../../components/navbar-components/Navbar.jsx";
 import JumbotronComponent from "../../components/jumbotron-components/Jumbotron.jsx";
 import CtaComponent from "../../components/cta-components/CTAComponent";
-import Pic_Selector from "../../components/profile-pic-selection-components/Profile-selection-component";
 
 const LandingPage = () => {
   const CTAComponent = {
@@ -25,13 +24,12 @@ const LandingPage = () => {
 
   return (
     <div>
-      <Pic_Selector></Pic_Selector>
-      {/* <Header />
+      <Header />
       <Banner image={"kiwVnMm.png"} />
       <CtaComponent params={CTAComponent}></CtaComponent>
       <CounterBanner />
       <JumbotronComponent params={helpJumbotron}></JumbotronComponent>
-      <Footer /> */}
+      <Footer />
     </div>
   );
 };

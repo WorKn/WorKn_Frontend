@@ -4,7 +4,6 @@
   align-items: flex-start;
   height: 140px;
   width: 240px;
-  border-radius: 20px;
 }
 
 .Pic-selector span {
@@ -42,11 +41,10 @@
 }
 
 .Pic-selector__label {
-  width: 100%;
+  width: 240px;
   display: flex;
-  margin: 2px;
-  justify-content: center;
-  opacity: 0.4;
+  justify-content: flex-start;
+  padding-left: 53px;
 }
 .Pic-selector__image-upload {
   display: flex;
@@ -56,11 +54,35 @@
   width: 35px;
   height: 35px;
   padding: 0 1px 4px 0;
-  background-color: #7e7e7e;
+  background-color: #5bba6f;
   color: white;
   border-radius: 10px;
   text-align: center;
   cursor: pointer;
+}
+
+.PicForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 240px;
+  padding: 1px 2px;
+  height: 90px;
+  margin: 0;
+  padding-left: 30px;
+}
+
+.PicForm button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  background-color: #5bba6f;
+  color: white;
+  border-radius: 8px;
+  height: 30px;
+  width: 80px;
+  margin-top: 10px;
 }
 
 @media only screen and (max-width: 808px) {
@@ -75,5 +97,23 @@
     font-size: 15px;
     margin-top: 0px;
     order: 1;
+  }
+  .PicForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 120px;
+    padding: 1px 2px;
+    height: 90px;
+    margin: 0;
+    padding-left: 0px;
+  }
+
+  .Pic-selector__label {
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    padding-left: 0px;
   }
 }

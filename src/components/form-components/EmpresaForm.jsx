@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./UserForm-Style.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -9,13 +9,18 @@ import { useStateMachine } from "little-state-machine";
 import TagInput from "../input-components/TagInput";
 import { updateProfile } from "../../utils/apiRequests";
 import Cookies from "js-cookie";
-import Pic_Selector from "../../components/profile-pic-selection-components/Profile-selection-component";
+import PictureForm from "../profile-picture-components/PictureForm";
+import PictureContainer from "../profile-picture-components/Profile-selection-component";
 
 const EmpresaForm = () => {
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, errors, watch } = useForm({
     defaultValues: state.userInformation,
   });
+  const [newImage, setNewImage] = useState();
+  const handleNewImage = () => {
+    setNewImage(newImage);
+  };
   const onSubmit = (data) => {
     action(data);
     updateProfile(data).then((res) => {
@@ -32,7 +37,8 @@ const EmpresaForm = () => {
   return (
     <form className="userform" onSubmit={handleSubmit(onSubmit)}>
       <div className="userform__LIP">
-        <Pic_Selector></Pic_Selector>
+        <PictureContainer newImage={newImage}></PictureContainer>
+        <PictureForm handleNewImage={handleNewImage}></PictureForm>
       </div>
       <div className="userform__2col">
         <div className="userform__LIP">
