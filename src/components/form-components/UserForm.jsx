@@ -29,14 +29,11 @@ const UserForm = () => {
   password.current = watch("password", "");
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
-    console.log(selectedCategory.value);
     let newArray = [];
     selectedTags.forEach((tag) => newArray.push(tag.value));
     data.tags = newArray;
-    console.log(data);
     updateProfile(data).then((res) => {
       setUpdated(res);
-      console.log(res);
     });
   };
 
@@ -45,13 +42,11 @@ const UserForm = () => {
       getMe().then((res) => {
         if (res.data !== undefined) {
           action(res.data.data.data);
-          console.log(res);
         }
       });
       getMyOrganization().then((res) => {
         if (res.data !== undefined) {
           action(res.data.data);
-          console.log(res);
         }
       });
     } else {

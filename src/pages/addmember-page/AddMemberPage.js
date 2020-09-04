@@ -27,7 +27,6 @@ const AddMember = ({
     state.userInformation.organization = orgid;
     action(data);
     setGotResponse(true);
-    console.log(state.userInformation);
 
     // state.userInformation.organizationRole = "owner";
     // action(data);
@@ -37,7 +36,6 @@ const AddMember = ({
   useEffect(() => {
     if (state.userInformation.organization !== "") {
       invitedUserSignup(state.userInformation).then((res) => {
-        console.log(res);
         // setUserInfo(res);
       });
       push("/loginpage");

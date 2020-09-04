@@ -35,7 +35,6 @@ const EmpresaForm = () => {
       console.log("hay org, updating");
       data.id = state.userInformation.organization;
       editOrganization(data).then((res) => {
-        console.log(res);
         if (res.data !== undefined) {
           setDisabled(true);
           setUpdated(res);
@@ -54,7 +53,6 @@ const EmpresaForm = () => {
     getMe().then((res) => {
       if (res.data !== undefined) {
         action(res.data.data.data);
-        console.log(res);
       }
     });
   }, [updated]);

@@ -15,7 +15,7 @@ import Cookies from "js-cookie";
 const LoginPage = React.memo((props) => {
   const [userObject, setUserObject] = useState("");
   const { register, handleSubmit, errors } = useForm();
-  const { action } = useStateMachine(updateAction);
+  const { state, action } = useStateMachine(updateAction);
   const {
     show: showQuestionModal,
     RenderModal: QuestionModal,
@@ -27,7 +27,6 @@ const LoginPage = React.memo((props) => {
     userLogin(data).then((res) => {
       if (res !== undefined) {
         setUserObject(res);
-        console.log(res);
       }
     });
   };
@@ -38,9 +37,17 @@ const LoginPage = React.memo((props) => {
       Cookies.set("jwt", userObject.data.token);
     }
     const user = Cookies.get("jwt");
-    if (user) {
+    if (user && state.userInformation.category && state.userInformation.tags) {
       auth.login();
       push("/userprofilepage");
+    } else if (
+      user &&
+      !state.userInformation.category &&
+      !state.userInformation.tags
+    ) {
+      auth.login();
+      push("/userprofilepage");
+      console.log("not completed!");
     }
   }, [userObject, push, action]);
 

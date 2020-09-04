@@ -26,7 +26,6 @@ const RegisterPageC2 = () => {
   useEffect(() => {
     if (state.userInformation.userType !== "") {
       orgUserSignup(state.userInformation).then((res) => {
-        console.log(res);
         // setUserInfo(res);
       });
       push("/loginpage");
