@@ -16,6 +16,7 @@ import PasswordPopup from "../../components/popup-components/PasswordPopup";
 import MembersPopup from "../../components/popup-components/MembersPopup";
 import { Link } from "react-router-dom";
 import AnnouncementBanner from "../../components/announcemnet-components/Announcement-Banner";
+import ManagePopup from "../../components/popup-components/ManagePopup";
 
 const EmpresaProfilePage = (props) => {
   const { state, action } = useStateMachine(updateAction);
@@ -31,8 +32,17 @@ const EmpresaProfilePage = (props) => {
     // hide: hideQuestionModal,
   } = useModal();
 
+  const {
+    show: ShowManageModal,
+    RenderModal: ManageModal,
+    // hide: hideQuestionModal,
+  } = useModal();
+
   return (
     <div className="pagewrap">
+      <ManageModal>
+        <ManagePopup></ManagePopup>
+      </ManageModal>
       <PasswordModal>
         <PasswordPopup></PasswordPopup>
       </PasswordModal>
@@ -80,6 +90,10 @@ const EmpresaProfilePage = (props) => {
               <i className="fa fa-cog userprofile__icon"></i>
               Manejar invitaciones de miembros
             </button>
+            <button className="userprofile__action" onClick={ShowManageModal}>
+              <i className="fa fa-cog userprofile__icon"></i>
+              Manejar miembros
+            </button>
             <button className="userprofile__action">
               <i className="fa fa-cog userprofile__icon"></i>
               Manejar ofertas
@@ -88,7 +102,6 @@ const EmpresaProfilePage = (props) => {
               className="userprofile__action"
               onClick={() => {
                 Cookies.remove("jwt");
-                // state.userInformation = null;
                 Auth.logout(() => {
                   props.history.push("/");
                 });

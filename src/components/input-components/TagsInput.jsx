@@ -25,12 +25,7 @@ const TagsInput = (props) => {
           tags.push({ label: i.name, value: i._id });
         });
         setTags(tags);
-        console.log(res);
       });
-  }, [selectedCategory]);
-
-  useEffect(() => {
-    console.log(selectedCategory);
   }, [selectedCategory]);
 
   const filterCategories = (inputValue) => {
@@ -53,7 +48,7 @@ const TagsInput = (props) => {
   return (
     <div className="taginput">
       <AsyncSelect
-        defaultOptions
+        defaultOptions={tags}
         components={animatedComponent}
         isMulti
         onChange={setSelectedTags}
