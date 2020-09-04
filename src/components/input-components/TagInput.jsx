@@ -1,26 +1,47 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, Component } from "react";
 import "./TagInput-Style.css";
 import AsyncSelect from "react-select/async";
 import makeAnimated from "react-select/animated";
-
+import axios from "axios";
 const animatedComponent = makeAnimated();
-class TagInput extends PureComponent {
-  state = { selectedTags: [] };
+class TagInput extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { inputValue: "", categories: [] };
+  }
 
-  onChange = (selectedTags) => {
-    this.setState({
-      selectedTags: selectedTags || [],
-    });
+  componentDidMount() {
+    const response = axios
+      .get(
+        `http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories`
+      )
+      .then((res) => {
+        const json = res.data.data.data;
+        const categories = [];
+        json.map((i) => {
+          categories.push({ label: i.name, value: i._id });
+        });
+        this.setState({ categories: categories });
+      });
+  }
+
+  filterCategories = (inputValue) => {
+    // console.log(inputValue);
+    const temp = this.state.categories.filter((category) =>
+      category.label.includes(inputValue.toLowerCase())
+    );
+    // console.log(temp);
+    return temp;
   };
 
-  loadOptions = async (inputText, callback) => {
-    const response = await fetch(
-      `https://jsonplaceholder.typicode.com/todos?title_like=${inputText}`
-    );
-    const json = await response.json();
-    callback(
-      json.map((i) => ({ label: i.title, value: i.id, mapeo: i.completed }))
-    );
+  onChange = (newValue) => {
+    const inputValue = newValue.replace(/\W/g, "");
+    this.setState({ inputValue });
+    return inputValue;
+  };
+
+  loadOptions = async (inputValue, callback) => {
+    callback(this.filterCategories(inputValue));
   };
 
   renderEveryTag = (tag) => {
@@ -30,14 +51,14 @@ class TagInput extends PureComponent {
   render() {
     return (
       <div className="taginput">
-        <div>{this.state.selectedTags.map(this.renderEveryTag)}</div>
+        {/* <div>{this.state.filteredCategories.map(this.renderEveryTag)}</div> */}
         <AsyncSelect
           components={animatedComponent}
           isMulti
-          value={this.state.selectedTags}
-          onChange={this.onChange}
+          value={this.state.filteredCategories}
           placeholder={"Escribe tu tag..."}
           loadOptions={this.loadOptions}
+          onInputChange={this.onChange}
           theme={(theme) => ({
             ...theme,
             borderRadius: 5,
