@@ -48,6 +48,7 @@ const CategoryInput = (props) => {
     <div className="taginput">
       {/* <div>{this.state.filteredCategories.map(this.renderEveryTag)}</div> */}
       <AsyncSelect
+        defaultOptions={categories}
         components={animatedComponent}
         onChange={setSelectedCategory}
         placeholder={"ej: Software."}

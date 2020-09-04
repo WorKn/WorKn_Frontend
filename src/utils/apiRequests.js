@@ -200,3 +200,17 @@ export const sendInvitation = async (org) => {
     return e.response.data;
   }
 };
+
+export const removeMember = async (org) => {
+  try {
+    const response = await axios.delete(
+      `${HOST}/api/v1/organizations/${org.OrgId}/members`,
+      {
+        id: org.id,
+      }
+    );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
