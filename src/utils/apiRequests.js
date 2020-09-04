@@ -117,3 +117,14 @@ export const updatePassword = async (user) => {
     return e.response.data;
   }
 };
+
+export const sendImage = async (data) => {
+  try {
+    const response = await axios.patch(`${HOST}/api/v1/users/updateMyProfile`, {
+      profilePicture: data,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};

@@ -9,7 +9,7 @@ import { useStateMachine } from "little-state-machine";
 import TagInput from "../input-components/TagInput";
 import { updateProfile } from "../../utils/apiRequests";
 import Cookies from "js-cookie";
-import { Pic_Selector } from "../../components/profile-pic-selection-components/Profile-selection-component";
+import Pic_Selector from "../../components/profile-pic-selection-components/Profile-selection-component";
 
 const EmpresaForm = () => {
   const { state, action } = useStateMachine(updateAction);

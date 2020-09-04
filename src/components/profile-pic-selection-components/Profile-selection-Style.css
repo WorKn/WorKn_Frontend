@@ -29,7 +29,7 @@
   align-items: center;
   width: 89px;
   height: 89px;
-  border: 2px solid #00ba6b;
+  border: 2px solid #5bba6f;
   border-radius: 100px;
   background-color: white;
 }
@@ -39,10 +39,6 @@
   height: 84px;
   border-radius: 100px;
   object-fit: cover;
-}
-
-#input[type="file"] {
-  display: none;
 }
 
 .Pic-selector__label {
