@@ -40,7 +40,6 @@ export const getMe = async () => {
 };
 
 export const userLogin = async (user) => {
-  // console.log(user);
   try {
     const response = await axios.post(`${HOST}/api/v1/users/login`, {
       email: user.email,
@@ -53,7 +52,6 @@ export const userLogin = async (user) => {
 };
 
 export const userSignup = async (user) => {
-  // console.log(user);
   try {
     const response = await axios.post(`${HOST}/api/v1/users/signup`, {
       name: user.name,
@@ -71,7 +69,6 @@ export const userSignup = async (user) => {
 };
 
 export const orgUserSignup = async (user) => {
-  // console.log(user);
   try {
     const response = await axios.post(`${HOST}/api/v1/users/signup`, {
       name: user.name,
@@ -90,7 +87,6 @@ export const orgUserSignup = async (user) => {
 };
 
 export const invitedUserSignup = async (user) => {
-  // console.log(user);
   try {
     const response = await axios.post(`${HOST}/api/v1/users/signup`, {
       name: user.name,
@@ -110,7 +106,6 @@ export const invitedUserSignup = async (user) => {
 };
 
 export const updateProfile = async (user) => {
-  // console.log(user);
   try {
     const response = await axios.patch(`${HOST}/api/v1/users/updateMyProfile`, {
       name: user.name,
@@ -129,7 +124,6 @@ export const updateProfile = async (user) => {
 };
 
 export const updatePassword = async (user) => {
-  console.log(user);
   try {
     const response = await axios.patch(
       `${HOST}/api/v1/users/updateMyPassword`,
@@ -159,7 +153,6 @@ export const getMyOrganization = async () => {
 };
 
 export const createOrganization = async (org) => {
-  // console.log(user);
   try {
     const response = await axios.post(`${HOST}/api/v1/organizations`, {
       name: org.name,
@@ -176,7 +169,6 @@ export const createOrganization = async (org) => {
 };
 
 export const editOrganization = async (org) => {
-  // console.log(user);
   try {
     const response = await axios.patch(
       `${HOST}/api/v1/organizations/${org.id}`,

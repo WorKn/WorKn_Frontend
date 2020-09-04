@@ -21,9 +21,7 @@ const MembersPopup = () => {
   const onSubmit = (data, e) => {
     data.id = state.userInformation.organization;
     sendInvitation(data).then((res) => {
-      console.log(data);
       if (res.data !== undefined) {
-        console.log(res);
         setInvited(res);
         e.target.reset();
       }

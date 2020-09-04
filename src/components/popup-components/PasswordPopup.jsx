@@ -21,8 +21,6 @@ const PasswordPopup = (props) => {
   const onSubmit = (data) => {
     updatePassword(data).then((res) => {
       if (res.data !== undefined) {
-        console.log(res);
-        console.log(res.data.token);
         setUpdate(res);
         Cookies.set("jwt", res.data.token);
       }
