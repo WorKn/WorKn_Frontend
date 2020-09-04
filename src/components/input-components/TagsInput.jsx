@@ -9,16 +9,14 @@ import categoryContext from "../../utils/categoryContext";
 const TagsInput = (props) => {
   const [inputValue, setInputValue] = useState("");
   const [tags, setTags] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState([]);
   const { selectedTags, setSelectedTags } = useContext(tagsContext);
-  const category = selectedCategory;
-
+  const { selectedCategory, setSelectedCategory } = useContext(categoryContext);
   const animatedComponent = makeAnimated();
 
   useEffect(() => {
     const response = axios
       .get(
-        `http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/software/tags`
+        `http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.label}/tags`
       )
       .then((res) => {
         const json = res.data.data.tags;
@@ -27,8 +25,13 @@ const TagsInput = (props) => {
           tags.push({ label: i.name, value: i._id });
         });
         setTags(tags);
+        console.log(res);
       });
-  }, []);
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    console.log(selectedCategory);
+  }, [selectedCategory]);
 
   const filterCategories = (inputValue) => {
     const temp = tags.filter((tag) =>
@@ -48,31 +51,29 @@ const TagsInput = (props) => {
   };
 
   return (
-    <categoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
-      <div className="taginput">
-        {/* <div>{this.state.filteredCategories.map(this.renderEveryTag)}</div> */}
-        <AsyncSelect
-          components={animatedComponent}
-          isMulti
-          onChange={setSelectedTags}
-          placeholder={selectedCategory}
-          loadOptions={loadOptions}
-          onInputChange={onChange}
-          value={selectedTags}
-          theme={(theme) => ({
-            ...theme,
-            borderRadius: 5,
-            colors: {
-              ...theme.colors,
-              primary25: "#f7f7f7",
-              primary: "#00BA6B",
-              neutral0: "white",
-              neutral90: "white",
-            },
-          })}
-        ></AsyncSelect>
-      </div>
-    </categoryContext.Provider>
+    <div className="taginput">
+      <AsyncSelect
+        defaultOptions
+        components={animatedComponent}
+        isMulti
+        onChange={setSelectedTags}
+        placeholder="Puedes seleccionar entre 3 y 10"
+        loadOptions={loadOptions}
+        onInputChange={onChange}
+        value={selectedTags}
+        theme={(theme) => ({
+          ...theme,
+          borderRadius: 5,
+          colors: {
+            ...theme.colors,
+            primary25: "#f7f7f7",
+            primary: "#00BA6B",
+            neutral0: "white",
+            neutral90: "white",
+          },
+        })}
+      ></AsyncSelect>
+    </div>
   );
 };
 
