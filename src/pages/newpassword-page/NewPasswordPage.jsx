@@ -18,12 +18,11 @@ const NewPassword = ({
 
   const onSubmit = (data) => {
     data.myToken = token;
-    console.log(data);
     resetPassword(data).then((res) => {
-      if (res.data != undefined) {
+      if (res.data !== undefined) {
         console.log(res.data);
       }
-      push("/loginpage");
+      // push("/loginpage");
     });
   };
 

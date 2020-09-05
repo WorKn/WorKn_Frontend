@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./ForgotPassword-Style.css";
 import "../../App.css";
 import { useForm } from "react-hook-form";
@@ -11,10 +11,9 @@ const FPassword = () => {
 
   const onSubmit = (data) => {
     sendEmail(data).then((res) => {
-      if (res.data != undefined) {
+      if (res.data !== undefined) {
         console.log(res.data);
       }
-      setUserObject(res);
     });
   };
 
@@ -28,9 +27,9 @@ const FPassword = () => {
         <input
           className="forgot-container__form-input"
           type="email"
+          name="email"
           placeholder="Email"
           ref={register({ required: "Por favor ingrese su correo" })}
-          name="email"
         />
         <ErrorMessage
           errors={errors}
