@@ -5,17 +5,17 @@ import { sendImage, getMe } from "../../utils/apiRequests";
 import { Form } from "react-bootstrap";
 
 const PictureContainer = ({ newImage }) => {
-  const [images, setImages] = useState("");
-  const getImages = async () => {
+  const [image, setImage] = useState("");
+  const getImage = async () => {
     try {
       getMe().then((res) => {
         console.log(res);
-        res.data.files = res.data.data.profilePicture;
-        if (!res.data.files) {
+        const pp = res.data.data.data.profilePicture;
+        if (!pp) {
           console.log("dude!, where is my picture? ");
           return;
         } else {
-          setImages(res.data.files);
+          setImage(pp);
         }
       });
     } catch (error) {
@@ -23,16 +23,17 @@ const PictureContainer = ({ newImage }) => {
     }
   };
   useEffect(() => {
-    getImages();
+    getImage();
   }, [newImage]);
 
-  const configureImage = (image) => {
-    if (!image) {
-      return "https://i0.wp.com/postmatura.al/wp-content/uploads/2018/10/blank-profile-picture-png.png?fit=512%2C512&ssl=1";
-    } else {
-      return image;
-    }
-  };
+  // const configureImage = (image) => {
+  //   if (!image) {
+  //     return;
+  //     //return "https://i0.wp.com/postmatura.al/wp-content/uploads/2018/10/blank-profile-picture-png.png?fit=512%2C512&ssl=1";
+  //   } else {
+  //     return image;
+  //   }
+  // };
 
   //console.log(images);
 
@@ -41,12 +42,7 @@ const PictureContainer = ({ newImage }) => {
       <span>Foto de perfil</span>
       <div className="Pic-selector__profile-container">
         <div className="Pic-selector__img-holder">
-          <img
-            src={configureImage(images)}
-            alt={images}
-            id="img"
-            className="Pic-selector__img"
-          />
+          <img src={image} alt={image} id="img" className="Pic-selector__img" />
         </div>
       </div>
     </div>

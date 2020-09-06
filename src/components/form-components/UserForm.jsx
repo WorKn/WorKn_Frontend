@@ -9,18 +9,13 @@ import { useStateMachine } from "little-state-machine";
 import TagInput from "../input-components/TagInput";
 import { updateProfile } from "../../utils/apiRequests";
 import Cookies from "js-cookie";
-import PictureForm from "../profile-picture-components/PictureForm";
-import PictureContainer from "../profile-picture-components/Profile-selection-component";
+import ProfilePicture from "../profile-picture-components/ProfilePicture";
 
 const UserForm = () => {
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, errors, watch } = useForm({
     defaultValues: state.userInformation,
   });
-  const [newImage, setNewImage] = useState();
-  const handleNewImage = () => {
-    setNewImage(newImage);
-  };
 
   const onSubmit = (data) => {
     // updateProfile(data).then((res) => {
@@ -39,8 +34,7 @@ const UserForm = () => {
     <form className="userform" onSubmit={handleSubmit(onSubmit)}>
       {" "}
       <div className="userform__LIP">
-        <PictureContainer newImage={newImage}></PictureContainer>
-        <PictureForm handleNewImage={handleNewImage}></PictureForm>
+        <ProfilePicture></ProfilePicture>
       </div>
       <div className="userform__2col">
         <div className="userform__LIP">

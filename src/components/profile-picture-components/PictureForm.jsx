@@ -5,10 +5,11 @@ import { sendImage } from "../../utils/apiRequests";
 import { Form } from "react-bootstrap";
 
 const PictureForm = ({ handleNewImage }) => {
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState();
   const [preview, setPreview] = useState(false);
   const handleImageUpload = (e) => {
     setImage(e.target.files[0]);
+    console.log(e.target.files[0]);
     setPreview(true);
   };
 
@@ -22,7 +23,7 @@ const PictureForm = ({ handleNewImage }) => {
       console.log(res);
     });
     setPreview(false);
-    setImage("");
+    setImage(false);
     handleNewImage();
   };
 
@@ -31,12 +32,12 @@ const PictureForm = ({ handleNewImage }) => {
       {preview ? (
         <>
           <div className="PicForm">
-            <img
+            {/* <img
               src={URL.createObjectURL(image)}
               alt="preview"
               className="Pic-selector__img"
               style={{ display: "none" }}
-            />
+            /> */}
             <button onClick={handleSubmit} className="PicForm_cbutton">
               Confirmar
             </button>
@@ -51,12 +52,12 @@ const PictureForm = ({ handleNewImage }) => {
             type="file"
             onChange={handleImageUpload}
             accept="png jpg jpeg"
-            id="input"
+            id="inputPF"
             style={{ display: "none" }}
             className="PicForm_chbutton"
           />
           <div className="Pic-selector__label ">
-            <label htmlFor="input" className="Pic-selector__image-upload">
+            <label htmlFor="inputPF" className="Pic-selector__image-upload">
               <i className="material-icons">add_a_photo</i>
             </label>
           </div>
