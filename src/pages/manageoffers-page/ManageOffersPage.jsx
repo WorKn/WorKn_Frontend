@@ -9,7 +9,7 @@ const ManageOffersPage = () => {
     <div className="manageoffers__background">
       <div className="manageoffers__container">
         <div className="manageoffers__body">
-          <span className="userform__title">Panel de control de usuario</span>
+          <span className="userform__title">Panel de control de ofertas</span>
           <br></br>
           <span className="userform__text">
             Aquí podrás gestionar tu información confidencial, recuerda nunca

@@ -131,30 +131,20 @@ export const validateEmail = async (token) => {
 };
 
 export const createOffer = async (offer) => {
-  const {
-    mytitle,
-    mydescription,
-    myofferType,
-    mylocation,
-    mycategory,
-    mytags,
-    mysalaryRange,
-    myclosingDate,
-  } = offer;
   try {
     const response = await axios.post(`${HOST}/api/v1/offers`, {
-      title: mytitle,
-      description: mydescription,
-      offerType: myofferType,
-      location: mylocation,
-      category: mycategory,
-      tags: mytags,
-      salaryRange: mysalaryRange,
-      closingDate: myclosingDate,
+      title: offer.title,
+      description: offer.description,
+      offerType: offer.offerType,
+      location: offer.location,
+      category: offer.category,
+      tags: offer.tags,
+      salaryRange: offer.salaryRange,
+      closingDate: offer.closingDate,
     });
     return response.data.status;
   } catch (e) {
     console.log("Hubo un error NIGGER");
-    return false;
+    return e.response.data;
   }
 };
