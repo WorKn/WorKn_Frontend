@@ -10,23 +10,24 @@ const TagsInput = (props) => {
   const [inputValue, setInputValue] = useState("");
   const [tags, setTags] = useState([]);
   const { selectedTags, setSelectedTags } = useContext(tagsContext);
-  const { selectedCategory, setSelectedCategory } = useContext(categoryContext);
+  const { selectedCategory } = useContext(categoryContext);
   const animatedComponent = makeAnimated();
 
   useEffect(() => {
-    const response = axios
+    axios
       .get(
         `http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.label}/tags`
       )
       .then((res) => {
+        console.log(inputValue);
         const json = res.data.data.tags;
         const tags = [];
-        json.map((i) => {
+        json.forEach((i) => {
           tags.push({ label: i.name, value: i._id });
         });
         setTags(tags);
       });
-  }, [selectedCategory]);
+  }, [selectedCategory, inputValue]);
 
   const filterCategories = (inputValue) => {
     const temp = tags.filter((tag) =>

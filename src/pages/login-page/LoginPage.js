@@ -32,7 +32,7 @@ const LoginPage = React.memo((props) => {
   };
 
   useEffect(() => {
-    if (userObject.data !== undefined && userObject.data.status == "success") {
+    if (userObject.data !== undefined && userObject.data.status === "success") {
       action(userObject.data.data.user);
       Cookies.set("jwt", userObject.data.token);
     }
@@ -49,7 +49,13 @@ const LoginPage = React.memo((props) => {
       push("/userprofilepage");
       console.log("not completed!");
     }
-  }, [userObject, push, action]);
+  }, [
+    userObject,
+    push,
+    action,
+    state.userInformation.category,
+    state.userInformation.tags,
+  ]);
 
   return (
     <div className="login-wrapper">

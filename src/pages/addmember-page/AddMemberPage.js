@@ -20,8 +20,6 @@ const AddMember = ({
   });
   const { push } = useHistory();
   const onSubmit = (data) => {
-    // console.log(token);
-    // console.log(orgid);
     state.userInformation.userType = "offerer";
     state.userInformation.organizationRole = "owner";
     state.userInformation.organization = orgid;
@@ -42,7 +40,7 @@ const AddMember = ({
     } else {
       console.log("loading");
     }
-  }, [gotResponse]);
+  }, [gotResponse, push, state.userInformation]);
 
   const password = useRef({});
   password.current = watch("password", "");
