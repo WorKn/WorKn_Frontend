@@ -1,0 +1,42 @@
+.Announcement-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  height: 8vh;
+  background-color: #333234;
+  color: white;
+  font-size: 12px;
+}
+
+.Announcement-container div {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 75vw;
+  height: 7vh;
+}
+
+.Announcement-container button {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 20px;
+  height: 18px;
+  background-color: #333234;
+  color: #7e7e7e;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}
+
+@media only screen and (max-width: 808px) {
+  .Announcement-container {
+    font-size: 9px;
+  }
+}
