@@ -119,7 +119,6 @@ export const updatePassword = async (user) => {
 };
 
 export const sendEmail = async (user) => {
-  console.log(user.email);
   try {
     const response = await axios.post(`${HOST}/api/v1/users/forgotPassword`, {
       email: user.email,

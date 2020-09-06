@@ -3,6 +3,8 @@ import "./ForgotPassword-Style.css";
 import "../../App.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { sendEmail } from "../../utils/apiRequests";
 
 const FPassword = () => {
@@ -10,15 +12,35 @@ const FPassword = () => {
   const [userObject, setUserObject] = useState("");
 
   const onSubmit = (data) => {
-    sendEmail(data).then((res) => {
-      if (res.data !== undefined) {
-        console.log(res.data);
-      }
-    });
+    sendEmail(data)
+      .then((res) => {
+        if (res.data !== undefined) {
+          toast.success(`Porfavor, revise su correo`, {
+            className: "sendEmail_success",
+            position: toast.POSITION.TOP_LEFT,
+            closeButton: false,
+          });
+          console.log(res.data);
+        } else {
+          toast.error(`Hubo un error`, {
+            className: "sendEmail_fail",
+            position: toast.POSITION.TOP_LEFT,
+            closeButton: false,
+          });
+        }
+      })
+      .catch((err) => {
+        toast.error(err, {
+          className: "sendEmail_fail",
+          position: toast.POSITION.TOP_LEFT,
+          closeButton: false,
+        });
+      });
   };
 
   return (
     <div className="login-wrapper">
+      <ToastContainer />
       <form className="forgot-container" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="forgot-container__popup-title">
           ¡Olvide mi contraseña!

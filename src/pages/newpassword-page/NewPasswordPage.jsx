@@ -22,7 +22,7 @@ const NewPassword = ({
       if (res.data !== undefined) {
         console.log(res.data);
       }
-      // push("/loginpage");
+      push("/loginpage");
     });
   };
 
