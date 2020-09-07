@@ -29,14 +29,12 @@ createStore({
 });
 
 ReactDOM.render(
-  <React.StrictMode>
-    <StateMachineProvider>
-      <DevTool />
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </StateMachineProvider>
-  </React.StrictMode>,
+  <StateMachineProvider>
+    <DevTool />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StateMachineProvider>,
   document.getElementById("root")
 );
 

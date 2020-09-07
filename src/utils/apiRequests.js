@@ -8,20 +8,8 @@ let HOST = "";
 if (process.env.REACT_APP_ENV === "staging") {
   HOST = process.env.REACT_APP_STAGING_HOST;
 }
-// const { action, state } = useStateMachine(updateAction);
 
 const accessToken = Cookies.get("jwt");
-// console.log(
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmM2Y0ZjQ3MTJlN2YzMjE0NmM1Y2JjOCIsImlhdCI6MTU5ODAzNTAwMSwiZXhwIjoxNjA1ODExMDAxfQ.vdxWNJsZZp_7byenl3QWJ-BVh1VZPslhXzG7pQScL7c"
-// );
-// console.log(accessToken);
-
-// const authAxios = axios.create({
-//   baseURL: HOST,
-//   headers: {
-//     Authorization: `Bearer ${accessToken}`,
-//   },
-// });
 
 axios.interceptors.request.use(
   (config) => {
@@ -52,7 +40,6 @@ export const getMe = async () => {
 };
 
 export const userLogin = async (user) => {
-  // console.log(user);
   try {
     const response = await axios.post(`${HOST}/api/v1/users/login`, {
       email: user.email,
@@ -65,7 +52,6 @@ export const userLogin = async (user) => {
 };
 
 export const userSignup = async (user) => {
-  // console.log(user);
   try {
     const response = await axios.post(`${HOST}/api/v1/users/signup`, {
       name: user.name,
@@ -82,8 +68,44 @@ export const userSignup = async (user) => {
   }
 };
 
+export const orgUserSignup = async (user) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/users/signup`, {
+      name: user.name,
+      lastname: user.lastname,
+      email: user.email,
+      birthday: user.birthday,
+      password: user.password,
+      passwordConfirm: user.passwordConfirm,
+      userType: user.userType,
+      organizationRole: user.organizationRole,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const invitedUserSignup = async (user) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/users/signup`, {
+      name: user.name,
+      lastname: user.lastname,
+      email: user.email,
+      birthday: user.birthday,
+      password: user.password,
+      passwordConfirm: user.passwordConfirm,
+      userType: user.userType,
+      organizationRole: user.organizationRole,
+      organization: user.organization,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
 export const updateProfile = async (user) => {
-  // console.log(user);
   try {
     const response = await axios.patch(`${HOST}/api/v1/users/updateMyProfile`, {
       name: user.name,
@@ -102,7 +124,6 @@ export const updateProfile = async (user) => {
 };
 
 export const updatePassword = async (user) => {
-  console.log(user);
   try {
     const response = await axios.patch(
       `${HOST}/api/v1/users/updateMyPassword`,
@@ -122,6 +143,35 @@ export const sendEmail = async (user) => {
   try {
     const response = await axios.post(`${HOST}/api/v1/users/forgotPassword`, {
       email: user.email,
+       });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+//Organizations
+
+export const getMyOrganization = async () => {
+  try {
+    const response = await axios.get(
+      `${HOST}/api/v1/organizations/myOrganization`
+    );
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
+export const createOrganization = async (org) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/organizations`, {
+      name: org.name,
+      RNC: org.RNC,
+      bio: org.bio,
+      location: org.location,
+      phone: org.phone,
+      email: org.email,
     });
     return response;
   } catch (e) {
@@ -137,6 +187,53 @@ export const resetPassword = async (user) => {
       {
         password: user.password,
         passwordConfirm: user.passwordConfirm,
+      }
+    );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const editOrganization = async (org) => {
+  try {
+    const response = await axios.patch(
+      `${HOST}/api/v1/organizations/${org.id}`,
+      {
+        name: org.name,
+        RNC: org.RNC,
+        bio: org.bio,
+        location: org.location,
+        phone: org.phone,
+        email: org.email,
+      }
+    );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const sendInvitation = async (org) => {
+  try {
+    const response = await axios.post(
+      `${HOST}/api/v1/organizations/${org.id}/members/invite`,
+      {
+        members: [org.email],
+      }
+    );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const removeMember = async (org) => {
+  try {
+    const response = await axios.delete(
+      `${HOST}/api/v1/organizations/${org.OrgId}/members`,
+      {
+        id: org.id,
       }
     );
     return response;

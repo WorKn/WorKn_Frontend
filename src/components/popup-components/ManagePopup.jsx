@@ -4,13 +4,13 @@ import "../../App.css";
 import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { sendInvitation } from "../../utils/apiRequests";
+import { sendInvitation, removeMember } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import Cookies from "js-cookie";
 
-const MembersPopup = () => {
+const ManagePopup = () => {
   const [invited, setInvited] = useState("");
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, errors, watch, reset } = useForm();
@@ -19,8 +19,10 @@ const MembersPopup = () => {
   const { push } = useHistory();
 
   const onSubmit = (data, e) => {
-    data.id = state.userInformation.organization;
-    sendInvitation(data).then((res) => {
+    console.log("test");
+    data.OrgId = state.userInformation.organization;
+    console.log(data);
+    removeMember(data).then((res) => {
       if (res.data !== undefined) {
         setInvited(res);
         e.target.reset();
@@ -31,13 +33,13 @@ const MembersPopup = () => {
   return (
     <div className="popup-wrapper">
       <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
-        <span className="popup-btitle">Manejo de invitaciones</span>
+        <span className="popup-btitle">Eliminar usuario</span>
         <div className="userform__LIP">
-          <span className="userform__label">Ingrese el correo</span>
+          <span className="userform__label">Temporary</span>
           <input
             className="form-input"
-            type="email"
-            name="email"
+            type="text"
+            name="id"
             // pattern="[a-zA-Z]*"
             ref={register({
               required: "Por favor ingrese el correo a invitar",
@@ -56,7 +58,7 @@ const MembersPopup = () => {
         {typeof invited.data !== "undefined" &&
         invited.data.status == "success" ? (
           <div className="input__msg input__msg--success">
-            <i class="fa fa-check"></i> Usuario invitado correctamente
+            <i class="fa fa-check"></i> Usuario eliminado correctamente
           </div>
         ) : (
           ""
@@ -65,13 +67,13 @@ const MembersPopup = () => {
         <input
           className="custom-button bg-green"
           type="submit"
-          value="Invitar Usuario"
+          value="Eliminar Usuario"
         />
 
         <div className="info-container">
           <i className="fa fa-info icon"></i>
           <p>
-            Ingresa aquí el correo del usuario que quieras invitar a formar
+            Ingresa aquí el correo del usuario que quieras eliminar a formar
             parte de tu organización, recuerda que por medio de ese correo podrá
             crear su cuenta para utilizar WorKn.
           </p>
@@ -96,4 +98,4 @@ const MembersPopup = () => {
   );
 };
 
-export default MembersPopup;
+export default ManagePopup;
