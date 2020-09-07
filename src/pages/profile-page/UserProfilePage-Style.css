@@ -18,7 +18,7 @@
 
 .userprofile__action {
   display: flex;
-  margin-top: 16px;
+  margin: 10px 0px;
   width: 50%;
   justify-content: flex-start;
   color: #00ba6b;
