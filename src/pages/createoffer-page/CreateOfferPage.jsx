@@ -31,14 +31,20 @@ const CreateOfferPage = () => {
 
  */
   const onSubmit = (data) => {
-    data.category = "health";
+    data.category = "5f5188eedee0fc8c9c91e829";
     data.tags = [
       "5f518b2c47667760a0c79ef5",
       "5f518b3d1f33143b50ff0614",
       "5f518b450368007bf46c862b",
     ];
+    //eliminar aquellos atributos que sean iguales a ""
+    Object.keys(data).forEach(
+      (property) => data[property] == "" && delete data[property]
+    );
 
-    // console.log(createOffer(data));
+    createOffer(data).then((res) => {
+      console.log(res);
+    });
     console.log(data);
   };
 
@@ -172,14 +178,15 @@ const CreateOfferPage = () => {
         </div>
         <div className="create-offer__paired-input">
           <span>Salary Range</span>
-
-          <input
-            type="text"
-            name="salaryRange"
-            placeholder="Rango salarial [opcional]"
-            ref={register}
-            title="Por favor, ingrese el rango salarial de la oferta [opcional]"
-          />
+          <div className="create-offer__salary-range">
+            <input
+              type="text"
+              name="salaryRange"
+              placeholder="Rango salarial [opcional]"
+              ref={register}
+              title="Por favor, ingrese el rango salarial de la oferta [opcional]"
+            />
+          </div>
           <ErrorMessage
             errors={errors}
             name="salaryRange"
