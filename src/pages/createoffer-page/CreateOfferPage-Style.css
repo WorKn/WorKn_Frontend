@@ -52,3 +52,14 @@
   margin-bottom: 16px;
   padding: auto 20px;
 }
+
+.create-offer__salary-range {
+  display: flex;
+  /* margin-right: 30%;
+  justify-content: space-between; */
+}
+
+.create-offer__salary-range input {
+  flex: 1 1 auto;
+  width: 103px;
+}

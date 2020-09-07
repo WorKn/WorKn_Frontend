@@ -12,7 +12,7 @@ import { ErrorMessage } from "@hookform/error-message";
 
 const CreateOfferPage = () => {
   const { register, handleSubmit, errors, watch } = useForm({
-    mode: "onBlur",
+    // mode: "onBlur",
   });
 
   //aniadir manualmente los atributos para asuntos de pruebas
@@ -41,6 +41,10 @@ const CreateOfferPage = () => {
     Object.keys(data).forEach(
       (property) => data[property] == "" && delete data[property]
     );
+
+    data.salaryRange = [data.salaryRangeFrom, data.salaryRangeTo];
+    delete data["salaryRangeFrom"];
+    delete data["salaryRangeTo"];
 
     createOffer(data).then((res) => {
       console.log(res);
@@ -178,18 +182,37 @@ const CreateOfferPage = () => {
         </div>
         <div className="create-offer__paired-input">
           <span>Salary Range</span>
-          <div className="create-offer__salary-range">
-            <input
-              type="text"
-              name="salaryRange"
-              placeholder="Rango salarial [opcional]"
-              ref={register}
-              title="Por favor, ingrese el rango salarial de la oferta [opcional]"
-            />
-          </div>
+
+          <input
+            type="number"
+            step="any"
+            name="salaryRangeFrom"
+            placeholder="Desde [opcional]"
+            ref={register}
+            title="Por favor, ingrese el rango inicial sin comas [opcional]"
+          />
+
           <ErrorMessage
             errors={errors}
-            name="salaryRange"
+            name="salaryRangeFrom"
+            render={({ message }) => (
+              <div className="input__msg input__msg--error">
+                <i class="fa fa-asterisk"></i> {message}
+              </div>
+            )}
+          />
+          <input
+            type="number"
+            step="any"
+            name="salaryRangeTo"
+            placeholder="Hasta [opcional]"
+            ref={register}
+            title="Por favor, ingrese el rango final [opcional]"
+          />
+
+          <ErrorMessage
+            errors={errors}
+            name="salaryRangeTo"
             render={({ message }) => (
               <div className="input__msg input__msg--error">
                 <i class="fa fa-asterisk"></i> {message}
