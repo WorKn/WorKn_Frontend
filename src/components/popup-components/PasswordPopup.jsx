@@ -1,15 +1,13 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import "./QuestionPopup-Style.css";
 import "./PasswordPopup-Style.css";
 import "../../App.css";
-import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { updatePassword, updateProfile } from "../../utils/apiRequests";
+import { updatePassword } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 import Auth from "../../utils/authHelper";
-import { propTypes } from "react-bootstrap/esm/Image";
 
 const PasswordPopup = (props) => {
   const [update, setUpdate] = useState();
@@ -112,7 +110,7 @@ const PasswordPopup = (props) => {
             )}
           />
         </div>
-        {typeof update !== "undefined" && update.data.status == "success" ? (
+        {typeof update !== "undefined" && update.data.status === "success" ? (
           <div className="info-container">
             <i className="fa fa-check icon"></i>
             <p>

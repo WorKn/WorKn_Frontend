@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from "react";
 import "./UserForm-Style.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { useHistory } from "react-router-dom";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import {
@@ -10,7 +9,7 @@ import {
   getMe,
   getMyOrganization,
 } from "../../utils/apiRequests";
-import { Pic_Selector } from "../../components/profile-pic-selection-components/Profile-selection-component";
+import { PicSelector } from "../../components/profile-pic-selection-components/Profile-selection-component";
 import CategoryInput from "../input-components/CategoryInput";
 import categoryContext from "../../utils/categoryContext";
 import TagsInput from "../input-components/TagsInput";
@@ -21,7 +20,6 @@ const UserForm = () => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [updated, setUpdated] = useState("");
   const { state, action } = useStateMachine(updateAction);
-  const { push } = useHistory();
   const password = useRef({});
   const { register, handleSubmit, errors, watch } = useForm({
     defaultValues: state.userInformation,
@@ -52,14 +50,14 @@ const UserForm = () => {
     } else {
       console.log("loading");
     }
-  }, [updated]);
+  }, [updated, action, state.userInformation.userType]);
 
   return (
     <categoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
       <tagsContext.Provider value={{ selectedTags, setSelectedTags }}>
         <form className="userform" onSubmit={handleSubmit(onSubmit)}>
           <div className="userform__LIP">
-            <Pic_Selector></Pic_Selector>
+            <PicSelector></PicSelector>
           </div>
           <div className="userform__2col">
             <div className="userform__LIP">

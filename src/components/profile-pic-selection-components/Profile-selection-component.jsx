@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Profile-selection-Style.css";
 
-export class Pic_Selector extends Component {
+export class PicSelector extends Component {
   state = {
     profileImg:
       "https://i0.wp.com/postmatura.al/wp-content/uploads/2018/10/blank-profile-picture-png.png?fit=512%2C512&ssl=1",

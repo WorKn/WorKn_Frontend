@@ -1,22 +1,18 @@
 import React, { useRef, useState } from "react";
 import "./QuestionPopup-Style.css";
 import "../../App.css";
-import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { sendInvitation, removeMember } from "../../utils/apiRequests";
-import { useHistory } from "react-router-dom";
+import { removeMember } from "../../utils/apiRequests";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
-import Cookies from "js-cookie";
 
 const ManagePopup = () => {
   const [invited, setInvited] = useState("");
-  const { state, action } = useStateMachine(updateAction);
-  const { register, handleSubmit, errors, watch, reset } = useForm();
+  const { state } = useStateMachine(updateAction);
+  const { register, handleSubmit, errors, watch } = useForm();
   const newPassword = useRef({});
   newPassword.current = watch("newPassword", "");
-  const { push } = useHistory();
 
   const onSubmit = (data, e) => {
     console.log("test");
@@ -56,7 +52,7 @@ const ManagePopup = () => {
           />
         </div>
         {typeof invited.data !== "undefined" &&
-        invited.data.status == "success" ? (
+        invited.data.status === "success" ? (
           <div className="input__msg input__msg--success">
             <i class="fa fa-check"></i> Usuario eliminado correctamente
           </div>
