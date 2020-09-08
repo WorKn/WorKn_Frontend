@@ -1,9 +1,9 @@
 .Counter-Banner {
-  background-color: #ffffff;
-  color: #7e7e7e;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #ffffff;
+  color: #7e7e7e;
   width: 100vw;
   height: 70vh;
 }
@@ -56,12 +56,6 @@
   color: #00ba6b;
 }
 
-@media screen and (min-width: 800px) {
-  .counter-container {
-    font-size: 200%;
-  }
-}
-
 @media screen and (max-width: 799px) {
   .counter-container {
     font-size: 120%;
@@ -93,8 +87,12 @@
     width: 20vw;
     height: 30vh;
     font-size: 14px;
+    transition: none;
   }
 
+  .Counter-obj-container:hover {
+    transform: none;
+  }
   .counter-icon {
     display: flex;
     flex-direction: column;
