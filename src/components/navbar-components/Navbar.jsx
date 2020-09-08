@@ -13,7 +13,6 @@ import { useStateMachine } from "little-state-machine";
 const Navbar = () => {
   const isLoggedIn = auth.isAuthenticated();
   const { state } = useStateMachine(updateAction);
-  //en esta parte debo de consultar al API por una profile picture, y sino la jaya pues renderizar la defecto
 
   return (
     <div className="navbar">
@@ -42,12 +41,11 @@ const Navbar = () => {
 
       {isLoggedIn ? (
         <div className="navbar__right-items">
-          <Link to="/userProfilePage" className="navbar__profile-button-link">
+          <Link to="/userprofilepage" className="navbar__profile-button-link">
             <button className="navbar__profile-button">
               <span>Perfil</span>
               <div className="navbar__img-holder">
                 <img
-                  // src="https://i0.wp.com/postmatura.al/wp-content/uploads/2018/10/blank-profile-picture-png.png?fit=512%2C512&ssl=1"
                   src={state.userInformation.profilePicture}
                   alt=""
                   className="navbar__profile-pic"

@@ -26,7 +26,8 @@
 .navbar__right-items {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: center;
   flex-grow: 0.15;
 }
 
@@ -70,11 +71,12 @@
 .navbar__profile-pic {
   max-height: 41px;
   max-width: 41px;
+  margin-left: -1px;
 }
 
-.navbar__profile-button > * {
+/* .navbar__profile-button > * {
   padding: 0px 3px;
-}
+} */
 
 .navbar__profile-button-link {
   text-decoration: none;
