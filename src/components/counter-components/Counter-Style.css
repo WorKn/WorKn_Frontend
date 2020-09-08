@@ -17,6 +17,11 @@
   width: 20vw;
   height: 35vh;
   font-size: 14px;
+  transition: transform 0.4s ease;
+}
+
+.Counter-obj-container:hover {
+  transform: scale(1.05);
 }
 
 .counter-icon {
@@ -58,6 +63,42 @@
 }
 
 @media screen and (max-width: 799px) {
+  .Counter-Banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 110vh;
+  }
+
+  .Counter-obj-container {
+    margin: 1vw;
+    width: 20vw;
+    height: 35vh;
+    font-size: 14px;
+  }
+
+  .counter-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 15vw;
+    height: 12vw;
+    transition: none;
+  }
+
+  .counter-icon:hover {
+    transform: none;
+  }
+
+  .counter-icon img {
+    flex: 0 1 auto;
+    width: 10vw;
+    height: 10vw;
+  }
+
   .counter-container {
     font-size: 120%;
   }
