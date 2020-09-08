@@ -6,9 +6,13 @@ import { Link } from "react-router-dom";
 
 import auth from "../../utils/authHelper";
 
+import updateAction from "../../updateAction";
+
+import { useStateMachine } from "little-state-machine";
+
 const Navbar = () => {
   const isLoggedIn = auth.isAuthenticated();
-
+  const { state } = useStateMachine(updateAction);
   //en esta parte debo de consultar al API por una profile picture, y sino la jaya pues renderizar la defecto
 
   return (
@@ -44,7 +48,7 @@ const Navbar = () => {
               <div className="navbar__img-holder">
                 <img
                   // src="https://i0.wp.com/postmatura.al/wp-content/uploads/2018/10/blank-profile-picture-png.png?fit=512%2C512&ssl=1"
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Elon_Musk_Royal_Society.jpg/250px-Elon_Musk_Royal_Society.jpg"
+                  src={state.userInformation.profilePicture}
                   alt=""
                   className="navbar__profile-pic"
                 />
