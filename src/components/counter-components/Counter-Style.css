@@ -63,6 +63,18 @@
 }
 
 @media screen and (max-width: 799px) {
+  .counter-container {
+    font-size: 120%;
+  }
+  .Counter-obj-container__up-text {
+    font-size: 1em;
+  }
+  .Counter-obj-container__down-text {
+    font-size: 0.9em;
+  }
+}
+
+@media screen and (max-width: 412px) {
   .Counter-Banner {
     display: flex;
     flex-direction: column;
@@ -73,9 +85,13 @@
   }
 
   .Counter-obj-container {
-    margin: 1vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2vw;
     width: 20vw;
-    height: 35vh;
+    height: 30vh;
     font-size: 14px;
   }
 
@@ -86,26 +102,11 @@
     align-items: center;
     width: 15vw;
     height: 12vw;
-    transition: none;
-  }
-
-  .counter-icon:hover {
-    transform: none;
   }
 
   .counter-icon img {
     flex: 0 1 auto;
     width: 10vw;
     height: 10vw;
-  }
-
-  .counter-container {
-    font-size: 120%;
-  }
-  .Counter-obj-container__up-text {
-    font-size: 1em;
-  }
-  .Counter-obj-container__down-text {
-    font-size: 0.9em;
   }
 }
