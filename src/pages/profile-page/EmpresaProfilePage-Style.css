@@ -1,0 +1,11 @@
+.profile__backtick {
+  color: #00ba6b;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.profile__header {
+  color: #333234;
+  font-size: 24px;
+  font-weight: 500;
+}
