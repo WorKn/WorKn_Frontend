@@ -141,18 +141,18 @@ export const updatePassword = async (user) => {
 
 export const sendImage = async (image) => {
   console.log(image);
-  // const fd = new FormData();
-  // fd.append("image", image);
-  // console.log(fd);
+  const fd = new FormData();
+  fd.append("image", image);
+  console.log(fd);
   const config = {
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "multipart/form-data; boundary=workntest",
     },
   };
   try {
     const response = await axios.patch(
       `${HOST}/api/v1/users/updateMyProfile`,
-      image,
+      { profilePicture: image },
       config
     );
     return response;

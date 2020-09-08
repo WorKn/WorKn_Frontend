@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import PictureForm from "./PictureForm";
-import PictureContainer from "./Profile-selection-component";
+import PictureContainer from "./PictureContainer";
 
-const ProfilePicture = () => {
+const PicSelector = () => {
   const [newImage, setNewImage] = useState();
   const handleNewImage = () => {
     setNewImage(newImage);
@@ -16,4 +16,4 @@ const ProfilePicture = () => {
   );
 };
 
-export default ProfilePicture;
+export default PicSelector;

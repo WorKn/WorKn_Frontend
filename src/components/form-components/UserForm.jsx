@@ -9,8 +9,8 @@ import {
   getMe,
   getMyOrganization,
 } from "../../utils/apiRequests";
-import { PicSelector } from "../../components/profile-pic-selection-components/Profile-selection-component";
 import CategoryInput from "../input-components/CategoryInput";
+import PicSelector from "../profile-picture-components/PicSelector";
 import categoryContext from "../../utils/categoryContext";
 import TagsInput from "../input-components/TagsInput";
 import tagsContext from "../../utils/tagsContext";

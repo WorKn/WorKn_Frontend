@@ -32,12 +32,12 @@ const PictureForm = ({ handleNewImage }) => {
       {preview ? (
         <>
           <div className="PicForm">
-            {/* <img
+            <img
               src={URL.createObjectURL(image)}
               alt="preview"
               className="Pic-selector__img"
               style={{ display: "none" }}
-            /> */}
+            />
             <button onClick={handleSubmit} className="PicForm_cbutton">
               Confirmar
             </button>

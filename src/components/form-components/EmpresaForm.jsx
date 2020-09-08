@@ -10,7 +10,7 @@ import {
   editOrganization,
   getMe,
 } from "../../utils/apiRequests";
-import { PicSelector } from "../../components/profile-pic-selection-components/Profile-selection-component";
+import PicSelector from "../profile-picture-components/PicSelector";
 
 const EmpresaForm = () => {
   const [updated, setUpdated] = useState("");
