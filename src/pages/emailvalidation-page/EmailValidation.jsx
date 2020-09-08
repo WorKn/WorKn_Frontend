@@ -47,7 +47,7 @@ const EmailValidation = ({
       ) : (
         <div className="email-validation__body">
           <img
-            src="https://i.imgur.com/siTaWZ0.png"
+            src="https://i.imgur.com/cDCOxmU.png"
             alt=""
             className="email-validation__img"
           />
