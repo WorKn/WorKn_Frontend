@@ -1,39 +1,66 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./UserForm-Style.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { useHistory } from "react-router-dom";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
-// import CustomButton from "../button-components/CustomButton";
-import TagInput from "../input-components/TagInput";
-import { updateProfile } from "../../utils/apiRequests";
-import Cookies from "js-cookie";
-import ProfilePicture from "../profile-picture-components/ProfilePicture";
+import {
+  createOrganization,
+  getMyOrganization,
+  editOrganization,
+  getMe,
+} from "../../utils/apiRequests";
+import { PicSelector } from "../../components/profile-pic-selection-components/Profile-selection-component";
 
 const EmpresaForm = () => {
+  const [updated, setUpdated] = useState("");
+  const [disabled, setDisabled] = useState(false);
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, errors, watch } = useForm({
-    defaultValues: state.userInformation,
+    defaultValues: state.userInformation.data,
   });
 
   const onSubmit = (data) => {
-    action(data);
-    updateProfile(data).then((res) => {
-      // Cookies.set("jwt", userObject.data.token);
-      console.log(res);
-    });
-    // push("/registerpagec1");
+    if (!state.userInformation.organization) {
+      console.log("no hay org, creating");
+      createOrganization(data).then((res) => {
+        if (res.data !== undefined) {
+          setUpdated(res);
+          // console.log(res);
+        }
+      });
+    } else {
+      console.log("hay org, updating");
+      data.id = state.userInformation.organization;
+      editOrganization(data).then((res) => {
+        if (res.data !== undefined) {
+          setDisabled(true);
+          setUpdated(res);
+          // console.log(res);
+        }
+      });
+    }
   };
-  const { push } = useHistory();
+  useEffect(() => {
+    getMyOrganization().then((res) => {
+      if (res.data !== undefined) {
+        action(res.data.data);
+        // console.log(res);
+      }
+    });
+    getMe().then((res) => {
+      if (res.data !== undefined) {
+        action(res.data.data.data);
+      }
+    });
+  }, [updated, action]);
   const password = useRef({});
   password.current = watch("password", "");
-  // console.log(state.userInformation.data.data.user);
 
   return (
     <form className="userform" onSubmit={handleSubmit(onSubmit)}>
       <div className="userform__LIP">
-        <ProfilePicture></ProfilePicture>
+        <PicSelector></PicSelector>
       </div>
       <div className="userform__2col">
         <div className="userform__LIP">
@@ -42,9 +69,9 @@ const EmpresaForm = () => {
             className="userform__input"
             type="text"
             name="name"
-            pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su nombre"
-            ref={register({ required: "Por favor ingrese su nombre" })}
+            ref={register({
+              required: "Por favor ingrese el nombre de la empresa",
+            })}
           />
           <ErrorMessage
             errors={errors}
@@ -59,16 +86,22 @@ const EmpresaForm = () => {
         <div className="userform__LIP userform__LIP--separated">
           <span className="userform__label">RNC</span>
           <input
+            disabled={disabled}
             className="userform__input"
             type="text"
-            name="lastname"
-            pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su apellido"
-            ref={register({ required: "Por favor ingrese su apellido" })}
+            name="RNC"
+            pattern="[0-9]+"
+            title="Por solo incluya numeros en el campo"
+            ref={register({
+              maxLength: {
+                value: 9,
+                message: "Por favor utilice 9 caracteres para su RNC",
+              },
+            })}
           />
           <ErrorMessage
             errors={errors}
-            name="lastname"
+            name="RNC"
             render={({ message }) => (
               <div className="input__msg input__msg--error">
                 <i class="fa fa-asterisk"></i> {message}
@@ -77,30 +110,27 @@ const EmpresaForm = () => {
           />
         </div>
       </div>
-      <div className="userform__LIP">
+      {/* <div className="userform__LIP">
         <span className="userform__label">Ubicación</span>
         <input
           className="userform__input"
           type="text"
-          name="identificationNumber"
+          name="location"
           // pattern="[a-zA-Z]*"
           ref={register({
-            maxLength: {
-              value: 11,
-              message: "Su ID debe tener 11 digitos",
-            },
+            required: "Por favor ingrese la ubicacion de la empresa",
           })}
         />
         <ErrorMessage
           errors={errors}
-          name="identificationNumber"
+          name="location"
           render={({ message }) => (
             <div className="input__msg input__msg--error">
               <i class="fa fa-asterisk"></i> {message}
             </div>
           )}
         />
-      </div>
+      </div> */}
       <div className="userform__LIP">
         <span className="userform__label">Descripcion</span>
         <input
@@ -109,11 +139,9 @@ const EmpresaForm = () => {
           name="bio"
           // pattern="[a-zA-Z]*"
           ref={register({
-            required:
-              "Por favor ingrese su biografía, de menos de 400 caracteres",
             maxLength: {
               value: 400,
-              message: "Por faovr utilice menos de 400 caracteres",
+              message: "Por favor utilice menos de 400 caracteres",
             },
           })}
         />
@@ -129,27 +157,44 @@ const EmpresaForm = () => {
       </div>
       <div className="userform__2col">
         <div className="userform__LIP">
-          <span className="userform__label">Telefono celular</span>
-          <input
-            className="userform__input"
-            type="text"
-            name="phone"
-            // pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su nombre"
-            ref={register({ required: "Por favor ingrese su nombre" })}
-          />
-        </div>
-        <div className="userform__LIP userform__LIP--separated">
           <span className="userform__label">Telefono</span>
           <input
             className="userform__input"
             type="text"
-            name="phonee"
+            name="phone"
+            ref={register}
             // pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su nombre"
-            ref={register({ required: "Por favor ingrese su nombre" })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="phone"
+            render={({ message }) => (
+              <div className="input__msg input__msg--error">
+                <i class="fa fa-asterisk"></i> {message}
+              </div>
+            )}
           />
         </div>
+      </div>
+      <div className="userform__LIP">
+        <span className="userform__label">Correo</span>
+        <input
+          className="userform__input"
+          type="email"
+          name="email"
+          ref={register({
+            required: "Por favor ingrese el correo de la empresa",
+          })}
+        />
+        <ErrorMessage
+          errors={errors}
+          name="email"
+          render={({ message }) => (
+            <div className="input__msg input__msg--error">
+              <i class="fa fa-asterisk"></i> {message}
+            </div>
+          )}
+        />
       </div>
 
       {/* <div className="userform__footer">
@@ -171,10 +216,30 @@ const EmpresaForm = () => {
         <span className="userform__label">Selecciona tus etiquetas</span>
         <TagInput></TagInput>
       </div> */}
+      <div>
+        <div className="userform__footer">
+          <span className="userform__title">Mantén tu perfil actualizado</span>
+          <span className="userform__text">
+            Recuerda que esta información será vista por los usuarios que deseen
+            conocer tu organización, mantenla actualizada y crea una descripción
+            llamativa. Ten en cuenta que solo puedes modificar el RNC una vez.
+          </span>
+        </div>
+      </div>
+      {typeof updated.data !== "undefined" &&
+      updated.data.status === "success" ? (
+        <div className="input__msg input__msg--success">
+          El perfil de {updated.data.data.organization.name} fue actualizado
+          correctamente
+        </div>
+      ) : (
+        ""
+      )}
+      <div className="input__msg input__msg--error">{updated.message}</div>
       <input
         className="custom-button bg-green"
         type="submit"
-        value="Guardar Perfil"
+        value="Guardar Perfil de Empresa"
       />
       {/* <CustomButton></CustomButton> */}
 

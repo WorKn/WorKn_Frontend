@@ -1,6 +1,5 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 // import "./Announcement-Style.css";
-import { Alert, Button } from "react-bootstrap";
 
 class Announcement extends Component {
   render() {

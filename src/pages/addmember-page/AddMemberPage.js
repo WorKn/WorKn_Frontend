@@ -1,27 +1,51 @@
-import React, { useRef } from "react";
-import "./RegisterPage-Style.css";
+import React, { useRef, useState, useEffect } from "react";
 import "../../App.css";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
+import { ErrorMessage } from "@hookform/error-message";
 import { getAge } from "../../utils/ageCalculation";
+import { invitedUserSignup } from "../../utils/apiRequests";
 
-const RegisterPage = () => {
+const AddMember = ({
+  match: {
+    params: { token, orgid },
+  },
+}) => {
+  const [gotResponse, setGotResponse] = useState(false);
   const { state, action } = useStateMachine(updateAction);
-  const { register, handleSubmit, errors, watch } = useForm({
+  const { register, handleSubmit, watch, errors } = useForm({
     defaultValues: state.userInformation,
   });
-
   const { push } = useHistory();
   const onSubmit = (data) => {
+    state.userInformation.userType = "offerer";
+    state.userInformation.organizationRole = "owner";
+    state.userInformation.organization = orgid;
     action(data);
-    push("/registerpagec1");
+    setGotResponse(true);
+
+    // state.userInformation.organizationRole = "owner";
+    // action(data);
+    // setGotResponse(true);
   };
+
+  useEffect(() => {
+    if (state.userInformation.organization !== "") {
+      invitedUserSignup(state.userInformation).then((res) => {
+        // setUserInfo(res);
+      });
+      push("/loginpage");
+    } else {
+      console.log("loading");
+    }
+  }, [gotResponse, push, state.userInformation]);
 
   const password = useRef({});
   password.current = watch("password", "");
+
+  // console.log(state.userInformation);
 
   return (
     <div className="register-wrapper">
@@ -35,6 +59,9 @@ const RegisterPage = () => {
             />
           </div>
           <span className="popup-title">Registra tu cuenta </span>
+          <span className="sub-title">
+            En este formulario crearás tu cuenta de organización
+          </span>
           <div className="paired-container">
             <div className="paired-input">
               <span className="popup-text">Nombre</span>
@@ -145,7 +172,9 @@ const RegisterPage = () => {
           <input
             className="form-input"
             name="birthday"
+            id="birthday"
             type="date"
+            min="1899-01-01"
             ref={register({
               required: "Por favor ingrese su fecha de nacimiento",
               validate: (value) =>
@@ -162,7 +191,6 @@ const RegisterPage = () => {
               </div>
             )}
           />
-
           <input
             className="custom-button bg-green"
             type="submit"
@@ -201,4 +229,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default AddMember;

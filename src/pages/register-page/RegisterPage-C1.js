@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./RegisterPage-Style.css";
 import "../../App.css";
 import { useHistory } from "react-router-dom";
@@ -9,20 +9,28 @@ import { useStateMachine } from "little-state-machine";
 import { userSignup } from "../../utils/apiRequests";
 
 const RegisterPageC1 = () => {
+  const [gotResponse, setGotResponse] = useState(false);
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, errors } = useForm();
   const { push } = useHistory();
   const onSubmit = (data) => {
-    action(data);
-    console.log(data);
     state.userInformation.organizationRole = "";
-    userSignup(state.userInformation).then((res) => {
-      console.log(res);
-      // setUserInfo(res);
-    });
-
-    push("/loginpage");
+    action(data);
+    setGotResponse(true);
   };
+
+  useEffect(() => {
+    console.log(state.userInformation);
+    if (state.userInformation.userType !== "") {
+      userSignup(state.userInformation).then((res) => {
+        console.log(res);
+        // setUserInfo(res);
+      });
+      push("/loginpage");
+    } else {
+      console.log("loading");
+    }
+  }, [gotResponse, push, state.userInformation]);
   return (
     <div className="register-wrapper">
       <div className="green-line">
