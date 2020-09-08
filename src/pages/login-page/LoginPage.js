@@ -13,12 +13,9 @@ import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 
 const LoginPage = React.memo((props) => {
-  const { register, handleSubmit, errors } = useForm();
-  const { action, state } = useStateMachine(updateAction);
-  const [userInfo, setUserInfo] = useState("");
   const [userObject, setUserObject] = useState("");
-
-  // const [registerCompleted, setRegisterCompleted] = useState(false);
+  const { register, handleSubmit, errors } = useForm();
+  const { state, action } = useStateMachine(updateAction);
   const {
     show: showQuestionModal,
     RenderModal: QuestionModal,
@@ -28,46 +25,37 @@ const LoginPage = React.memo((props) => {
   const { push } = useHistory();
   const onSubmit = (data) => {
     userLogin(data).then((res) => {
-      if (res.data != undefined) {
-        setUserInfo(res.data.data.user);
+      if (res !== undefined) {
+        setUserObject(res);
       }
-      setUserObject(res);
-      console.log(res);
     });
   };
 
   useEffect(() => {
-    action(userInfo);
-  }, [userInfo]);
-
-  // console.log(state.userInformation.data.data.user);
-
-  // console.log(state.userInfomation);
-
-  // const readCookie = () => {
-  //   const user = Cookies.get("user");
-  //   if (user) {
-  //     auth.login();
-  //     console.log(auth.isAuthenticated());
-  //     push("/userprofilepage");
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   readCookie();
-  // }, []);
-
-  useEffect(() => {
-    if (userObject.data != undefined && userObject.data.status === "success") {
+    if (userObject.data !== undefined && userObject.data.status === "success") {
+      action(userObject.data.data.user);
       Cookies.set("jwt", userObject.data.token);
     }
-
     const user = Cookies.get("jwt");
-    if (user) {
+    if (user && state.userInformation.category && state.userInformation.tags) {
       auth.login();
       push("/userprofilepage");
+    } else if (
+      user &&
+      !state.userInformation.category &&
+      !state.userInformation.tags
+    ) {
+      auth.login();
+      push("/userprofilepage");
+      console.log("not completed!");
     }
-  }, [userInfo, userObject, push]);
+  }, [
+    userObject,
+    push,
+    action,
+    state.userInformation.category,
+    state.userInformation.tags,
+  ]);
 
   return (
     <div className="login-wrapper">
@@ -128,7 +116,6 @@ const LoginPage = React.memo((props) => {
             <div className="input__msg input__msg--error">
               {userObject.message}
             </div>
-
             <div className="text-separator">
               <div>
                 <input className="form-checkbox" type="checkbox" />
