@@ -9,7 +9,7 @@ import { sendEmail } from "../../utils/apiRequests";
 
 const FPassword = () => {
   const { register, handleSubmit, errors } = useForm();
-  const [userObject, setUserObject] = useState("");
+  const [userObject] = useState("");
 
   const onSubmit = (data) => {
     sendEmail(data)
