@@ -16,13 +16,13 @@ const EmailValidation = ({
   useEffect(() => {
     validateEmail(token).then((res) => {
       console.log(res);
-      if (res == "success") {
+      if (res === "success") {
         setValidated(true);
       } else {
         setValidated(false);
       }
     });
-  }, []);
+  }, [token]);
 
   return (
     <div className="email-validation__container">
