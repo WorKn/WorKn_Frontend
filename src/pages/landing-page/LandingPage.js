@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./LandingPage-Style.css";
 import CounterBanner from "../../components/counter-components/Counter-Banner";
 import Banner from "../../components/banner-components/Banner.jsx";

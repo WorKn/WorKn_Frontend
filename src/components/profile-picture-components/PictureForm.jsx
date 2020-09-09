@@ -1,15 +1,12 @@
-import React, { Component, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import "./Profile-selection-Style.css";
 import { sendImage } from "../../utils/apiRequests";
-import { Form } from "react-bootstrap";
 
 const PictureForm = ({ handleNewImage }) => {
   const [image, setImage] = useState();
   const [preview, setPreview] = useState(false);
   const handleImageUpload = (e) => {
     setImage(e.target.files[0]);
-    console.log(e.target.files[0]);
     setPreview(true);
   };
 

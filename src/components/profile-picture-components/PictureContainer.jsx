@@ -1,8 +1,6 @@
-import React, { useState, useEffect, Component } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import "./Profile-selection-Style.css";
-import { sendImage, getMe } from "../../utils/apiRequests";
-import { Form } from "react-bootstrap";
+import { getMe } from "../../utils/apiRequests";
 
 const PictureContainer = ({ newImage }) => {
   const [image, setImage] = useState("");
@@ -26,14 +24,13 @@ const PictureContainer = ({ newImage }) => {
     getImage();
   }, [newImage]);
 
-  // const configureImage = (image) => {
-  //   if (!image) {
-  //     return;
-  //     //return "https://i0.wp.com/postmatura.al/wp-content/uploads/2018/10/blank-profile-picture-png.png?fit=512%2C512&ssl=1";
-  //   } else {
-  //     return image;
-  //   }
-  // };
+  const configureImage = (image) => {
+    if (!image) {
+      return;
+    } else {
+      return image;
+    }
+  };
 
   //console.log(images);
 
@@ -42,7 +39,12 @@ const PictureContainer = ({ newImage }) => {
       <span>Foto de perfil</span>
       <div className="Pic-selector__profile-container">
         <div className="Pic-selector__img-holder">
-          <img src={image} alt={image} id="img" className="Pic-selector__img" />
+          <img
+            src={configureImage(image)}
+            alt={image}
+            id="img"
+            className="Pic-selector__img"
+          />
         </div>
       </div>
     </div>
