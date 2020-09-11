@@ -31,7 +31,24 @@ const SummaryPage = () => {
         </div>
       ) : (
         <div className="summarypage__inner">
-          <h1>klk ofertante</h1>
+          <div className="summarypage__inner">
+            <span className="summarypage__title">
+              Estas personas están interesadas en tu oferta "Nombre Oferta #1"
+            </span>
+            <OfferStrip></OfferStrip>
+            <OfferStrip></OfferStrip>
+            <span className="summarypage__title">
+              Estas personas están interesadas en tu oferta "Nombre Oferta #2"
+            </span>
+            <OfferStrip></OfferStrip>
+            <OfferStrip></OfferStrip>
+            <span className="summarypage__title">
+              Demostraste interés por estas personas
+            </span>
+            <OfferStrip></OfferStrip>
+            <span className="summarypage__title">Matches</span>
+            <OfferStrip></OfferStrip>
+          </div>{" "}
         </div>
       )}
     </div>
