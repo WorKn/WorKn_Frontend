@@ -1,0 +1,19 @@
+.summarypage {
+  background-color: #f7f7f7;
+  width: 100vw;
+}
+
+.summarypage__inner {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  padding: 2% 5%;
+}
+
+.summarypage__title {
+  color: #5bba6f;
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  font-weight: 700;
+}
