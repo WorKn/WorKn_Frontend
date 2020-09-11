@@ -67,8 +67,6 @@ function App() {
               path="/manageoffers/createoffer"
               component={CreateOfferPage}
             />
-            {/* <Route exact path="/manageoffers/editoffer" component={ManageOffersPage} />
-            <Route exact path="/manageoffers/deleteoffer" component={ManageOffersPage} /> */}
 
             <Route
               exact
