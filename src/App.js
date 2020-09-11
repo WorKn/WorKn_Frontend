@@ -11,6 +11,7 @@ import RegisterPageC2 from "./pages/register-page/RegisterPage-C2";
 import QuestionPopup from "./components/popup-components/QuestionPopup";
 import UserProfilePage from "./pages/profile-page/UserProfilePage";
 import EmpresaProfilePage from "./pages/profile-page/EmpresaProfilePage";
+import EmailValidation from "./pages/emailvalidation-page/EmailValidation";
 
 import { ProtectedRoute } from "./components/route-components/ProtectedRoute";
 import AddMember from "./pages/addmember-page/AddMemberPage";
@@ -51,6 +52,11 @@ function App() {
               exact
               path="/empresaprofilepage"
               component={EmpresaProfilePage}
+            />
+            <Route
+              exact
+              path="/emailvalidation/:token"
+              component={EmailValidation}
             />
             <Route
               exact

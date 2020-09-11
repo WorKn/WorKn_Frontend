@@ -135,6 +135,17 @@ export const updatePassword = async (user) => {
     );
     return response;
   } catch (e) {
+    return e.response.data.status;
+  }
+};
+
+export const validateEmail = async (token) => {
+  try {
+    const response = await axios.patch(
+      `${HOST}/api/v1/users/validateEmail/${token}`
+    );
+    return response.data.status;
+  } catch (e) {
     return e.response.data;
   }
 };
