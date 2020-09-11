@@ -9,7 +9,7 @@ const PicSelector = () => {
   };
 
   return (
-    <div>
+    <div className="PicSelector">
       <PictureContainer newImage={newImage}></PictureContainer>
       <PictureForm handleNewImage={handleNewImage}></PictureForm>
     </div>
