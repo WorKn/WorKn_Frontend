@@ -9,7 +9,10 @@ const Footer = () => {
       <div className="right-foot">
         <div className="right-foot__right-up">
           Email:
-          <a href="mailto:workninfo@gmail.com">workninfo@gmail.com</a>
+          <a href="mailto:soporte.worknrd@gmail.com">
+            {" "}
+            soporte.worknrd@gmail.com
+          </a>
         </div>
         <div className="right-foot__right-down">
           <Link className="right-foot__utobj" target="_blank" to="/Terms">
