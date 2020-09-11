@@ -15,7 +15,7 @@ const MembersPopup = () => {
   newPassword.current = watch("newPassword", "");
 
   const onSubmit = (data, e) => {
-    data.id = state.userInformation.organization;
+    console.log(data);
     sendInvitation(data).then((res) => {
       if (res.data !== undefined) {
         setInvited(res);
@@ -48,6 +48,18 @@ const MembersPopup = () => {
               </div>
             )}
           />
+          <span className="userform__label">Rol del invitado</span>
+          <select
+            className="form__select"
+            name="role"
+            id="role"
+            ref={register({
+              required: "Por favor ingrese el correo a invitar",
+            })}
+          >
+            <option value="member">Miembro</option>
+            <option value="supervisor">Supervisor</option>
+          </select>
         </div>
         {typeof invited.data !== "undefined" &&
         invited.data.status === "success" ? (

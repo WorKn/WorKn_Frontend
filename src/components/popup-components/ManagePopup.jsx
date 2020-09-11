@@ -15,8 +15,6 @@ const ManagePopup = () => {
   newPassword.current = watch("newPassword", "");
 
   const onSubmit = (data, e) => {
-    console.log("test");
-    data.OrgId = state.userInformation.organization;
     console.log(data);
     removeMember(data).then((res) => {
       if (res.data !== undefined) {
