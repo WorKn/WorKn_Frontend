@@ -20,7 +20,6 @@ const SummaryPage = () => {
             Estas empresas están interesadas en tí
           </span>
           <OfferStrip></OfferStrip>
-          <OfferStrip></OfferStrip>
 
           <span className="summarypage__title">
             Demostraste interés por estas empresas
