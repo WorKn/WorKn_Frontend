@@ -1,50 +1,83 @@
 .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 80px;
-    width: 100vw;
-    background-color: #ffffff;
-    padding: 10px 2.5%;
-    flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  width: 100vw;
+  background-color: #ffffff;
+  padding: 10px 2.5%;
+  flex: 1;
 }
 
 .navbar__logo {
-    width: 207px;
-    height: 48px;
-    cursor: pointer;
-    flex-basis: auto;
+  width: 207px;
+  height: 48px;
+  cursor: pointer;
+  flex-basis: auto;
 }
 
-.navbar__left-items{
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-grow: 0.4;
+.navbar__left-items {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 0.4;
 }
 
-.navbar__right-items{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-grow: 0.15;
+.navbar__right-items {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  justify-content: center;
+  flex-grow: 0.15;
 }
 
 .navbar__link {
-    text-decoration: none;
-    font-family: montserrat;
-    color:#4D4E52;
-    margin: auto;
-    font-weight: 500;
+  text-decoration: none;
+  font-family: montserrat;
+  color: #4d4e52;
+  margin: auto;
+  font-weight: 500;
 }
 
-.navbar__hamburger {
-    width: 114px;
-    height: 48px;
-    cursor: pointer;
-    width: 100%;
+.navbar__link--highlighted {
+  color: #00ba6b;
 }
 
-.navbar__link--highlighted{
-    color: #00ba6b;
+.navbar__profile-button {
+  display: flex;
+  align-items: center;
+  background-color: #f7f7f7;
+  font-size: 1em;
+  border: none;
+  border-radius: 30px;
+  padding: 2px 7px;
+  cursor: pointer;
+}
+
+.navbar__profile-button span {
+  margin: 0px 6px;
+}
+
+.navbar__img-holder {
+  border: 2px solid #00ba6b;
+  border-radius: 50%;
+  margin: 3px 0px;
+  width: 41px;
+  height: 41px;
+  overflow: hidden;
+  background-color: #f7f7f7;
+}
+
+.navbar__profile-pic {
+  max-height: 41px;
+  max-width: 41px;
+  margin-left: -1px;
+}
+
+/* .navbar__profile-button > * {
+  padding: 0px 3px;
+} */
+
+.navbar__profile-button-link {
+  text-decoration: none;
 }

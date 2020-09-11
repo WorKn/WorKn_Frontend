@@ -11,7 +11,9 @@ import RegisterPageC2 from "./pages/register-page/RegisterPage-C2";
 import QuestionPopup from "./components/popup-components/QuestionPopup";
 import UserProfilePage from "./pages/profile-page/UserProfilePage";
 import EmpresaProfilePage from "./pages/profile-page/EmpresaProfilePage";
-
+import ForgotPasswordPage from "./pages/forgotpassword-page/ForgotPasswordPage.jsx";
+import NewPasswordPage from "./pages/newpassword-page/NewPasswordPage.jsx";
+import EmailValidation from "./pages/emailvalidation-page/EmailValidation";
 import { ProtectedRoute } from "./components/route-components/ProtectedRoute";
 import AddMember from "./pages/addmember-page/AddMemberPage";
 import ManagePopup from "./components/popup-components/ManagePopup";
@@ -40,6 +42,16 @@ function App() {
             <Route exact path="/loginpage" component={LoginPage} />
             <Route
               exact
+              path="/forgotPassword"
+              component={ForgotPasswordPage}
+            ></Route>
+            <Route
+              exact
+              path="/resetPassword/:token"
+              component={NewPasswordPage}
+            ></Route>
+            <Route
+              exact
               path="/landingpage/question"
               component={QuestionPopup}
             />
@@ -52,6 +64,11 @@ function App() {
               exact
               path="/empresaprofilepage"
               component={EmpresaProfilePage}
+            />
+            <Route
+              exact
+              path="/emailvalidation/:token"
+              component={EmailValidation}
             />
             <Route
               exact
