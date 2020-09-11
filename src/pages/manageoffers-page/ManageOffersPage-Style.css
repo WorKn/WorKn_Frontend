@@ -1,0 +1,15 @@
+.manageoffers-banner {
+  height: 280px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("https://i.imgur.com/lcHQ2QP.jpeg");
+  background-position: center;
+  text-transform: uppercase;
+}
+
+.manageoffers-banner__title {
+  color: white;
+  font-weight: 700;
+}

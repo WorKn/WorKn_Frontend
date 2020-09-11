@@ -11,6 +11,7 @@ import RegisterPageC2 from "./pages/register-page/RegisterPage-C2";
 import QuestionPopup from "./components/popup-components/QuestionPopup";
 import UserProfilePage from "./pages/profile-page/UserProfilePage";
 import EmpresaProfilePage from "./pages/profile-page/EmpresaProfilePage";
+import ManageOffersPage from "./pages/manageoffers-page/ManageOffersPage";
 
 import { ProtectedRoute } from "./components/route-components/ProtectedRoute";
 import AddMember from "./pages/addmember-page/AddMemberPage";
@@ -57,6 +58,9 @@ function App() {
               path="/addMember/:orgid/:token"
               component={AddMember}
             />
+
+            <Route exact path="/manageoffers" component={ManageOffersPage} />
+
             <Route exact path="/managemembers" component={ManagePopup} />
             <Route path="*" component={() => "404 NOT FOUND"} />
           </Switch>
