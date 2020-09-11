@@ -41,7 +41,6 @@ const SummaryPage = () => {
               Estas personas están interesadas en tu oferta "Nombre Oferta #2"
             </span>
             <OfferStrip></OfferStrip>
-            <OfferStrip></OfferStrip>
             <span className="summarypage__title">
               Demostraste interés por estas personas
             </span>
