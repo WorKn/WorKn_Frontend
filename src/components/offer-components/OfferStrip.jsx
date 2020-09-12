@@ -18,10 +18,10 @@ const OfferStrip = () => {
       </span>
       <span className="offerstrip__vl offerstrip__vl--3"></span>
       <div className="offerstrip__tagscontainer">
-        <Tag></Tag>
-        <Tag></Tag>
-        <Tag></Tag>
-        <Tag></Tag>
+        <Tag text="Tag1" theme="tag tag__text tag__text--gray"></Tag>
+        <Tag text="Tag2" theme="tag tag__text tag__text--gray"></Tag>
+        <Tag text="Tag3" theme="tag tag__text tag__text--gray"></Tag>
+        <Tag text="Tag4" theme="tag tag__text tag__text--gray"></Tag>
       </div>
 
       <span className="offerstrip__vl offerstrip__vl--4"></span>
