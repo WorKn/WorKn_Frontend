@@ -64,3 +64,10 @@
   font-size: 15px;
   color: #7e7e7e;
 }
+
+.userform__tagscontainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+}
