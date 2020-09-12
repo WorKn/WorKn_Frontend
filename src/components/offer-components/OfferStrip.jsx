@@ -11,17 +11,17 @@ const OfferStrip = () => {
       />
       <span className="offerstrip__text offerstrip__org">Organización</span>
       <span className="offerstrip__vl offerstrip__vl--1"></span>
-      <span className="offerstrip__text offerstrip__type">Freelance</span>
+      <span className="offerstrip__text offerstrip__type">Freelancer</span>
       <span className="offerstrip__vl offerstrip__vl--2"></span>
       <span className="offerstrip__text offerstrip__offer">
         Buscamos fotógrafo para asistir en cobertura de evento
       </span>
       <span className="offerstrip__vl offerstrip__vl--3"></span>
       <div className="offerstrip__tagscontainer">
-        <Tag></Tag>
-        <Tag></Tag>
-        <Tag></Tag>
-        <Tag></Tag>
+        <Tag text="Tag1" theme="tag tag__text tag__text--gray"></Tag>
+        <Tag text="Tag2" theme="tag tag__text tag__text--gray"></Tag>
+        <Tag text="Tag3" theme="tag tag__text tag__text--gray"></Tag>
+        <Tag text="Tag4" theme="tag tag__text tag__text--gray"></Tag>
       </div>
 
       <span className="offerstrip__vl offerstrip__vl--4"></span>
