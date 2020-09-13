@@ -194,7 +194,8 @@ const UserForm = () => {
             )}
 
             {typeof state.userInformation.organizationRole !== "undefined" &&
-            state.userInformation.organizationRole !== "owner" ? (
+            state.userInformation.organizationRole !== "owner" &&
+            state.userInformation.userType !== "offerer" ? (
               <div>
                 <div className="userform__footer">
                   <span className="userform__title">
