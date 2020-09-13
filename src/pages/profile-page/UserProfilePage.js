@@ -62,7 +62,6 @@ const UserProfilePage = (props) => {
               className="userprofile__action"
               onClick={() => {
                 Cookies.remove("jwt");
-                window.STATE_MACHINE_RESET();
                 Auth.logout(() => {
                   props.history.push("/");
                 });

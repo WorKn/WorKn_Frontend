@@ -17,6 +17,7 @@ import EmailValidation from "./pages/emailvalidation-page/EmailValidation";
 import { ProtectedRoute } from "./components/route-components/ProtectedRoute";
 import AddMember from "./pages/addmember-page/AddMemberPage";
 import ManagePopup from "./components/popup-components/ManagePopup";
+import SummaryPage from "./pages/summary-page/SummaryPage";
 require("dotenv").config({ path: "./.env" });
 
 function App() {
@@ -70,6 +71,12 @@ function App() {
               component={EmailValidation}
             />
             <Route exact path="/addMember/:token" component={AddMember} />
+            {/* <Route
+              exact
+              path="/addMember/:orgid/:token"
+              component={AddMember}
+            /> */}
+            <Route exact path="/resumen" component={SummaryPage} />
             <Route exact path="/managemembers" component={ManagePopup} />
             <Route path="*" component={() => "404 NOT FOUND"} />
           </Switch>
