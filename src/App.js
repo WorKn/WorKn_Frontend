@@ -70,11 +70,12 @@ function App() {
               path="/emailvalidation/:token"
               component={EmailValidation}
             />
-            <Route
+            <Route exact path="/addMember/:token" component={AddMember} />
+            {/* <Route
               exact
               path="/addMember/:orgid/:token"
               component={AddMember}
-            />
+            /> */}
             <Route exact path="/resumen" component={SummaryPage} />
             <Route exact path="/managemembers" component={ManagePopup} />
             <Route path="*" component={() => "404 NOT FOUND"} />

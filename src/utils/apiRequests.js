@@ -86,25 +86,6 @@ export const orgUserSignup = async (user) => {
   }
 };
 
-export const invitedUserSignup = async (user) => {
-  try {
-    const response = await axios.post(`${HOST}/api/v1/users/signup`, {
-      name: user.name,
-      lastname: user.lastname,
-      email: user.email,
-      birthday: user.birthday,
-      password: user.password,
-      passwordConfirm: user.passwordConfirm,
-      userType: user.userType,
-      organizationRole: user.organizationRole,
-      organization: user.organization,
-    });
-    return response;
-  } catch (e) {
-    return e.response.data;
-  }
-};
-
 export const updateProfile = async (user) => {
   try {
     const response = await axios.patch(`${HOST}/api/v1/users/updateMyProfile`, {
@@ -154,7 +135,7 @@ export const sendEmail = async (user) => {
   try {
     const response = await axios.post(`${HOST}/api/v1/users/forgotPassword`, {
       email: user.email,
-       });
+    });
     return response;
   } catch (e) {
     return e.response.data;
@@ -190,6 +171,24 @@ export const createOrganization = async (org) => {
   }
 };
 
+export const signUpOrganizationMember = async (user) => {
+  try {
+    const response = await axios.post(
+      `${HOST}/api/v1/organizations/members/signup/${user.token}`,
+      {
+        name: user.name,
+        lastname: user.lastname,
+        birthday: user.birthday,
+        password: user.password,
+        passwordConfirm: user.passwordConfirm,
+      }
+    );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
 export const resetPassword = async (user) => {
   console.log(user);
   try {
@@ -208,17 +207,14 @@ export const resetPassword = async (user) => {
 
 export const editOrganization = async (org) => {
   try {
-    const response = await axios.patch(
-      `${HOST}/api/v1/organizations/${org.id}`,
-      {
-        name: org.name,
-        RNC: org.RNC,
-        bio: org.bio,
-        location: org.location,
-        phone: org.phone,
-        email: org.email,
-      }
-    );
+    const response = await axios.patch(`${HOST}/api/v1/organizations/`, {
+      name: org.name,
+      RNC: org.RNC,
+      bio: org.bio,
+      location: org.location,
+      phone: org.phone,
+      email: org.email,
+    });
     return response;
   } catch (e) {
     return e.response.data;
@@ -228,9 +224,12 @@ export const editOrganization = async (org) => {
 export const sendInvitation = async (org) => {
   try {
     const response = await axios.post(
-      `${HOST}/api/v1/organizations/${org.id}/members/invite`,
+      `${HOST}/api/v1/organizations/members/invite`,
       {
-        members: [org.email],
+        invitation: {
+          email: org.email,
+          role: org.role,
+        },
       }
     );
     return response;
@@ -239,14 +238,36 @@ export const sendInvitation = async (org) => {
   }
 };
 
-export const removeMember = async (org) => {
+export const getInvitationInfo = async (token) => {
+  try {
+    const response = await axios.get(
+      `${HOST}/api/v1/organizations/invitation/${token}`
+    );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const removeMember = async (id) => {
   try {
     const response = await axios.delete(
-      `${HOST}/api/v1/organizations/${org.OrgId}/members`,
-      {
-        id: org.id,
-      }
+      `${HOST}/api/v1/organizations/members/${id}`
     );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const updateMemberRole = async (id, role) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/organizations/members`, {
+      member: {
+        id: id,
+      },
+      organizationRole: role,
+    });
     return response;
   } catch (e) {
     return e.response.data;
