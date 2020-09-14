@@ -7,9 +7,19 @@
   background-image: url("https://i.imgur.com/lcHQ2QP.jpeg");
   background-position: center;
   text-transform: uppercase;
+  margin-bottom: 30px;
 }
 
 .manageoffers-banner__title {
   color: white;
   font-weight: 700;
+  font-size: 57px;
+  text-shadow: 1px 2px 5px #7e7d7d;
+}
+
+.manageoffers__inner {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  padding: 2% 5%;
 }
