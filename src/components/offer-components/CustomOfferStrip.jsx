@@ -7,14 +7,19 @@ const capitalizeFirstLetter = (s) => {
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
 
-const OfferStrip = ({ profilePic, offerInfo, organizationName }) => {
+const OfferStrip = ({ offerInfo, organizationInformation }) => {
   //optional chanining JS, o si
   // chekear si offer.
   //   console.log(offerInfo?.tags);
+
   return (
     <div className="offerstrip">
-      {profilePic ? (
-        <img src={profilePic} className="offerstrip__picture" alt="Offerpp" />
+      {organizationInformation?.profilePicture ? (
+        <img
+          src={organizationInformation.profilePicture}
+          className="offerstrip__picture"
+          alt="Offerpp"
+        />
       ) : (
         <img
           src="https://i.imgur.com/lcHQ2QP.jpg"

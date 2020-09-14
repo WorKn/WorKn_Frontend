@@ -9,6 +9,7 @@ import { useStateMachine } from "little-state-machine";
 
 const ManageOffersPage = () => {
   const [myoffers, setMyOffers] = useState([]);
+  const [organizationInfo, setMyOrganization] = useState();
 
   const { state } = useStateMachine(updateAction);
 
@@ -19,8 +20,6 @@ const ManageOffersPage = () => {
   //Para que solo se ejecute una vez organizationInfo y no cada vez que se re renderice se usa useMemo.
   //useMemo se usa cuando utilizo una variable directa de la que dependo , useEffect cuando quiero realizar un efecto secundario que no devuelve data,
   //useCallback cuando quiero que mi funcion se guarde y no se redefina muchas veces. Ej: una funcion de evento
-
-  const organizationInfo = useMemo(getMyOrganization, []);
 
   useEffect(() => {
     getMyOffers().then(
@@ -35,6 +34,16 @@ const ManageOffersPage = () => {
         }
       }
     );
+
+    getMyOrganization().then(
+      ({
+        data: {
+          data: { data },
+        },
+      }) => {
+        setMyOrganization(data);
+      }
+    );
   }, []);
 
   //funcion useMemo() para memoizar las ofertas. Evita hacer api requests innecesarios si la data no cambia
@@ -44,13 +53,12 @@ const ManageOffersPage = () => {
         offer ? (
           <CustomOfferStrip
             key={offer._id}
-            profilePic={currentUserPicture}
+            organizationInformation={organizationInfo}
             offerInfo={offer}
-            organizationName={organizationInfo.name}
           ></CustomOfferStrip>
         ) : null
       ),
-    [myoffers, organizationInfo, currentUserPicture]
+    [myoffers, organizationInfo]
   );
 
   return (
