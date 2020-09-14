@@ -1,6 +1,12 @@
 import React from "react";
 import "./OfferStrip-Style.css";
 import Tag from "../tag-components/Tag";
+
+const capitalizeFirstLetter = (s) => {
+  if (typeof s !== "string") return "";
+  return s.charAt(0).toUpperCase() + s.slice(1);
+};
+
 const OfferStrip = ({ profilePic, offerInfo, organizationName }) => {
   //optional chanining JS, o si
   // chekear si offer.
@@ -16,13 +22,11 @@ const OfferStrip = ({ profilePic, offerInfo, organizationName }) => {
           alt="Offerpp"
         />
       )}
-      {/* <img
-        src="https://i.imgur.com/lcHQ2QP.jpg"
-        className="offerstrip__picture"
-        alt="Offerpp"
-      /> */}
+
       <span className="offerstrip__text offerstrip__org">
-        {organizationName}
+        {offerInfo
+          ? capitalizeFirstLetter(offerInfo.offerType)
+          : "Info no disponible"}
       </span>
       <span className="offerstrip__vl offerstrip__vl--1"></span>
       <span className="offerstrip__text offerstrip__type">
@@ -35,14 +39,12 @@ const OfferStrip = ({ profilePic, offerInfo, organizationName }) => {
       <span className="offerstrip__vl offerstrip__vl--3"></span>
       <div className="offerstrip__tagscontainer">
         {offerInfo.tags.map((tag) => (
-          <Tag text={tag.name} theme="tag tag__text tag__text--gray"></Tag>
+          <Tag
+            key={tag._id}
+            text={tag.name}
+            theme="tag tag__text tag__text--gray"
+          ></Tag>
         ))}
-        {/* <Tag
-          text={offerInfo?.tags[0].name}
-          theme="tag tag__text tag__text--gray"
-        ></Tag>
-        <Tag text="Tag2" theme="tag tag__text tag__text--gray"></Tag>
-        <Tag text="Tag3" theme="tag tag__text tag__text--gray"></Tag> */}
       </div>
 
       <span className="offerstrip__vl offerstrip__vl--4"></span>
