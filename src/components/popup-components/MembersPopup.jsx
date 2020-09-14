@@ -4,12 +4,12 @@ import "../../App.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { sendInvitation } from "../../utils/apiRequests";
-import updateAction from "../../updateAction";
-import { useStateMachine } from "little-state-machine";
+// import updateAction from "../../updateAction";
+// import { useStateMachine } from "little-state-machine";
 
 const MembersPopup = () => {
   const [invited, setInvited] = useState("");
-  const { state } = useStateMachine(updateAction);
+  // const { state } = useStateMachine(updateAction);
   const { register, handleSubmit, errors, watch } = useForm();
   const newPassword = useRef({});
   newPassword.current = watch("newPassword", "");

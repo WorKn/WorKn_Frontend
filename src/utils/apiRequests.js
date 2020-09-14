@@ -249,14 +249,25 @@ export const getInvitationInfo = async (token) => {
   }
 };
 
-export const removeMember = async (user) => {
+export const removeMember = async (id) => {
   try {
     const response = await axios.delete(
-      `${HOST}/api/v1/organizations/members`,
-      {
-        id: user.id,
-      }
+      `${HOST}/api/v1/organizations/members/${id}`
     );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const updateMemberRole = async (id, role) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/organizations/members`, {
+      member: {
+        id: id,
+      },
+      organizationRole: role,
+    });
     return response;
   } catch (e) {
     return e.response.data;

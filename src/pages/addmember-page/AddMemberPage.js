@@ -16,9 +16,8 @@ const AddMember = ({
     params: { token },
   },
 }) => {
-  const [gotResponse, setGotResponse] = useState(false);
   const [orgInfo, setOrgInfo] = useState("");
-  const { state, action } = useStateMachine(updateAction);
+  const { state } = useStateMachine(updateAction);
   const { register, handleSubmit, watch, errors } = useForm({
     defaultValues: state.userInformation,
   });
@@ -27,8 +26,7 @@ const AddMember = ({
     // action(data);
     console.log(data);
     data.token = token;
-    setGotResponse(true);
-    if (state.userInformation.organization == "") {
+    if (state.userInformation.organization === "") {
       signUpOrganizationMember(data).then((res) => {
         console.log(res);
         push("/loginpage");
@@ -57,7 +55,7 @@ const AddMember = ({
       console.log(res);
       setOrgInfo(res);
     });
-  }, []);
+  }, [token]);
 
   const password = useRef({});
   password.current = watch("password", "");
@@ -126,7 +124,7 @@ const AddMember = ({
               />
             </div>
           </div>
-          <span className="popup-text">Correo</span>
+          {/* <span className="popup-text">Correo</span>
           <input
             className="form-input"
             type="email"
@@ -141,7 +139,7 @@ const AddMember = ({
                 <i class="fa fa-asterisk"></i> {message}
               </div>
             )}
-          />
+          /> */}
           <div class="paired-container">
             <div class="paired-input">
               <span className="popup-text">Contraseña</span>
