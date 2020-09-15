@@ -1,0 +1,70 @@
+.explorepage {
+  background-color: #f7f7f7;
+  width: 100vw;
+}
+
+.explorepage__inner {
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+  padding: 2% 5%;
+}
+
+.explorepage__title {
+  color: #5bba6f;
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-left: 40px;
+  font-weight: 700;
+}
+
+.explorepage__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.explorepage__searchbox {
+  background: #fff;
+  /* position: relative; */
+  width: 50%;
+  padding: 15px;
+  border-radius: 50px;
+  display: flex;
+}
+
+.explorepage__searchbox .explorepage__searchbtn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #5bba6f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.explorepage__searchbox .explorepage__inputsearch {
+  outline: none;
+  border: 0;
+  background: #f7f7f7;
+  border-radius: 50px;
+  padding: 15px 20px;
+  width: 95%;
+  height: 50px;
+  color: #757575;
+}
+
+/* ::placeholder {
+  color: #fff;
+}
+
+::-webkit-input-placeholder {
+  color: #fff;
+}
+
+:-ms-input-placeholder {
+  color: #fff;
+} */
