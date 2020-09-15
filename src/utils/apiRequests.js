@@ -39,6 +39,24 @@ export const getMe = async () => {
   }
 };
 
+export const getAllUsers = async () => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/users?userType=applicant`);
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
+export const getAllOffers = async () => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/offers/`);
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
 export const userLogin = async (user) => {
   try {
     const response = await axios.post(`${HOST}/api/v1/users/login`, {
@@ -262,12 +280,21 @@ export const removeMember = async (id) => {
 
 export const updateMemberRole = async (id, role) => {
   try {
-    const response = await axios.post(`${HOST}/api/v1/organizations/members`, {
-      member: {
-        id: id,
-      },
+    const response = await axios.patch(`${HOST}/api/v1/organizations/members`, {
+      id: id,
       organizationRole: role,
     });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+// Interactions
+
+export const getMyInteractions = async () => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/offers/interactions/me`);
     return response;
   } catch (e) {
     return e.response.data;
