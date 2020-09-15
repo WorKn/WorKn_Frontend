@@ -2,10 +2,14 @@ import React from "react";
 import "./OfferStrip-Style.css";
 import Tag from "../tag-components/Tag";
 
-const capitalizeFirstLetter = (s) => {
+const splitLongDescription = (s) => {
   if (typeof s !== "string") return "";
-  return s.charAt(0).toUpperCase() + s.slice(1);
+  return s.slice(0, 53);
 };
+
+let MyDictionary = {};
+MyDictionary["free"] = "Freelancer";
+MyDictionary["fixed"] = "Fijo/Indefinido";
 
 const OfferStrip = ({ offerInfo, organizationInformation }) => {
   //optional chanining JS, o si
@@ -29,9 +33,7 @@ const OfferStrip = ({ offerInfo, organizationInformation }) => {
       )}
 
       <span className="offerstrip__text offerstrip__org">
-        {offerInfo
-          ? capitalizeFirstLetter(offerInfo.offerType)
-          : "Info no disponible"}
+        {offerInfo ? MyDictionary[offerInfo.offerType] : "Info no disponible"}
       </span>
       <span className="offerstrip__vl offerstrip__vl--1"></span>
       <span className="offerstrip__text offerstrip__type">

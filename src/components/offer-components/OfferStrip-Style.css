@@ -25,14 +25,14 @@
 }
 
 .offerstrip__picture {
-  width: 60px;
-  height: 60px;
+  width: 53px;
+  height: 53px;
   border-radius: 50%;
 }
 
 .offerstrip__text {
   color: #4d4e52;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   margin: 5px;
 }
