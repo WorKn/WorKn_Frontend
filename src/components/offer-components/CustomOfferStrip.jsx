@@ -2,11 +2,6 @@ import React from "react";
 import "./OfferStrip-Style.css";
 import Tag from "../tag-components/Tag";
 
-const splitLongDescription = (s) => {
-  if (typeof s !== "string") return "";
-  return s.slice(0, 53);
-};
-
 let MyDictionary = {};
 MyDictionary["free"] = "Freelancer";
 MyDictionary["fixed"] = "Fijo/Indefinido";
@@ -15,6 +10,18 @@ const OfferStrip = ({ offerInfo, organizationInformation }) => {
   //optional chanining JS, o si
   // chekear si offer.
   //   console.log(offerInfo?.tags);
+  let shortOfferDescription = "";
+  let shortOfferTitle = "";
+  shortOfferTitle = offerInfo.title;
+  shortOfferDescription = offerInfo.description;
+
+  if (offerInfo.description.length > 43) {
+    shortOfferDescription = `${shortOfferDescription.slice(0, 44)}...`;
+  }
+
+  if (offerInfo.title.length > 38) {
+    shortOfferTitle = `${shortOfferTitle.slice(0, 39)}...`;
+  }
 
   return (
     <div className="offerstrip">
@@ -37,11 +44,11 @@ const OfferStrip = ({ offerInfo, organizationInformation }) => {
       </span>
       <span className="offerstrip__vl offerstrip__vl--1"></span>
       <span className="offerstrip__text offerstrip__type">
-        {offerInfo ? offerInfo.title : "Titulo no disponible"}
+        {offerInfo ? shortOfferTitle : "Titulo no disponible"}
       </span>
       <span className="offerstrip__vl offerstrip__vl--2"></span>
       <span className="offerstrip__text offerstrip__offer">
-        {offerInfo ? offerInfo.description : "Descripcion no disponible"}
+        {offerInfo ? shortOfferDescription : "Descripcion no disponible"}
       </span>
       <span className="offerstrip__vl offerstrip__vl--3"></span>
       <div className="offerstrip__tagscontainer">
