@@ -142,6 +142,28 @@ export const sendEmail = async (user) => {
   }
 };
 
+export const sendImage = async (image) => {
+  console.log(image);
+  const fd = new FormData();
+  fd.append("profilePicture", image);
+  console.log(fd);
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  };
+  try {
+    const response = await axios.patch(
+      `${HOST}/api/v1/users/updateMyProfile`,
+      fd,
+      config
+    );
+    return response;
+  } catch (err) {
+    return err;
+  }
+};
+
 //Organizations
 
 export const getMyOrganization = async () => {
