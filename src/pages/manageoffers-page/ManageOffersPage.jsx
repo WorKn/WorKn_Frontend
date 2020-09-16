@@ -4,10 +4,20 @@ import Header from "../../components/navbar-components/Navbar.jsx";
 import { getMyOffers } from "../../utils/apiRequests";
 import { getMyOrganization } from "../../utils/apiRequests";
 import OfferStrip from "../../components/offer-components/OfferStrip";
+import updateAction from "../../updateAction";
+import { useStateMachine } from "little-state-machine";
+import { useHistory } from "react-router-dom";
 
 const ManageOffersPage = () => {
   const [myoffers, setMyOffers] = useState([]);
   const [organizationInfo, setMyOrganization] = useState();
+  const { state } = useStateMachine(updateAction);
+
+  let history = useHistory();
+
+  // if (state.userInformation.userType !== "offerer") {
+
+  // }
 
   //State y props son los unicos que re-renderizan components. Para evitar que funciones innecesarias se ejecuten usamos hooks:
 
@@ -16,29 +26,26 @@ const ManageOffersPage = () => {
   //useCallback cuando quiero que mi funcion se guarde y no se redefina muchas veces. Ej: una funcion de evento
 
   useEffect(() => {
-    getMyOffers().then(
-      ({
-        data: {
-          data: { offers },
-        },
-      }) => {
-        //validar si hay una respuesta de ofertas, y si esta respuesta es de tipo arreglo
+    getMyOffers().then((res) => {
+      if (!res.data) {
+        history.push("/");
+      } else {
+        const offers = res.data.data.offers;
         if (offers && Array.isArray(offers)) {
           setMyOffers(offers);
         }
       }
-    );
+    });
 
-    getMyOrganization().then(
-      ({
-        data: {
-          data: { data },
-        },
-      }) => {
-        setMyOrganization(data);
+    getMyOrganization().then((res) => {
+      if (!res.data) {
+        history.push("/");
+      } else {
+        const organization = res.data.data.data;
+        setMyOrganization(organization);
       }
-    );
-  }, []);
+    });
+  }, [history]);
 
   //funcion useMemo() para memoizar las ofertas. Evita hacer api requests innecesarios si la data no cambia
   const offers = useMemo(
