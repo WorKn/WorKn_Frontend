@@ -4,14 +4,14 @@ import Header from "../../components/navbar-components/Navbar.jsx";
 import { getMyOffers } from "../../utils/apiRequests";
 import { getMyOrganization } from "../../utils/apiRequests";
 import OfferStrip from "../../components/offer-components/OfferStrip";
-import updateAction from "../../updateAction";
-import { useStateMachine } from "little-state-machine";
+// import updateAction from "../../updateAction";
+// import { useStateMachine } from "little-state-machine";
 import { useHistory } from "react-router-dom";
 
 const ManageOffersPage = () => {
   const [myoffers, setMyOffers] = useState([]);
   const [organizationInfo, setMyOrganization] = useState();
-  const { state } = useStateMachine(updateAction);
+  // const { state } = useStateMachine(updateAction);
 
   let history = useHistory();
 
