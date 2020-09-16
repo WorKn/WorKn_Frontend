@@ -3,17 +3,11 @@ import "./ManageOffersPage-Style.css";
 import Header from "../../components/navbar-components/Navbar.jsx";
 import { getMyOffers } from "../../utils/apiRequests";
 import { getMyOrganization } from "../../utils/apiRequests";
-import CustomOfferStrip from "../../components/offer-components/CustomOfferStrip";
-import updateAction from "../../updateAction";
-import { useStateMachine } from "little-state-machine";
+import OfferStrip from "../../components/offer-components/OfferStrip";
 
 const ManageOffersPage = () => {
   const [myoffers, setMyOffers] = useState([]);
   const [organizationInfo, setMyOrganization] = useState();
-
-  const { state } = useStateMachine(updateAction);
-
-  const currentUserPicture = state.userInformation.profilePicture;
 
   //State y props son los unicos que re-renderizan components. Para evitar que funciones innecesarias se ejecuten usamos hooks:
 
@@ -51,11 +45,11 @@ const ManageOffersPage = () => {
     () =>
       myoffers.map((offer) =>
         offer ? (
-          <CustomOfferStrip
+          <OfferStrip
             key={offer._id}
             organizationInformation={organizationInfo}
             offerInfo={offer}
-          ></CustomOfferStrip>
+          ></OfferStrip>
         ) : null
       ),
     [myoffers, organizationInfo]
