@@ -1,44 +1,44 @@
-.manageoffers__background {
-  background-color: #f7f7f7;
+.manageoffers-banner {
+  height: 280px;
   width: 100vw;
-  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("https://i.imgur.com/lcHQ2QP.jpeg");
+  background-position: center;
+  text-transform: uppercase;
+  margin-bottom: 30px;
 }
 
-.manageoffers__container {
+.manageoffers-banner__title {
+  color: white;
+  font-weight: 700;
+  font-size: 57px;
+  text-shadow: 1px 2px 5px #7e7d7d;
+}
+
+.manageoffers__inner {
   display: flex;
-  justify-content: space-between;
+  flex-flow: column;
+  width: 100%;
+  padding: 2% 4%;
+}
+
+.manageoffers-container button {
+  display: flex;
   flex-flow: row;
-  margin: 5% 12%;
-}
-
-.profilewrap__img {
-  max-width: 100%;
-  flex: 1 1 1;
-  height: auto;
-}
-
-.manageoffers__action {
-  display: flex;
-  margin-top: 16px;
-  width: 50%;
-  justify-content: flex-start;
-  color: #00ba6b;
-  font-size: 15px;
-  border: none;
-  background-color: white;
-  padding: 15px;
+  justify-content: space-around;
+  width: 250px;
+  color: white;
+  font-weight: 500;
+  font-size: 20px;
+  background-color: #00ba6b;
+  border-radius: 10px;
+  padding: 25px;
   cursor: pointer;
-  transition: transform 0.5s ease;
-}
-
-.manageoffers__action:hover {
-  transform: scale(1.05);
+  margin: auto;
 }
 
 .manageoffers__icon {
-  margin-right: 10px;
-}
-
-.manageoffers__body a {
-  text-decoration: none;
+  margin-top: 3px;
 }

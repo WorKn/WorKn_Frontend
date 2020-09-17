@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 import Header from "../../components/navbar-components/Navbar";
 import Banner from "../../components/banner-components/Banner";
 import "./UserProfilePage-Style.css";
 import UserForm from "../../components/form-components/UserForm";
-import { useHistory } from "react-router-dom";
 import Footer from "../../components/footer-components/Footer";
-import { StateMachineContext } from "little-state-machine";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
 import { useModal } from "../../hooks/useModal";
@@ -16,8 +14,7 @@ import AnnouncementBanner from "../../components/announcemnet-components/Announc
 import { Link } from "react-router-dom";
 
 const UserProfilePage = (props) => {
-  const { action, state } = useStateMachine(updateAction);
-  const { push } = useHistory();
+  const { state } = useStateMachine(updateAction);
 
   const {
     show: showPasswordModal,
@@ -51,7 +48,7 @@ const UserProfilePage = (props) => {
               Cambiar constraseña
             </button>
             {typeof state.userInformation.organizationRole !== "undefined" &&
-            state.userInformation.organizationRole == "owner" ? (
+            state.userInformation.organizationRole === "owner" ? (
               <Link to="/empresaprofilepage" style={{ textDecoration: "none" }}>
                 <button className="userprofile__action">
                   <i className="fa fa-cog userprofile__icon"></i>

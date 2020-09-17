@@ -6,26 +6,17 @@ import Banner from "../../components/banner-components/Banner";
 import "./UserProfilePage-Style.css";
 import "./EmpresaProfilePage-Style.css";
 import EmpresaForm from "../../components/form-components/EmpresaForm";
-import CustomButton from "../../components/button-components/CustomButton";
 import Footer from "../../components/footer-components/Footer";
-import { StateMachineContext } from "little-state-machine";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
 import { useModal } from "../../hooks/useModal";
-import PasswordPopup from "../../components/popup-components/PasswordPopup";
 import MembersPopup from "../../components/popup-components/MembersPopup";
 import { Link } from "react-router-dom";
 import AnnouncementBanner from "../../components/announcemnet-components/Announcement-Banner";
 import ManagePopup from "../../components/popup-components/ManagePopup";
 
 const EmpresaProfilePage = (props) => {
-  const { state, action } = useStateMachine(updateAction);
-  const {
-    show: showPasswordModal,
-    RenderModal: PasswordModal,
-    // hide: hideQuestionModal,
-  } = useModal();
-
+  const { state } = useStateMachine(updateAction);
   const {
     show: showMembersModal,
     RenderModal: MembersModal,
@@ -43,9 +34,6 @@ const EmpresaProfilePage = (props) => {
       <ManageModal>
         <ManagePopup></ManagePopup>
       </ManageModal>
-      <PasswordModal>
-        <PasswordPopup></PasswordPopup>
-      </PasswordModal>
       <MembersModal>
         <MembersPopup></MembersPopup>
       </MembersModal>

@@ -12,19 +12,20 @@ const CategoryInput = (props) => {
   const animatedComponent = makeAnimated();
 
   useEffect(() => {
-    const response = axios
+    axios
       .get(
         `http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories`
       )
       .then((res) => {
+        console.log(inputValue);
         const json = res.data.data.data;
         const categories = [];
-        json.map((i) => {
+        json.forEach((i) => {
           categories.push({ label: i.name, value: i._id });
         });
         setCategories(categories);
       });
-  }, []);
+  }, [inputValue]);
 
   const filterCategories = (inputValue) => {
     const temp = categories.filter((category) =>

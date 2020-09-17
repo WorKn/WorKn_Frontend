@@ -245,3 +245,12 @@ export const removeMember = async (org) => {
     return e.response.data;
   }
 };
+
+export const getMyOffers = async () => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/offers/me`);
+    return response;
+  } catch (e) {
+    return e;
+  }
+};

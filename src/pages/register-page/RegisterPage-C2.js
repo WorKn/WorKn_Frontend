@@ -32,7 +32,7 @@ const RegisterPageC2 = () => {
     } else {
       console.log("loading");
     }
-  }, [gotResponse]);
+  }, [gotResponse, push, state.userInformation]);
 
   const password = useRef({});
   password.current = watch("password", "");

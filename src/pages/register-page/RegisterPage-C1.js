@@ -30,7 +30,7 @@ const RegisterPageC1 = () => {
     } else {
       console.log("loading");
     }
-  }, [gotResponse]);
+  }, [gotResponse, push, state.userInformation]);
   return (
     <div className="register-wrapper">
       <div className="green-line">

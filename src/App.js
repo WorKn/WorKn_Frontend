@@ -11,9 +11,7 @@ import RegisterPageC2 from "./pages/register-page/RegisterPage-C2";
 import QuestionPopup from "./components/popup-components/QuestionPopup";
 import UserProfilePage from "./pages/profile-page/UserProfilePage";
 import EmpresaProfilePage from "./pages/profile-page/EmpresaProfilePage";
-import EmailValidation from "./components/emailvalidation-components/EmailValidation";
 import ManageOffersPage from "./pages/manageoffers-page/ManageOffersPage";
-import CreateOfferPage from "./pages/createoffer-page/CreateOfferPage";
 
 import { ProtectedRoute } from "./components/route-components/ProtectedRoute";
 import AddMember from "./pages/addmember-page/AddMemberPage";
@@ -60,19 +58,22 @@ function App() {
               path="/addMember/:orgid/:token"
               component={AddMember}
             />
-            <Route exact path="/managemembers" component={ManagePopup} />
+
             <Route exact path="/manageoffers" component={ManageOffersPage} />
-            <Route
+
+            <Route exact path="/managemembers" component={ManagePopup} />
+
+            {/* <Route
               exact
               path="/manageoffers/createoffer"
               component={CreateOfferPage}
             />
 
-            <Route
+            {/* <Route
               exact
               path="/emailvalidation/:token"
               component={EmailValidation}
-            />
+            /> */}
             <Route path="*" component={() => "404 NOT FOUND"} />
           </Switch>
         </animated.div>

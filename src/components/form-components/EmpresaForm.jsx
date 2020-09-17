@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 import "./UserForm-Style.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { useHistory } from "react-router-dom";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import {
@@ -11,14 +10,12 @@ import {
   editOrganization,
   getMe,
 } from "../../utils/apiRequests";
-import Cookies from "js-cookie";
-import { Pic_Selector } from "../../components/profile-pic-selection-components/Profile-selection-component";
+import { PicSelector } from "../../components/profile-pic-selection-components/Profile-selection-component";
 
 const EmpresaForm = () => {
   const [updated, setUpdated] = useState("");
   const [disabled, setDisabled] = useState(false);
   const { state, action } = useStateMachine(updateAction);
-  const [orgInfo, setOrgInfo] = useState("");
   const { register, handleSubmit, errors, watch } = useForm({
     defaultValues: state.userInformation.data,
   });
@@ -55,16 +52,14 @@ const EmpresaForm = () => {
         action(res.data.data.data);
       }
     });
-  }, [updated]);
-  const { push } = useHistory();
+  }, [updated, action]);
   const password = useRef({});
   password.current = watch("password", "");
-  // console.log(state.userInformation.data.data.user);
 
   return (
     <form className="userform" onSubmit={handleSubmit(onSubmit)}>
       <div className="userform__LIP">
-        <Pic_Selector></Pic_Selector>
+        <PicSelector></PicSelector>
       </div>
       <div className="userform__2col">
         <div className="userform__LIP">
