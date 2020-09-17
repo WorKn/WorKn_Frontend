@@ -4,14 +4,22 @@ import Header from "../../components/navbar-components/Navbar.jsx";
 import { getMyOffers } from "../../utils/apiRequests";
 import { getMyOrganization } from "../../utils/apiRequests";
 import OfferStrip from "../../components/offer-components/OfferStrip";
+import { useHistory } from "react-router-dom";
+import CreateOfferPopup from "../../components/popup-components/CreateOfferPopup";
+import { useModal } from "../../hooks/useModal";
+
 // import updateAction from "../../updateAction";
 // import { useStateMachine } from "little-state-machine";
-import { useHistory } from "react-router-dom";
 
 const ManageOffersPage = () => {
   const [myoffers, setMyOffers] = useState([]);
   const [organizationInfo, setMyOrganization] = useState();
   // const { state } = useStateMachine(updateAction);
+  const {
+    show: showAddOfferModal,
+    RenderModal: AddOfferModal,
+    // hide: hideQuestionModal,
+  } = useModal();
 
   let history = useHistory();
 
@@ -68,6 +76,15 @@ const ManageOffersPage = () => {
       <div className="manageoffers-banner">
         <h1 className="manageoffers-banner__title">Resumen de ofertas</h1>
       </div>
+      <AddOfferModal>
+        <CreateOfferPopup></CreateOfferPopup>
+      </AddOfferModal>
+      <button
+        className="manageoffers__create-button"
+        onClick={showAddOfferModal}
+      >
+        <i className="fa fas fa-plus manageoffers__icon"></i>Crear oferta
+      </button>
       <div className="manageoffers__inner">{offers}</div>
     </div>
   );

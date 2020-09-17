@@ -63,19 +63,19 @@ function App() {
 
             <Route exact path="/managemembers" component={ManagePopup} />
             <Route exact path="/manageoffers" component={ManageOffersPage} />
-            <Route
+            {/* <Route
               exact
               path="/manageoffers/createoffer"
               component={CreateOfferPage}
-            />
+            /> */}
             {/* <Route exact path="/manageoffers/editoffer" component={ManageOffersPage} />
             <Route exact path="/manageoffers/deleteoffer" component={ManageOffersPage} /> */}
 
-            <Route
+            {/* <Route
               exact
               path="/emailvalidation/:token"
               component={EmailValidation}
-            />
+            /> */}
             <Route path="*" component={() => "404 NOT FOUND"} />
           </Switch>
         </animated.div>
