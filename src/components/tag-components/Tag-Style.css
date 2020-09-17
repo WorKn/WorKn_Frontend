@@ -1,0 +1,25 @@
+.tag {
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+  width: auto;
+  padding: 7px 14px;
+  border-radius: 16px;
+  flex-wrap: wrap;
+  /* margin-right: 10px; */
+}
+
+.tag__text {
+  font-size: 16px;
+  font-weight: 700;
+  color: #5bba6f;
+}
+
+.tag__text--gray {
+  background-color: #f7f7f7;
+}
+
+.tag__text--white {
+  background-color: #fff;
+}
