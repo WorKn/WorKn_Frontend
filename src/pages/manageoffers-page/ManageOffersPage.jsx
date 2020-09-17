@@ -18,7 +18,7 @@ const ManageOffersPage = () => {
   const {
     show: showAddOfferModal,
     RenderModal: AddOfferModal,
-    // hide: hideQuestionModal,
+    hide: hideAddOfferModal,
   } = useModal();
 
   let history = useHistory();
@@ -77,7 +77,7 @@ const ManageOffersPage = () => {
         <h1 className="manageoffers-banner__title">Resumen de ofertas</h1>
       </div>
       <AddOfferModal>
-        <CreateOfferPopup></CreateOfferPopup>
+        <CreateOfferPopup hide={hideAddOfferModal}></CreateOfferPopup>
       </AddOfferModal>
       <button
         className="manageoffers__create-button"

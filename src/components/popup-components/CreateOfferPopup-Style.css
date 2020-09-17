@@ -11,7 +11,7 @@
 
 .create-offer__form {
   margin: 30px 0px;
-  width: 50vw;
+  width: 40vw;
   height: 100%;
 }
 
@@ -32,14 +32,14 @@
   color: #4d4e52;
   font-size: 15px;
   font-weight: 500;
-  margin-bottom: 16px;
+  margin-bottom: 9px;
 }
 
 .create-offer__paired-input input {
   background-color: #e5e4e4;
   border: none;
   border-radius: 5px;
-  height: 45px;
+  height: 40px;
   margin-bottom: 16px;
   padding: 20px;
 }
@@ -62,4 +62,30 @@
 .create-offer__salary-range input {
   flex: 1 1 auto;
   width: 103px;
+}
+
+.create-offer__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.create-offer__submit {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  width: 190px;
+  color: white;
+  font-weight: 500;
+  font-size: 18px;
+  background-color: #00ba6b;
+  border-radius: 10px;
+  padding: 12px;
+  cursor: pointer;
+  margin: 3px auto 5px auto;
+}
+
+.create-offer__success {
+  color: #00ba6b;
+  display: table;
+  margin: 0 auto;
 }

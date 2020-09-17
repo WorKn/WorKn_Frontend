@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./CreateOfferPopup-Style.css";
 
@@ -10,26 +10,14 @@ import { createOffer } from "../../utils/apiRequests";
 
 import { ErrorMessage } from "@hookform/error-message";
 
-const CreateOfferPage = () => {
+const CreateOfferPage = ({ hide }) => {
   const { register, handleSubmit, errors } = useForm({
     // mode: "onBlur",
   });
 
   //aniadir manualmente los atributos para asuntos de pruebas
+  const [showSuccess, setSuccess] = useState(false);
 
-  /* 
-      1. Coger la data del form con la libreria que me dijo jay
-      2. Tomar esa data y completarla usando el data.atributo
-      3. Mandar el request de Createoffer al backend
-      4. Dar el formato requerido a cada input para que sea restricted
-      o que haga input validation
-      5. Dar CSS
-      6. git pull develop y git merge para usar componentes de jay
-
-
-      NOTA: la oferta debe de tener de 3 a 10 tags
-
- */
   const onSubmit = (data) => {
     data.category = "5f5188eedee0fc8c9c91e829";
     data.tags = [
@@ -45,17 +33,28 @@ const CreateOfferPage = () => {
     data.salaryRange = [data.salaryRangeFrom, data.salaryRangeTo];
     delete data["salaryRangeFrom"];
     delete data["salaryRangeTo"];
-
+    if (!data.salaryRange[0] || !data.salaryRange[1]) {
+      delete data["salaryRange"];
+    }
     createOffer(data).then((res) => {
       console.log(res);
+      if (res == "success") {
+        setSuccess(true);
+      }
     });
-    console.log(data);
+    // console.log(data);
   };
 
   return (
     <div className="create-offer__container">
       <form onSubmit={handleSubmit(onSubmit)} className="create-offer__form">
-        <h1 className="create-offer__header-title">Creacion de ofertas</h1>
+        <div className="create-offer__header">
+          <h1 className="create-offer__header-title">Creacion de ofertas</h1>
+          <i
+            className="fa fa-times offerstrip__icon offerstrip__delete"
+            onClick={hide}
+          ></i>
+        </div>
         <div className="create-offer__paired-input">
           <span>Título</span>
 
@@ -241,7 +240,17 @@ const CreateOfferPage = () => {
           />
         </div>
 
-        <input type="submit" value="Create Offer"></input>
+        <input
+          type="submit"
+          value="Crear oferta"
+          className="create-offer__submit"
+        ></input>
+
+        {showSuccess ? (
+          <span className="create-offer__success">
+            Oferta creada correctamente, puede cerrar este menu
+          </span>
+        ) : null}
       </form>
     </div>
   );
