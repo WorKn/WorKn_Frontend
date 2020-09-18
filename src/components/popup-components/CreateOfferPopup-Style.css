@@ -5,19 +5,20 @@
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100%;
-  background: url("https://i.imgur.com/VloYU9M.jpg") center fixed;
+  height: 721px;
+  /* background: url("https://i.imgur.com/VloYU9M.jpg") center fixed; */
 }
 
 .create-offer__form {
-  margin: 30px 0px;
   width: 40vw;
-  height: 100%;
+  height: 721px;
+  margin-top: 25px;
 }
 
 .create-offer__paired-input {
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
 }
 
 .create-offer__form h1 {
@@ -36,21 +37,32 @@
 }
 
 .create-offer__paired-input input {
-  background-color: #e5e4e4;
-  border: none;
-  border-radius: 5px;
-  height: 27px;
+  height: 42px;
   margin-bottom: 3px;
-  padding: 8px;
+  padding: 14px;
+  background-color: white;
+  border-color: hsl(0, 0%, 80%);
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
 }
 
 .create-offer__paired-input select {
-  background-color: #e5e4e4;
+  /* background-color: #e5e4e4;
   border: none;
   border-radius: 5px;
   height: 30px;
   margin-bottom: 16px;
-  padding: auto 20px;
+  padding: auto 20px; */
+
+  height: 42px;
+  margin-bottom: 3px;
+  padding: 13px;
+  background-color: white;
+  border-color: hsl(0, 0%, 80%);
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
 }
 
 .create-offer__salary-range {
@@ -81,15 +93,15 @@
   border-radius: 10px;
   padding: 12px;
   cursor: pointer;
-  margin: 3px auto 5px auto;
+  margin: 3px auto 10px auto;
 }
 
 .create-offer__success {
   color: #00ba6b;
   display: table;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
-.customalbert {
-  background-color: #e5e4e4;
+.create-offer__date {
+  color: #7d7d8b;
 }

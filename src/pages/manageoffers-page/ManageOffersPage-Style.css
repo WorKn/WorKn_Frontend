@@ -42,3 +42,7 @@
 .manageoffers__icon {
   margin-top: 3px;
 }
+
+.create-offer__description-input {
+  height: 40px;
+}

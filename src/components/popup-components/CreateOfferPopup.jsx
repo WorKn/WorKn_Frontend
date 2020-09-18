@@ -105,6 +105,7 @@ const CreateOfferPage = ({ hide }) => {
                 name="description"
                 placeholder="Descripción"
                 title="Por favor, ingrese la descripción de la oferta"
+                className="create-offer__description-input"
                 ref={register({ required: "Por favor ingrese la descripcion" })}
               />
               <ErrorMessage
@@ -255,6 +256,7 @@ const CreateOfferPage = ({ hide }) => {
                 type="date"
                 name="closingDate"
                 placeholder="Fecha de cierre"
+                className="create-offer__date"
                 ref={register}
                 title="Por favor, ingrese la fecha de cierre de la oferta"
               />
