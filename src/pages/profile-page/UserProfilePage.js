@@ -58,11 +58,22 @@ const UserProfilePage = (props) => {
             ) : (
               ""
             )}
+            {typeof state.userInformation !== "undefined" &&
+            state.userInformation.organizationRole === "" &&
+            state.userInformation.userType === "offerer" ? (
+              <Link to="#" style={{ textDecoration: "none" }}>
+                <button className="userprofile__action">
+                  <i className="fa fa-cog userprofile__icon"></i>
+                  Manejar ofertas
+                </button>
+              </Link>
+            ) : (
+              ""
+            )}
             <button
               className="userprofile__action"
               onClick={() => {
                 Cookies.remove("jwt");
-                window.STATE_MACHINE_RESET();
                 Auth.logout(() => {
                   props.history.push("/");
                 });

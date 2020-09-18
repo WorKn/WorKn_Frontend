@@ -9,7 +9,6 @@
   margin-bottom: 30px;
   background-color: white;
   border-radius: 45px;
-  border: 1px solid #d3d3d3;
 }
 
 .offerstrip__inner {
@@ -25,14 +24,14 @@
 }
 
 .offerstrip__picture {
-  width: 53px;
-  height: 53px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
 }
 
 .offerstrip__text {
   color: #4d4e52;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   margin: 5px;
 }

@@ -6,46 +6,59 @@ import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import { ErrorMessage } from "@hookform/error-message";
 import { getAge } from "../../utils/ageCalculation";
-import { invitedUserSignup } from "../../utils/apiRequests";
+import {
+  signUpOrganizationMember,
+  getInvitationInfo,
+} from "../../utils/apiRequests";
 
 const AddMember = ({
   match: {
-    params: { token, orgid },
+    params: { token },
   },
 }) => {
-  const [gotResponse, setGotResponse] = useState(false);
-  const { state, action } = useStateMachine(updateAction);
+  const [orgInfo, setOrgInfo] = useState("");
+  const { state } = useStateMachine(updateAction);
   const { register, handleSubmit, watch, errors } = useForm({
     defaultValues: state.userInformation,
   });
   const { push } = useHistory();
   const onSubmit = (data) => {
-    state.userInformation.userType = "offerer";
-    state.userInformation.organizationRole = "owner";
-    state.userInformation.organization = orgid;
-    action(data);
-    setGotResponse(true);
-
+    // action(data);
+    console.log(data);
+    data.token = token;
+    if (state.userInformation.organization === "") {
+      signUpOrganizationMember(data).then((res) => {
+        console.log(res);
+        push("/loginpage");
+      });
+    } else {
+      console.log("loading");
+    }
     // state.userInformation.organizationRole = "owner";
     // action(data);
     // setGotResponse(true);
   };
 
+  // useEffect(() => {
+  //   if (state.userInformation.organization == "") {
+  //     signUpOrganizationMember(state.userInformation).then((res) => {
+  //       console.log(res);
+  //     });
+  //     // push("/loginpage");
+  //   } else {
+  //     console.log("loading");
+  //   }
+  // }, [state.userInformation]);
+
   useEffect(() => {
-    if (state.userInformation.organization !== "") {
-      invitedUserSignup(state.userInformation).then((res) => {
-        // setUserInfo(res);
-      });
-      push("/loginpage");
-    } else {
-      console.log("loading");
-    }
-  }, [gotResponse, push, state.userInformation]);
+    getInvitationInfo(token).then((res) => {
+      console.log(res);
+      setOrgInfo(res);
+    });
+  }, [token]);
 
   const password = useRef({});
   password.current = watch("password", "");
-
-  // console.log(state.userInformation);
 
   return (
     <div className="register-wrapper">
@@ -59,9 +72,16 @@ const AddMember = ({
             />
           </div>
           <span className="popup-title">Registra tu cuenta </span>
-          <span className="sub-title">
-            En este formulario crearás tu cuenta de organización
-          </span>
+          {typeof orgInfo.data !== "undefined" &&
+          orgInfo.data.status === "success" ? (
+            <span className="sub-title">
+              Estás siendo invitado a {orgInfo.data.data.organization.name} con
+              el rol de {orgInfo.data.data.invitedRole}{" "}
+            </span>
+          ) : (
+            ""
+          )}
+
           <div className="paired-container">
             <div className="paired-input">
               <span className="popup-text">Nombre</span>
@@ -104,7 +124,7 @@ const AddMember = ({
               />
             </div>
           </div>
-          <span className="popup-text">Correo</span>
+          {/* <span className="popup-text">Correo</span>
           <input
             className="form-input"
             type="email"
@@ -119,7 +139,7 @@ const AddMember = ({
                 <i class="fa fa-asterisk"></i> {message}
               </div>
             )}
-          />
+          /> */}
           <div class="paired-container">
             <div class="paired-input">
               <span className="popup-text">Contraseña</span>
