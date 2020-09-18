@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Tag from "../tag-components/Tag";
 import "./OfferCard-Style.css";
 import { useModal } from "../../hooks/useModal";
