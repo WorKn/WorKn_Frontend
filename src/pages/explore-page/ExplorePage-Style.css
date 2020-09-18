@@ -6,7 +6,7 @@
 .explorepage__inner {
   display: flex;
   flex-flow: column;
-  height: 100vh;
+  height: auto;
   padding: 2% 5%;
 }
 
@@ -62,6 +62,10 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.explorepage__cardscontainer a {
+  text-decoration: none;
 }
 
 /* ::placeholder {

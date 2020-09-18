@@ -1,7 +1,7 @@
 import React from "react";
 import "./OfferStrip-Style.css";
 import Tag from "../tag-components/Tag";
-const OfferStrip = () => {
+const OfferStrip = (props) => {
   return (
     <div className="offerstrip">
       <img
@@ -9,7 +9,7 @@ const OfferStrip = () => {
         className="offerstrip__picture"
         alt="Offerpp"
       />
-      <span className="offerstrip__text offerstrip__org">Organización</span>
+      <span className="offerstrip__text offerstrip__org">{props.name}</span>
       <span className="offerstrip__vl offerstrip__vl--1"></span>
       <span className="offerstrip__text offerstrip__type">Freelancer</span>
       <span className="offerstrip__vl offerstrip__vl--2"></span>

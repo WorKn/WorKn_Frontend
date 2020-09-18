@@ -9,7 +9,7 @@ import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 
 const ExplorePage = () => {
-  const [response, setResponse] = useState("");
+  const [responses, setResponses] = useState([]);
   const { register, handleSubmit } = useForm({});
   const { state } = useStateMachine(updateAction);
   const onSubmit = (data) => {
@@ -30,13 +30,15 @@ const ExplorePage = () => {
       state.userInformation.userType === "applicant"
     ) {
       getAllOffers().then((res) => {
-        console.log(res);
         console.log("aplicante detected");
+        console.log(res.data.data.data);
+        setResponses(res.data.data.data);
       });
     } else {
       getAllOffers().then((res) => {
         console.log("no type detected");
-        console.log(res);
+        console.log(res.data.data.data);
+        setResponses(res.data.data.data);
       });
     }
   }, [state.userInformation.userType]);
@@ -65,12 +67,21 @@ const ExplorePage = () => {
             </div>
           </form>
           <div className="explorepage__cardscontainer">
-            <OfferCard></OfferCard>
-            <OfferCard></OfferCard>
-            <OfferCard></OfferCard>
-            <OfferCard></OfferCard>
-            <OfferCard></OfferCard>
-            <OfferCard></OfferCard>
+            {responses.map((response) =>
+              response ? (
+                <OfferCard
+                  key={response._id}
+                  responseInfo={response}
+                  // description={response.description}
+                  // title={response.title}
+                  // category={response.category.name}
+                  // location="Santo Domingo"
+                  // offerType={response.offerType}
+                  // closingDate={response.closingDate}
+                  // organization={response.organization.name}
+                ></OfferCard>
+              ) : null
+            )}
           </div>
         </div>
       </div>

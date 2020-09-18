@@ -300,3 +300,14 @@ export const getMyInteractions = async () => {
     return e.response.data;
   }
 };
+
+export const createInteraction = async (offer) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/offers/interaction`, {
+      offer: offer,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
