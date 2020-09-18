@@ -65,12 +65,6 @@ function App() {
 
             {/* <Route
               exact
-              path="/manageoffers/createoffer"
-              component={CreateOfferPage}
-            />
-
-            {/* <Route
-              exact
               path="/emailvalidation/:token"
               component={EmailValidation}
             /> */}

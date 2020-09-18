@@ -80,6 +80,7 @@ const ManageOffersPage = () => {
         <CreateOfferPopup hide={hideAddOfferModal}></CreateOfferPopup>
       </AddOfferModal>
       <button
+        type="button"
         className="manageoffers__create-button"
         onClick={showAddOfferModal}
       >

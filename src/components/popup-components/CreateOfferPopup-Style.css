@@ -39,16 +39,16 @@
   background-color: #e5e4e4;
   border: none;
   border-radius: 5px;
-  height: 40px;
-  margin-bottom: 16px;
-  padding: 20px;
+  height: 27px;
+  margin-bottom: 3px;
+  padding: 8px;
 }
 
 .create-offer__paired-input select {
   background-color: #e5e4e4;
   border: none;
   border-radius: 5px;
-  height: 45px;
+  height: 30px;
   margin-bottom: 16px;
   padding: auto 20px;
 }
@@ -88,4 +88,8 @@
   color: #00ba6b;
   display: table;
   margin: 0 auto;
+}
+
+.customalbert {
+  background-color: #e5e4e4;
 }
