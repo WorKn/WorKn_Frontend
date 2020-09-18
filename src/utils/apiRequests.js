@@ -312,6 +312,15 @@ export const updateMemberRole = async (id, role) => {
   }
 };
 
+export const getMyOffers = async () => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/offers/me`);
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
 // Interactions
 
 export const getMyInteractions = async () => {
@@ -323,9 +332,21 @@ export const getMyInteractions = async () => {
   }
 };
 
-export const createInteraction = async (offer) => {
+export const createInteractionAO = async (offer) => {
   try {
-    const response = await axios.post(`${HOST}/api/v1/offers/interaction`, {
+    const response = await axios.post(`${HOST}/api/v1/offers/interactions`, {
+      offer: offer,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const createInteractionOA = async (applicant, offer) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/offers/interactions`, {
+      applicant: applicant,
       offer: offer,
     });
     return response;

@@ -24,6 +24,7 @@ const ExplorePage = () => {
       getAllUsers().then((res) => {
         console.log(res);
         console.log("ofertante detected");
+        setResponses(res.data.data.data);
       });
     } else if (
       state.userInformation.userType !== "undefined" &&
