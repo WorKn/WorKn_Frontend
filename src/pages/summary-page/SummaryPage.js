@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
 import Banner from "../../components/banner-components/Banner";
 import Header from "../../components/navbar-components/Navbar";
 import "./SummaryPage-Style.css";
 import OfferStrip from "../../components/offer-components/OfferStrip";
+import { getMyInteractions } from "../../utils/apiRequests";
 
 const SummaryPage = () => {
   const { state } = useStateMachine(updateAction);
+  useEffect(() => {
+    getMyInteractions().then((res) => {
+      console.log(res);
+    });
+  }, []);
 
   return (
     <div className="summarypage">

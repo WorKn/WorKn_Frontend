@@ -119,7 +119,6 @@ const PasswordPopup = (props) => {
                 className="response__msg"
                 onClick={() => {
                   Cookies.remove("jwt");
-                  window.STATE_MACHINE_RESET();
                   Auth.logout(() => {
                     push("/");
                   });
