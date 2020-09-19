@@ -295,3 +295,22 @@ export const updateMemberRole = async (id, role) => {
     return e.response.data;
   }
 };
+
+export const editOffer = async (offer) => {
+  try {
+    const response = await axios.patch(`${HOST}/api/v1/offers/${offer._id}`, {
+      title: offer.title,
+      description: offer.description,
+      offerType: offer.offerType,
+      location: offer.location,
+      category: offer.category,
+      tags: offer.tags,
+      salaryRange: offer.salaryRange,
+      closingDate: offer.closingDate,
+    });
+    return response.data.status;
+  } catch (e) {
+    console.log("Hubo un error");
+    return e.response.data;
+  }
+};
