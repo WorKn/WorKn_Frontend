@@ -8,20 +8,16 @@ import { useStateMachine } from "little-state-machine";
 
 const OfferCard = ({ responseInfo }) => {
   const { state } = useStateMachine(updateAction);
-  const {
-    show: showDetailModal,
-    RenderModal: DetailModal,
-    // hide: hideQuestionModal,
-  } = useModal();
+  const { show: showDetailModal, RenderModal: DetailModal } = useModal();
   return (
     <div>
+      <DetailModal>
+        <DetailPopup responseInfo={responseInfo}></DetailPopup>
+      </DetailModal>
       {(typeof state.userInformation.userType !== "undefined" &&
         state.userInformation.userType === "applicant") ||
       state.userInformation.userType === "" ? (
         <div className="offercard__wrapper" onClick={showDetailModal}>
-          <DetailModal>
-            <DetailPopup responseInfo={responseInfo}></DetailPopup>
-          </DetailModal>
           <div className="offercard__header">
             <img
               src={responseInfo?.organization.profilePicture}
@@ -64,9 +60,9 @@ const OfferCard = ({ responseInfo }) => {
         </div>
       ) : (
         <div className="offercard__wrapper" onClick={showDetailModal}>
-          <DetailModal>
+          {/* <DetailModal>
             <DetailPopup responseInfo={responseInfo}></DetailPopup>
-          </DetailModal>
+          </DetailModal> */}
           <div className="offercard__header">
             <img
               src={responseInfo?.profilePicture}
@@ -92,7 +88,7 @@ const OfferCard = ({ responseInfo }) => {
           <div className="offercard__data">
             {responseInfo?.userType}
             <div className="offercard__vl"></div>
-            {/* <span>{responseInfo?.closingDate.slice(0, 10)}</span> */}
+            <span>{responseInfo?.bio?.slice(0, 20)}...</span>
             <div className="offercard__vl"></div>
             <span>{responseInfo?.category?.name}</span>
           </div>

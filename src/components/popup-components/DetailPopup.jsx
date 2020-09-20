@@ -15,6 +15,7 @@ const DetailPopup = ({ responseInfo }) => {
   const [offers, setOffers] = useState();
   const [selectedOffer, setSelectedOffer] = useState();
   const { register, handleSubmit } = useForm({});
+
   useEffect(() => {
     getMyOffers().then((res) => {
       if (res !== undefined) {
@@ -47,18 +48,6 @@ const DetailPopup = ({ responseInfo }) => {
   const onSubmit = (data) => {
     setSelectedOffer(data.offer);
     setInteractionTarget(responseInfo?._id);
-    // if (selectedOffer !== undefined && interactionTarget !== undefined) {
-    //   createInteractionOA(interactionTarget, selectedOffer).then((res) => {
-    //     console.log(interactionTarget);
-    //     console.log(selectedOffer);
-    //     console.log("all good");
-    //     if (res !== undefined) {
-    //       console.log(res);
-    //     }
-    //   });
-    // } else {
-    //   console.log("loading");
-    // }
   };
 
   return (
@@ -83,20 +72,17 @@ const DetailPopup = ({ responseInfo }) => {
           <h1>
             {responseInfo?.name} {responseInfo?.lastname}
           </h1>
-          <select className="form__select" name="offer" ref={register}>
-            {offers?.data.data.offers.map((offer) => (
-              <option key={offer._id} value={offer._id}>
-                {offer.title}
-              </option>
-            ))}
-          </select>
-          {/* <button
-            onClick={() => {
-              setInteractionTarget(responseInfo?._id);
-            }}
-          >
-            Aplicar
-          </button> */}
+          {typeof offers ? (
+            <select className="form__select" name="offer" ref={register}>
+              {offers?.data.data.offers.map((offer) => (
+                <option key={offer._id} value={offer._id}>
+                  {offer.title}
+                </option>
+              ))}
+            </select>
+          ) : (
+            ""
+          )}
           <input
             className="custom-button bg-green"
             type="submit"

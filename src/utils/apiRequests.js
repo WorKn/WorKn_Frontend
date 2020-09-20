@@ -354,3 +354,36 @@ export const createInteractionOA = async (applicant, offer) => {
     return e.response.data;
   }
 };
+
+export const acceptInteraction = async (id) => {
+  try {
+    const response = await axios.patch(
+      `${HOST}/api/v1/offers/interactions/accept/${id}`
+    );
+    return response.data.status;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const rejectInteraction = async (id) => {
+  try {
+    const response = await axios.patch(
+      `${HOST}/api/v1/offers/interactions/reject/${id}`
+    );
+    return response.data.status;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const cancelInteraction = async (id) => {
+  try {
+    const response = await axios.delete(
+      `${HOST}/api/v1/offers/interactions/${id}`
+    );
+    return response.data.status;
+  } catch (e) {
+    return e.response.data;
+  }
+};
