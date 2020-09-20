@@ -48,6 +48,7 @@ const ManageOffersPage = () => {
             key={offer._id}
             organizationInformation={organizationInfo}
             offerInfo={offer}
+            isInactive={true}
           ></OfferStrip>
         ) : null
       ),
