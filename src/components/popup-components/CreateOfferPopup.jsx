@@ -27,12 +27,6 @@ const CreateOfferPage = ({ hide }) => {
   //aniadir manualmente los atributos para asuntos de pruebas
 
   const onSubmit = (data) => {
-    // data.category = "5f5188eedee0fc8c9c91e829";
-    // data.tags = [
-    //   "5f518b2c47667760a0c79ef5",
-    //   "5f518b3d1f33143b50ff0614",
-    //   "5f518b450368007bf46c862b",
-    // ];
     console.log("SUBMITTED");
     data.category = selectedCategory.value;
     console.log(data.category);
@@ -142,7 +136,7 @@ const CreateOfferPage = ({ hide }) => {
               />
             </div>
             <div className="create-offer__paired-input">
-              <span>Ubicacion</span>
+              <span>Ubicación</span>
 
               <input
                 type="text"
@@ -162,46 +156,12 @@ const CreateOfferPage = ({ hide }) => {
               />
             </div>
             <div className="create-offer__paired-input">
-              <span>Category</span>
-
-              {/* <input
-                type="text"
-                name="category"
-                placeholder="Categoria"
-                title="Por favor, ingrese la categoria de la oferta"
-                ref={register({ required: "Por favor ingrese la categoria" })}
-              />
-              <ErrorMessage
-                errors={errors}
-                name="category"
-                render={({ message }) => (
-                  <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
-                  </div>
-                )}
-              /> */}
+              <span>Categoría</span>
             </div>
             <CategoryInput></CategoryInput>
 
             <div className="create-offer__paired-input">
               <span>Tags</span>
-
-              {/* <input
-                type="text"
-                name="tags"
-                placeholder="Tags"
-                title="Por favor, ingrese los tags de la oferta"
-                ref={register({ required: "Por favor ingrese los tags" })}
-              />
-              <ErrorMessage
-                errors={errors}
-                name="tags"
-                render={({ message }) => (
-                  <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
-                  </div>
-                )}
-              /> */}
 
               <TagsInput
                 query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
@@ -250,7 +210,7 @@ const CreateOfferPage = ({ hide }) => {
               />
             </div>
             <div className="create-offer__paired-input">
-              <span>Closing Date</span>
+              <span>Fecha de cierre</span>
 
               <input
                 type="date"
