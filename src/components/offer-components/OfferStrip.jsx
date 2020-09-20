@@ -82,7 +82,7 @@ const OfferStrip = ({ offerInfo, organizationInformation, isInactive }) => {
       </EditOfferModal>
       <span
         className="offerstrip__text offerstrip__edit"
-        onClick={isInactive ? null : showEditOfferModal}
+        onClick={isInactive ? () => {} : showEditOfferModal}
       >
         Editar
       </span>
