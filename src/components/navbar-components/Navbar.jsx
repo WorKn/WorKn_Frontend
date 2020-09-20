@@ -93,7 +93,11 @@ const Navbar = () => {
               </div>
             </button>
           </Link>
-          <i class="fas fa-bars" id="navbar__hidden"></i>
+          <i
+            class="fas fa-bars"
+            id="navbar__hidden"
+            onClick={toggleHiddenMobile}
+          ></i>
         </div>
       ) : (
         <div className="navbar__right-items">

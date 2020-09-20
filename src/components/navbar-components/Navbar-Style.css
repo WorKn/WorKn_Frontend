@@ -95,20 +95,12 @@
     display: inline-block;
     margin: 10px 10px 5px 15px;
   }
-}
 
-@media screen and (max-width: 600px) {
+  /* 985*/
   .navbar__link--highlighted {
     display: inline-block;
   }
 
-  /* .navbar__left-items a:not(:first-child) {
-
-  } */
-
-  /* .navbar__logo-link {
-    margin-top: 10px;
-  } */
   .navbar__link--hidden {
     display: block;
   }
@@ -144,7 +136,7 @@
   #navbar__hidden {
     margin-bottom: 0px;
     position: absolute;
-    top: 50px;
+    top: 55px;
     right: 20px;
   }
 
