@@ -27,7 +27,7 @@ const UserProfilePage = (props) => {
         <PasswordPopup></PasswordPopup>
       </PasswordModal>
       <Header />
-      <Banner image={"kiwVnMm.png"} />
+      <Banner image={"VfeSojP.png"} />
       <AnnouncementBanner></AnnouncementBanner>
       <div className="profilewrap">
         <div className="klk">

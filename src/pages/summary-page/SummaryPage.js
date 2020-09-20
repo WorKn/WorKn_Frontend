@@ -65,7 +65,7 @@ const SummaryPage = () => {
   return (
     <div className="summarypage">
       <Header />
-      <Banner image={"kiwVnMm.png"} />
+      <Banner image={"qSOKi8h.png"} />
       {typeof state.userInformation.userType !== "undefined" &&
       state.userInformation.userType === "applicant" ? (
         <div className="summarypage__inner">

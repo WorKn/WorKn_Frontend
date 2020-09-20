@@ -49,7 +49,7 @@ const ExplorePage = () => {
     <div>
       <div className="explorepage">
         <Header />
-        <Banner image={"kiwVnMm.png"} />
+        <Banner image={"ooyAGWN.png"} />
         <div className="explorepage__inner">
           <form className="explorepage__wrapper">
             <div className="explorepage__searchbox">
