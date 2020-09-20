@@ -6,7 +6,6 @@ import {
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import { getMyOffers } from "../../utils/apiRequests";
-import { register } from "../../serviceWorker";
 import { useForm } from "react-hook-form";
 
 const DetailPopup = ({ responseInfo }) => {
@@ -72,6 +71,7 @@ const DetailPopup = ({ responseInfo }) => {
           <h1>
             {responseInfo?.name} {responseInfo?.lastname}
           </h1>
+
           {typeof offers ? (
             <select className="form__select" name="offer" ref={register}>
               {offers?.data.data.offers.map((offer) => (

@@ -323,9 +323,11 @@ export const getMyOffers = async () => {
 
 // Interactions
 
-export const getMyInteractions = async () => {
+export const getMyInteractions = async (offer) => {
   try {
-    const response = await axios.get(`${HOST}/api/v1/offers/interactions/me`);
+    const response = await axios.get(
+      `${HOST}/api/v1/offers/interactions/me?offer=${offer}`
+    );
     return response;
   } catch (e) {
     return e.response.data;

@@ -15,6 +15,11 @@ const SummaryPage = () => {
   const [match, setMatches] = useState();
   const { state } = useStateMachine(updateAction);
   const { register, handleSubmit } = useForm({});
+  const [selectedOffer, setSelectedOffer] = useState();
+
+  const onSubmit = (data) => {
+    setSelectedOffer(data.offer);
+  };
 
   useEffect(() => {
     getMyOffers().then((res) => {
@@ -32,24 +37,29 @@ const SummaryPage = () => {
     ) {
       getMyInteractions().then((res) => {
         setApplied(res.data.data.interactions.applied);
-        setInterested(res.data.data.interactions.interesed);
+        setInterested(res.data.data.interactions.interested);
         setMatches(res.data.data.interactions.match);
         console.log(res);
       });
-    } else if (
-      state.userInformation.userType !== "undefined" &&
-      state.userInformation.userType === "offerer"
-    ) {
-      getMyInteractions().then((res) => {
-        // setApplied(res.data.data.interactions.applied);
-        // setInterested(res.data.data.interactions.interesed);
-        // setMatches(res.data.data.interactions.match);
-        console.log(res);
-      });
-
-      console.log("a correr los lakers");
     }
   }, []);
+
+  useEffect(() => {
+    if (
+      state.userInformation.userType !== "undefined" &&
+      state.userInformation.userType === "offerer" &&
+      selectedOffer
+    ) {
+      getMyInteractions(selectedOffer).then((res) => {
+        if (res !== undefined) {
+          console.log(res);
+        }
+        setApplied(res.data.data.interactions.applied);
+        setInterested(res.data.data.interactions.interested);
+        setMatches(res.data.data.interactions.match);
+      });
+    }
+  }, [selectedOffer]);
 
   return (
     <div className="summarypage">
@@ -65,7 +75,7 @@ const SummaryPage = () => {
             <OfferStrip key={i._id} responseInfo={i}></OfferStrip>
           ))}
           <span className="summarypage__title">
-            Demostraste interés por estas empresas
+            Demostraste interés por estas ofertas
           </span>
           {applied?.map((a) => (
             <OfferStrip key={a._id} responseInfo={a}></OfferStrip>
@@ -78,15 +88,22 @@ const SummaryPage = () => {
       ) : (
         <div className="summarypage__inner">
           <div className="summarypage__inner">
-            <div>
-              <select className="form__select" name="offer" ref={register}>
-                {offers?.data.data.offers.map((offer) => (
-                  <option key={offer._id} value={offer._id}>
-                    {offer.title}
-                  </option>
-                ))}
-              </select>
-              {/* {offers?.data.data.offers.map((offer) => (
+            <div className="summarypage__header">
+              <span className="summarypage__title--dark">
+                Selecciona la oferta que quieres revisar
+              </span>
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="summarypage__form"
+              >
+                <select className="form__select" name="offer" ref={register}>
+                  {offers?.data.data.offers.map((offer) => (
+                    <option key={offer._id} value={offer._id}>
+                      {offer.title}
+                    </option>
+                  ))}
+                </select>
+                {/* {offers?.data.data.offers.map((offer) => (
                 <div>
                   <span
                     className="summarypage__title"
@@ -100,23 +117,31 @@ const SummaryPage = () => {
                   ))}
                 </div>
               ))} */}
+                <input
+                  className="custom-button bg-green"
+                  type="submit"
+                  value="Ir"
+                />
+              </form>
             </div>
-            {/* <span className="summarypage__title">
-              Estas personas están interesadas en tu oferta "Nombre Oferta #1"
-            </span>
-            <OfferStrip></OfferStrip>
-            <OfferStrip></OfferStrip>
+
             <span className="summarypage__title">
-              Estas personas están interesadas en tu oferta "Nombre Oferta #2"
+              Estas personas están interesadas
             </span>
-            <OfferStrip></OfferStrip>
-            <OfferStrip></OfferStrip>
+            {applied?.map((a) => (
+              <OfferStrip key={a._id} responseInfo={a}></OfferStrip>
+            ))}
             <span className="summarypage__title">
               Demostraste interés por estas personas
             </span>
-            <OfferStrip></OfferStrip>
+            {interested?.map((i) => (
+              <OfferStrip key={i._id} responseInfo={i}></OfferStrip>
+            ))}
+
             <span className="summarypage__title">Matches</span>
-            <OfferStrip></OfferStrip> */}
+            {match?.map((m) => (
+              <OfferStrip key={m._id} responseInfo={m}></OfferStrip>
+            ))}
           </div>{" "}
         </div>
       )}

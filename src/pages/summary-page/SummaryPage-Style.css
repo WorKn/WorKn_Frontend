@@ -17,3 +17,31 @@
   margin-left: 40px;
   font-weight: 700;
 }
+
+.summarypage__title--dark {
+  color: #4d4e52;
+  font-size: 16px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.summarypage__header {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+
+.summarypage__form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.summarypage__form select {
+  margin-right: 10px;
+}
+
+.custom-button {
+  padding: 10px;
+}
