@@ -9,7 +9,7 @@ let MyDictionary = {};
 MyDictionary["free"] = "Freelancer";
 MyDictionary["fixed"] = "Fijo/Indefinido";
 
-const OfferStrip = ({ offerInfo, organizationInformation }) => {
+const OfferStrip = ({ offerInfo, organizationInformation, isInactive }) => {
   const {
     show: showEditOfferModal,
     RenderModal: EditOfferModal,
@@ -32,7 +32,9 @@ const OfferStrip = ({ offerInfo, organizationInformation }) => {
   }
 
   return (
-    <div className="offerstrip">
+    <div
+      className={isInactive ? "offerstrip offerstrip--inactive" : "offerstrip"}
+    >
       <div className="offerstrip-container">
         {organizationInformation?.profilePicture ? (
           <img
@@ -80,7 +82,7 @@ const OfferStrip = ({ offerInfo, organizationInformation }) => {
       </EditOfferModal>
       <span
         className="offerstrip__text offerstrip__edit"
-        onClick={showEditOfferModal}
+        onClick={isInactive ? null : showEditOfferModal}
       >
         Editar
       </span>
