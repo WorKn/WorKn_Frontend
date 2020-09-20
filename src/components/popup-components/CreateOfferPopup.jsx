@@ -1,10 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 
 import "./CreateOfferPopup-Style.css";
 
 import { useForm } from "react-hook-form";
-
-import { useStateMachine } from "little-state-machine";
 
 import { createOffer } from "../../utils/apiRequests";
 
@@ -14,7 +12,6 @@ import categoryContext from "../../utils/categoryContext";
 import CategoryInput from "../input-components/CategoryInput";
 import tagsContext from "../../utils/tagsContext";
 import TagsInput from "../input-components/TagsInput";
-import Tag from "../tag-components/Tag";
 
 const CreateOfferPage = ({ hide }) => {
   const { register, handleSubmit, errors } = useForm({
@@ -36,7 +33,7 @@ const CreateOfferPage = ({ hide }) => {
 
     //eliminar aquellos atributos que sean iguales a ""
     Object.keys(data).forEach(
-      (property) => data[property] == "" && delete data[property]
+      (property) => data[property] === "" && delete data[property]
     );
 
     data.salaryRange = [data.salaryRangeFrom, data.salaryRangeTo];
@@ -47,7 +44,7 @@ const CreateOfferPage = ({ hide }) => {
     }
     createOffer(data).then((res) => {
       console.log(res);
-      if (res == "success") {
+      if (res === "success") {
         setSuccess(true);
       }
     });
