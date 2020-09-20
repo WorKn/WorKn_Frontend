@@ -63,11 +63,6 @@ function App() {
 
             <Route exact path="/managemembers" component={ManagePopup} />
 
-            {/* <Route
-              exact
-              path="/emailvalidation/:token"
-              component={EmailValidation}
-            /> */}
             <Route path="*" component={() => "404 NOT FOUND"} />
           </Switch>
         </animated.div>
