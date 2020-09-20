@@ -74,13 +74,6 @@ const ExplorePage = () => {
                 <OfferCard
                   key={response._id}
                   responseInfo={response}
-                  // description={response.description}
-                  // title={response.title}
-                  // category={response.category.name}
-                  // location="Santo Domingo"
-                  // offerType={response.offerType}
-                  // closingDate={response.closingDate}
-                  // organization={response.organization.name}
                 ></OfferCard>
               ) : null
             )}
