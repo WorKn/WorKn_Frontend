@@ -7,6 +7,7 @@ import OfferCard from "../../components/offer-components/OfferCard";
 import { getAllUsers, getAllOffers } from "../../utils/apiRequests";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
+import Footer from "../../components/footer-components/Footer";
 
 const ExplorePage = () => {
   const [responses, setResponses] = useState([]);
@@ -86,6 +87,7 @@ const ExplorePage = () => {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };

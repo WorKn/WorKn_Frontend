@@ -71,7 +71,6 @@ const DetailPopup = ({ responseInfo }) => {
           <h1>
             {responseInfo?.name} {responseInfo?.lastname}
           </h1>
-
           {typeof offers ? (
             <select className="form__select" name="offer" ref={register}>
               {offers?.data.data.offers.map((offer) => (
