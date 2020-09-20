@@ -38,7 +38,7 @@ const EmpresaProfilePage = (props) => {
         <MembersPopup></MembersPopup>
       </MembersModal>
       <Header />
-      <Banner image={"kiwVnMm.png"} />
+      <Banner image={"VfeSojP.png"} />
       <AnnouncementBanner></AnnouncementBanner>
       <div className="profilewrap">
         <div className="klk">

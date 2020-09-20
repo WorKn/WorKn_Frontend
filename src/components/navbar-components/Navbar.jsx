@@ -28,10 +28,10 @@ const Navbar = () => {
         <Link className="navbar__link" to="#">
           Ofertas
         </Link>
-        <Link className="navbar__link" to="#">
+        <Link className="navbar__link" to="/explore">
           Exploración
         </Link>
-        <Link className="navbar__link" to="#">
+        <Link className="navbar__link" to="/resumen">
           Resumen
         </Link>
         <Link className="navbar__link" to="#">
