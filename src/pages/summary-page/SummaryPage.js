@@ -43,7 +43,7 @@ const SummaryPage = () => {
         console.log(res);
       });
     }
-  }, []);
+  }, [state.userInformation.userType]);
 
   useEffect(() => {
     if (
@@ -60,7 +60,7 @@ const SummaryPage = () => {
         setMatches(res.data.data.interactions.match);
       });
     }
-  }, [selectedOffer]);
+  }, [selectedOffer, state.userInformation.userType]);
 
   return (
     <div className="summarypage">

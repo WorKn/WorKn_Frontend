@@ -34,7 +34,7 @@ const DetailPopup = ({ responseInfo }) => {
     } else {
       console.log("es ofertante");
     }
-  }, [interactionTarget]);
+  }, [interactionTarget, state.userInformation.userType]);
 
   useEffect(() => {
     createInteractionOA(interactionTarget, selectedOffer).then((res) => {
