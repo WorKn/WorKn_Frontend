@@ -73,7 +73,10 @@ const OfferStrip = ({ offerInfo, organizationInformation }) => {
         <span className="offerstrip__vl offerstrip__vl--4"></span>
       </div>
       <EditOfferModal>
-        <EditOfferPopup hide={hideEditOfferModal}></EditOfferPopup>
+        <EditOfferPopup
+          hide={hideEditOfferModal}
+          offerInfo={offerInfo}
+        ></EditOfferPopup>
       </EditOfferModal>
       <span
         className="offerstrip__text offerstrip__edit"

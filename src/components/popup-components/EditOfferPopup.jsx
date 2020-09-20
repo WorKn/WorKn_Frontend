@@ -1,10 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 
-import "./EditOfferPopup-Style.css";
+import "./CreateOfferPopup-Style.css";
 
 import { useForm } from "react-hook-form";
-
-import { useStateMachine } from "little-state-machine";
 
 import { editOffer } from "../../utils/apiRequests";
 
@@ -14,9 +12,8 @@ import categoryContext from "../../utils/categoryContext";
 import CategoryInput from "../input-components/CategoryInput";
 import tagsContext from "../../utils/tagsContext";
 import TagsInput from "../input-components/TagsInput";
-import Tag from "../tag-components/Tag";
 
-const EditOfferPopup = ({ hide }) => {
+const EditOfferPopup = ({ hide, offerInfo }) => {
   const { register, handleSubmit, errors } = useForm({
     // mode: "onBlur",
   });
@@ -34,9 +31,10 @@ const EditOfferPopup = ({ hide }) => {
     selectedTags.forEach((tag) => newArray.push(tag.value));
     data.tags = newArray;
 
+    data._id = offerInfo._id;
     //eliminar aquellos atributos que sean iguales a ""
     Object.keys(data).forEach(
-      (property) => data[property] == "" && delete data[property]
+      (property) => data[property] === "" && delete data[property]
     );
 
     data.salaryRange = [data.salaryRangeFrom, data.salaryRangeTo];
@@ -45,9 +43,10 @@ const EditOfferPopup = ({ hide }) => {
     if (!data.salaryRange[0] || !data.salaryRange[1]) {
       delete data["salaryRange"];
     }
+
     editOffer(data).then((res) => {
       console.log(res);
-      if (res == "success") {
+      if (res === "success") {
         setSuccess(true);
       } else {
         setSuccess(false);
@@ -78,6 +77,7 @@ const EditOfferPopup = ({ hide }) => {
                 type="text"
                 name="title"
                 placeholder="Título"
+                defaultValue={offerInfo.title}
                 title="Por favor, ingrese el título de la oferta"
                 ref={register({ required: "Por favor ingrese el titulo" })}
               />
@@ -98,6 +98,7 @@ const EditOfferPopup = ({ hide }) => {
                 type="text"
                 name="description"
                 placeholder="Descripción"
+                defaultValue={offerInfo.description}
                 title="Por favor, ingrese la descripción de la oferta"
                 className="create-offer__description-input"
                 ref={register({ required: "Por favor ingrese la descripcion" })}
@@ -117,6 +118,7 @@ const EditOfferPopup = ({ hide }) => {
 
               <select
                 name="offerType"
+                defaultValue={offerInfo.offerType}
                 ref={register({
                   required: "Por favor seleccione un tipo de oferta",
                 })}
@@ -136,11 +138,12 @@ const EditOfferPopup = ({ hide }) => {
               />
             </div>
             <div className="create-offer__paired-input">
-              <span>Ubicacion</span>
+              <span>Ubicación</span>
 
               <input
                 type="text"
                 placeholder="Ubicacion [opcional]"
+                // defaultValue={offerInfo.location ? offerInfo.location : ""}
                 title="Por favor, ingrese la Ubicacion de la oferta [opcional]"
                 name="location"
                 ref={register}
@@ -156,7 +159,7 @@ const EditOfferPopup = ({ hide }) => {
               />
             </div>
             <div className="create-offer__paired-input">
-              <span>Category</span>
+              <span>Categoría</span>
               <CategoryInput></CategoryInput>
             </div>
 
@@ -176,6 +179,9 @@ const EditOfferPopup = ({ hide }) => {
                 type="number"
                 step="any"
                 name="salaryRangeFrom"
+                defaultValue={
+                  offerInfo.salaryRange ? offerInfo.salaryRange[0] : ""
+                }
                 placeholder="Desde [opcional]"
                 ref={register}
                 title="Por favor, ingrese el rango inicial sin comas [opcional]"
@@ -194,6 +200,9 @@ const EditOfferPopup = ({ hide }) => {
                 type="number"
                 step="any"
                 name="salaryRangeTo"
+                defaultValue={
+                  offerInfo.salaryRange ? offerInfo.salaryRange[1] : ""
+                }
                 placeholder="Hasta [opcional]"
                 ref={register}
                 title="Por favor, ingrese el rango final [opcional]"
@@ -210,13 +219,14 @@ const EditOfferPopup = ({ hide }) => {
               />
             </div>
             <div className="create-offer__paired-input">
-              <span>Closing Date</span>
+              <span>Fecha de cierre</span>
 
               <input
                 type="date"
                 name="closingDate"
                 placeholder="Fecha de cierre"
                 className="create-offer__date"
+                defaultValue={offerInfo.closingDate}
                 ref={register}
                 title="Por favor, ingrese la fecha de cierre de la oferta"
               />

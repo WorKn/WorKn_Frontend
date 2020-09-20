@@ -45,7 +45,7 @@ const TagsInput = ({ defaultInputValue }) => {
           setTags(tags);
         });
     }
-  }, [selectedCategory, inputValue]);
+  }, [selectedCategory, inputValue, defaultInputValue, isDefaultInput]);
 
   const filterCategories = (inputValue) => {
     const temp = tags.filter((tag) =>
