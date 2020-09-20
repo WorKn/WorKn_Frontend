@@ -104,20 +104,6 @@ const SummaryPage = () => {
                     </option>
                   ))}
                 </select>
-                {/* {offers?.data.data.offers.map((offer) => (
-                <div>
-                  <span
-                    className="summarypage__title"
-                    key={offer._id}
-                    value={offer._id}
-                  >
-                    {offer.title}
-                  </span>
-                  {interested?.map((i) => (
-                    <OfferStrip key={i._id} responseInfo={i}></OfferStrip>
-                  ))}
-                </div>
-              ))} */}
                 <input
                   className="custom-button bg-green"
                   type="submit"
