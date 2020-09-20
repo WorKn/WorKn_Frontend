@@ -146,7 +146,6 @@ export const validateEmail = async (token) => {
     );
     return response.data.status;
   } catch (e) {
-    console.log("kattia");
     return false;
   }
 };
@@ -165,7 +164,7 @@ export const createOffer = async (offer) => {
     });
     return response.data.status;
   } catch (e) {
-    console.log("Hubo un error NIGGER");
+    console.log("Hubo un error al crear");
     return e.response.data;
   }
 };
