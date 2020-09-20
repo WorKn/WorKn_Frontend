@@ -23,3 +23,13 @@
   width: 100%;
   padding: 2% 4%;
 }
+
+.manageoffers__active-offers {
+  text-align: center;
+  font-size: 1.6em;
+}
+
+.manageoffers__inactive-offers {
+  text-align: center;
+  font-size: 1.6em;
+}

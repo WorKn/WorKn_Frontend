@@ -25,6 +25,35 @@ const ManageOffersPage = () => {
   //useMemo se usa cuando utilizo una variable directa de la que dependo , useEffect cuando quiero realizar un efecto secundario que no devuelve data,
   //useCallback cuando quiero que mi funcion se guarde y no se redefina muchas veces. Ej: una funcion de evento
 
+  //funcion useMemo() para memoizar las ofertas activas e inactivas. Evita hacer api requests innecesarios si la data no cambia
+  const activeOffers = useMemo(
+    () =>
+      myoffers.map((offer) =>
+        offer && offer.state !== "deleted" ? (
+          <OfferStrip
+            key={offer._id}
+            organizationInformation={organizationInfo}
+            offerInfo={offer}
+          ></OfferStrip>
+        ) : null
+      ),
+    [myoffers, organizationInfo]
+  );
+
+  const inactiveOffers = useMemo(
+    () =>
+      myoffers.map((offer) =>
+        offer && offer.state === "deleted" ? (
+          <OfferStrip
+            key={offer._id}
+            organizationInformation={organizationInfo}
+            offerInfo={offer}
+          ></OfferStrip>
+        ) : null
+      ),
+    [myoffers, organizationInfo]
+  );
+
   useEffect(() => {
     getMyOffers().then((res) => {
       if (!res.data) {
@@ -46,29 +75,21 @@ const ManageOffersPage = () => {
       }
     });
   }, [history]);
-
-  //funcion useMemo() para memoizar las ofertas. Evita hacer api requests innecesarios si la data no cambia
-  const offers = useMemo(
-    () =>
-      myoffers.map((offer) =>
-        offer ? (
-          <OfferStrip
-            key={offer._id}
-            organizationInformation={organizationInfo}
-            offerInfo={offer}
-          ></OfferStrip>
-        ) : null
-      ),
-    [myoffers, organizationInfo]
-  );
-
+  //[history, activeOffers, inactiveOffers]);
   return (
     <div className="manageoffers-container">
       <Header></Header>
       <div className="manageoffers-banner">
         <h1 className="manageoffers-banner__title">Resumen de ofertas</h1>
       </div>
-      <div className="manageoffers__inner">{offers}</div>
+      <h1 className="manageoffers__active-offers">Ofertas Activas</h1>
+      <div className="manageoffers__inner">{activeOffers}</div>
+      <h1 className="manageoffers__inactive-offers">Ofertas Inactivas</h1>
+      <div className="manageoffers__inner">
+        {inactiveOffers
+          ? inactiveOffers
+          : "Usted no ha borrado ninguna oferta aún"}
+      </div>
     </div>
   );
 };
