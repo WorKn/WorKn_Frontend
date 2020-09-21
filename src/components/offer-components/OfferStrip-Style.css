@@ -1,15 +1,23 @@
 .offerstrip {
-  min-height: 90px;
+
+  height: 90px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 20px;
   margin-bottom: 30px;
   background-color: white;
   border-radius: 45px;
-  border: 1px solid #d3d3d3;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+  box-shadow: 1px 7px 10px -12px rgba(0, 0, 0, 0.75);
+  border: solid 1px #f5f5f5;
+  padding: 0px 18px;
+}
+
+.offerstrip:hover {
+  transform: scale(1.05);
 }
 
 .offerstrip__inner {
@@ -25,14 +33,16 @@
 }
 
 .offerstrip__picture {
-  width: 53px;
-  height: 53px;
+
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .offerstrip__text {
   color: #4d4e52;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   margin: 5px;
 }
@@ -66,5 +76,14 @@
     flex-flow: column;
     justify-items: center;
     align-items: center;
+
+    height: 200px;
+    margin: 10px;
+  }
+  .offerstrip__picture {
+    margin-top: 10px;
+  }
+  .offerstrip__delete {
+    margin-bottom: 10px;
   }
 }

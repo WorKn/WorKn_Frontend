@@ -4,10 +4,9 @@
   align-items: center;
   height: 32px;
   width: auto;
-  padding: 7px 14px;
+  padding: 7px;
   border-radius: 16px;
   flex-wrap: wrap;
-  /* margin-right: 10px; */
 }
 
 .tag__text {

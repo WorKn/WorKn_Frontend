@@ -38,7 +38,7 @@ const EmpresaProfilePage = (props) => {
         <MembersPopup></MembersPopup>
       </MembersModal>
       <Header />
-      <Banner image={"kiwVnMm.png"} />
+      <Banner image={"VfeSojP.png"} />
       <AnnouncementBanner></AnnouncementBanner>
       <div className="profilewrap">
         <div className="klk">
@@ -70,10 +70,6 @@ const EmpresaProfilePage = (props) => {
               nunca dar tu constraseña a ningún usuario a través de WorKn, los
               administradores nunca te la solicitarán.
             </span>
-            {/* <button className="userprofile__action" onClick={showPasswordModal}>
-              <i className="fa fa-cog userprofile__icon"></i>
-              Cambiar constraseña
-            </button> */}
             <button className="userprofile__action" onClick={showMembersModal}>
               <i className="fa fa-cog userprofile__icon"></i>
               Manejar invitaciones de miembros

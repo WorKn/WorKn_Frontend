@@ -119,7 +119,6 @@ const PasswordPopup = (props) => {
                 className="response__msg"
                 onClick={() => {
                   Cookies.remove("jwt");
-                  window.STATE_MACHINE_RESET();
                   Auth.logout(() => {
                     push("/");
                   });
@@ -141,7 +140,7 @@ const PasswordPopup = (props) => {
         <div className="info-container">
           <i className="fa fa-info icon"></i>
           <p>
-            Te recomendamos crear una constraseña fuerte, que contenga símbolos,
+            Te recomendamos crear una contraseña fuerte, que contenga símbolos,
             números y al menos un caracter en mayúsculas. Recuerda usar 8
             dígitos o más.
           </p>

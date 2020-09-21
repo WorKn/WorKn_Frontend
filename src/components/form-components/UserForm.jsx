@@ -9,11 +9,12 @@ import {
   getMe,
   getMyOrganization,
 } from "../../utils/apiRequests";
-import { PicSelector } from "../../components/profile-pic-selection-components/Profile-selection-component";
 import CategoryInput from "../input-components/CategoryInput";
+import PicSelector from "../profile-picture-components/PicSelector";
 import categoryContext from "../../utils/categoryContext";
 import TagsInput from "../input-components/TagsInput";
 import tagsContext from "../../utils/tagsContext";
+import Tag from "../tag-components/Tag";
 
 const UserForm = () => {
   const [selectedCategory, setSelectedCategory] = useState([]);
@@ -163,21 +164,38 @@ const UserForm = () => {
                 ref={register({ required: "Por favor ingrese su nombre" })}
               />
             </div>
-            {/* <div className="userform__LIP userform__LIP--separated">
-          <span className="userform__label">Telefono</span>
-          <input
-            className="userform__input"
-            type="text"
-            name="phonee"
-            // pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su nombre"
-            ref={register({ required: "Por favor ingrese su nombre" })}
-          />
-        </div> */}
           </div>
           <div>
+            {typeof state.userInformation !== "undefined" &&
+            state.userInformation.tags &&
+            state.userInformation.category ? (
+              <div>
+                <div className="userform__LIP">
+                  <span className="userform__label">Etiquetas</span>
+                  <div className="userform__tagscontainer">
+                    {state.userInformation.tags.map((tag) => (
+                      <Tag
+                        text={tag.name}
+                        theme="tag tag__text tag__text--white"
+                      ></Tag>
+                    ))}
+                  </div>
+                </div>
+                <div className="userform__LIP">
+                  <span className="userform__label">Categoría</span>
+                  <Tag
+                    text={state.userInformation.tags[0].category.name}
+                    theme="tag tag__text tag__text--white"
+                  ></Tag>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+
             {typeof state.userInformation.organizationRole !== "undefined" &&
-            state.userInformation.organizationRole !== "owner" ? (
+            state.userInformation.organizationRole !== "owner" &&
+            state.userInformation.userType !== "offerer" ? (
               <div>
                 <div className="userform__footer">
                   <span className="userform__title">
@@ -190,10 +208,7 @@ const UserForm = () => {
                     precisa.
                   </span>
                 </div>
-                {/* <div className="userform__LIP">
-              <span className="userform__label">Área del saber deseada</span>
-              <TagInput></TagInput>
-            </div> */}
+
                 <div className="userform__LIP">
                   <span className="userform__label">
                     Selecciona tu categoria
@@ -240,102 +255,6 @@ const UserForm = () => {
             type="submit"
             value="Guardar Perfil"
           />
-          {/* <CustomButton></CustomButton> */}
-          {/* <div className="paired-container">
-        <div className="paired-input">
-          <span className="popup-text">Nombre</span>
-          <input
-            className="form-input"
-            type="text"
-            name="name"
-            pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su nombre"
-            ref={register({ required: "Por favor ingrese su nombre" })}
-          />
-          <ErrorMessage
-            errors={errors}
-            name="name"
-            render={({ message }) => (
-              <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
-              </div>
-            )}
-          />
-        </div>
-        <div className="paired-input lspacer">
-          <span className="popup-text">Apellido</span>
-          <input
-            className="form-input"
-            type="text"
-            name="lastname"
-            pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su apellido"
-            ref={register({ required: "Por favor ingrese su apellido" })}
-          />
-          <ErrorMessage
-            errors={errors}
-            name="lastname"
-            render={({ message }) => (
-              <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
-              </div>
-            )}
-          />
-        </div>
-      </div>
-      <div className="userform_input userform_input--lg">
-        <span className="popup-text">Biografia</span>
-        <input
-          className="form-input userform_input--lg"
-          type="text"
-          name="lastname"
-          pattern="[a-zA-Z]*"
-          title="Por favor no incluya números en su apellido"
-          ref={register({ required: "Por favor ingrese su apellido" })}
-        />
-      </div>
-      <div className="paired-container">
-        <div className="paired-input">
-          <span className="popup-text">Nombre</span>
-          <input
-            className="form-input"
-            type="text"
-            name="name"
-            pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su nombre"
-            ref={register({ required: "Por favor ingrese su nombre" })}
-          />
-          <ErrorMessage
-            errors={errors}
-            name="name"
-            render={({ message }) => (
-              <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
-              </div>
-            )}
-          />
-        </div>
-        <div className="paired-input lspacer">
-          <span className="popup-text">Apellido</span>
-          <input
-            className="form-input"
-            type="text"
-            name="lastname"
-            pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su apellido"
-            ref={register({ required: "Por favor ingrese su apellido" })}
-          />
-          <ErrorMessage
-            errors={errors}
-            name="lastname"
-            render={({ message }) => (
-              <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
-              </div>
-            )}
-          />
-        </div>
-      </div> */}
         </form>
       </tagsContext.Provider>
     </categoryContext.Provider>
