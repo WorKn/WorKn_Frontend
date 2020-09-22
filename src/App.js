@@ -12,10 +12,17 @@ import QuestionPopup from "./components/popup-components/QuestionPopup";
 import UserProfilePage from "./pages/profile-page/UserProfilePage";
 import EmpresaProfilePage from "./pages/profile-page/EmpresaProfilePage";
 import ManageOffersPage from "./pages/manageoffers-page/ManageOffersPage";
-
 import { ProtectedRoute } from "./components/route-components/ProtectedRoute";
 import AddMember from "./pages/addmember-page/AddMemberPage";
 import ManagePopup from "./components/popup-components/ManagePopup";
+import ForgotPasswordPage from "./pages/forgotpassword-page/ForgotPasswordPage.jsx";
+import NewPasswordPage from "./pages/newpassword-page/NewPasswordPage.jsx";
+import EmailValidation from "./pages/emailvalidation-page/EmailValidation";
+import { ProtectedRoute } from "./components/route-components/ProtectedRoute";
+import AddMember from "./pages/addmember-page/AddMemberPage";
+import ManagePopup from "./components/popup-components/ManagePopup";
+import SummaryPage from "./pages/summary-page/SummaryPage";
+import ExplorePage from "./pages/explore-page/ExplorePage";
 require("dotenv").config({ path: "./.env" });
 
 function App() {
@@ -58,16 +65,11 @@ function App() {
               path="/addMember/:orgid/:token"
               component={AddMember}
             />
-
             <Route exact path="/manageoffers" component={ManageOffersPage} />
-
+            <Route exact path="/addMember/:token" component={AddMember} />
+            <Route exact path="/resumen" component={SummaryPage} />
+            <Route exact path="/explore" component={ExplorePage} />
             <Route exact path="/managemembers" component={ManagePopup} />
-
-            {/* <Route
-              exact
-              path="/emailvalidation/:token"
-              component={EmailValidation}
-            /> */}
             <Route path="*" component={() => "404 NOT FOUND"} />
           </Switch>
         </animated.div>

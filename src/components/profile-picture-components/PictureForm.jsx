@@ -21,7 +21,7 @@ const PictureForm = ({ handleNewImage }) => {
     sendImage(image).then((res) => {
       console.log(res);
       try {
-        if (res.data.status == "success") {
+        if (res.data.status === "success") {
           toast.success(
             `Bien! ahora refresca la pagina para ver tu nueva foto de perfil`,
             {

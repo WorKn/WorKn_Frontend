@@ -23,10 +23,22 @@
   left: 50%;
   transform: translate(-50%, -50%);
   height: auto;
-  max-width: 36%;
+  max-width: 40%;
   overflow-y: auto;
   background: linear-gradient(90deg, #fff 94%, #5bba6f 50%);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   z-index: 101;
   border-radius: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+  .modal-box {
+    max-width: 56%;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .modal-box {
+    max-width: 95%;
+  }
 }
