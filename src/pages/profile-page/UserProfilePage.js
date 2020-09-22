@@ -27,7 +27,7 @@ const UserProfilePage = (props) => {
         <PasswordPopup></PasswordPopup>
       </PasswordModal>
       <Header />
-      <Banner image={"kiwVnMm.png"} />
+      <Banner image={"VfeSojP.png"} />
       <AnnouncementBanner></AnnouncementBanner>
       <div className="profilewrap">
         <div className="klk">
@@ -58,11 +58,22 @@ const UserProfilePage = (props) => {
             ) : (
               ""
             )}
+            {typeof state.userInformation !== "undefined" &&
+            state.userInformation.organizationRole === "" &&
+            state.userInformation.userType === "offerer" ? (
+              <Link to="#" style={{ textDecoration: "none" }}>
+                <button className="userprofile__action">
+                  <i className="fa fa-cog userprofile__icon"></i>
+                  Manejar ofertas
+                </button>
+              </Link>
+            ) : (
+              ""
+            )}
             <button
               className="userprofile__action"
               onClick={() => {
                 Cookies.remove("jwt");
-                window.STATE_MACHINE_RESET();
                 Auth.logout(() => {
                   props.history.push("/");
                 });
@@ -71,12 +82,6 @@ const UserProfilePage = (props) => {
               <i className="fa fa-sign-out userprofile__icon"></i>
               Cerrar sesión
             </button>
-            {/* <span className="userform__title">Manejo de organizacion</span>
-            <span className="userform__text">
-              Te permitirá crear y manejar tu empresa, incluyendo la agregación
-              y eliminación de miembros, ofertas de trabajo y demostraciones de
-              interés por posibles empleados para tu organización.
-            </span> */}
           </div>
         </div>
         <div className="formss">

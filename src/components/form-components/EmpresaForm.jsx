@@ -10,7 +10,7 @@ import {
   editOrganization,
   getMe,
 } from "../../utils/apiRequests";
-import { PicSelector } from "../../components/profile-pic-selection-components/Profile-selection-component";
+import PicSelector from "../profile-picture-components/PicSelector";
 
 const EmpresaForm = () => {
   const [updated, setUpdated] = useState("");
@@ -19,6 +19,7 @@ const EmpresaForm = () => {
   const { register, handleSubmit, errors, watch } = useForm({
     defaultValues: state.userInformation.data,
   });
+
   const onSubmit = (data) => {
     if (!state.userInformation.organization) {
       console.log("no hay org, creating");

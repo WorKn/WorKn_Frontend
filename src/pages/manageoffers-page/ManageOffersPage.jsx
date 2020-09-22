@@ -3,11 +3,10 @@ import "./ManageOffersPage-Style.css";
 import Header from "../../components/navbar-components/Navbar.jsx";
 import { getMyOffers } from "../../utils/apiRequests";
 import { getMyOrganization } from "../../utils/apiRequests";
-import OfferStrip from "../../components/offer-components/OfferStrip";
 import { useHistory } from "react-router-dom";
 import CreateOfferPopup from "../../components/popup-components/CreateOfferPopup";
 import { useModal } from "../../hooks/useModal";
-
+import CustomOfferStrip from "../../components/offer-components/CustomOfferStrip";
 // import updateAction from "../../updateAction";
 // import { useStateMachine } from "little-state-machine";
 
@@ -33,15 +32,16 @@ const ManageOffersPage = () => {
   //useMemo se usa cuando utilizo una variable directa de la que dependo , useEffect cuando quiero realizar un efecto secundario que no devuelve data,
   //useCallback cuando quiero que mi funcion se guarde y no se redefina muchas veces. Ej: una funcion de evento
 
+  //funcion useMemo() para memoizar las ofertas activas e inactivas. Evita hacer api requests innecesarios si la data no cambia
   const activeOffers = useMemo(
     () =>
       myoffers.map((offer) =>
         offer && offer.state !== "deleted" ? (
-          <OfferStrip
+          <CustomOfferStrip
             key={offer._id}
             organizationInformation={organizationInfo}
             offerInfo={offer}
-          ></OfferStrip>
+          ></CustomOfferStrip>
         ) : null
       ),
     [myoffers, organizationInfo]
@@ -51,11 +51,12 @@ const ManageOffersPage = () => {
     () =>
       myoffers.map((offer) =>
         offer && offer.state === "deleted" ? (
-          <OfferStrip
+          <CustomOfferStrip
             key={offer._id}
             organizationInformation={organizationInfo}
             offerInfo={offer}
-          ></OfferStrip>
+            isInactive={true}
+          ></CustomOfferStrip>
         ) : null
       ),
     [myoffers, organizationInfo]
@@ -83,6 +84,7 @@ const ManageOffersPage = () => {
     });
   }, [history]);
 
+  //[history, activeOffers, inactiveOffers]);
   return (
     <div className="manageoffers-container">
       <Header></Header>
@@ -99,6 +101,7 @@ const ManageOffersPage = () => {
       >
         <i className="fa fas fa-plus manageoffers__icon"></i>Crear oferta
       </button>
+
       <h1 className="manageoffers__active-offers">Ofertas Activas</h1>
       <div className="manageoffers__inner">{activeOffers}</div>
       <h1 className="manageoffers__inactive-offers">Ofertas Inactivas</h1>

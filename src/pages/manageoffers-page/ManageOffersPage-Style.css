@@ -46,3 +46,12 @@
 .create-offer__description-input {
   height: 40px;
 }
+.manageoffers__active-offers {
+  text-align: center;
+  font-size: 1.6em;
+}
+
+.manageoffers__inactive-offers {
+  text-align: center;
+  font-size: 1.6em;
+}
