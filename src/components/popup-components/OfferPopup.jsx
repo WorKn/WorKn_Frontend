@@ -6,16 +6,9 @@ let MyDictionary = {};
 MyDictionary["free"] = "Freelancer";
 MyDictionary["fixed"] = "Fijo/Indefinido";
 
-const OfferPopup = ({ offerInfo, organizationInformation, hide }) => {
-  const HandleHide = () => {
-    hide();
-  };
-
+const OfferPopup = ({ offerInfo, organizationInformation }) => {
   return (
-    <div className="op-wrapper">
-      <span className="op-wrapper__close" onClick={HandleHide}>
-        x
-      </span>
+    <div className="popup-wrapper">
       <div className="op-wrapper__up-content">
         {organizationInformation?.profilePicture ? (
           <img src={organizationInformation.profilePicture} alt="Offerpp" />
@@ -29,11 +22,12 @@ const OfferPopup = ({ offerInfo, organizationInformation, hide }) => {
           <div className="op-wrapper__bullets">
             <ul>
               <li>
-                Por <b>{organizationInformation.name}</b> en
+                Por <b>{organizationInformation.name}</b>
+                {organizationInformation.location ? " en " : null}
                 <b>
                   {organizationInformation
                     ? organizationInformation.location
-                    : "Info no disponible"}
+                    : " Info no disponible"}
                 </b>
               </li>
               <li>
@@ -42,7 +36,9 @@ const OfferPopup = ({ offerInfo, organizationInformation, hide }) => {
                   : "Info no disponible"}
               </li>
               <li>
-                {offerInfo ? offerInfo.closingDate : "Info no disponible"}
+                {offerInfo
+                  ? `${offerInfo.closingDate.slice(0, 10)}`
+                  : "Info no disponible"}
               </li>
             </ul>
           </div>
@@ -51,7 +47,7 @@ const OfferPopup = ({ offerInfo, organizationInformation, hide }) => {
               <Tag
                 key={tag._id}
                 text={tag.name}
-                theme="tag__small tag__text--small tag__text--gray"
+                theme="tag tag--small tag__text tag__text--small tag__text--gray"
               ></Tag>
             ))}
           </ul>
@@ -68,6 +64,10 @@ const OfferPopup = ({ offerInfo, organizationInformation, hide }) => {
           <b>{organizationInformation.phone}</b>
         </p>
       </div>
+      {/* <div className="op-wrapper__button-content">
+        <span className="op-wrapper__accept">Contacar</span>
+        <span className="op-wrapper__cancel">Descartar</span>
+      </div> */}
     </div>
   );
 };
