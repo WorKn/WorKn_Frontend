@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./Navbar-Style.css";
 
@@ -13,10 +13,15 @@ import { useStateMachine } from "little-state-machine";
 const Navbar = () => {
   const isLoggedIn = auth.isAuthenticated();
   const { state } = useStateMachine(updateAction);
+  const [hideOnMobile, setHideOnMobile] = useState(true);
+
+  const toggleHiddenMobile = () => {
+    setHideOnMobile(!hideOnMobile);
+  };
 
   return (
     <div className="navbar">
-      <div className="navbar__left-items">
+      <div className="navbar__left-items navbar__logo-link">
         <Link to="/" className="navbar__link">
           <img
             className="navbar__logo"
@@ -25,23 +30,58 @@ const Navbar = () => {
           />
         </Link>
 
-        <Link className="navbar__link" to="#">
+        <Link
+          className={
+            hideOnMobile
+              ? "navbar__link navbar__link--hidden navbar__hide-on-mobile"
+              : "navbar__link navbar__link--hidden"
+          }
+          to="#"
+        >
           Ofertas
         </Link>
-        <Link className="navbar__link" to="/explore">
+        <Link
+          className={
+            hideOnMobile
+              ? "navbar__link navbar__link--hidden navbar__hide-on-mobile"
+              : "navbar__link navbar__link--hidden"
+          }
+          to="/explore"
+        >
           Exploración
         </Link>
-        <Link className="navbar__link" to="/resumen">
+        <Link
+          className={
+            hideOnMobile
+              ? "navbar__link navbar__link--hidden navbar__hide-on-mobile"
+              : "navbar__link navbar__link--hidden"
+          }
+          to="#"
+        >
           Resumen
         </Link>
-        <Link className="navbar__link" to="#">
+        <Link
+          className={
+            hideOnMobile
+              ? "navbar__link navbar__link--hidden navbar__hide-on-mobile"
+              : "navbar__link navbar__link--hidden"
+          }
+          to="/resumen"
+        >
           Mensajeria
         </Link>
       </div>
 
       {isLoggedIn ? (
         <div className="navbar__right-items">
-          <Link to="/userprofilepage" className="navbar__profile-button-link">
+          <Link
+            to="/userprofilepage"
+            className={
+              hideOnMobile
+                ? "navbar__profile-button-link navbar__hide-on-mobile"
+                : "navbar__profile-button-link"
+            }
+          >
             <button className="navbar__profile-button">
               <span>Perfil</span>
               <div className="navbar__img-holder">
@@ -53,21 +93,39 @@ const Navbar = () => {
               </div>
             </button>
           </Link>
+          <i
+            class="fas fa-bars"
+            id="navbar__hidden"
+            onClick={toggleHiddenMobile}
+          ></i>
         </div>
       ) : (
         <div className="navbar__right-items">
           <Link
-            className="navbar__link navbar__link--highlighted"
+            className={
+              hideOnMobile
+                ? "navbar__link navbar__link--highlighted navbar__hide-on-mobile"
+                : "navbar__link navbar__link--highlighted"
+            }
             to="/loginpage"
           >
             Iniciar sesión
           </Link>
           <Link
-            className="navbar__link navbar__link--highlighted"
+            className={
+              hideOnMobile
+                ? "navbar__link navbar__link--highlighted navbar__hide-on-mobile"
+                : "navbar__link navbar__link--highlighted"
+            }
             to="/registerpage"
           >
             Registrate
           </Link>
+          <i
+            className="fa fa-bars icon-2x"
+            id="navbar__hidden"
+            onClick={toggleHiddenMobile}
+          ></i>
         </div>
       )}
     </div>

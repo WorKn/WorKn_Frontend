@@ -1,12 +1,23 @@
 import React from "react";
 import "./CustomOfferStrip-Style.css";
 import Tag from "../tag-components/Tag";
+import { useModal } from "../../hooks/useModal";
+import EditOfferPopup from "../popup-components/EditOfferPopup";
 
 let MyDictionary = {};
 MyDictionary["free"] = "Freelancer";
 MyDictionary["fixed"] = "Fijo/Indefinido";
 
-const CustomOfferStrip = ({ offerInfo, organizationInformation }) => {
+const CustomOfferStrip = ({
+  offerInfo,
+  organizationInformation,
+  isInactive,
+}) => {
+  const {
+    show: showEditOfferModal,
+    RenderModal: EditOfferModal,
+    hide: hideEditOfferModal,
+  } = useModal();
   //optional chanining JS, o si
   // chekear si offer.
   //   console.log(offerInfo?.tags);
@@ -62,7 +73,18 @@ const CustomOfferStrip = ({ offerInfo, organizationInformation }) => {
       </div>
 
       <span className="offerstrip__vl offerstrip__vl--4"></span>
-      <span className="offerstrip__text offerstrip__edit">Editar</span>
+      <EditOfferModal>
+        <EditOfferPopup
+          hide={hideEditOfferModal}
+          offerInfo={offerInfo}
+        ></EditOfferPopup>
+      </EditOfferModal>
+      <span
+        className="offerstrip__text offerstrip__edit"
+        onClick={isInactive ? () => {} : showEditOfferModal}
+      >
+        Editar
+      </span>
       <i className="fa fa-times offerstrip__icon offerstrip__delete"></i>
     </div>
   );
