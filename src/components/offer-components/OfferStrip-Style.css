@@ -87,3 +87,7 @@
     margin-bottom: 10px;
   }
 }
+
+.offerstrip--inactive {
+  background-color: #707070;
+}
