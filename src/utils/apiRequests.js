@@ -389,3 +389,12 @@ export const cancelInteraction = async (id) => {
     return e.response.data;
   }
 };
+
+export const deleteOffer = async (id) => {
+  try {
+    const response = await axios.delete(`${HOST}/api/v1/offers/${id}`);
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
