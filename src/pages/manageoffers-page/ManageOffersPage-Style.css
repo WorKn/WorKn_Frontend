@@ -1,0 +1,35 @@
+.manageoffers-banner {
+  height: 280px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("https://i.imgur.com/lcHQ2QP.jpeg");
+  background-position: center;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+.manageoffers-banner__title {
+  color: white;
+  font-weight: 700;
+  font-size: 57px;
+  text-shadow: 1px 2px 5px #7e7d7d;
+}
+
+.manageoffers__inner {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  padding: 2% 4%;
+}
+
+.manageoffers__active-offers {
+  text-align: center;
+  font-size: 1.6em;
+}
+
+.manageoffers__inactive-offers {
+  text-align: center;
+  font-size: 1.6em;
+}

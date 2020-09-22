@@ -11,6 +11,7 @@ import RegisterPageC2 from "./pages/register-page/RegisterPage-C2";
 import QuestionPopup from "./components/popup-components/QuestionPopup";
 import UserProfilePage from "./pages/profile-page/UserProfilePage";
 import EmpresaProfilePage from "./pages/profile-page/EmpresaProfilePage";
+import ManageOffersPage from "./pages/manageoffers-page/ManageOffersPage";
 import ForgotPasswordPage from "./pages/forgotpassword-page/ForgotPasswordPage.jsx";
 import NewPasswordPage from "./pages/newpassword-page/NewPasswordPage.jsx";
 import EmailValidation from "./pages/emailvalidation-page/EmailValidation";
@@ -71,11 +72,10 @@ function App() {
               path="/emailvalidation/:token"
               component={EmailValidation}
             />
+            <Route exact path="/manageoffers" component={ManageOffersPage} />
             <Route exact path="/addMember/:token" component={AddMember} />
-
             <Route exact path="/resumen" component={SummaryPage} />
             <Route exact path="/explore" component={ExplorePage} />
-
             <Route exact path="/managemembers" component={ManagePopup} />
             <Route path="*" component={() => "404 NOT FOUND"} />
           </Switch>
