@@ -39,6 +39,24 @@ export const getMe = async () => {
   }
 };
 
+export const getAllUsers = async () => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/users?userType=applicant`);
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
+export const getAllOffers = async () => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/offers/`);
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
 export const userLogin = async (user) => {
   try {
     const response = await axios.post(`${HOST}/api/v1/users/login`, {
@@ -127,6 +145,25 @@ export const validateEmail = async (token) => {
     );
     return response.data.status;
   } catch (e) {
+    return false;
+  }
+};
+
+export const createOffer = async (offer) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/offers`, {
+      title: offer.title,
+      description: offer.description,
+      offerType: offer.offerType,
+      location: offer.location,
+      category: offer.category,
+      tags: offer.tags,
+      salaryRange: offer.salaryRange,
+      closingDate: offer.closingDate,
+    });
+    return response.data.status;
+  } catch (e) {
+    console.log("Hubo un error al crear");
     return e.response.data;
   }
 };
@@ -282,23 +319,116 @@ export const removeMember = async (id) => {
   }
 };
 
+export const updateMemberRole = async (id, role) => {
+  try {
+    const response = await axios.patch(`${HOST}/api/v1/organizations/members`, {
+      id: id,
+      organizationRole: role,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
 export const getMyOffers = async () => {
   try {
     const response = await axios.get(`${HOST}/api/v1/offers/me`);
     return response;
   } catch (e) {
-    return e;
+    return e.response.data;
   }
 };
 
-export const updateMemberRole = async (id, role) => {
+export const editOffer = async (offer) => {
   try {
-    const response = await axios.post(`${HOST}/api/v1/organizations/members`, {
-      member: {
-        id: id,
-      },
-      organizationRole: role,
+    const response = await axios.patch(`${HOST}/api/v1/offers/${offer._id}`, {
+      title: offer.title,
+      description: offer.description,
+      offerType: offer.offerType,
+      location: offer.location,
+      category: offer.category,
+      tags: offer.tags,
+      salaryRange: offer.salaryRange,
+      closingDate: offer.closingDate,
     });
+    return response.data.status;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+// Interactions
+
+export const getMyInteractions = async (offer) => {
+  try {
+    const response = await axios.get(
+      `${HOST}/api/v1/offers/interactions/me?offer=${offer}`
+    );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const createInteractionAO = async (offer) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/offers/interactions`, {
+      offer: offer,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const createInteractionOA = async (applicant, offer) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/offers/interactions`, {
+      applicant: applicant,
+      offer: offer,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const acceptInteraction = async (id) => {
+  try {
+    const response = await axios.patch(
+      `${HOST}/api/v1/offers/interactions/accept/${id}`
+    );
+    return response.data.status;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const rejectInteraction = async (id) => {
+  try {
+    const response = await axios.patch(
+      `${HOST}/api/v1/offers/interactions/reject/${id}`
+    );
+    return response.data.status;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const cancelInteraction = async (id) => {
+  try {
+    const response = await axios.delete(
+      `${HOST}/api/v1/offers/interactions/${id}`
+    );
+    return response.data.status;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const deleteOffer = async (id) => {
+  try {
+    const response = await axios.delete(`${HOST}/api/v1/offers/${id}`);
     return response;
   } catch (e) {
     return e.response.data;

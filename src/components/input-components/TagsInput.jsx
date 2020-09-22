@@ -6,28 +6,46 @@ import axios from "axios";
 import tagsContext from "../../utils/tagsContext";
 import categoryContext from "../../utils/categoryContext";
 
-const TagsInput = (props) => {
+const TagsInput = ({ defaultInputValue }) => {
   const [inputValue, setInputValue] = useState("");
   const [tags, setTags] = useState([]);
   const { selectedTags, setSelectedTags } = useContext(tagsContext);
   const { selectedCategory } = useContext(categoryContext);
   const animatedComponent = makeAnimated();
+  const [isDefaultInput, setIsDefaultInput] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(
-        `http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.label}/tags`
-      )
-      .then((res) => {
-        console.log(inputValue);
-        const json = res.data.data.tags;
-        const tags = [];
-        json.forEach((i) => {
-          tags.push({ label: i.name, value: i._id });
+    if (defaultInputValue && isDefaultInput) {
+      axios
+        .get(
+          `http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${defaultInputValue}/tags`
+        )
+        .then((res) => {
+          console.log(defaultInputValue);
+          const json = res.data.data.tags;
+          const tags = [];
+          json.forEach((i) => {
+            tags.push({ label: i.name, value: i._id });
+          });
+          setTags(tags);
+          setIsDefaultInput(false);
         });
-        setTags(tags);
-      });
-  }, [selectedCategory, inputValue]);
+    } else {
+      axios
+        .get(
+          `http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.label}/tags`
+        )
+        .then((res) => {
+          console.log(inputValue);
+          const json = res.data.data.tags;
+          const tags = [];
+          json.forEach((i) => {
+            tags.push({ label: i.name, value: i._id });
+          });
+          setTags(tags);
+        });
+    }
+  }, [selectedCategory, inputValue, defaultInputValue, isDefaultInput]);
 
   const filterCategories = (inputValue) => {
     const temp = tags.filter((tag) =>
