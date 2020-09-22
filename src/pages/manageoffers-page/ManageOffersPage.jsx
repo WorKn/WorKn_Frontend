@@ -3,7 +3,7 @@ import "./ManageOffersPage-Style.css";
 import Header from "../../components/navbar-components/Navbar.jsx";
 import { getMyOffers } from "../../utils/apiRequests";
 import { getMyOrganization } from "../../utils/apiRequests";
-import OfferStrip from "../../components/offer-components/OfferStrip";
+import CustomOfferStrip from "../../components/offer-components/CustomOfferStrip";
 // import updateAction from "../../updateAction";
 // import { useStateMachine } from "little-state-machine";
 import { useHistory } from "react-router-dom";
@@ -30,11 +30,11 @@ const ManageOffersPage = () => {
     () =>
       myoffers.map((offer) =>
         offer && offer.state !== "deleted" ? (
-          <OfferStrip
+          <CustomOfferStrip
             key={offer._id}
             organizationInformation={organizationInfo}
             offerInfo={offer}
-          ></OfferStrip>
+          ></CustomOfferStrip>
         ) : null
       ),
     [myoffers, organizationInfo]
@@ -44,12 +44,12 @@ const ManageOffersPage = () => {
     () =>
       myoffers.map((offer) =>
         offer && offer.state === "deleted" ? (
-          <OfferStrip
+          <CustomOfferStrip
             key={offer._id}
             organizationInformation={organizationInfo}
             offerInfo={offer}
             isInactive={true}
-          ></OfferStrip>
+          ></CustomOfferStrip>
         ) : null
       ),
     [myoffers, organizationInfo]
