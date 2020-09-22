@@ -78,10 +78,12 @@ const EmpresaProfilePage = (props) => {
               <i className="fa fa-cog userprofile__icon"></i>
               Manejar miembros
             </button>
-            <button className="userprofile__action">
-              <i className="fa fa-cog userprofile__icon"></i>
-              Manejar ofertas
-            </button>
+            <Link to="/manageoffers">
+              <button className="userprofile__action">
+                <i className="fa fa-cog userprofile__icon"></i>
+                Manejar ofertas
+              </button>
+            </Link>
             <button
               className="userprofile__action"
               onClick={() => {

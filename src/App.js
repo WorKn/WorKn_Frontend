@@ -77,6 +77,7 @@ function App() {
             <Route exact path="/resumen" component={SummaryPage} />
             <Route exact path="/explore" component={ExplorePage} />
             <Route exact path="/managemembers" component={ManagePopup} />
+
             <Route path="*" component={() => "404 NOT FOUND"} />
           </Switch>
         </animated.div>

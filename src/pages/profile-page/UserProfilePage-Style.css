@@ -50,6 +50,10 @@
   margin-right: 140px;
 }
 
+.profilewrap a {
+  text-decoration: none;
+}
+
 @media (max-width: 1320px) {
   .profilewrap {
     flex-flow: column;

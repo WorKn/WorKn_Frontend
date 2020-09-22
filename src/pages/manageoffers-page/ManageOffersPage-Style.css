@@ -24,6 +24,28 @@
   padding: 2% 4%;
 }
 
+.manageoffers-container button {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  width: 250px;
+  color: white;
+  font-weight: 500;
+  font-size: 20px;
+  background-color: #00ba6b;
+  border-radius: 10px;
+  padding: 25px;
+  cursor: pointer;
+  margin: auto;
+}
+
+.manageoffers__icon {
+  margin-top: 3px;
+}
+
+.create-offer__description-input {
+  height: 40px;
+}
 .manageoffers__active-offers {
   text-align: center;
   font-size: 1.6em;

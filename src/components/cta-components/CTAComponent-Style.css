@@ -63,3 +63,36 @@
 .cta-container__jumbotron-text a {
   text-decoration: none;
 }
+
+@media screen and (max-width: 942px) {
+  .cta-container {
+    flex-direction: column;
+  }
+
+  .cta-container__jumbotron-text {
+    flex: 0;
+    margin-bottom: 90px;
+    align-items: center;
+  }
+
+  .cta-container__title {
+    font-size: 22px;
+  }
+  .cta-container__image {
+    margin-left: 0px;
+  }
+
+  .cta-container__ctabutton {
+    font-size: 14px;
+    height: 65px;
+  }
+
+  .cta-container__description {
+    text-align: center;
+    font-size: 17px;
+  }
+
+  .cta-container__image {
+    width: 80%;
+  }
+}
