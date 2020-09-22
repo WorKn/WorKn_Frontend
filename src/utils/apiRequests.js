@@ -208,17 +208,14 @@ export const resetPassword = async (user) => {
 
 export const editOrganization = async (org) => {
   try {
-    const response = await axios.patch(
-      `${HOST}/api/v1/organizations/${org.id}`,
-      {
-        name: org.name,
-        RNC: org.RNC,
-        bio: org.bio,
-        location: org.location,
-        phone: org.phone,
-        email: org.email,
-      }
-    );
+    const response = await axios.patch(`${HOST}/api/v1/organizations/`, {
+      name: org.name,
+      RNC: org.RNC,
+      bio: org.bio,
+      location: org.location,
+      phone: org.phone,
+      email: org.email,
+    });
     return response;
   } catch (e) {
     return e.response.data;
