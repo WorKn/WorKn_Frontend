@@ -19,6 +19,7 @@ import NewPasswordPage from "./pages/newpassword-page/NewPasswordPage.jsx";
 import EmailValidation from "./pages/emailvalidation-page/EmailValidation";
 import AddMember from "./pages/addmember-page/AddMemberPage";
 import SummaryPage from "./pages/summary-page/SummaryPage";
+import NotFound from "./pages/not_found-page/not_found";
 import ExplorePage from "./pages/explore-page/ExplorePage";
 require("dotenv").config({ path: "./.env" });
 
@@ -44,6 +45,16 @@ function App() {
             <Route exact path="/loginpage" component={LoginPage} />
             <Route
               exact
+              path="/forgotPassword"
+              component={ForgotPasswordPage}
+            ></Route>
+            <Route
+              exact
+              path="/resetPassword/:token"
+              component={NewPasswordPage}
+            ></Route>
+            <Route
+              exact
               path="/landingpage/question"
               component={QuestionPopup}
             />
@@ -59,6 +70,12 @@ function App() {
             />
             <Route
               exact
+              path="/emailvalidation/:token"
+              component={EmailValidation}
+            />
+            {/* <Route exact path="/addMember/:token" component={AddMember} /> */}
+            <Route
+              exact
               path="/addMember/:orgid/:token"
               component={AddMember}
             />
@@ -67,7 +84,7 @@ function App() {
             <Route exact path="/resumen" component={SummaryPage} />
             <Route exact path="/explore" component={ExplorePage} />
             <Route exact path="/managemembers" component={ManagePopup} />
-            <Route path="*" component={() => "404 NOT FOUND"} />
+            <Route path="*" component={NotFound} />
           </Switch>
         </animated.div>
       ))}

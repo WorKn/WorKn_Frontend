@@ -331,22 +331,6 @@ export const updateMemberRole = async (id, role) => {
   }
 };
 
-// export const createOffer = async (offer) => {
-//   try {
-//     const response = await axios.post(`${HOST}/api/v1/offers`, {
-//       title: offer.title,
-//       description: offer.description,
-//       offerType: offer.offerType,
-//       location: offer.location,
-//       category: offer.category,
-//       tags: offer.tags,
-//       salaryRange: offer.salaryRange,
-//       closingDate: offer.closingDate,
-//     });
-//     return response.data.status;
-//   } catch (e) {
-//     console.log("Hubo un error");
-
 export const getMyOffers = async () => {
   try {
     const response = await axios.get(`${HOST}/api/v1/offers/me`);
@@ -385,15 +369,6 @@ export const getMyInteractions = async (offer) => {
     return e.response.data;
   }
 };
-
-// export const getMyOffers = async () => {
-//   try {
-//     const response = await axios.get(`${HOST}/api/v1/offers/me`);
-//     return response;
-//   } catch (e) {
-//     return e;
-//   }
-// };
 
 export const createInteractionAO = async (offer) => {
   try {
