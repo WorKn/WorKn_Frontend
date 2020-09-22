@@ -49,11 +49,14 @@
 .manageoffers__active-offers {
   text-align: center;
   font-size: 1.6em;
+  margin: 30px 0px;
+  text-transform: uppercase;
 }
 
 .manageoffers__inactive-offers {
   text-align: center;
   font-size: 1.6em;
+  text-transform: uppercase;
 }
 
 .manageoffers-container {

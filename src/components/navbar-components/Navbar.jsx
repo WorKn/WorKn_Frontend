@@ -122,7 +122,7 @@ const Navbar = () => {
             Registrate
           </Link>
           <i
-            class="fa fa-bars icon-2x"
+            className="fa fa-bars icon-2x"
             id="navbar__hidden"
             onClick={toggleHiddenMobile}
           ></i>

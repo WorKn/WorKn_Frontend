@@ -94,6 +94,7 @@ const ManageOffersPage = () => {
       <AddOfferModal>
         <CreateOfferPopup hide={hideAddOfferModal}></CreateOfferPopup>
       </AddOfferModal>
+      <h1 className="manageoffers__active-offers">Ofertas Activas</h1>
       <button
         type="button"
         className="manageoffers__create-button"
@@ -102,7 +103,6 @@ const ManageOffersPage = () => {
         <i className="fa fas fa-plus manageoffers__icon"></i>Crear oferta
       </button>
 
-      <h1 className="manageoffers__active-offers">Ofertas Activas</h1>
       <div className="manageoffers__inner">{activeOffers}</div>
       <h1 className="manageoffers__inactive-offers">Ofertas Inactivas</h1>
       <div className="manageoffers__inner">
