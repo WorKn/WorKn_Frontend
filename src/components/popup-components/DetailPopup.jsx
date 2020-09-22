@@ -1,32 +1,94 @@
 import React, { useEffect, useState } from "react";
-import { createInteraction } from "../../utils/apiRequests";
+import {
+  createInteractionAO,
+  createInteractionOA,
+} from "../../utils/apiRequests";
+import updateAction from "../../updateAction";
+import { useStateMachine } from "little-state-machine";
+import { getMyOffers } from "../../utils/apiRequests";
+import { useForm } from "react-hook-form";
 
 const DetailPopup = ({ responseInfo }) => {
-  const [offerToApply, setOfferToApply] = useState();
+  const { state } = useStateMachine(updateAction);
+  const [interactionTarget, setInteractionTarget] = useState();
+  const [offers, setOffers] = useState();
+  const [selectedOffer, setSelectedOffer] = useState();
+  const { register, handleSubmit } = useForm({});
 
   useEffect(() => {
-    if (offerToApply) {
-      createInteraction(offerToApply).then((res) => {
+    getMyOffers().then((res) => {
+      if (res !== undefined) {
+        console.log(res);
+        setOffers(res);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (interactionTarget && state.userInformation.userType === "applicant") {
+      createInteractionAO(interactionTarget).then((res) => {
         if (res !== undefined) {
           console.log(res);
         }
       });
+    } else {
+      console.log("es ofertante");
     }
-  }, [offerToApply]);
+  }, [interactionTarget, state.userInformation.userType]);
+
+  useEffect(() => {
+    createInteractionOA(interactionTarget, selectedOffer).then((res) => {
+      if (res !== undefined) {
+        console.log(res);
+      }
+    });
+  }, [interactionTarget, selectedOffer]);
+
+  const onSubmit = (data) => {
+    setSelectedOffer(data.offer);
+    setInteractionTarget(responseInfo?._id);
+  };
 
   return (
     <div>
-      <h1>
-        {responseInfo?.title}
-        <button
-          onClick={() => {
-            console.log(responseInfo?._id);
-            setOfferToApply(responseInfo?._id);
-          }}
-        >
-          Aplicar
-        </button>
-      </h1>
+      {(typeof state.userInformation.userType !== "undefined" &&
+        state.userInformation.userType === "applicant") ||
+      state.userInformation.userType === "" ? (
+        <div>
+          <h1>{responseInfo?.title}</h1>
+          <button
+            onClick={() => {
+              console.log(responseInfo?._id);
+              setInteractionTarget(responseInfo?._id);
+              console.log(selectedOffer);
+            }}
+          >
+            Aplicar
+          </button>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <h1>
+            {responseInfo?.name} {responseInfo?.lastname}
+          </h1>
+          {typeof offers ? (
+            <select className="form__select" name="offer" ref={register}>
+              {offers?.data.data.offers.map((offer) => (
+                <option key={offer._id} value={offer._id}>
+                  {offer.title}
+                </option>
+              ))}
+            </select>
+          ) : (
+            ""
+          )}
+          <input
+            className="custom-button bg-green"
+            type="submit"
+            value="Demostrar interés"
+          />
+        </form>
+      )}
     </div>
   );
 };

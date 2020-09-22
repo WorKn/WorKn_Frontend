@@ -27,7 +27,7 @@ const UserProfilePage = (props) => {
         <PasswordPopup></PasswordPopup>
       </PasswordModal>
       <Header />
-      <Banner image={"kiwVnMm.png"} />
+      <Banner image={"VfeSojP.png"} />
       <AnnouncementBanner></AnnouncementBanner>
       <div className="profilewrap">
         <div className="klk">
@@ -82,12 +82,6 @@ const UserProfilePage = (props) => {
               <i className="fa fa-sign-out userprofile__icon"></i>
               Cerrar sesión
             </button>
-            {/* <span className="userform__title">Manejo de organizacion</span>
-            <span className="userform__text">
-              Te permitirá crear y manejar tu empresa, incluyendo la agregación
-              y eliminación de miembros, ofertas de trabajo y demostraciones de
-              interés por posibles empleados para tu organización.
-            </span> */}
           </div>
         </div>
         <div className="formss">

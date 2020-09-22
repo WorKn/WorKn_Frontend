@@ -7,6 +7,7 @@ import OfferCard from "../../components/offer-components/OfferCard";
 import { getAllUsers, getAllOffers } from "../../utils/apiRequests";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
+import Footer from "../../components/footer-components/Footer";
 
 const ExplorePage = () => {
   const [responses, setResponses] = useState([]);
@@ -24,6 +25,7 @@ const ExplorePage = () => {
       getAllUsers().then((res) => {
         console.log(res);
         console.log("ofertante detected");
+        setResponses(res.data.data.data);
       });
     } else if (
       state.userInformation.userType !== "undefined" &&
@@ -47,7 +49,7 @@ const ExplorePage = () => {
     <div>
       <div className="explorepage">
         <Header />
-        <Banner image={"kiwVnMm.png"} />
+        <Banner image={"ooyAGWN.png"} />
         <div className="explorepage__inner">
           <form className="explorepage__wrapper">
             <div className="explorepage__searchbox">
@@ -72,19 +74,13 @@ const ExplorePage = () => {
                 <OfferCard
                   key={response._id}
                   responseInfo={response}
-                  // description={response.description}
-                  // title={response.title}
-                  // category={response.category.name}
-                  // location="Santo Domingo"
-                  // offerType={response.offerType}
-                  // closingDate={response.closingDate}
-                  // organization={response.organization.name}
                 ></OfferCard>
               ) : null
             )}
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };

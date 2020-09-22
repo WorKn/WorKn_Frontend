@@ -46,7 +46,7 @@ const Navbar = () => {
               ? "navbar__link navbar__link--hidden navbar__hide-on-mobile"
               : "navbar__link navbar__link--hidden"
           }
-          to="#"
+          to="/explore"
         >
           Exploración
         </Link>
@@ -66,7 +66,7 @@ const Navbar = () => {
               ? "navbar__link navbar__link--hidden navbar__hide-on-mobile"
               : "navbar__link navbar__link--hidden"
           }
-          to="#"
+          to="/resumen"
         >
           Mensajeria
         </Link>

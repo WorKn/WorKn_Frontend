@@ -1,0 +1,61 @@
+.manageoffers-banner {
+  height: 280px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("https://i.imgur.com/lcHQ2QP.jpeg");
+  background-position: center;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+.manageoffers-banner__title {
+  color: white;
+  font-weight: 700;
+  font-size: 57px;
+  text-shadow: 1px 2px 5px #7e7d7d;
+}
+
+.manageoffers__inner {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  padding: 2% 4%;
+}
+
+.manageoffers-container button {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  width: 250px;
+  color: white;
+  font-weight: 500;
+  font-size: 20px;
+  background-color: #00ba6b;
+  border-radius: 10px;
+  padding: 25px;
+  cursor: pointer;
+  margin: auto;
+}
+
+.manageoffers__icon {
+  margin-top: 3px;
+}
+
+.create-offer__description-input {
+  height: 40px;
+}
+.manageoffers__active-offers {
+  text-align: center;
+  font-size: 1.6em;
+}
+
+.manageoffers__inactive-offers {
+  text-align: center;
+  font-size: 1.6em;
+}
+
+.manageoffers-container {
+  background-color: #f7f7f7;
+}
