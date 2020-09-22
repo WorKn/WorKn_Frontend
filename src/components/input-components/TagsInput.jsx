@@ -47,7 +47,6 @@ const TagsInput = ({ defaultInputValue }) => {
     }
   }, [selectedCategory, inputValue, defaultInputValue, isDefaultInput]);
 
-
   const filterCategories = (inputValue) => {
     const temp = tags.filter((tag) =>
       tag.label.includes(inputValue.toLowerCase())

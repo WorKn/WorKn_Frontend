@@ -17,7 +17,7 @@ const CreateOfferPage = ({ hide }) => {
   const { register, handleSubmit, errors } = useForm({
     // mode: "onBlur",
   });
-  const [selectedCategory, setSelectedCategory] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState({ label: "health" });
   const [selectedTags, setSelectedTags] = useState([]);
   const [showSuccess, setSuccess] = useState(false);
 
