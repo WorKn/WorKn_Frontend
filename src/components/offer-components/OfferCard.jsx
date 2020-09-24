@@ -20,7 +20,7 @@ const OfferCard = ({ responseInfo }) => {
         <div className="offercard__wrapper" onClick={showDetailModal}>
           <div className="offercard__header">
             <img
-              src={responseInfo?.organization.profilePicture}
+              src={responseInfo?.organization?.profilePicture}
               alt="misco"
               className="offercard__picture"
             ></img>
@@ -32,7 +32,7 @@ const OfferCard = ({ responseInfo }) => {
               <span className="offercard__text--subtitle">
                 Por{" "}
                 <span className="offercard__text--highlight">
-                  {responseInfo?.organization.name}
+                  {responseInfo?.organization?.name}
                 </span>{" "}
                 en{" "}
                 <span className="offercard__text--highlight">
