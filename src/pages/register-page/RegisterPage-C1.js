@@ -7,9 +7,12 @@ import { ErrorMessage } from "@hookform/error-message";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import { userSignup } from "../../utils/apiRequests";
+import auth from "../../utils/authHelper";
+import Cookies from "js-cookie";
 
 const RegisterPageC1 = () => {
   const [gotResponse, setGotResponse] = useState(false);
+  const [userObject, setUserObject] = useState('');
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, errors } = useForm();
   const { push } = useHistory();
@@ -21,12 +24,39 @@ const RegisterPageC1 = () => {
 
   useEffect(() => {
     if (state.userInformation.userType !== "") {
-      userSignup(state.userInformation).then((res) => {});
-      push("/loginpage");
+      userSignup(state.userInformation).then((res) => {
+        setUserObject(res);
+      });
     } else {
       console.log("loading");
     }
   }, [gotResponse, push, state.userInformation]);
+
+  useEffect(() => {
+    if (userObject.data !== undefined && userObject.data.status === "success") {
+      action(userObject.data.data.user);
+      Cookies.set("jwt", userObject.data.token);
+    }
+    const user = Cookies.get("jwt");
+    if (user && state.userInformation.category && state.userInformation.tags) {
+      auth.login();
+      push("/userprofilepage");
+    } else if (
+      user &&
+      !state.userInformation.category &&
+      !state.userInformation.tags
+    ) {
+      auth.login();
+      push("/userprofilepage");
+      console.log("not completed!");
+    }
+  }, [
+    userObject,
+    push,
+    action,
+    state.userInformation.category,
+    state.userInformation.tags,
+  ]);
 
   return (
     <div className="register-wrapper">
