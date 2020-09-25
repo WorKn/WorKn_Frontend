@@ -9,6 +9,9 @@ import { useStateMachine } from "little-state-machine";
 const OfferCard = ({ responseInfo }) => {
   const { state } = useStateMachine(updateAction);
   const { show: showDetailModal, RenderModal: DetailModal } = useModal();
+  let MyDictionary = {};
+  MyDictionary["free"] = "Freelancer";
+  MyDictionary["fixed"] = "Fijo/Indefinido";
   return (
     <div>
       <DetailModal>
@@ -42,7 +45,7 @@ const OfferCard = ({ responseInfo }) => {
             </div>
           </div>
           <div className="offercard__data">
-            {responseInfo?.offerType}
+            {MyDictionary[responseInfo?.offerType]}
             <div className="offercard__vl"></div>
             <span>{responseInfo?.closingDate.slice(0, 10)}</span>
             <div className="offercard__vl"></div>
