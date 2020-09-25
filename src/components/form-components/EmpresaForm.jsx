@@ -25,7 +25,6 @@ const EmpresaForm = () => {
       createOrganization(data).then((res) => {
         if (res.data !== undefined) {
           setUpdated(res);
-          // console.log(res);
         }
       });
     } else {
@@ -34,7 +33,6 @@ const EmpresaForm = () => {
         if (res.data !== undefined) {
           setDisabled(true);
           setUpdated(res);
-          // console.log(res);
         }
       });
     }
@@ -43,7 +41,6 @@ const EmpresaForm = () => {
     getMyOrganization().then((res) => {
       if (res.data !== undefined) {
         action(res.data.data);
-        // console.log(res);
       }
     });
     getMe().then((res) => {
@@ -114,7 +111,6 @@ const EmpresaForm = () => {
           className="userform__input userform__input--lg"
           type="text"
           name="bio"
-          // pattern="[a-zA-Z]*"
           ref={register({
             maxLength: {
               value: 400,
@@ -140,7 +136,6 @@ const EmpresaForm = () => {
             type="text"
             name="phone"
             ref={register}
-            // pattern="[a-zA-Z]*"
           />
           <ErrorMessage
             errors={errors}

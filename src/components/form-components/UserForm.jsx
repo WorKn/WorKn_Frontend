@@ -49,7 +49,6 @@ const UserForm = () => {
         }
       });
     } else {
-      console.log("loading");
     }
   }, [updated, action, state.userInformation.userType]);
 
@@ -146,7 +145,7 @@ const UserForm = () => {
           </div>
           <div className="userform__2col">
             <div className="userform__LIP">
-              <span className="userform__label">Telefono</span>
+              <span className="userform__label">Teléfono</span>
               <input
                 className="userform__input"
                 type="text"
@@ -201,7 +200,7 @@ const UserForm = () => {
 
                 <div className="userform__LIP">
                   <span className="userform__label">
-                    Selecciona tu categoria
+                    Selecciona tu categoría
                   </span>
                   <CategoryInput></CategoryInput>
                 </div>
@@ -234,7 +233,7 @@ const UserForm = () => {
           updated.data.status === "success" ? (
             <div className="input__msg input__msg--success">
               {updated.data.data.user.name}, tu perfil fue actualizado
-              correctamente
+              correctamente.
             </div>
           ) : (
             ""
