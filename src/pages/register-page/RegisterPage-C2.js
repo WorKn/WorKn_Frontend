@@ -8,8 +8,11 @@ import { useStateMachine } from "little-state-machine";
 import { ErrorMessage } from "@hookform/error-message";
 import { getAge } from "../../utils/ageCalculation";
 import { orgUserSignup } from "../../utils/apiRequests";
+import auth from "../../utils/authHelper";
+import Cookies from "js-cookie";
 
 const RegisterPageC2 = () => {
+  const [userObject, setUserObject] = useState('');
   const [gotResponse, setGotResponse] = useState(false);
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, watch, errors } = useForm({
@@ -26,12 +29,40 @@ const RegisterPageC2 = () => {
 
   useEffect(() => {
     if (state.userInformation.userType !== "") {
-      orgUserSignup(state.userInformation).then((res) => {});
-      push("/loginpage");
+      orgUserSignup(state.userInformation).then((res) => {
+        setUserObject(res);
+      });
     } else {
       console.log("loading");
     }
   }, [gotResponse, push, state.userInformation]);
+  useEffect(() => {
+    if (userObject.data !== undefined && userObject.data.status === "success") {
+      action(userObject.data.data.user);
+      Cookies.set("jwt", userObject.data.token);
+    }
+    const user = Cookies.get("jwt");
+    if (user && state.userInformation.category && state.userInformation.tags) {
+      auth.login();
+      push("/userprofilepage");
+    } else if (
+      user &&
+      !state.userInformation.category &&
+      !state.userInformation.tags
+    ) {
+      auth.login();
+      push("/userprofilepage");
+      console.log("not completed!");
+    }
+  }, [
+    userObject,
+    push,
+    action,
+    state.userInformation.category,
+    state.userInformation.tags,
+  ]);
+
+  
 
   const password = useRef({});
   password.current = watch("password", "");
