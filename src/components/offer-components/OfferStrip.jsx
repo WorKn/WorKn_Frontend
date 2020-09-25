@@ -9,6 +9,10 @@ const OfferStrip = ({ responseInfo }) => {
   const { show: showDetailModal, RenderModal: DetailModal } = useModal();
   const { state } = useStateMachine(updateAction);
 
+  let MyDictionary = {};
+  MyDictionary["free"] = "Freelancer";
+  MyDictionary["fixed"] = "Fijo/Indefinido";
+
   return (
     <div>
       <DetailModal>
@@ -28,7 +32,7 @@ const OfferStrip = ({ responseInfo }) => {
           </span>
           <span className="offerstrip__vl offerstrip__vl--1"></span>
           <span className="offerstrip__text offerstrip__type">
-            {responseInfo?.offer?.offerType}
+            {MyDictionary[responseInfo?.offer?.offerType]}
           </span>
           <span className="offerstrip__vl offerstrip__vl--2"></span>
           <span className="offerstrip__text offerstrip__offer">

@@ -16,6 +16,7 @@ const RegisterPageC2 = () => {
     defaultValues: state.userInformation,
   });
   const { push } = useHistory();
+
   const onSubmit = (data) => {
     state.userInformation.userType = "offerer";
     state.userInformation.organizationRole = "owner";
@@ -25,9 +26,7 @@ const RegisterPageC2 = () => {
 
   useEffect(() => {
     if (state.userInformation.userType !== "") {
-      orgUserSignup(state.userInformation).then((res) => {
-        // setUserInfo(res);
-      });
+      orgUserSignup(state.userInformation).then((res) => {});
       push("/loginpage");
     } else {
       console.log("loading");
@@ -36,9 +35,6 @@ const RegisterPageC2 = () => {
 
   const password = useRef({});
   password.current = watch("password", "");
-
-  // console.log(state.userInformation);
-
   return (
     <div className="register-wrapper">
       <div className="green-line">
@@ -61,8 +57,6 @@ const RegisterPageC2 = () => {
                 className="form-input"
                 type="text"
                 name="name"
-                pattern="[a-zA-Z]*"
-                title="Por favor no incluya números en su nombre"
                 ref={register({ required: "Por favor ingrese su nombre" })}
               />
               <ErrorMessage
@@ -81,8 +75,6 @@ const RegisterPageC2 = () => {
                 className="form-input"
                 type="text"
                 name="lastname"
-                pattern="[a-zA-Z]*"
-                title="Por favor no incluya números en su apellido"
                 ref={register({ required: "Por favor ingrese su apellido" })}
               />
               <ErrorMessage

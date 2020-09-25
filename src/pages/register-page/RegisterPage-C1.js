@@ -20,17 +20,14 @@ const RegisterPageC1 = () => {
   };
 
   useEffect(() => {
-    console.log(state.userInformation);
     if (state.userInformation.userType !== "") {
-      userSignup(state.userInformation).then((res) => {
-        console.log(res);
-        // setUserInfo(res);
-      });
+      userSignup(state.userInformation).then((res) => {});
       push("/loginpage");
     } else {
       console.log("loading");
     }
   }, [gotResponse, push, state.userInformation]);
+
   return (
     <div className="register-wrapper">
       <div className="green-line">
