@@ -98,7 +98,7 @@ const SummaryPage = () => {
                 className="summarypage__form"
               >
                 <select className="form__select" name="offer" ref={register}>
-                  {offers?.data.data.offers.map((offer) => (
+                  {offers?.data?.data?.offers.map((offer) => (
                     <option key={offer._id} value={offer._id}>
                       {offer.title}
                     </option>
