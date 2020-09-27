@@ -98,6 +98,16 @@
   #navbar__hidden {
     display: inline-block;
     margin: 10px 10px 5px 15px;
+    display: flex;
+    width: 28px;
+    height: 30px;
+    flex-direction: column;
+  }
+
+  #navbar__hidden div {
+    background-color: black;
+    margin-top: 4px;
+    height: 3px;
   }
 
   /* 985*/
