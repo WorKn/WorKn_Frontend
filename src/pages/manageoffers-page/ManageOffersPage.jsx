@@ -7,13 +7,13 @@ import { useHistory } from "react-router-dom";
 import CreateOfferPopup from "../../components/popup-components/CreateOfferPopup";
 import { useModal } from "../../hooks/useModal";
 import CustomOfferStrip from "../../components/offer-components/CustomOfferStrip";
-// import updateAction from "../../updateAction";
-// import { useStateMachine } from "little-state-machine";
+import updateAction from "../../updateAction";
+import { useStateMachine } from "little-state-machine";
 
 const ManageOffersPage = () => {
   const [myoffers, setMyOffers] = useState([]);
   const [organizationInfo, setMyOrganization] = useState();
-  // const { state } = useStateMachine(updateAction);
+  const { state } = useStateMachine(updateAction);
   const {
     show: showAddOfferModal,
     RenderModal: AddOfferModal,
@@ -63,8 +63,11 @@ const ManageOffersPage = () => {
   );
 
   useEffect(() => {
+    //si fallo el get my offers y el usuario actual no es tipo ofertante entonces hay que rebotarlo. Por el otro lado, si fallo el getoffers y es ofertante dejarlo entrar
     getMyOffers().then((res) => {
-      if (!res.data) {
+      if (!res.data && state.userInformation.userType === "offerer") {
+        // history.push("/");
+      } else if (!res.data && state.userInformation.userType !== "offerer") {
         history.push("/");
       } else {
         const offers = res.data.data.offers;
@@ -75,16 +78,30 @@ const ManageOffersPage = () => {
     });
 
     getMyOrganization().then((res) => {
-      if (!res.data) {
+      //si el usuario actual es un ofertante sin organizacion
+      if (
+        !res.data &&
+        state.userInformation.organizationRole === "" &&
+        state.userInformation.userType === "offerer"
+      ) {
+        const organization = {
+          profilePicture: state.userInformation.profilePicture,
+        };
+        setMyOrganization(organization);
+      } else if (!res.data && state.userInformation.userType !== "offerer") {
         history.push("/");
       } else {
         const organization = res.data.data.data;
         setMyOrganization(organization);
       }
     });
-  }, [history]);
+  }, [
+    history,
+    state.userInformation.organizationRole,
+    state.userInformation.profilePicture,
+    state.userInformation.userType,
+  ]);
 
-  //[history, activeOffers, inactiveOffers]);
   return (
     <div className="manageoffers-container">
       <Header></Header>
