@@ -105,7 +105,7 @@
   }
 
   #navbar__hidden div {
-    background-color: black;
+    background-color: rgb(65, 62, 62);
     margin-top: 4px;
     height: 3px;
   }
