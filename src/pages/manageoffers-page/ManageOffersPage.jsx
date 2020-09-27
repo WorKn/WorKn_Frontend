@@ -68,7 +68,7 @@ const ManageOffersPage = () => {
       if (!res.data && state.userInformation.userType === "offerer") {
         // history.push("/");
       } else if (!res.data && state.userInformation.userType !== "offerer") {
-        history.push("/");
+        history.push("/loginpage");
       } else {
         const offers = res.data.data.offers;
         if (offers && Array.isArray(offers)) {
@@ -89,7 +89,7 @@ const ManageOffersPage = () => {
         };
         setMyOrganization(organization);
       } else if (!res.data && state.userInformation.userType !== "offerer") {
-        history.push("/");
+        history.push("/loginpage");
       } else {
         const organization = res.data.data.data;
         setMyOrganization(organization);

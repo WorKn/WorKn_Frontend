@@ -61,7 +61,7 @@ const UserProfilePage = (props) => {
             {typeof state.userInformation !== "undefined" &&
             state.userInformation.organizationRole === "" &&
             state.userInformation.userType === "offerer" ? (
-              <Link to="#" style={{ textDecoration: "none" }}>
+              <Link to="/manageoffers" style={{ textDecoration: "none" }}>
                 <button className="userprofile__action">
                   <i className="fa fa-cog userprofile__icon"></i>
                   Manejar ofertas
