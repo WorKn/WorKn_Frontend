@@ -315,7 +315,7 @@ export const removeMember = async (id) => {
     );
     return response;
   } catch (e) {
-    return e.response.data;
+    return e.response;
   }
 };
 
@@ -327,7 +327,7 @@ export const updateMemberRole = async (id, role) => {
     });
     return response;
   } catch (e) {
-    return e.response.data;
+    return e.response;
   }
 };
 

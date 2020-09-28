@@ -70,14 +70,28 @@ const EmpresaProfilePage = (props) => {
               nunca dar tu constraseña a ningún usuario a través de WorKn, los
               administradores nunca te la solicitarán.
             </span>
-            <button className="userprofile__action" onClick={showMembersModal}>
-              <i className="fa fa-cog userprofile__icon"></i>
-              Manejar invitaciones de miembros
-            </button>
-            <button className="userprofile__action" onClick={ShowManageModal}>
-              <i className="fa fa-cog userprofile__icon"></i>
-              Manejar miembros
-            </button>
+            {typeof state.userInformation.organizationRole !== "undefined" &&
+            (state.userInformation.organizationRole === "owner" ||
+              state.userInformation.organizationRole === "supervisor") ? (
+              <div>
+                <button
+                  className="userprofile__action"
+                  onClick={showMembersModal}
+                >
+                  <i className="fa fa-cog userprofile__icon"></i>
+                  Manejar invitaciones de miembros
+                </button>
+                <button
+                  className="userprofile__action"
+                  onClick={ShowManageModal}
+                >
+                  <i className="fa fa-cog userprofile__icon"></i>
+                  Manejar miembros
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
             <Link to="/manageoffers">
               <button className="userprofile__action">
                 <i className="fa fa-cog userprofile__icon"></i>

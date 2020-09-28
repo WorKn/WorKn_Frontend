@@ -88,7 +88,7 @@ const ManagePopup = () => {
           </ul>
 
           {typeof current.data !== "undefined" &&
-          current.data.status === "success" ? (
+          current.data.status === "successs" ? (
             <div className="input__msg input__msg--success">
               <i class="fa fa-check"></i> Usuario actualizado correctamente
             </div>
@@ -100,6 +100,16 @@ const ManagePopup = () => {
           current.data.status === "member deleted" ? (
             <div className="input__msg input__msg--success">
               <i className="fa fa-check"></i> Usuario eliminado correctamente
+            </div>
+          ) : (
+            ""
+          )}
+
+          {typeof current.data !== "undefined" &&
+          current.data.status === "fail" ? (
+            <div className="input__msg input__msg--error">
+              <i className="fa fa-times"></i> Esta acción sobrepasa tus
+              permisos. Contáctate con tu superior.
             </div>
           ) : (
             ""
