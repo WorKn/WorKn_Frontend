@@ -21,6 +21,7 @@ import AddMember from "./pages/addmember-page/AddMemberPage";
 import SummaryPage from "./pages/summary-page/SummaryPage";
 import NotFound from "./pages/not_found-page/not_found";
 import ExplorePage from "./pages/explore-page/ExplorePage";
+import ParticularUserProfilePage from "./pages/particularuserprofile-page/ParticularUserProfilePage";
 require("dotenv").config({ path: "./.env" });
 
 function App() {
@@ -72,6 +73,11 @@ function App() {
               exact
               path="/emailvalidation/:token"
               component={EmailValidation}
+            />
+            <Route
+              exact
+              path="/users/:id"
+              component={ParticularUserProfilePage}
             />
             {/* <Route exact path="/addMember/:token" component={AddMember} /> */}
             <Route
