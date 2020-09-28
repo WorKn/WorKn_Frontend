@@ -47,8 +47,10 @@ const UserProfilePage = (props) => {
               <i className="fa fa-cog userprofile__icon"></i>
               Cambiar constraseña
             </button>
-            {typeof state.userInformation.organizationRole !== "undefined" &&
-            state.userInformation.organizationRole === "owner" ? (
+            {(typeof (state.userInformation.organizationRole !== "undefined") &&
+              state.userInformation.organizationRole === "owner") ||
+            state.userInformation.organizationRole === "member" ||
+            state.userInformation.organizationRole === "supervisor" ? (
               <Link to="/empresaprofilepage" style={{ textDecoration: "none" }}>
                 <button className="userprofile__action">
                   <i className="fa fa-cog userprofile__icon"></i>
