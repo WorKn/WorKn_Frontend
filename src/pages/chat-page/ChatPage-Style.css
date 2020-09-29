@@ -1,4 +1,4 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -46,4 +46,4 @@ form button {
   flex-flow: column;
   height: 100vh;
   justify-content: space-between;
-}
+} */

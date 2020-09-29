@@ -1,17 +1,21 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useStateMachine } from "little-state-machine";
 import { ErrorMessage } from "@hookform/error-message";
+import { createChat } from "../../utils/apiRequests";
+import updateAction from "../../updateAction";
+import { useStateMachine } from "little-state-machine";
 
 // import { getTesting } from "../utils/apiRequests";
 
 import "./ChatPage-Style.css";
 
 import socketIOClient from "socket.io-client";
+import interactionContext from "../../utils/interactionContext";
 const HOST = "http://127.0.0.1:3000";
 const socket = socketIOClient(HOST);
 
 const ChatPage = () => {
+  const { state } = useStateMachine(updateAction);
   const [messages, setMessages] = useState([]);
   // const [username, setUsername] = useState([]);
   const { register, handleSubmit, watch, reset } = useForm({});
@@ -19,6 +23,13 @@ const ChatPage = () => {
   // prompt("Hola nene");
 
   const submit = (data) => {
+    createChat(message.current, state.userInformation.interactionId).then(
+      (res) => {
+        if (res.data !== undefined) {
+          console.log(res);
+        }
+      }
+    );
     socket.emit("chat_message", message.current);
     console.log("Message: ", message);
     console.log("Messagesssss:", messages);
