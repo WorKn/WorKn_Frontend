@@ -99,6 +99,11 @@ const ManageOffersPage = () => {
           setMyOrganization(organization);
         }
       });
+    } else if (
+      !state.userInformation.isEmailValidated &&
+      !state.userInformation._id
+    ) {
+      history.push("/loginpage");
     } else {
       setSuccess(false);
     }
@@ -151,8 +156,8 @@ const ManageOffersPage = () => {
           correo esté validada; aparentemente su cuenta aun no ha sido validada,
           por favor, diríjase a su correo para continuar con el proceso.
         </span>
-        <Link to="/" className="manageoffers-nv__button">
-          <div>Volver a inicio</div>
+        <Link to="/userprofilepage" className="manageoffers-nv__button">
+          <div>Volver a tu perfil</div>
         </Link>
       </div>
     </div>
