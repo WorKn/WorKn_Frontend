@@ -1,24 +1,34 @@
 import React, { useState, useEffect } from "react";
 import "./Profile-selection-Style.css";
 import { getMe } from "../../utils/apiRequests";
+import updateAction from "../../updateAction";
+import { useStateMachine } from "little-state-machine";
 
 const PictureContainer = ({ newImage }) => {
   const [image, setImage] = useState("");
+  const { state, action } = useStateMachine(updateAction);
   const getImage = async () => {
-    try {
-      getMe().then((res) => {
-        console.log(res);
-        const pp = res.data.data.data.profilePicture;
-        if (!pp) {
-          console.log("dude!, where is my picture? ");
-          return;
-        } else {
-          setImage(pp);
-        }
-      });
-    } catch (error) {
-      console.log(error.message);
+    if (state.userInformation.profilePicture) {
+      setImage(state.userInformation.profilePicture);
+      action();
+    } else {
+      console.log("loading");
     }
+
+    // try {
+    //   getMe().then((res) => {
+    //     console.log(res);
+    //     const pp = res?.data?.data?.data?.profilePicture;
+    //     if (!pp) {
+    //       console.log("dude!, where is my picture? ");
+    //       return;
+    //     } else {
+    //       setImage(pp);
+    //     }
+    //   });
+    // } catch (error) {
+    //   console.log(error.message);
+    // }
   };
   useEffect(() => {
     getImage();

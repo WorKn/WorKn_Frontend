@@ -20,8 +20,9 @@ const PictureForm = ({ handleNewImage }) => {
 
   const handleSubmit = () => {
     sendImage(image).then((res) => {
-      console.log(res);
-      setNewImage(image);
+      const pp = res?.data?.data?.user?.profilePicture;
+      console.log(res.data.data.user);
+      setNewImage(pp);
     });
     setPreview(false);
     setImage(false);
