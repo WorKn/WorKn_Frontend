@@ -60,12 +60,16 @@
   align-items: center;
   width: 35px;
   height: 35px;
-  padding: 0 1px 4px 0;
+  padding-right: 1px;
   background-color: #5bba6f;
   color: white;
   border-radius: 10px;
   text-align: center;
   cursor: pointer;
+}
+
+.Pic-selector__image-upload:hover {
+  background-color: #259e6c;
 }
 
 .PicForm {
@@ -89,4 +93,8 @@
   height: 30px;
   width: 80px;
   margin-top: 10px;
+}
+
+.PicForm button:hover {
+  background-color: #259e6c;
 }

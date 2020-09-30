@@ -180,7 +180,6 @@ export const sendEmail = async (user) => {
 };
 
 export const sendImage = async (image) => {
-  console.log(image);
   const fd = new FormData();
   fd.append("profilePicture", image);
   const config = {
