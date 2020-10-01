@@ -20,7 +20,6 @@ const AddMember = ({
 }) => {
   const [orgInfo, setOrgInfo] = useState("");
   const [userObject, setUserObject] = useState("");
-  const [gotResponse, setGotResponse] = useState(false);
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, watch, errors } = useForm({
     defaultValues: state.userInformation,
@@ -30,11 +29,10 @@ const AddMember = ({
     // action(data);
     data.token = token;
     action(data);
-    setGotResponse(true);
   };
 
   useEffect(() => {
-    if (state.userInformation.organization === "") {
+    if (state.userInformation) {
       signUpOrganizationMember(state.userInformation).then((res) => {
         console.log(res);
         setUserObject(res);
@@ -42,7 +40,7 @@ const AddMember = ({
     } else {
       console.log("loading");
     }
-  }, [gotResponse, push, state.userInformation]);
+  }, [state.userInformation]);
 
   useEffect(() => {
     if (userObject.data !== undefined && userObject.data.status === "success") {
@@ -54,13 +52,7 @@ const AddMember = ({
       auth.login();
       push("/userprofilepage");
     }
-  }, [
-    userObject,
-    push,
-    action,
-    state.userInformation.category,
-    state.userInformation.tags,
-  ]);
+  }, [userObject, push, action]);
 
   useEffect(() => {
     getInvitationInfo(token).then((res) => {
