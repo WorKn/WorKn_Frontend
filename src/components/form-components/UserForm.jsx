@@ -25,6 +25,9 @@ const UserForm = () => {
   const { register, handleSubmit, errors, watch } = useForm({
     defaultValues: state.userInformation,
   });
+
+  let isOrg = false;
+
   password.current = watch("password", "");
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
@@ -58,7 +61,7 @@ const UserForm = () => {
       <tagsContext.Provider value={{ selectedTags, setSelectedTags }}>
         <form className="userform" onSubmit={handleSubmit(onSubmit)}>
           <div className="userform__LIP">
-            <PicSelector></PicSelector>
+            <PicSelector isOrg={isOrg}></PicSelector>
           </div>
           <div className="userform__2col">
             <div className="userform__LIP">

@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import PictureForm from "./PictureForm";
-import PictureContainer from "./PictureContainer";
 
-const PicSelector = () => {
+const PicSelector = ({ isOrg }) => {
   const [newImage, setNewImage] = useState();
   const handleNewImage = () => {
     setNewImage(newImage);
   };
 
   return (
-    <div className="PicSelector">
-      <PictureContainer newImage={newImage}></PictureContainer>
-      <PictureForm handleNewImage={handleNewImage}></PictureForm>
+    <div>
+      <PictureForm handleNewImage={handleNewImage} isOrg={isOrg}></PictureForm>
     </div>
   );
 };

@@ -179,11 +179,9 @@ export const sendEmail = async (user) => {
   }
 };
 
-export const sendImage = async (image) => {
-  console.log(image);
+export const sendUserProfilePicture = async (image) => {
   const fd = new FormData();
   fd.append("profilePicture", image);
-  console.log(fd);
   const config = {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -205,9 +203,7 @@ export const sendImage = async (image) => {
 
 export const getMyOrganization = async () => {
   try {
-    const response = await axios.get(
-      `${HOST}/api/v1/organizations/myOrganization`
-    );
+    const response = await axios.get(`${HOST}/api/v1/organizations/me`);
     return response;
   } catch (e) {
     return e;
@@ -266,7 +262,7 @@ export const resetPassword = async (user) => {
 
 export const editOrganization = async (org) => {
   try {
-    const response = await axios.patch(`${HOST}/api/v1/organizations/`, {
+    const response = await axios.patch(`${HOST}/api/v1/organizations/me`, {
       name: org.name,
       RNC: org.RNC,
       bio: org.bio,
@@ -277,6 +273,26 @@ export const editOrganization = async (org) => {
     return response;
   } catch (e) {
     return e.response.data;
+  }
+};
+
+export const sendOrgProfilePicture = async (image) => {
+  const fd = new FormData();
+  fd.append("profilePicture", image);
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  };
+  try {
+    const response = await axios.patch(
+      `${HOST}/api/v1/organizations/me`,
+      fd,
+      config
+    );
+    return response;
+  } catch (err) {
+    return err;
   }
 };
 
