@@ -10,6 +10,9 @@
   margin-bottom: 30px;
 }
 
+.ppptitle {
+  color: #3a393b;
+}
 .particularprofilepage-banner__title {
   color: white;
   font-weight: 700;
@@ -25,19 +28,46 @@
   height: 200px;
   border: 1px solid red;
   border-radius: 120px;
+  margin: 5px auto;
+  overflow: hidden;
 }
 .particularprofilepage__img {
   width: 200px;
   height: 200px;
 }
 .particularprofilepage-body * {
-  margin: 5px auto;
 }
 
-.pppinfocontainer__container {
+.pppinfo-container__body {
+  display: flex;
+  flex-direction: column;
+  margin: 5px auto;
+}
+.pppinfo-container__container * {
+  margin: 20px 0px;
+}
+
+.ppptags-container {
+  background-color: red;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 264px;
+}
+
+.pppadditionalinfo-container__container {
   display: flex;
   flex-direction: column;
 }
-.pppinfocontainer__container * {
-  margin: 20px 0px;
+
+.ppptags-container__container div {
+  margin: 0px 5%;
+}
+
+.pppmultimedia-container {
+  flex-direction: column;
+  margin: 5px auto;
+}
+
+.pppadditionalinfo-container__body {
+  margin: 0px 5%;
 }
