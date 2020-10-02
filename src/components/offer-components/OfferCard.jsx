@@ -12,6 +12,8 @@ const OfferCard = ({ responseInfo }) => {
   let MyDictionary = {};
   MyDictionary["free"] = "Freelancer";
   MyDictionary["fixed"] = "Fijo/Indefinido";
+  MyDictionary["applicant"] = "Aplicante";
+
   return (
     <div>
       <DetailModal>
@@ -89,7 +91,7 @@ const OfferCard = ({ responseInfo }) => {
             </div>
           </div>
           <div className="offercard__data">
-            {responseInfo?.userType}
+            {MyDictionary[responseInfo?.userType]}
             <div className="offercard__vl"></div>
             <span>{responseInfo?.bio?.slice(0, 20)}...</span>
             <div className="offercard__vl"></div>
