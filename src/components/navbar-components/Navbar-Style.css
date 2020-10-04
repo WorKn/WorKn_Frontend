@@ -66,12 +66,16 @@
   height: 41px;
   overflow: hidden;
   background-color: #f7f7f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar__profile-pic {
-  max-height: 41px;
-  max-width: 41px;
-  margin-left: -1px;
+  height: 41px;
+  width: 41px;
+  border-radius: 100px;
+  object-fit: cover;
 }
 
 .navbar__profile-button-link {
@@ -94,6 +98,16 @@
   #navbar__hidden {
     display: inline-block;
     margin: 10px 10px 5px 15px;
+    display: flex;
+    width: 28px;
+    height: 30px;
+    flex-direction: column;
+  }
+
+  #navbar__hidden div {
+    background-color: rgb(65, 62, 62);
+    margin-top: 4px;
+    height: 3px;
   }
 
   /* 985*/
