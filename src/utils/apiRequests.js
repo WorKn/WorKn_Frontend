@@ -205,9 +205,7 @@ export const sendImage = async (image) => {
 
 export const getMyOrganization = async () => {
   try {
-    const response = await axios.get(
-      `${HOST}/api/v1/organizations/myOrganization`
-    );
+    const response = await axios.get(`${HOST}/api/v1/organizations/me`);
     return response;
   } catch (e) {
     return e;
@@ -225,6 +223,15 @@ export const createOrganization = async (org) => {
       email: org.email,
     });
     return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const getOrgById = async (id) => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/organizations/${id}`);
+    return response.data;
   } catch (e) {
     return e.response.data;
   }
@@ -266,7 +273,7 @@ export const resetPassword = async (user) => {
 
 export const editOrganization = async (org) => {
   try {
-    const response = await axios.patch(`${HOST}/api/v1/organizations/`, {
+    const response = await axios.patch(`${HOST}/api/v1/organizations/me`, {
       name: org.name,
       RNC: org.RNC,
       bio: org.bio,
