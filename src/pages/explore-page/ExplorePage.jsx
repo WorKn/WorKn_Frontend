@@ -146,6 +146,7 @@ const ExplorePage = () => {
                 >
                   <option value="title">Nombre</option>
                   <option value="category">Categoría</option>
+                  <option value="tag">Etiqueta</option>
                   <option value="orgname">Organización</option>
                   <option value="offertype">Tipo de oferta</option>
                 </select>

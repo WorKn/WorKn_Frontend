@@ -77,9 +77,6 @@ const OfferCard = ({ responseInfo }) => {
         </div>
       ) : (
         <div className="offercard__wrapper" onClick={showDetailModal}>
-          {/* <DetailModal>
-            <DetailPopup responseInfo={responseInfo}></DetailPopup>
-          </DetailModal> */}
           <div className="offercard__header">
             <img
               src={responseInfo?.profilePicture}
