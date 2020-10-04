@@ -9,11 +9,11 @@ if (process.env.REACT_APP_ENV === "staging") {
   HOST = process.env.REACT_APP_STAGING_HOST;
 }
 
-const accessToken = Cookies.get("jwt");
+// const accessToken = Cookies.get("jwt");
 
 axios.interceptors.request.use(
   (config) => {
-    config.headers.authorization = `Bearer ${accessToken}`;
+    config.headers.authorization = `Bearer ${Cookies.get("jwt")}`;
     return config;
   },
   (error) => {
@@ -24,7 +24,6 @@ axios.interceptors.request.use(
 export const testing = async () => {
   try {
     const request = axios.get(`${HOST}/`, { withCredentials: true });
-    console.log(request);
     const response = await request;
     return response;
   } catch (e) {
@@ -34,9 +33,7 @@ export const testing = async () => {
 
 export const getMe = async () => {
   try {
-    const request = axios.get(`${HOST}/api/v1/users/me`);
-    console.log(request);
-    const response = await request;
+    const response = await axios.get(`${HOST}/api/v1/users/me`);
     return response;
   } catch (e) {
     return e;
@@ -147,9 +144,9 @@ export const validateEmail = async (token) => {
     const response = await axios.patch(
       `${HOST}/api/v1/users/validateEmail/${token}`
     );
-    return response.data.status;
+    return response;
   } catch (e) {
-    return false;
+    return e.response.data;
   }
 };
 
@@ -209,9 +206,7 @@ export const sendImage = async (image) => {
 
 export const getMyOrganization = async () => {
   try {
-    const response = await axios.get(
-      `${HOST}/api/v1/organizations/myOrganization`
-    );
+    const response = await axios.get(`${HOST}/api/v1/organizations/me`);
     return response;
   } catch (e) {
     return e;
@@ -253,7 +248,6 @@ export const signUpOrganizationMember = async (user) => {
 };
 
 export const resetPassword = async (user) => {
-  console.log(user);
   try {
     const response = await axios.patch(
       `${HOST}/api/v1/users/resetPassword/${user.myToken}`,
@@ -270,7 +264,7 @@ export const resetPassword = async (user) => {
 
 export const editOrganization = async (org) => {
   try {
-    const response = await axios.patch(`${HOST}/api/v1/organizations/`, {
+    const response = await axios.patch(`${HOST}/api/v1/organizations/me`, {
       name: org.name,
       RNC: org.RNC,
       bio: org.bio,

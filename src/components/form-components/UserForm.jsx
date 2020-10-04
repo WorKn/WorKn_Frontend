@@ -58,7 +58,7 @@ const UserForm = () => {
         action(res.data.data.data);
       }
     });
-  }, []);
+  }, [action]);
 
   return (
     <categoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
