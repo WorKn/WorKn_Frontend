@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Tag from "../tag-components/Tag";
 import "./OfferCard-Style.css";
 import { useModal } from "../../hooks/useModal";
@@ -9,10 +9,22 @@ import { useStateMachine } from "little-state-machine";
 const OfferCard = ({ responseInfo }) => {
   const { state } = useStateMachine(updateAction);
   const { show: showDetailModal, RenderModal: DetailModal } = useModal();
+  const [profilePictureRoute, setProfilePictureRoute] = useState("");
+  const [offererTitleRoute, setOffererTitleRoute] = useState("");
   let MyDictionary = {};
   MyDictionary["free"] = "Freelancer";
   MyDictionary["fixed"] = "Fijo/Indefinido";
   MyDictionary["applicant"] = "Aplicante";
+
+  useEffect(() => {
+    if (responseInfo.organization) {
+      setProfilePictureRoute(responseInfo?.organization?.profilePicture);
+      setOffererTitleRoute(responseInfo?.organization?.name);
+    } else {
+      setProfilePictureRoute(responseInfo?.createdBy?.profilePicture);
+      setOffererTitleRoute(responseInfo?.createdBy?.name);
+    }
+  }, [responseInfo]);
 
   return (
     <div>
@@ -25,7 +37,7 @@ const OfferCard = ({ responseInfo }) => {
         <div className="offercard__wrapper" onClick={showDetailModal}>
           <div className="offercard__header">
             <img
-              src={responseInfo?.organization?.profilePicture}
+              src={profilePictureRoute}
               alt="Profile"
               className="offercard__picture"
             ></img>
@@ -37,7 +49,7 @@ const OfferCard = ({ responseInfo }) => {
               <span className="offercard__text--subtitle">
                 Por{" "}
                 <span className="offercard__text--highlight">
-                  {responseInfo?.organization?.name}
+                  {offererTitleRoute}
                 </span>{" "}
                 en{" "}
                 <span className="offercard__text--highlight">

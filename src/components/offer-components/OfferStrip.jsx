@@ -10,6 +10,8 @@ import updateAction from "../../updateAction";
 const OfferStrip = ({ responseInfo, isMatch, interactionId }) => {
   const { show: showDetailModal, RenderModal: DetailModal } = useModal();
   const { state, action } = useStateMachine(updateAction);
+  // const [profilePictureRoute, setProfilePictureRoute] = useState("");
+  // const [offererTitleRoute, setOffererTitleRoute] = useState("");
   const sendInteractionId = () => {
     const currentId = { interactionId };
     action(currentId);
@@ -17,6 +19,16 @@ const OfferStrip = ({ responseInfo, isMatch, interactionId }) => {
   let MyDictionary = {};
   MyDictionary["free"] = "Freelancer";
   MyDictionary["fixed"] = "Fijo/Indefinido";
+
+  // useEffect(() => {
+  //   if (responseInfo.organization) {
+  //     setProfilePictureRoute(responseInfo?.organization?.profilePicture);
+  //     setOffererTitleRoute(responseInfo?.organization?.name);
+  //   } else {
+  //     setProfilePictureRoute(responseInfo?.createdBy?.profilePicture);
+  //     setOffererTitleRoute(responseInfo?.createdBy?.name);
+  //   }
+  // }, [responseInfo]);
 
   return (
     <div>
