@@ -83,7 +83,12 @@ const SummaryPage = () => {
           ))}
           <span className="summarypage__title">Matches</span>
           {match?.map((m) => (
-            <OfferStrip key={m._id} responseInfo={m}></OfferStrip>
+            <OfferStrip
+              key={m._id}
+              interactionId={m._id}
+              responseInfo={m}
+              isMatch="true"
+            ></OfferStrip>
           ))}
         </div>
       ) : (
@@ -127,7 +132,12 @@ const SummaryPage = () => {
 
             <span className="summarypage__title">Matches</span>
             {match?.map((m) => (
-              <OfferStrip key={m._id} responseInfo={m}></OfferStrip>
+              <OfferStrip
+                key={m._id}
+                interactionId={m._id}
+                responseInfo={m}
+                isMatch="true"
+              ></OfferStrip>
             ))}
           </div>{" "}
         </div>

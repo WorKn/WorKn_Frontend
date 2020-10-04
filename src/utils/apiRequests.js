@@ -205,9 +205,7 @@ export const sendImage = async (image) => {
 
 export const getMyOrganization = async () => {
   try {
-    const response = await axios.get(
-      `${HOST}/api/v1/organizations/myOrganization`
-    );
+    const response = await axios.get(`${HOST}/api/v1/organizations/me`);
     return response;
   } catch (e) {
     return e;
@@ -266,7 +264,7 @@ export const resetPassword = async (user) => {
 
 export const editOrganization = async (org) => {
   try {
-    const response = await axios.patch(`${HOST}/api/v1/organizations/`, {
+    const response = await axios.patch(`${HOST}/api/v1/organizations/me`, {
       name: org.name,
       RNC: org.RNC,
       bio: org.bio,
@@ -429,6 +427,54 @@ export const cancelInteraction = async (id) => {
 export const deleteOffer = async (id) => {
   try {
     const response = await axios.delete(`${HOST}/api/v1/offers/${id}`);
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+// CHAT
+
+export const createChat = async (message, interaction) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/users/me/chats/`, {
+      message: message,
+      interaction: interaction,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const createMessage = async (message, chatId) => {
+  try {
+    const response = await axios.post(
+      `${HOST}/api/v1/users/me/chats/${chatId}/messages`,
+      {
+        message: message,
+      }
+    );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const getChatMessages = async (chatId) => {
+  try {
+    const response = await axios.get(
+      `${HOST}/api/v1/users/me/chats/${chatId}/messages`
+    );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const getMyChats = async () => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/users/me/chats`);
     return response;
   } catch (e) {
     return e.response.data;

@@ -12,7 +12,7 @@ import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 
 const RegisterPageC2 = () => {
-  const [userObject, setUserObject] = useState('');
+  const [userObject, setUserObject] = useState("");
   const [gotResponse, setGotResponse] = useState(false);
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, watch, errors } = useForm({
@@ -61,8 +61,6 @@ const RegisterPageC2 = () => {
     state.userInformation.category,
     state.userInformation.tags,
   ]);
-
-  
 
   const password = useRef({});
   password.current = watch("password", "");
