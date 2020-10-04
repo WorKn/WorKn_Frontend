@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { getUserById } from "../../utils/apiRequests";
+import { getCategoryById } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import Header from "../../components/navbar-components/Navbar.jsx";
 import Tag from "../../components/tag-components/Tag";
 import categoryContext from "../../utils/categoryContext";
-import CategoryInput from "../../components/input-components/CategoryInput";
 import tagsContext from "../../utils/tagsContext";
-import TagsInput from "../../components/input-components/TagsInput";
+import { getMyOffers } from "../../utils/apiRequests";
+import CustomOfferStrip from "../../components/offer-components/CustomOfferStrip";
 
 import "./ParticularUserProfilePage-Style.css";
 
@@ -19,6 +20,11 @@ const ParticularUserProfilePage = ({
   //user ID de jeremy aplicante: 5f4d74307633ba631b89f97b
   const [userInfo, setUserInfo] = useState();
   const [retrieved, setRetrieved] = useState(false);
+  const [isOfferer, setIsOfferer] = useState(false);
+  const [category, setCategory] = useState();
+  const [myoffers, setMyOffers] = useState([]);
+  const [organizationInfo, setMyOrganization] = useState();
+
   const [selectedCategory, setSelectedCategory] = useState({ label: "health" });
   const [selectedTags, setSelectedTags] = useState([]);
 
@@ -28,18 +34,58 @@ const ParticularUserProfilePage = ({
 
   let history = useHistory();
 
+  const activeOffers = myoffers.map((offer) =>
+    offer && offer.state !== "deleted" ? (
+      <CustomOfferStrip
+        key={offer._id}
+        organizationInformation={organizationInfo}
+        offerInfo={offer}
+        isCalledFromProfilePage={true}
+      ></CustomOfferStrip>
+    ) : null
+  );
+
+  const inactiveOffers = myoffers.map((offer) =>
+    offer && offer.state === "deleted" ? (
+      <CustomOfferStrip
+        key={offer._id}
+        organizationInformation={organizationInfo}
+        offerInfo={offer}
+        isInactive={true}
+        isCalledFromProfilePage={true}
+      ></CustomOfferStrip>
+    ) : null
+  );
+
   useEffect(() => {
     getUserById(id).then((res) => {
       console.log(res);
       if (res.status === "success") {
         setUserInfo(res.data.data);
         setRetrieved(true);
+
+        if (res.data.data.userType === "offerer") {
+          setIsOfferer(true);
+
+          getMyOffers().then((res) => {
+            setMyOffers(res.data.data.offers);
+          });
+
+          setMyOrganization({
+            profilePicture: res.data.data.profilePicture,
+          });
+        } else {
+          getCategoryById(res.data.data.category).then((resp) => {
+            console.log(resp);
+            setCategory(resp.data.data[0].name);
+          });
+        }
       } else {
         history.push("/404");
         setRetrieved(false);
       }
     });
-  }, [id, history]);
+  }, []);
 
   return (
     <categoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
@@ -57,8 +103,8 @@ const ParticularUserProfilePage = ({
               <div className="particularprofilepage-body">
                 <div className="ppp-imagecontainer">
                   <img
-                    // src={userInfo?.profilePicture}
-                    src="https://www.biography.com/.image/c_fill%2Ccs_srgb%2Cfl_progressive%2Ch_400%2Cq_auto:good%2Cw_620/MTY2MzU3Nzk2OTM2MjMwNTkx/elon_musk_royal_society.jpg"
+                    src={userInfo?.profilePicture}
+                    // src="https://www.biography.com/.image/c_fill%2Ccs_srgb%2Cfl_progressive%2Ch_400%2Cq_auto:good%2Cw_620/MTY2MzU3Nzk2OTM2MjMwNTkx/elon_musk_royal_society.jpg"
                     alt=""
                     className="particularprofilepage__img"
                   />
@@ -70,35 +116,50 @@ const ParticularUserProfilePage = ({
                   <ul className="pppinfo-container__usertype">
                     <li>{MyDictionary[userInfo?.userType]}</li>
                   </ul>
-                  {/* <p className="pppinfo-container__usertype">
-                    {MyDictionary[userInfo?.userType]}
-                  </p> */}
+
                   <p className="pppinfo-container__bio">{userInfo?.bio}</p>
                 </div>
-                <div className="pppmultimedia-container">
-                  <h3 className="ppptitle pppmultimedia-title">Multimedia</h3>
-                  <div className="ppptags-container">
-                    {userInfo?.tags.map((tag) => (
-                      <Tag
-                        key={tag.id}
-                        text={tag.name}
-                        theme="tag tag__text tag__text--gray"
-                      ></Tag>
-                    ))}
+                {isOfferer ? null : (
+                  <div className="pppmultimedia-container">
+                    <h3 className="ppptitle pppmultimedia-title">{category}</h3>
+                    <div className="ppptags-container">
+                      {userInfo.tags &&
+                        userInfo?.tags.map((tag) => (
+                          <Tag
+                            key={tag.id}
+                            text={tag.name}
+                            theme="tag tag__text tag__text--gray"
+                          ></Tag>
+                        ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 <div className="pppadditionalinfo-container__body">
                   <h3 className="ppptitle">Miembro desde:</h3>
                   <ul>
                     <li>{userInfo?.createdAt.substring(0, 10)}</li>
                   </ul>
-                  {/* <p>{userInfo?.createdAt.substring(0, 10)}</p> */}
                 </div>
               </div>
+
+              {isOfferer ? (
+                <div className="pppoffers-container">
+                  <h1 className="pppoffers-active">Ofertas activas</h1>
+                  <div className="manageoffers__inner">{activeOffers}</div>
+                  <h1 className="pppoffers-active">Ofertas Inactivas</h1>
+                  <div className="manageoffers__inner">
+                    {inactiveOffers
+                      ? inactiveOffers
+                      : "Usted no ha borrado ninguna oferta aún"}
+                  </div>
+                </div>
+              ) : null}
             </div>
           ) : (
-            <h1>klk</h1>
+            <h1>
+              Lo sentimos, existe un error al cargar los datos de este perfil
+            </h1>
           )}
         </div>
       </tagsContext.Provider>

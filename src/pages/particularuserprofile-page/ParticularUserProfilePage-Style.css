@@ -32,9 +32,12 @@
   border-radius: 120px;
 
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 20px;
 }
 .particularprofilepage__img {
-  width: 200px;
   height: 200px;
 }
 .particularprofilepage-body * {
@@ -45,6 +48,7 @@
   flex-direction: column;
   flex-grow: 0.7;
   max-width: 50%;
+  margin: 0px 20px;
 }
 .pppinfo-container__container * {
   margin: 20px 0px;
@@ -66,13 +70,16 @@
 
 .pppmultimedia-container {
   flex-direction: column;
+  margin: 0px 20px;
 }
 
 .pppmultimedia-title {
   margin-left: 10px;
+  text-transform: capitalize;
 }
 
 .pppadditionalinfo-container__body {
+  margin: 0px 20px;
 }
 
 .pppinfo-container__usertype {
@@ -93,4 +100,9 @@ ul li::before {
   display: inline-block; /* Needed to add space between the bullet and the text */
   width: 1em; /* Also needed for space (tweak if needed) */
   margin-left: -1em; /* Also needed for space (tweak if needed) */
+}
+
+.pppoffers-active {
+  color: #3a393b;
+  text-align: center;
 }

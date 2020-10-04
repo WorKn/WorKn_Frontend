@@ -434,9 +434,19 @@ export const deleteOffer = async (id) => {
     return e.response.data;
   }
 };
+
 export const getUserById = async (id) => {
   try {
     const response = await axios.get(`${HOST}/api/v1/users/${id}`);
+    return response.data;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const getCategoryById = async (id) => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/categories/?_id=${id}`);
     return response.data;
   } catch (e) {
     return e.response.data;
