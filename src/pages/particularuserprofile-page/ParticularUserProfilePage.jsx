@@ -22,6 +22,10 @@ const ParticularUserProfilePage = ({
   const [selectedCategory, setSelectedCategory] = useState({ label: "health" });
   const [selectedTags, setSelectedTags] = useState([]);
 
+  let MyDictionary = {};
+  MyDictionary["offerer"] = "Ofertante";
+  MyDictionary["applicant"] = "Aplicante";
+
   let history = useHistory();
 
   useEffect(() => {
@@ -49,10 +53,7 @@ const ParticularUserProfilePage = ({
                   {/* Bienvenido al perfil de {`${userInfo?.name} ${userInfo?.lastname}`} */}
                 </h1>
               </div>
-              <h1>
-                Bienvenido a la profile page de:{" "}
-                {`${userInfo?.name} ${userInfo?.lastname}`}
-              </h1>
+
               <div className="particularprofilepage-body">
                 <div className="ppp-imagecontainer">
                   <img
@@ -66,13 +67,16 @@ const ParticularUserProfilePage = ({
                   <h3 className="pppinfo-container__name ppptitle">
                     {`${userInfo?.name} ${userInfo?.lastname}`}
                   </h3>
-                  <p className="pppinfo-container__usertype">
-                    {userInfo?.userType}
-                  </p>
+                  <ul className="pppinfo-container__usertype">
+                    <li>{MyDictionary[userInfo?.userType]}</li>
+                  </ul>
+                  {/* <p className="pppinfo-container__usertype">
+                    {MyDictionary[userInfo?.userType]}
+                  </p> */}
                   <p className="pppinfo-container__bio">{userInfo?.bio}</p>
                 </div>
                 <div className="pppmultimedia-container">
-                  <h3 className="ppptitle">Multimedia</h3>
+                  <h3 className="ppptitle pppmultimedia-title">Multimedia</h3>
                   <div className="ppptags-container">
                     {userInfo?.tags.map((tag) => (
                       <Tag
@@ -86,7 +90,10 @@ const ParticularUserProfilePage = ({
 
                 <div className="pppadditionalinfo-container__body">
                   <h3 className="ppptitle">Miembro desde:</h3>
-                  <p>{userInfo?.createdAt.substring(0, 10)}</p>
+                  <ul>
+                    <li>{userInfo?.createdAt.substring(0, 10)}</li>
+                  </ul>
+                  {/* <p>{userInfo?.createdAt.substring(0, 10)}</p> */}
                 </div>
               </div>
             </div>

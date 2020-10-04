@@ -7,11 +7,12 @@
   background-image: url("https://i.imgur.com/lcHQ2QP.jpeg");
   background-position: center;
   text-transform: uppercase;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 .ppptitle {
   color: #3a393b;
+  margin-bottom: 10px;
 }
 .particularprofilepage-banner__title {
   color: white;
@@ -22,13 +23,14 @@
 .particularprofilepage-body {
   display: flex;
   margin: 30px 5%;
+  justify-content: space-between;
 }
 .ppp-imagecontainer {
   width: 200px;
   height: 200px;
-  border: 1px solid red;
+
   border-radius: 120px;
-  margin: 5px auto;
+
   overflow: hidden;
 }
 .particularprofilepage__img {
@@ -41,17 +43,16 @@
 .pppinfo-container__body {
   display: flex;
   flex-direction: column;
-  margin: 5px auto;
+  flex-grow: 0.7;
+  max-width: 50%;
 }
 .pppinfo-container__container * {
   margin: 20px 0px;
 }
 
 .ppptags-container {
-  background-color: red;
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 264px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .pppadditionalinfo-container__container {
@@ -65,9 +66,31 @@
 
 .pppmultimedia-container {
   flex-direction: column;
-  margin: 5px auto;
+}
+
+.pppmultimedia-title {
+  margin-left: 10px;
 }
 
 .pppadditionalinfo-container__body {
-  margin: 0px 5%;
+}
+
+.pppinfo-container__usertype {
+  margin-bottom: 20px;
+  margin-left: 13px;
+  list-style: none;
+}
+
+.pppadditionalinfo-container__body ul {
+  margin-left: 13px;
+  list-style: none;
+}
+
+ul li::before {
+  content: "\2022"; /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  color: #5bba6f; /* Change the color */
+  font-weight: bold; /* If you want it to be bold */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  width: 1em; /* Also needed for space (tweak if needed) */
+  margin-left: -1em; /* Also needed for space (tweak if needed) */
 }
