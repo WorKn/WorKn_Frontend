@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./OfferStrip-Style.css";
 import Tag from "../tag-components/Tag";
 import { useModal } from "../../hooks/useModal";
