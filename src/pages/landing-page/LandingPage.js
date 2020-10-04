@@ -6,6 +6,7 @@ import Footer from "../../components/footer-components/Footer.jsx";
 import Header from "../../components/navbar-components/Navbar.jsx";
 import JumbotronComponent from "../../components/jumbotron-components/Jumbotron.jsx";
 import CtaComponent from "../../components/cta-components/CTAComponent";
+import { testing } from "../../utils/apiRequests";
 
 const LandingPage = () => {
   const CTAComponent = {
@@ -22,10 +23,19 @@ const LandingPage = () => {
     bText: "",
   };
 
+  const TriggerTest = () => {
+    testing().then((res) => {
+      if (res.data !== undefined) {
+        console.log(res);
+      }
+    });
+  };
+
   return (
     <div>
       <Header />
       <Banner image={"GCzxKLw.png"} />
+      <button onClick={TriggerTest}>test</button>
       <CtaComponent params={CTAComponent}></CtaComponent>
       <CounterBanner />
       <JumbotronComponent params={helpJumbotron}></JumbotronComponent>
