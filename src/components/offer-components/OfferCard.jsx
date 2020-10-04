@@ -26,7 +26,7 @@ const OfferCard = ({ responseInfo }) => {
           <div className="offercard__header">
             <img
               src={responseInfo?.organization?.profilePicture}
-              alt="misco"
+              alt="Profile Picture"
               className="offercard__picture"
             ></img>
             <div className="offercard__text">

@@ -30,6 +30,18 @@ const ExplorePage = () => {
     });
   }
 
+  if (parameter === "tag") {
+    filteredResponse = responses.filter((person) => {
+      let flag = false;
+      person.tags.forEach((tag) => {
+        if (tag.name?.toLowerCase().includes(query.toLowerCase())) {
+          flag = true;
+        }
+      });
+      return flag;
+    });
+  }
+
   if (parameter === "name") {
     filteredResponse = responses.filter((person) => {
       return person.name?.toLowerCase().includes(query.toLowerCase());
@@ -67,6 +79,7 @@ const ExplorePage = () => {
       state.userInformation.userType !== "undefined" &&
       state.userInformation.userType === "offerer"
     ) {
+      setParameter("name");
       getAllUsers().then((res) => {
         console.log(res);
         console.log("ofertante detected");
@@ -76,12 +89,14 @@ const ExplorePage = () => {
       state.userInformation.userType !== "undefined" &&
       state.userInformation.userType === "applicant"
     ) {
+      setParameter("title");
       getAllOffers().then((res) => {
         console.log("aplicante detected");
         console.log(res.data.data.data);
         setResponses(res.data.data.data);
       });
     } else {
+      setParameter("title");
       getAllOffers().then((res) => {
         console.log("no type detected");
         console.log(res.data.data.data);
@@ -116,7 +131,6 @@ const ExplorePage = () => {
                   ref={register()}
                   onChange={(e) => setParameter(e.target.value)}
                 >
-                  <option value="name">Buscar por</option>
                   <option value="name">Nombre</option>
                   <option value="lastname">Apellido</option>
                   <option value="category">Categoría</option>
@@ -130,7 +144,6 @@ const ExplorePage = () => {
                   ref={register()}
                   onChange={(e) => setParameter(e.target.value)}
                 >
-                  <option value="title">Buscar por</option>
                   <option value="title">Nombre</option>
                   <option value="category">Categoría</option>
                   <option value="orgname">Organización</option>
