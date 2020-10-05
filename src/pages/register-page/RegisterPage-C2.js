@@ -8,14 +8,18 @@ import { useStateMachine } from "little-state-machine";
 import { ErrorMessage } from "@hookform/error-message";
 import { getAge } from "../../utils/ageCalculation";
 import { orgUserSignup } from "../../utils/apiRequests";
+import auth from "../../utils/authHelper";
+import Cookies from "js-cookie";
 
 const RegisterPageC2 = () => {
+  const [userObject, setUserObject] = useState("");
   const [gotResponse, setGotResponse] = useState(false);
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, watch, errors } = useForm({
     defaultValues: state.userInformation,
   });
   const { push } = useHistory();
+
   const onSubmit = (data) => {
     state.userInformation.userType = "offerer";
     state.userInformation.organizationRole = "owner";
@@ -26,19 +30,40 @@ const RegisterPageC2 = () => {
   useEffect(() => {
     if (state.userInformation.userType !== "") {
       orgUserSignup(state.userInformation).then((res) => {
-        // setUserInfo(res);
+        setUserObject(res);
       });
-      push("/loginpage");
     } else {
       console.log("loading");
     }
   }, [gotResponse, push, state.userInformation]);
+  useEffect(() => {
+    if (userObject.data !== undefined && userObject.data.status === "success") {
+      action(userObject.data.data.user);
+      Cookies.set("jwt", userObject.data.token, { expires: 7 });
+    }
+    const user = Cookies.get("jwt");
+    if (user && state.userInformation.category && state.userInformation.tags) {
+      auth.login();
+      push("/userprofilepage");
+    } else if (
+      user &&
+      !state.userInformation.category &&
+      !state.userInformation.tags
+    ) {
+      auth.login();
+      push("/userprofilepage");
+      console.log("not completed!");
+    }
+  }, [
+    userObject,
+    push,
+    action,
+    state.userInformation.category,
+    state.userInformation.tags,
+  ]);
 
   const password = useRef({});
   password.current = watch("password", "");
-
-  // console.log(state.userInformation);
-
   return (
     <div className="register-wrapper">
       <div className="green-line">
@@ -61,8 +86,6 @@ const RegisterPageC2 = () => {
                 className="form-input"
                 type="text"
                 name="name"
-                pattern="[a-zA-Z]*"
-                title="Por favor no incluya números en su nombre"
                 ref={register({ required: "Por favor ingrese su nombre" })}
               />
               <ErrorMessage
@@ -81,8 +104,6 @@ const RegisterPageC2 = () => {
                 className="form-input"
                 type="text"
                 name="lastname"
-                pattern="[a-zA-Z]*"
-                title="Por favor no incluya números en su apellido"
                 ref={register({ required: "Por favor ingrese su apellido" })}
               />
               <ErrorMessage

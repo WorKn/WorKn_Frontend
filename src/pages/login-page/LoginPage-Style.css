@@ -121,7 +121,7 @@ input:focus {
 }
 
 .custom-button span {
-  margin: 10px;
+  margin: 0px 10px;
 }
 
 .custom-button i {

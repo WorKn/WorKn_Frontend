@@ -25,6 +25,9 @@ const UserForm = () => {
   const { register, handleSubmit, errors, watch } = useForm({
     defaultValues: state.userInformation,
   });
+
+  let isOrg = false;
+
   password.current = watch("password", "");
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
@@ -49,16 +52,23 @@ const UserForm = () => {
         }
       });
     } else {
-      console.log("loading");
     }
   }, [updated, action, state.userInformation.userType]);
+
+  useEffect(() => {
+    getMe().then((res) => {
+      if (res.data !== undefined) {
+        action(res.data.data.data);
+      }
+    });
+  }, [action]);
 
   return (
     <categoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
       <tagsContext.Provider value={{ selectedTags, setSelectedTags }}>
         <form className="userform" onSubmit={handleSubmit(onSubmit)}>
           <div className="userform__LIP">
-            <PicSelector></PicSelector>
+            <PicSelector isOrg={isOrg}></PicSelector>
           </div>
           <div className="userform__2col">
             <div className="userform__LIP">
@@ -67,8 +77,6 @@ const UserForm = () => {
                 className="userform__input"
                 type="text"
                 name="name"
-                pattern="[a-zA-Z]*"
-                title="Por favor no incluya números en su nombre"
                 ref={register({ required: "Por favor ingrese su nombre" })}
               />
               <ErrorMessage
@@ -87,8 +95,6 @@ const UserForm = () => {
                 className="userform__input"
                 type="text"
                 name="lastname"
-                pattern="[a-zA-Z]*"
-                title="Por favor no incluya números en su apellido"
                 ref={register({ required: "Por favor ingrese su apellido" })}
               />
               <ErrorMessage
@@ -108,7 +114,6 @@ const UserForm = () => {
               className="userform__input"
               type="text"
               name="identificationNumber"
-              // pattern="[a-zA-Z]*"
               ref={register({
                 maxLength: {
                   value: 11,
@@ -127,18 +132,15 @@ const UserForm = () => {
             />
           </div>
           <div className="userform__LIP">
-            <span className="userform__label">Biografia</span>
+            <span className="userform__label">Biografía</span>
             <input
               className="userform__input userform__input--lg"
               type="text"
               name="bio"
-              // pattern="[a-zA-Z]*"
               ref={register({
-                required:
-                  "Por favor ingrese su biografía, de menos de 400 caracteres",
                 maxLength: {
                   value: 400,
-                  message: "Por faovr utilice menos de 400 caracteres",
+                  message: "Por favor utilice menos de 400 caracteres",
                 },
               })}
             />
@@ -154,14 +156,12 @@ const UserForm = () => {
           </div>
           <div className="userform__2col">
             <div className="userform__LIP">
-              <span className="userform__label">Telefono</span>
+              <span className="userform__label">Teléfono</span>
               <input
                 className="userform__input"
                 type="text"
                 name="phone"
-                // pattern="[a-zA-Z]*"
-                title="Por favor no incluya números en su nombre"
-                ref={register({ required: "Por favor ingrese su nombre" })}
+                ref={register}
               />
             </div>
           </div>
@@ -211,7 +211,7 @@ const UserForm = () => {
 
                 <div className="userform__LIP">
                   <span className="userform__label">
-                    Selecciona tu categoria
+                    Selecciona tu categoría
                   </span>
                   <CategoryInput></CategoryInput>
                 </div>
@@ -244,7 +244,7 @@ const UserForm = () => {
           updated.data.status === "success" ? (
             <div className="input__msg input__msg--success">
               {updated.data.data.user.name}, tu perfil fue actualizado
-              correctamente
+              correctamente.
             </div>
           ) : (
             ""
