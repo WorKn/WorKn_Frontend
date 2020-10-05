@@ -225,6 +225,15 @@ export const createOrganization = async (org) => {
   }
 };
 
+export const getOrgById = async (id) => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/organizations/${id}`);
+    return response.data;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
 export const signUpOrganizationMember = async (user) => {
   try {
     const response = await axios.post(
