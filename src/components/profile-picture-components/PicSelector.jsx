@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PictureForm from "./PictureForm";
 
-const PicSelector = () => {
+const PicSelector = ({ isOrg }) => {
   const [newImage, setNewImage] = useState();
   const handleNewImage = () => {
     setNewImage(newImage);
@@ -9,7 +9,7 @@ const PicSelector = () => {
 
   return (
     <div>
-      <PictureForm handleNewImage={handleNewImage}></PictureForm>
+      <PictureForm handleNewImage={handleNewImage} isOrg={isOrg}></PictureForm>
     </div>
   );
 };

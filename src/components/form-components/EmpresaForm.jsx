@@ -20,6 +20,8 @@ const EmpresaForm = () => {
     defaultValues: state.userInformation.data,
   });
 
+  let isOrg = true;
+
   const onSubmit = (data) => {
     if (!state.userInformation.organization) {
       createOrganization(data).then((res) => {
@@ -55,7 +57,7 @@ const EmpresaForm = () => {
   return (
     <form className="userform" onSubmit={handleSubmit(onSubmit)}>
       <div className="userform__LIP">
-        <PicSelector></PicSelector>
+        <PicSelector isOrg={isOrg}></PicSelector>
       </div>
       <div className="userform__2col">
         <div className="userform__LIP">

@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import "./Profile-selection-Style.css";
-import { sendImage } from "../../utils/apiRequests";
-import "react-toastify/dist/ReactToastify.css";
+import {
+  sendUserProfilePicture,
+  sendOrgProfilePicture,
+} from "../../utils/apiRequests";
 import PictureContainer from "./PictureContainer";
 
-const PictureForm = ({ handleNewImage }) => {
+const PictureForm = ({ handleNewImage, isOrg }) => {
   const [image, setImage] = useState();
   const [preview, setPreview] = useState(false);
-  const [newImage, setNewImage] = useState();
+  const [newInfo, setNewInfo] = useState();
+
 
   const handleImageUpload = (e) => {
     setImage(e.target.files[0]);
@@ -20,10 +23,17 @@ const PictureForm = ({ handleNewImage }) => {
   };
 
   const handleSubmit = () => {
-    sendImage(image).then((res) => {
-      const pp = res?.data?.data?.user?.profilePicture;
-      setNewImage(pp);
-    });
+    if (isOrg === false) {
+      sendUserProfilePicture(image).then((res) => {
+        const pp = res?.data?.data?.user?.profilePicture;
+        setNewInfo(pp);
+      });
+    } else {
+      sendOrgProfilePicture(image).then((res) => {
+        const pp = res?.data?.data?.organization;
+        setNewInfo(pp);
+      });
+    }
     setPreview(false);
     setImage(false);
     handleNewImage();
@@ -31,7 +41,7 @@ const PictureForm = ({ handleNewImage }) => {
 
   return (
     <div className="PicSelector">
-      <PictureContainer newImage={newImage}></PictureContainer>
+      <PictureContainer newInfo={newInfo} isOrg={isOrg}></PictureContainer>
       {preview ? (
         <>
           <div className="PicForm">

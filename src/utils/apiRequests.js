@@ -178,7 +178,7 @@ export const sendEmail = async (user) => {
   }
 };
 
-export const sendImage = async (image) => {
+export const sendUserProfilePicture = async (image) => {
   const fd = new FormData();
   fd.append("profilePicture", image);
   const config = {
@@ -271,6 +271,26 @@ export const editOrganization = async (org) => {
     return response;
   } catch (e) {
     return e.response.data;
+  }
+};
+
+export const sendOrgProfilePicture = async (image) => {
+  const fd = new FormData();
+  fd.append("profilePicture", image);
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  };
+  try {
+    const response = await axios.patch(
+      `${HOST}/api/v1/organizations/me`,
+      fd,
+      config
+    );
+    return response;
+  } catch (err) {
+    return err;
   }
 };
 

@@ -3,36 +3,39 @@ import "./Profile-selection-Style.css";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 
-const PictureContainer = ({ newImage }) => {
+const PictureContainer = ({ newInfo, isOrg }) => {
   const [image, setImage] = useState("");
   const { state, action } = useStateMachine(updateAction);
 
   const getImage = async () => {
-    if (state.userInformation.profilePicture) {
-      setImage(state.userInformation.profilePicture);
-      if (newImage) {
-        action({ profilePicture: newImage });
+    if (isOrg === false) {
+      if (state.userInformation.profilePicture) {
+        setImage(state.userInformation.profilePicture);
+        if (newInfo) {
+          action({ profilePicture: newInfo });
+        }
+      } else {
+        console.log("loading");
       }
     } else {
-      console.log("loading");
-    }
-    try {
-      getMe().then((res) => {
-        const pp = res?.data?.data?.data?.profilePicture;
-        if (!pp) {
-          return;
-        } else {
-          setImage(pp);
+      if (state.userInformation.data?.profilePicture) {
+        setImage(state.userInformation.data?.profilePicture);
+        if (newInfo) {
+          action({ data: newInfo });
         }
-      });
-    } catch (error) {
-      console.log(error.message);
+      } else {
+        console.log("loading");
+      }
     }
   };
 
   useEffect(() => {
     getImage();
-  }, [newImage, state.userInformation.profilePicture]);
+  }, [
+    newInfo,
+    state.userInformation.profilePicture,
+    state.userInformation.data,
+  ]);
 
   const configureImage = (image) => {
     if (!image) {
