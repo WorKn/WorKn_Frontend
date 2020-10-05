@@ -10,6 +10,7 @@ import CustomOfferStrip from "../../components/offer-components/CustomOfferStrip
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import { Link } from "react-router-dom";
+import Banner from "../../components/banner-components/Banner";
 
 const ManageOffersPage = () => {
   const [myoffers, setMyOffers] = useState([]);
@@ -119,23 +120,34 @@ const ManageOffersPage = () => {
   return success ? (
     <div className="manageoffers-container">
       <Header></Header>
-      <div className="manageoffers-banner">
-        <h1 className="manageoffers-banner__title">Resumen de ofertas</h1>
-      </div>
+      <Banner image={"qiyrYvI.png"} />
+
       <AddOfferModal>
         <CreateOfferPopup hide={hideAddOfferModal}></CreateOfferPopup>
       </AddOfferModal>
-      <h1 className="manageoffers__active-offers">Ofertas Activas</h1>
-      <button
+      <div className="manageoffers__container">
+        <span className="manageoffers__title--dark">Ofertas Activas</span>
+      </div>
+      <div className="manageoffers__activecontainer">
+        <div className="addoffer__newbutton" onClick={showAddOfferModal}>
+          <i className="fa fas fa-plus manageoffers__icon"></i>
+          <span className="manageoffers__title--dark">
+            Crea una nueva oferta
+          </span>
+        </div>
+      </div>
+      {/* <button
         type="button"
         className="manageoffers__create-button"
         onClick={showAddOfferModal}
       >
         <i className="fa fas fa-plus manageoffers__icon"></i>Crear oferta
-      </button>
+      </button> */}
 
       <div className="manageoffers__inner">{activeOffers}</div>
-      <h1 className="manageoffers__inactive-offers">Ofertas Inactivas</h1>
+      <div className="manageoffers__container">
+        <span className="manageoffers__title--dark">Ofertas Inactivas</span>
+      </div>
       <div className="manageoffers__inner">
         {inactiveOffers
           ? inactiveOffers

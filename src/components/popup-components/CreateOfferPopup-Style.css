@@ -21,7 +21,7 @@
   margin-bottom: 10px;
 }
 
-.create-offer__form h1 {
+.sizing-container h1 {
   color: #5bba6f;
   font-weight: 600;
   font-size: 20px;
@@ -69,6 +69,10 @@
   display: flex;
   /* margin-right: 30%;
     justify-content: space-between; */
+}
+
+.popup-wrapper {
+  width: 100%;
 }
 
 .create-offer__salary-range input {
