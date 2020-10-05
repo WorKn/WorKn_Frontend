@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./OfferStrip-Style.css";
 import Tag from "../tag-components/Tag";
 import { useModal } from "../../hooks/useModal";
@@ -10,8 +10,9 @@ import updateAction from "../../updateAction";
 const OfferStrip = ({ responseInfo, isMatch, interactionId }) => {
   const { show: showDetailModal, RenderModal: DetailModal } = useModal();
   const { state, action } = useStateMachine(updateAction);
-  // const [profilePictureRoute, setProfilePictureRoute] = useState("");
-  // const [offererTitleRoute, setOffererTitleRoute] = useState("");
+  const [profilePictureRoute, setProfilePictureRoute] = useState("");
+  const [offererTitleRoute, setOffererTitleRoute] = useState("");
+
   const sendInteractionId = () => {
     const currentId = { interactionId };
     action(currentId);
@@ -20,15 +21,15 @@ const OfferStrip = ({ responseInfo, isMatch, interactionId }) => {
   MyDictionary["free"] = "Freelancer";
   MyDictionary["fixed"] = "Fijo/Indefinido";
 
-  // useEffect(() => {
-  //   if (responseInfo.organization) {
-  //     setProfilePictureRoute(responseInfo?.organization?.profilePicture);
-  //     setOffererTitleRoute(responseInfo?.organization?.name);
-  //   } else {
-  //     setProfilePictureRoute(responseInfo?.createdBy?.profilePicture);
-  //     setOffererTitleRoute(responseInfo?.createdBy?.name);
-  //   }
-  // }, [responseInfo]);
+  useEffect(() => {
+    if (responseInfo.offer.organization) {
+      setProfilePictureRoute(responseInfo?.offer?.organization?.profilePicture);
+      setOffererTitleRoute(responseInfo?.offer?.organization?.name);
+    } else {
+      setProfilePictureRoute(responseInfo?.offer?.createdBy?.profilePicture);
+      setOffererTitleRoute(responseInfo?.offer?.createdBy?.name);
+    }
+  }, [responseInfo]);
 
   return (
     <div>
@@ -40,12 +41,12 @@ const OfferStrip = ({ responseInfo, isMatch, interactionId }) => {
       state.userInformation.userType === "" ? (
         <div className="offerstrip" onClick={showDetailModal}>
           <img
-            src={responseInfo?.offer?.organization?.profilePicture}
+            src={profilePictureRoute}
             className="offerstrip__picture"
             alt="Offerpp"
           />
           <span className="offerstrip__text offerstrip__org">
-            {responseInfo?.offer?.organization?.name}
+            {offererTitleRoute}
           </span>
           <span className="offerstrip__vl offerstrip__vl--1"></span>
           <span className="offerstrip__text offerstrip__type">
