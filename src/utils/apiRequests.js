@@ -9,8 +9,6 @@ if (process.env.REACT_APP_ENV === "staging") {
   HOST = process.env.REACT_APP_STAGING_HOST;
 }
 
-// const accessToken = Cookies.get("jwt");
-
 axios.interceptors.request.use(
   (config) => {
     config.headers.authorization = `Bearer ${Cookies.get("jwt")}`;
