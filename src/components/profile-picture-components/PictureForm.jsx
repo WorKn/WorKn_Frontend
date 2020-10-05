@@ -4,7 +4,6 @@ import {
   sendUserProfilePicture,
   sendOrgProfilePicture,
 } from "../../utils/apiRequests";
-import "react-toastify/dist/ReactToastify.css";
 import PictureContainer from "./PictureContainer";
 
 const PictureForm = ({ handleNewImage, isOrg }) => {
