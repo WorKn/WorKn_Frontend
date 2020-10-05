@@ -41,6 +41,10 @@
   cursor: pointer;
 }
 
+.dop-wrapper__accept:hover {
+  background-color: #259e6c;
+}
+
 .dop-wrapper__cancel {
   display: flex;
   justify-content: center;
@@ -54,6 +58,10 @@
   margin: 10px;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.dop-wrapper__cancel:hover {
+  background-color: #d3453b;
 }
 
 @media screen and (max-width: 685px) {

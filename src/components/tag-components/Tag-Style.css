@@ -9,8 +9,24 @@
   flex-wrap: wrap;
 }
 
+.tag--small {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 20px;
+  width: 100%;
+  padding: 0px 10px;
+  border-radius: 16px;
+}
+
 .tag__text {
   font-size: 16px;
+  font-weight: 700;
+  color: #5bba6f;
+}
+
+.tag__text--small {
+  font-size: 10px;
   font-weight: 700;
   color: #5bba6f;
 }
