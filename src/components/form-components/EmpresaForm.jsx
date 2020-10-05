@@ -24,21 +24,17 @@ const EmpresaForm = () => {
 
   const onSubmit = (data) => {
     if (!state.userInformation.organization) {
-      console.log("no hay org, creating");
       createOrganization(data).then((res) => {
         if (res.data !== undefined) {
           setUpdated(res);
-          // console.log(res);
         }
       });
     } else {
-      console.log("hay org, updating");
       data.id = state.userInformation.organization;
       editOrganization(data).then((res) => {
         if (res.data !== undefined) {
           setDisabled(true);
           setUpdated(res);
-          // console.log(res);
         }
       });
     }
@@ -47,7 +43,6 @@ const EmpresaForm = () => {
     getMyOrganization().then((res) => {
       if (res.data !== undefined) {
         action(res.data.data);
-        // console.log(res);
       }
     });
     getMe().then((res) => {
@@ -112,34 +107,12 @@ const EmpresaForm = () => {
           />
         </div>
       </div>
-      {/* <div className="userform__LIP">
-        <span className="userform__label">Ubicación</span>
-        <input
-          className="userform__input"
-          type="text"
-          name="location"
-          // pattern="[a-zA-Z]*"
-          ref={register({
-            required: "Por favor ingrese la ubicacion de la empresa",
-          })}
-        />
-        <ErrorMessage
-          errors={errors}
-          name="location"
-          render={({ message }) => (
-            <div className="input__msg input__msg--error">
-              <i class="fa fa-asterisk"></i> {message}
-            </div>
-          )}
-        />
-      </div> */}
       <div className="userform__LIP">
-        <span className="userform__label">Descripcion</span>
+        <span className="userform__label">Descripción</span>
         <input
           className="userform__input userform__input--lg"
           type="text"
           name="bio"
-          // pattern="[a-zA-Z]*"
           ref={register({
             maxLength: {
               value: 400,
@@ -159,13 +132,12 @@ const EmpresaForm = () => {
       </div>
       <div className="userform__2col">
         <div className="userform__LIP">
-          <span className="userform__label">Telefono</span>
+          <span className="userform__label">Teléfono</span>
           <input
             className="userform__input"
             type="text"
             name="phone"
             ref={register}
-            // pattern="[a-zA-Z]*"
           />
           <ErrorMessage
             errors={errors}
@@ -179,14 +151,12 @@ const EmpresaForm = () => {
         </div>
       </div>
       <div className="userform__LIP">
-        <span className="userform__label">Correo</span>
+        <span className="userform__label">Correo de contacto</span>
         <input
           className="userform__input"
           type="email"
           name="email"
-          ref={register({
-            required: "Por favor ingrese el correo de la empresa",
-          })}
+          ref={register}
         />
         <ErrorMessage
           errors={errors}
@@ -198,26 +168,6 @@ const EmpresaForm = () => {
           )}
         />
       </div>
-
-      {/* <div className="userform__footer">
-        <span className="userform__title">
-          Selecciona tu categoría y tus etiquetas
-        </span>
-        <span className="userform__text">
-          Las etiqueta sirven para emparejarte con ofertas de trabajo y personas
-          en tus mismas áreas de conocimiento, la categoría sirve para filtrar
-          dichas etiquetas de una manera más precisa.
-        </span>
-      </div> */}
-      {/* <div className="userform__LIP">
-        <span className="userform__label">Área del saber deseada</span>
-        <TagInput></TagInput>
-      </div>
-
-      <div className="userform__LIP">
-        <span className="userform__label">Selecciona tus etiquetas</span>
-        <TagInput></TagInput>
-      </div> */}
       <div>
         <div className="userform__footer">
           <span className="userform__title">Mantén tu perfil actualizado</span>
@@ -243,103 +193,6 @@ const EmpresaForm = () => {
         type="submit"
         value="Guardar Perfil de Empresa"
       />
-      {/* <CustomButton></CustomButton> */}
-
-      {/* <div className="paired-container">
-        <div className="paired-input">
-          <span className="popup-text">Nombre</span>
-          <input
-            className="form-input"
-            type="text"
-            name="name"
-            pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su nombre"
-            ref={register({ required: "Por favor ingrese su nombre" })}
-          />
-          <ErrorMessage
-            errors={errors}
-            name="name"
-            render={({ message }) => (
-              <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
-              </div>
-            )}
-          />
-        </div>
-        <div className="paired-input lspacer">
-          <span className="popup-text">Apellido</span>
-          <input
-            className="form-input"
-            type="text"
-            name="lastname"
-            pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su apellido"
-            ref={register({ required: "Por favor ingrese su apellido" })}
-          />
-          <ErrorMessage
-            errors={errors}
-            name="lastname"
-            render={({ message }) => (
-              <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
-              </div>
-            )}
-          />
-        </div>
-      </div>
-      <div className="userform_input userform_input--lg">
-        <span className="popup-text">Biografia</span>
-        <input
-          className="form-input userform_input--lg"
-          type="text"
-          name="lastname"
-          pattern="[a-zA-Z]*"
-          title="Por favor no incluya números en su apellido"
-          ref={register({ required: "Por favor ingrese su apellido" })}
-        />
-      </div>
-      <div className="paired-container">
-        <div className="paired-input">
-          <span className="popup-text">Nombre</span>
-          <input
-            className="form-input"
-            type="text"
-            name="name"
-            pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su nombre"
-            ref={register({ required: "Por favor ingrese su nombre" })}
-          />
-          <ErrorMessage
-            errors={errors}
-            name="name"
-            render={({ message }) => (
-              <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
-              </div>
-            )}
-          />
-        </div>
-        <div className="paired-input lspacer">
-          <span className="popup-text">Apellido</span>
-          <input
-            className="form-input"
-            type="text"
-            name="lastname"
-            pattern="[a-zA-Z]*"
-            title="Por favor no incluya números en su apellido"
-            ref={register({ required: "Por favor ingrese su apellido" })}
-          />
-          <ErrorMessage
-            errors={errors}
-            name="lastname"
-            render={({ message }) => (
-              <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
-              </div>
-            )}
-          />
-        </div>
-      </div> */}
     </form>
   );
 };

@@ -11,6 +11,7 @@ const PictureForm = ({ handleNewImage, isOrg }) => {
   const [preview, setPreview] = useState(false);
   const [newInfo, setNewInfo] = useState();
 
+
   const handleImageUpload = (e) => {
     setImage(e.target.files[0]);
     setPreview(true);
@@ -33,7 +34,6 @@ const PictureForm = ({ handleNewImage, isOrg }) => {
         setNewInfo(pp);
       });
     }
-
     setPreview(false);
     setImage(false);
     handleNewImage();

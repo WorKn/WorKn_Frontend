@@ -20,7 +20,7 @@ const PasswordPopup = (props) => {
     updatePassword(data).then((res) => {
       if (res.data !== undefined) {
         setUpdate(res);
-        Cookies.set("jwt", res.data.token);
+        Cookies.set("jwt", res.data.token, { expires: 7 });
       }
     });
   };
