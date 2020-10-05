@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Tag from "../tag-components/Tag";
 import "./OfferCard-Style.css";
 import { useModal } from "../../hooks/useModal";
@@ -9,6 +9,23 @@ import { useStateMachine } from "little-state-machine";
 const OfferCard = ({ responseInfo }) => {
   const { state } = useStateMachine(updateAction);
   const { show: showDetailModal, RenderModal: DetailModal } = useModal();
+  const [profilePictureRoute, setProfilePictureRoute] = useState("");
+  const [offererTitleRoute, setOffererTitleRoute] = useState("");
+  let MyDictionary = {};
+  MyDictionary["free"] = "Freelancer";
+  MyDictionary["fixed"] = "Fijo/Indefinido";
+  MyDictionary["applicant"] = "Aplicante";
+
+  useEffect(() => {
+    if (responseInfo.organization) {
+      setProfilePictureRoute(responseInfo?.organization?.profilePicture);
+      setOffererTitleRoute(responseInfo?.organization?.name);
+    } else {
+      setProfilePictureRoute(responseInfo?.createdBy?.profilePicture);
+      setOffererTitleRoute(responseInfo?.createdBy?.name);
+    }
+  }, [responseInfo]);
+
   return (
     <div>
       <DetailModal>
@@ -20,8 +37,8 @@ const OfferCard = ({ responseInfo }) => {
         <div className="offercard__wrapper" onClick={showDetailModal}>
           <div className="offercard__header">
             <img
-              src={responseInfo?.organization?.profilePicture}
-              alt="misco"
+              src={profilePictureRoute}
+              alt="Profile"
               className="offercard__picture"
             ></img>
             <div className="offercard__text">
@@ -32,7 +49,7 @@ const OfferCard = ({ responseInfo }) => {
               <span className="offercard__text--subtitle">
                 Por{" "}
                 <span className="offercard__text--highlight">
-                  {responseInfo?.organization?.name}
+                  {offererTitleRoute}
                 </span>{" "}
                 en{" "}
                 <span className="offercard__text--highlight">
@@ -42,7 +59,7 @@ const OfferCard = ({ responseInfo }) => {
             </div>
           </div>
           <div className="offercard__data">
-            {responseInfo?.offerType}
+            {MyDictionary[responseInfo?.offerType]}
             <div className="offercard__vl"></div>
             <span>{responseInfo?.closingDate.slice(0, 10)}</span>
             <div className="offercard__vl"></div>
@@ -60,9 +77,6 @@ const OfferCard = ({ responseInfo }) => {
         </div>
       ) : (
         <div className="offercard__wrapper" onClick={showDetailModal}>
-          {/* <DetailModal>
-            <DetailPopup responseInfo={responseInfo}></DetailPopup>
-          </DetailModal> */}
           <div className="offercard__header">
             <img
               src={responseInfo?.profilePicture}
@@ -86,7 +100,7 @@ const OfferCard = ({ responseInfo }) => {
             </div>
           </div>
           <div className="offercard__data">
-            {responseInfo?.userType}
+            {MyDictionary[responseInfo?.userType]}
             <div className="offercard__vl"></div>
             <span>{responseInfo?.bio?.slice(0, 20)}...</span>
             <div className="offercard__vl"></div>

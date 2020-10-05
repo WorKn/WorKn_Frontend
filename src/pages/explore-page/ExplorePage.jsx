@@ -10,18 +10,76 @@ import { useStateMachine } from "little-state-machine";
 import Footer from "../../components/footer-components/Footer";
 
 const ExplorePage = () => {
+  const [parameter, setParameter] = useState("");
   const [responses, setResponses] = useState([]);
-  const { register, handleSubmit } = useForm({});
+  const [query, setQuery] = useState("");
+  const { register } = useForm({});
   const { state } = useStateMachine(updateAction);
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+
+  // const onSubmit = (data) => {
+  //   setParameter(data.type);
+  // };
+
+  let filteredResponse = responses.filter((person) => {
+    return person;
+  });
+
+  if (parameter === "lastname") {
+    filteredResponse = responses.filter((person) => {
+      return person.lastname?.toLowerCase().includes(query.toLowerCase());
+    });
+  }
+
+  if (parameter === "tag") {
+    filteredResponse = responses.filter((person) => {
+      let flag = false;
+      person.tags.forEach((tag) => {
+        if (tag.name?.toLowerCase().includes(query.toLowerCase())) {
+          flag = true;
+        }
+      });
+      return flag;
+    });
+  }
+
+  if (parameter === "name") {
+    filteredResponse = responses.filter((person) => {
+      return person.name?.toLowerCase().includes(query.toLowerCase());
+    });
+  }
+
+  if (parameter === "category") {
+    filteredResponse = responses.filter((person) => {
+      return person.category?.name.toLowerCase().includes(query.toLowerCase());
+    });
+  }
+
+  if (parameter === "title") {
+    filteredResponse = responses.filter((person) => {
+      return person.title?.toLowerCase().includes(query.toLowerCase());
+    });
+  }
+
+  if (parameter === "orgname") {
+    filteredResponse = responses.filter((person) => {
+      return person.organization?.name
+        ?.toLowerCase()
+        .includes(query.toLowerCase());
+    });
+  }
+
+  if (parameter === "offertype") {
+    filteredResponse = responses.filter((person) => {
+      return person.offerType?.toLowerCase().includes(query.toLowerCase());
+    });
+  }
 
   useEffect(() => {
     if (
       state.userInformation.userType !== "undefined" &&
       state.userInformation.userType === "offerer"
     ) {
+      setParameter("name");
       getAllUsers().then((res) => {
         console.log(res);
         console.log("ofertante detected");
@@ -31,12 +89,14 @@ const ExplorePage = () => {
       state.userInformation.userType !== "undefined" &&
       state.userInformation.userType === "applicant"
     ) {
+      setParameter("title");
       getAllOffers().then((res) => {
         console.log("aplicante detected");
         console.log(res.data.data.data);
         setResponses(res.data.data.data);
       });
     } else {
+      setParameter("title");
       getAllOffers().then((res) => {
         console.log("no type detected");
         console.log(res.data.data.data);
@@ -58,18 +118,49 @@ const ExplorePage = () => {
                 type="text"
                 className="explorepage__inputsearch"
                 placeholder="Busca nombres, empresas, organizaciones o etiquetas"
+                onChange={(e) => setQuery(e.target.value)}
                 ref={register()}
               ></input>
-              <div
+
+              {typeof state.userInformation.userType !== "undefined" &&
+              state.userInformation.userType === "offerer" ? (
+                <select
+                  type="text"
+                  name="type"
+                  className="explorepage__select explorepage__searchbtn"
+                  ref={register()}
+                  onChange={(e) => setParameter(e.target.value)}
+                >
+                  <option value="name">Nombre</option>
+                  <option value="lastname">Apellido</option>
+                  <option value="category">Categoría</option>
+                  <option value="tag">Etiqueta</option>
+                </select>
+              ) : (
+                <select
+                  type="text"
+                  name="type"
+                  className="explorepage__select explorepage__searchbtn"
+                  ref={register()}
+                  onChange={(e) => setParameter(e.target.value)}
+                >
+                  <option value="title">Nombre</option>
+                  <option value="category">Categoría</option>
+                  <option value="tag">Etiqueta</option>
+                  <option value="orgname">Organización</option>
+                  <option value="offertype">Tipo de oferta</option>
+                </select>
+              )}
+              {/* <div
                 onClick={handleSubmit(onSubmit)}
                 className="explorepage__searchbtn"
               >
                 <i className="fa fa-search"></i>{" "}
-              </div>
+              </div> */}
             </div>
           </form>
           <div className="explorepage__cardscontainer">
-            {responses.map((response) =>
+            {filteredResponse.map((response) =>
               response ? (
                 <OfferCard
                   key={response._id}

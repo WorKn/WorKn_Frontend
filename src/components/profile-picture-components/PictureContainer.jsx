@@ -16,6 +16,18 @@ const PictureContainer = ({ newImage }) => {
     } else {
       console.log("loading");
     }
+    try {
+      getMe().then((res) => {
+        const pp = res?.data?.data?.data?.profilePicture;
+        if (!pp) {
+          return;
+        } else {
+          setImage(pp);
+        }
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   useEffect(() => {

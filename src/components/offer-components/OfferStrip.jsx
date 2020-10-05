@@ -1,13 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./OfferStrip-Style.css";
 import Tag from "../tag-components/Tag";
 import { useModal } from "../../hooks/useModal";
 import InteractionPopup from "../../components/popup-components/InteractionPopup";
-import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
-const OfferStrip = ({ responseInfo }) => {
+import { Link } from "react-router-dom";
+import updateAction from "../../updateAction";
+
+const OfferStrip = ({ responseInfo, isMatch, interactionId }) => {
   const { show: showDetailModal, RenderModal: DetailModal } = useModal();
-  const { state } = useStateMachine(updateAction);
+  const { state, action } = useStateMachine(updateAction);
+  const [profilePictureRoute, setProfilePictureRoute] = useState("");
+  const [offererTitleRoute, setOffererTitleRoute] = useState("");
+
+  const sendInteractionId = () => {
+    const currentId = { interactionId };
+    action(currentId);
+  };
+  let MyDictionary = {};
+  MyDictionary["free"] = "Freelancer";
+  MyDictionary["fixed"] = "Fijo/Indefinido";
+
+  useEffect(() => {
+    if (responseInfo.offer.organization) {
+      setProfilePictureRoute(responseInfo?.offer?.organization?.profilePicture);
+      setOffererTitleRoute(responseInfo?.offer?.organization?.name);
+    } else {
+      setProfilePictureRoute(responseInfo?.offer?.createdBy?.profilePicture);
+      setOffererTitleRoute(responseInfo?.offer?.createdBy?.name);
+    }
+  }, [responseInfo]);
 
   return (
     <div>
@@ -19,16 +41,16 @@ const OfferStrip = ({ responseInfo }) => {
       state.userInformation.userType === "" ? (
         <div className="offerstrip" onClick={showDetailModal}>
           <img
-            src={responseInfo?.offer?.organization?.profilePicture}
+            src={profilePictureRoute}
             className="offerstrip__picture"
             alt="Offerpp"
           />
           <span className="offerstrip__text offerstrip__org">
-            {responseInfo?.offer?.organization?.name}
+            {offererTitleRoute}
           </span>
           <span className="offerstrip__vl offerstrip__vl--1"></span>
           <span className="offerstrip__text offerstrip__type">
-            {responseInfo?.offer?.offerType}
+            {MyDictionary[responseInfo?.offer?.offerType]}
           </span>
           <span className="offerstrip__vl offerstrip__vl--2"></span>
           <span className="offerstrip__text offerstrip__offer">
@@ -45,7 +67,11 @@ const OfferStrip = ({ responseInfo }) => {
             ))}
           </div>
           <span className="offerstrip__vl offerstrip__vl--4"></span>
-          <span className="offerstrip__text offerstrip__edit">Editar</span>
+          {typeof isMatch !== "undefined" && isMatch === "true" ? (
+            <span className="offerstrip__text offerstrip__edit">New Val</span>
+          ) : (
+            <span className="offerstrip__text offerstrip__edit">Editar</span>
+          )}
           <i className="fa fa-times offerstrip__icon offerstrip__delete"></i>
         </div>
       ) : (
@@ -77,7 +103,19 @@ const OfferStrip = ({ responseInfo }) => {
             ))}
           </div>
           <span className="offerstrip__vl offerstrip__vl--4"></span>
-          <span className="offerstrip__text offerstrip__edit">Editar</span>
+          {typeof isMatch !== "undefined" && isMatch === "true" ? (
+            <Link to="/chat" style={{ textDecoration: "none" }}>
+              <button
+                onClick={sendInteractionId}
+                className="userprofile__action"
+              >
+                <i className="fa fa-comments userprofile__icon"></i>
+                Crear Chat
+              </button>
+            </Link>
+          ) : (
+            <span className="offerstrip__text offerstrip__edit">Editar</span>
+          )}
           <i className="fa fa-times offerstrip__icon offerstrip__delete"></i>
         </div>
       )}
