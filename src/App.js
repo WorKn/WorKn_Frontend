@@ -21,6 +21,7 @@ import AddMember from "./pages/addmember-page/AddMemberPage";
 import SummaryPage from "./pages/summary-page/SummaryPage";
 import NotFound from "./pages/not_found-page/not_found";
 import ExplorePage from "./pages/explore-page/ExplorePage";
+import EmpresaViewPage from "./pages/viewside-page/EmpresaViewPage";
 // import ChatPage from "./pages/chat-page/ChatPage";
 require("dotenv").config({ path: "./.env" });
 
@@ -79,6 +80,11 @@ function App() {
               exact
               path="/addMember/:orgid/:token"
               component={AddMember}
+            />
+            <Route
+              exact
+              path="/organizations/:id"
+              component={EmpresaViewPage}
             />
             <Route exact path="/manageoffers" component={ManageOffersPage} />
             <Route exact path="/addMember/:token" component={AddMember} />

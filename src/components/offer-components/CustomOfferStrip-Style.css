@@ -12,6 +12,16 @@
   border: 1px solid #d3d3d3;
 }
 
+.offerstrip-container {
+  height: 80%;
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+}
+
 .offerstrip__inner {
   width: 60px;
   padding: 0px;
@@ -21,7 +31,6 @@
 .offerstrip__tagscontainer {
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .offerstrip__picture {
