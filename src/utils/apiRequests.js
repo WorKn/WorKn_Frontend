@@ -9,11 +9,9 @@ if (process.env.REACT_APP_ENV === "staging") {
   HOST = process.env.REACT_APP_STAGING_HOST;
 }
 
-const accessToken = Cookies.get("jwt");
-
 axios.interceptors.request.use(
   (config) => {
-    config.headers.authorization = `Bearer ${accessToken}`;
+    config.headers.authorization = `Bearer ${Cookies.get("jwt")}`;
     return config;
   },
   (error) => {
@@ -23,7 +21,8 @@ axios.interceptors.request.use(
 
 export const testing = async () => {
   try {
-    const response = await axios.get(`${HOST}`);
+    const request = axios.get(`${HOST}/`, { withCredentials: true });
+    const response = await request;
     return response;
   } catch (e) {
     return e;
@@ -143,9 +142,9 @@ export const validateEmail = async (token) => {
     const response = await axios.patch(
       `${HOST}/api/v1/users/validateEmail/${token}`
     );
-    return response.data.status;
+    return response;
   } catch (e) {
-    return false;
+    return e.response.data;
   }
 };
 
@@ -247,7 +246,6 @@ export const signUpOrganizationMember = async (user) => {
 };
 
 export const resetPassword = async (user) => {
-  console.log(user);
   try {
     const response = await axios.patch(
       `${HOST}/api/v1/users/resetPassword/${user.myToken}`,
@@ -427,54 +425,6 @@ export const cancelInteraction = async (id) => {
 export const deleteOffer = async (id) => {
   try {
     const response = await axios.delete(`${HOST}/api/v1/offers/${id}`);
-    return response;
-  } catch (e) {
-    return e.response.data;
-  }
-};
-
-// CHAT
-
-export const createChat = async (message, interaction) => {
-  try {
-    const response = await axios.post(`${HOST}/api/v1/users/me/chats/`, {
-      message: message,
-      interaction: interaction,
-    });
-    return response;
-  } catch (e) {
-    return e.response.data;
-  }
-};
-
-export const createMessage = async (message, chatId) => {
-  try {
-    const response = await axios.post(
-      `${HOST}/api/v1/users/me/chats/${chatId}/messages`,
-      {
-        message: message,
-      }
-    );
-    return response;
-  } catch (e) {
-    return e.response.data;
-  }
-};
-
-export const getChatMessages = async (chatId) => {
-  try {
-    const response = await axios.get(
-      `${HOST}/api/v1/users/me/chats/${chatId}/messages`
-    );
-    return response;
-  } catch (e) {
-    return e.response.data;
-  }
-};
-
-export const getMyChats = async () => {
-  try {
-    const response = await axios.get(`${HOST}/api/v1/users/me/chats`);
     return response;
   } catch (e) {
     return e.response.data;

@@ -112,6 +112,8 @@ const ManageOffersPage = () => {
     state.userInformation.organizationRole,
     state.userInformation.profilePicture,
     state.userInformation.userType,
+    state.userInformation._id,
+    state.userInformation.isEmailValidated,
   ]);
 
   return success ? (

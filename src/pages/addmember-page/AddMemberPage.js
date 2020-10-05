@@ -45,7 +45,7 @@ const AddMember = ({
   useEffect(() => {
     if (userObject.data !== undefined && userObject.data.status === "success") {
       action(userObject.data.data.user);
-      Cookies.set("jwt", userObject.data.token);
+      Cookies.set("jwt", userObject.data.token, { expires: 7 });
     }
     const user = Cookies.get("jwt");
     if (user) {

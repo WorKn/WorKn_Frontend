@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 import "./EmailValidation-Style.css";
 
+import Cookies from "js-cookie";
+
 import { validateEmail } from "../../utils/apiRequests";
 
 const EmailValidation = ({
@@ -15,9 +17,9 @@ const EmailValidation = ({
 
   useEffect(() => {
     validateEmail(token).then((res) => {
-      console.log(res);
-      if (res === "success") {
+      if (res.data?.status !== undefined && res.data.status === "success") {
         setValidated(true);
+        Cookies.set("jwt", res.data.token, { expires: 7 });
       } else {
         setValidated(false);
       }
