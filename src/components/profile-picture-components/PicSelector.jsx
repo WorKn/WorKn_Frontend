@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PictureForm from "./PictureForm";
-import PictureContainer from "./PictureContainer";
 
 const PicSelector = () => {
   const [newImage, setNewImage] = useState();
@@ -9,8 +8,7 @@ const PicSelector = () => {
   };
 
   return (
-    <div className="PicSelector">
-      <PictureContainer newImage={newImage}></PictureContainer>
+    <div>
       <PictureForm handleNewImage={handleNewImage}></PictureForm>
     </div>
   );

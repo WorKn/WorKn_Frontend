@@ -2,6 +2,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
+  margin-bottom: 5px;
 }
 
 .Pic-selector {
@@ -34,7 +35,7 @@
   align-items: center;
   width: 89px;
   height: 89px;
-  border: 2px solid #5bba6f;
+  border: 5px solid #5bba6f;
   border-radius: 100px;
   background-color: white;
 }
@@ -47,7 +48,7 @@
 }
 
 .Pic-selector__label {
-  width: 100px;
+  width: 105px;
   display: flex;
   justify-content: flex-start;
   padding-top: 44px;
@@ -59,12 +60,16 @@
   align-items: center;
   width: 35px;
   height: 35px;
-  padding: 0 1px 4px 0;
+  padding-right: 1px;
   background-color: #5bba6f;
   color: white;
   border-radius: 10px;
   text-align: center;
   cursor: pointer;
+}
+
+.Pic-selector__image-upload:hover {
+  background-color: #259e6c;
 }
 
 .PicForm {
@@ -90,48 +95,6 @@
   margin-top: 10px;
 }
 
-/* @media only screen and (max-width: 808px) {
-  .Pic-selector {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    height: 170px;
-    width: 120px;
-  }
-  .Pic-selector span {
-    font-size: 15px;
-    margin-top: 0px;
-    order: 1;
-  }
-  .PicForm {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    width: 120px;
-    padding: 1px 2px;
-    height: 90px;
-    margin: 0;
-    padding-left: 0px;
-  }
-
-  .Pic-selector__label {
-    width: 120px;
-    display: flex;
-    justify-content: center;
-    padding-left: 0px;
-  }
-} */
-
-.Picture_success {
-  color: white;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-}
-.Picture_fail {
-  color: white;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
+.PicForm button:hover {
+  background-color: #259e6c;
 }

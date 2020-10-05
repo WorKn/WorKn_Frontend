@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "./Profile-selection-Style.css";
 import { sendImage } from "../../utils/apiRequests";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PictureContainer from "./PictureContainer";
 
 const PictureForm = ({ handleNewImage }) => {
   const [image, setImage] = useState();
   const [preview, setPreview] = useState(false);
+  const [newImage, setNewImage] = useState();
+
   const handleImageUpload = (e) => {
     setImage(e.target.files[0]);
     setPreview(true);
@@ -19,35 +21,8 @@ const PictureForm = ({ handleNewImage }) => {
 
   const handleSubmit = () => {
     sendImage(image).then((res) => {
-      console.log(res);
-      try {
-        if (res.data.status === "success") {
-          toast.success(
-            `Bien! ahora refresca la pagina para ver tu nueva foto de perfil`,
-            {
-              className: "Picture_success",
-              position: toast.POSITION.TOP_LEFT,
-              closeButton: false,
-              draggable: true,
-            }
-          );
-          console.log(res.data);
-        } else {
-          toast.error(`Hubo un error, intentalo de nuevo`, {
-            className: "Picture_fail",
-            position: toast.POSITION.TOP_LEFT,
-            closeButton: false,
-            draggable: true,
-          });
-        }
-      } catch (err) {
-        toast.error(err, {
-          className: "Picture_fail",
-          position: toast.POSITION.TOP_LEFT,
-          closeButton: false,
-          draggable: true,
-        });
-      }
+      const pp = res?.data?.data?.user?.profilePicture;
+      setNewImage(pp);
     });
     setPreview(false);
     setImage(false);
@@ -55,8 +30,8 @@ const PictureForm = ({ handleNewImage }) => {
   };
 
   return (
-    <div>
-      <ToastContainer />
+    <div className="PicSelector">
+      <PictureContainer newImage={newImage}></PictureContainer>
       {preview ? (
         <>
           <div className="PicForm">

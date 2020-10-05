@@ -6,7 +6,9 @@ class Announcement extends Component {
     let dialog = (
       <div className="Announcement-container">
         <div>{this.props.children}</div>
-        <button onClick={this.props.onClose}>x</button>
+        <button onClick={this.props.onClose}>
+          <i className="fa fa-times offerstrip__icon offerstrip__delete"></i>
+        </button>
       </div>
     );
 

@@ -179,10 +179,8 @@ export const sendEmail = async (user) => {
 };
 
 export const sendImage = async (image) => {
-  console.log(image);
   const fd = new FormData();
   fd.append("profilePicture", image);
-  console.log(fd);
   const config = {
     headers: {
       "Content-Type": "multipart/form-data",
