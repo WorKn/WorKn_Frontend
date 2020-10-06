@@ -452,3 +452,12 @@ export const getCategoryById = async (id) => {
     return e.response.data;
   }
 };
+
+export const getOffersByUserId = async (id) => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/offers/?createdBy=${id}`);
+    return response;
+  } catch (e) {
+    return e;
+  }
+};

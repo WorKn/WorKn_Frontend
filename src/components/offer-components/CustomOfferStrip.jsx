@@ -12,7 +12,6 @@ const CustomOfferStrip = ({
   offerInfo,
   organizationInformation,
   isInactive,
-  isCalledFromProfilePage,
 }) => {
   const {
     show: showEditOfferModal,
@@ -72,24 +71,23 @@ const CustomOfferStrip = ({
           ></Tag>
         ))}
       </div>
-      {isCalledFromProfilePage ? null : (
-        <div>
-          <span className="offerstrip__vl offerstrip__vl--4"></span>
-          <EditOfferModal>
-            <EditOfferPopup
-              hide={hideEditOfferModal}
-              offerInfo={offerInfo}
-            ></EditOfferPopup>
-          </EditOfferModal>
-          <span
-            className="offerstrip__text offerstrip__edit"
-            onClick={isInactive ? () => {} : showEditOfferModal}
-          >
-            Editar
-          </span>
-          <i className="fa fa-times offerstrip__icon offerstrip__delete"></i>
-        </div>
-      )}
+
+      <div>
+        <span className="offerstrip__vl offerstrip__vl--4"></span>
+        <EditOfferModal>
+          <EditOfferPopup
+            hide={hideEditOfferModal}
+            offerInfo={offerInfo}
+          ></EditOfferPopup>
+        </EditOfferModal>
+        <span
+          className="offerstrip__text offerstrip__edit"
+          onClick={isInactive ? () => {} : showEditOfferModal}
+        >
+          Editar
+        </span>
+        <i className="fa fa-times offerstrip__icon offerstrip__delete"></i>
+      </div>
     </div>
   );
 };

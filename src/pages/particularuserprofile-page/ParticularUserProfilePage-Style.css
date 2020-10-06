@@ -1,5 +1,5 @@
 .particularprofilepage-banner {
-  height: 280px;
+  height: 310px;
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -10,37 +10,40 @@
   margin-bottom: 50px;
 }
 
-.ppptitle {
-  color: #3a393b;
-  margin-bottom: 10px;
-}
 .particularprofilepage-banner__title {
   color: white;
   font-weight: 700;
   font-size: 57px;
   text-shadow: 1px 2px 5px #7e7d7d;
 }
-.particularprofilepage-body {
+.ppp-up {
   display: flex;
   margin: 30px 5%;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .ppp-imagecontainer {
-  width: 200px;
+  /* width: 200px;
   height: 200px;
-
   border-radius: 120px;
-
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0px 20px;
+  margin: 0px 20px; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 15%;
+  padding-top: 24px;
 }
 .particularprofilepage__img {
-  height: 200px;
-}
-.particularprofilepage-body * {
+  width: 12vw;
+  height: 12vw;
+  border-radius: 120px;
+  object-fit: cover;
 }
 
 .pppinfo-container__body {
@@ -48,48 +51,28 @@
   flex-direction: column;
   flex-grow: 0.7;
   max-width: 50%;
-  margin: 0px 20px;
-}
-.pppinfo-container__container * {
-  margin: 20px 0px;
+  margin: 20px auto;
 }
 
-.ppptags-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.pppinfo-container__body p {
+  margin-top: 20px;
+  font-size: 15px;
 }
 
-.pppadditionalinfo-container__container {
-  display: flex;
-  flex-direction: column;
+.pppinfo-container__body span {
+  color: #333234;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 12px;
 }
 
-.ppptags-container__container div {
-  margin: 0px 5%;
-}
-
-.pppmultimedia-container {
-  flex-direction: column;
-  margin: 0px 20px;
-}
-
-.pppmultimedia-title {
-  margin-left: 10px;
-  text-transform: capitalize;
-}
-
-.pppadditionalinfo-container__body {
-  margin: 0px 20px;
+.pppinfo-container__body ul {
+  margin-top: 15px;
 }
 
 .pppinfo-container__usertype {
   margin-bottom: 20px;
-  margin-left: 13px;
-  list-style: none;
-}
-
-.pppadditionalinfo-container__body ul {
-  margin-left: 13px;
+  margin-left: 17px;
   list-style: none;
 }
 
@@ -102,7 +85,104 @@ ul li::before {
   margin-left: -1em; /* Also needed for space (tweak if needed) */
 }
 
-.pppoffers-active {
-  color: #3a393b;
-  text-align: center;
+.pppinfo-container__body p {
+  margin-top: 8px;
+  color: #707070;
+}
+
+.ppptags-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.ppptags-container__container div {
+  margin: 0px 5%;
+}
+
+.pppmultimedia-container {
+  margin: 20px 10px;
+  flex-direction: column;
+}
+
+.pppmultimedia-title {
+  margin-left: 10px;
+  text-transform: capitalize;
+}
+
+.pppcontact-container {
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.pppcontact-container span {
+  color: #333234;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+.pppcontact-container a {
+  color: #5bba6f;
+  text-decoration: none;
+  flex-wrap: wrap;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.ppptags-container {
+  margin-top: 8px;
+}
+
+.pppadditionalinfo-container__body {
+  margin: 20px auto;
+}
+
+.pppadditionalinfo-container__body ul {
+  margin-left: 17px;
+  list-style: none;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.pppadditionalinfo-container__body ul li {
+  color: #707070;
+}
+
+.pppadditionalinfo-container__body span {
+  color: #333234;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+.pppadditionalinfo-container__body p {
+  margin-top: 8px;
+  color: #707070;
+}
+
+.ppp-down {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  height: 40%;
+  width: inherit;
+  padding: 20px;
+  margin: 0px 5%;
+}
+
+.ppp-down h2 {
+  margin-bottom: 20px;
+}
+
+.ppp-offers {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 90%;
+  width: inherit;
 }
