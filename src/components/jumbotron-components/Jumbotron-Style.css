@@ -39,3 +39,34 @@
 .jumbotron-container__description b {
   color: #3acc6c;
 }
+
+@media screen and (max-width: 942px) {
+  .jumbotron-container {
+    flex-direction: column;
+    margin-right: 0%;
+    margin-top: 40px;
+  }
+
+  .jumbotron-container__image {
+    width: 70%;
+    margin-right: 0px;
+  }
+
+  .jumbotron-container__image > img {
+    margin-bottom: 50px;
+  }
+
+  .jumbotron-container__jumbotron-text {
+    justify-content: center;
+    flex: 0;
+  }
+
+  .jumbotron-container__title {
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+  .jumbotron-container__description {
+    text-align: center;
+    font-size: 17px;
+  }
+}

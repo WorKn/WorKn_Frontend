@@ -1,14 +1,22 @@
 .offerstrip {
-  min-height: 90px;
+  height: 90px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 20px;
   margin-bottom: 30px;
   background-color: white;
   border-radius: 45px;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+  box-shadow: 1px 7px 10px -12px rgba(0, 0, 0, 0.75);
+  border: solid 1px #f5f5f5;
+  padding: 0px 18px;
+}
+
+.offerstrip:hover {
+  transform: scale(1.05);
 }
 
 .offerstrip__inner {
@@ -24,9 +32,10 @@
 }
 
 .offerstrip__picture {
-  width: 60px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .offerstrip__text {
@@ -43,6 +52,28 @@
 
 .offerstrip__icon {
   color: #707070;
+}
+.offerstrip__action {
+  display: flex;
+  margin: 10px 0px;
+  width: auto;
+  justify-content: flex-start;
+  /* color: #00ba6b; */
+  font-size: 15px;
+  border: none;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  padding: 15px;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
+.offerstrip__action--green {
+  color: #00ba6b;
+}
+
+.offerstrip__action--red {
+  color: #ee6055;
 }
 
 @media only screen and (max-width: 1490px) {
@@ -65,5 +96,13 @@
     flex-flow: column;
     justify-items: center;
     align-items: center;
+    height: 200px;
+    margin: 10px;
+  }
+  .offerstrip__picture {
+    margin-top: 10px;
+  }
+  .offerstrip__delete {
+    margin-bottom: 10px;
   }
 }

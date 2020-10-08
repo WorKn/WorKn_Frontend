@@ -20,7 +20,7 @@ const PasswordPopup = (props) => {
     updatePassword(data).then((res) => {
       if (res.data !== undefined) {
         setUpdate(res);
-        Cookies.set("jwt", res.data.token);
+        Cookies.set("jwt", res.data.token, { expires: 7 });
       }
     });
   };
@@ -119,7 +119,6 @@ const PasswordPopup = (props) => {
                 className="response__msg"
                 onClick={() => {
                   Cookies.remove("jwt");
-                  window.STATE_MACHINE_RESET();
                   Auth.logout(() => {
                     push("/");
                   });

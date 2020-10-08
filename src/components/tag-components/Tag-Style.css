@@ -4,15 +4,36 @@
   align-items: center;
   height: 32px;
   width: auto;
-  padding: 7px 14px;
+  padding: 7px;
   border-radius: 16px;
   flex-wrap: wrap;
-  margin-right: 10px;
+}
+
+.tag--small {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 20px;
+  width: 100%;
+  padding: 0px 10px;
+  border-radius: 16px;
 }
 
 .tag__text {
   font-size: 16px;
   font-weight: 700;
+  color: #5bba6f;
+}
+
+.tag__text--small {
+  font-size: 10px;
+  font-weight: 700;
+  color: #5bba6f;
+}
+
+.tag__text--mini {
+  font-size: 7px;
+  font-weight: 600;
   color: #5bba6f;
 }
 
@@ -22,4 +43,14 @@
 
 .tag__text--white {
   background-color: #fff;
+}
+
+.tag--mini {
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  width: auto;
+  padding: 4px;
+  border-radius: 8px;
+  flex-wrap: nowrap;
 }

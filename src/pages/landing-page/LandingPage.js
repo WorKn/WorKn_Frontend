@@ -25,7 +25,7 @@ const LandingPage = () => {
   return (
     <div>
       <Header />
-      <Banner image={"kiwVnMm.png"} />
+      <Banner image={"GCzxKLw.png"} />
       <CtaComponent params={CTAComponent}></CtaComponent>
       <CounterBanner />
       <JumbotronComponent params={helpJumbotron}></JumbotronComponent>

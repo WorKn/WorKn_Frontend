@@ -1,0 +1,247 @@
+import React, { useState } from "react";
+
+import "./CreateOfferPopup-Style.css";
+import "./QuestionPopup-Style.css";
+import "./PasswordPopup-Style.css";
+import { useForm } from "react-hook-form";
+
+import { createOffer } from "../../utils/apiRequests";
+
+import { ErrorMessage } from "@hookform/error-message";
+
+import categoryContext from "../../utils/categoryContext";
+import CategoryInput from "../input-components/CategoryInput";
+import tagsContext from "../../utils/tagsContext";
+import TagsInput from "../input-components/TagsInput";
+
+const CreateOfferPage = ({ hide }) => {
+  const { register, handleSubmit, errors } = useForm({
+    // mode: "onBlur",
+  });
+  const [selectedCategory, setSelectedCategory] = useState({ label: "health" });
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [showSuccess, setSuccess] = useState(false);
+
+  //aniadir manualmente los atributos para asuntos de pruebas
+
+  const onSubmit = (data) => {
+    console.log("SUBMITTED");
+    data.category = selectedCategory.value;
+    console.log(data.category);
+    let newArray = [];
+    selectedTags.forEach((tag) => newArray.push(tag.value));
+    data.tags = newArray;
+
+    //eliminar aquellos atributos que sean iguales a ""
+    Object.keys(data).forEach(
+      (property) => data[property] === "" && delete data[property]
+    );
+
+    data.salaryRange = [data.salaryRangeFrom, data.salaryRangeTo];
+    delete data["salaryRangeFrom"];
+    delete data["salaryRangeTo"];
+    if (!data.salaryRange[0] || !data.salaryRange[1]) {
+      delete data["salaryRange"];
+    }
+    createOffer(data).then((res) => {
+      console.log(res);
+      if (res === "success") {
+        setSuccess(true);
+      }
+    });
+    console.log(data);
+  };
+
+  return (
+    <categoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
+      <tagsContext.Provider value={{ selectedTags, setSelectedTags }}>
+        <div className="popup-wrapper">
+          <form onSubmit={handleSubmit(onSubmit)} className="sizing-container">
+            <div className="create-offer__header">
+              <h1 className="create-offer__header-title">
+                Creación de ofertas
+              </h1>
+              <i
+                className="fa fa-times offerstrip__icon offerstrip__delete"
+                onClick={hide}
+              ></i>
+            </div>
+            <div className="create-offer__paired-input">
+              <span>Título</span>
+
+              <input
+                type="text"
+                name="title"
+                placeholder="Título"
+                title="Por favor, ingrese el título de la oferta"
+                ref={register({ required: "Por favor ingrese el titulo" })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="title"
+                render={({ message }) => (
+                  <div className="input__msg input__msg--error">
+                    <i class="fa fa-asterisk"></i> {message}
+                  </div>
+                )}
+              />
+            </div>
+            <div className="create-offer__paired-input">
+              <span>Descripción</span>
+
+              <input
+                type="text"
+                name="description"
+                placeholder="Descripción"
+                title="Por favor, ingrese la descripción de la oferta"
+                className="create-offer__description-input"
+                ref={register({ required: "Por favor ingrese la descripcion" })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="description"
+                render={({ message }) => (
+                  <div className="input__msg input__msg--error">
+                    <i class="fa fa-asterisk"></i> {message}
+                  </div>
+                )}
+              />
+            </div>
+            <div className="create-offer__paired-input">
+              <span>Tipo de oferta</span>
+
+              <select
+                name="offerType"
+                ref={register({
+                  required: "Por favor seleccione un tipo de oferta",
+                })}
+              >
+                <option value="free">Free</option>
+                <option value="fixed">Fixed</option>
+              </select>
+
+              <ErrorMessage
+                errors={errors}
+                name="offerType"
+                render={({ message }) => (
+                  <div className="input__msg input__msg--error">
+                    <i class="fa fa-asterisk"></i> {message}
+                  </div>
+                )}
+              />
+            </div>
+            <div className="create-offer__paired-input">
+              <span>Ubicación</span>
+
+              <input
+                type="text"
+                placeholder="Ubicacion [opcional]"
+                title="Por favor, ingrese la Ubicacion de la oferta [opcional]"
+                name="location"
+                ref={register}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="location"
+                render={({ message }) => (
+                  <div className="input__msg input__msg--error">
+                    <i class="fa fa-asterisk"></i> {message}
+                  </div>
+                )}
+              />
+            </div>
+            <div className="create-offer__paired-input">
+              <span>Categoría</span>
+            </div>
+            <CategoryInput></CategoryInput>
+
+            <div className="create-offer__paired-input">
+              <span>Tags</span>
+
+              <TagsInput
+                query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
+                defaultInputValue={"health"}
+              ></TagsInput>
+            </div>
+
+            <div className="create-offer__paired-input">
+              <span>Rango Salarial</span>
+
+              <input
+                type="number"
+                step="any"
+                name="salaryRangeFrom"
+                placeholder="Desde [opcional]"
+                ref={register}
+                title="Por favor, ingrese el rango inicial sin comas [opcional]"
+              />
+
+              <ErrorMessage
+                errors={errors}
+                name="salaryRangeFrom"
+                render={({ message }) => (
+                  <div className="input__msg input__msg--error">
+                    <i class="fa fa-asterisk"></i> {message}
+                  </div>
+                )}
+              />
+              <input
+                type="number"
+                step="any"
+                name="salaryRangeTo"
+                placeholder="Hasta [opcional]"
+                ref={register}
+                title="Por favor, ingrese el rango final [opcional]"
+              />
+
+              <ErrorMessage
+                errors={errors}
+                name="salaryRangeTo"
+                render={({ message }) => (
+                  <div className="input__msg input__msg--error">
+                    <i class="fa fa-asterisk"></i> {message}
+                  </div>
+                )}
+              />
+            </div>
+            <div className="create-offer__paired-input">
+              <span>Fecha de cierre</span>
+
+              <input
+                type="date"
+                name="closingDate"
+                placeholder="Fecha de cierre"
+                className="create-offer__date"
+                ref={register}
+                title="Por favor, ingrese la fecha de cierre de la oferta"
+              />
+              <ErrorMessage
+                errors={errors}
+                name="closingDate"
+                render={({ message }) => (
+                  <div className="input__msg input__msg--error">
+                    <i class="fa fa-asterisk"></i> {message}
+                  </div>
+                )}
+              />
+            </div>
+
+            <input
+              type="submit"
+              value="Crear oferta"
+              className="create-offer__submit"
+            ></input>
+
+            {showSuccess ? (
+              <span className="create-offer__success">
+                Oferta creada correctamente, puede cerrar este menu
+              </span>
+            ) : null}
+          </form>
+        </div>
+      </tagsContext.Provider>
+    </categoryContext.Provider>
+  );
+};
+
+export default CreateOfferPage;
