@@ -13,8 +13,8 @@
 }
 
 /* .offercard__wrapper--mini:hover {
-    transform: none;
-  } */
+  transform: none;
+} */
 
 .offercard__header--mini {
   display: flex;
@@ -91,8 +91,8 @@
   }
 
   /* .offercard__wrapper--mini:hover {
-          transform: none;
-        } */
+        transform: none;
+      } */
 
   .offercard__header--mini {
     display: flex;
