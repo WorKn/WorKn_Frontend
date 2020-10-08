@@ -6,8 +6,14 @@ import InteractionPopup from "../../components/popup-components/InteractionPopup
 import { useStateMachine } from "little-state-machine";
 import { Link } from "react-router-dom";
 import updateAction from "../../updateAction";
+import { acceptInteraction, rejectInteraction } from "../../utils/apiRequests";
 
-const OfferStrip = ({ responseInfo, isMatch, interactionId }) => {
+const OfferStrip = ({
+  responseInfo,
+  isMatch,
+  isInteraction,
+  interactionId,
+}) => {
   const { show: showDetailModal, RenderModal: DetailModal } = useModal();
   const { state, action } = useStateMachine(updateAction);
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
@@ -17,6 +23,19 @@ const OfferStrip = ({ responseInfo, isMatch, interactionId }) => {
     const currentId = { interactionId };
     action(currentId);
   };
+
+  const catchInteraction = () => {
+    acceptInteraction(responseInfo._id).then((res) => {
+      console.log(res);
+    });
+  };
+
+  const deleteInteraction = () => {
+    rejectInteraction(responseInfo._id).then((res) => {
+      console.log(res);
+    });
+  };
+
   let MyDictionary = {};
   MyDictionary["free"] = "Freelancer";
   MyDictionary["fixed"] = "Fijo/Indefinido";
@@ -39,7 +58,7 @@ const OfferStrip = ({ responseInfo, isMatch, interactionId }) => {
       {(typeof state.userInformation.userType !== "undefined" &&
         state.userInformation.userType === "applicant") ||
       state.userInformation.userType === "" ? (
-        <div className="offerstrip" onClick={showDetailModal}>
+        <div className="offerstrip">
           <img
             src={profilePictureRoute}
             className="offerstrip__picture"
@@ -68,14 +87,45 @@ const OfferStrip = ({ responseInfo, isMatch, interactionId }) => {
           </div>
           <span className="offerstrip__vl offerstrip__vl--4"></span>
           {typeof isMatch !== "undefined" && isMatch === "true" ? (
-            <span className="offerstrip__text offerstrip__edit">New Val</span>
+            <Link to="/chat" style={{ textDecoration: "none" }}>
+              <button
+                onClick={sendInteractionId}
+                className="offerstrip__action offerstrip__action--green"
+              >
+                <i className="fa fa-comments userprofile__icon"></i>
+                Chat
+              </button>
+            </Link>
           ) : (
-            <span className="offerstrip__text offerstrip__edit">Editar</span>
+            ""
+            // <span className="offerstrip__text offerstrip__edit">Editar</span>
+          )}
+          {typeof isInteraction !== "undefined" && isInteraction === "true" ? (
+            <React.Fragment>
+              <button
+                onClick={catchInteraction}
+                className="offerstrip__action offerstrip__action--green"
+              >
+                <i className="fa fa-check userprofile__icon"></i>
+                Aceptar
+              </button>
+              {/* <Link to="/chat" style={{ textDecoration: "none" }}> */}
+              <button
+                onClick={deleteInteraction}
+                className="offerstrip__action offerstrip__action--red"
+              >
+                <i className="fa fa-times userprofile__icon"></i>
+                Declinar
+              </button>
+              {/* </Link> */}
+            </React.Fragment>
+          ) : (
+            ""
           )}
           <i className="fa fa-times offerstrip__icon offerstrip__delete"></i>
         </div>
       ) : (
-        <div className="offerstrip" onClick={showDetailModal}>
+        <div className="offerstrip">
           <img
             src={responseInfo?.applicant?.profilePicture}
             className="offerstrip__picture"
@@ -107,15 +157,39 @@ const OfferStrip = ({ responseInfo, isMatch, interactionId }) => {
             <Link to="/chat" style={{ textDecoration: "none" }}>
               <button
                 onClick={sendInteractionId}
-                className="userprofile__action"
+                className="offerstrip__action offerstrip__action--green"
               >
                 <i className="fa fa-comments userprofile__icon"></i>
-                Crear Chat
+                Chat
               </button>
             </Link>
           ) : (
-            <span className="offerstrip__text offerstrip__edit">Editar</span>
+            ""
+            // <span className="offerstrip__text offerstrip__edit">Editar</span>
           )}
+          {typeof isInteraction !== "undefined" && isInteraction === "true" ? (
+            <React.Fragment>
+              <button
+                onClick={catchInteraction}
+                className="offerstrip__action offerstrip__action--green"
+              >
+                <i className="fa fa-check userprofile__icon"></i>
+                Aceptar
+              </button>
+              {/* <Link to="/chat" style={{ textDecoration: "none" }}> */}
+              <button
+                onClick={deleteInteraction}
+                className="offerstrip__action offerstrip__action--red"
+              >
+                <i className="fa fa-times userprofile__icon"></i>
+                Declinar
+              </button>
+              {/* </Link> */}
+            </React.Fragment>
+          ) : (
+            ""
+          )}
+
           <i className="fa fa-times offerstrip__icon offerstrip__delete"></i>
         </div>
       )}
