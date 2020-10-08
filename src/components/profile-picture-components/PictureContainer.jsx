@@ -32,6 +32,7 @@ const PictureContainer = ({ newInfo, isOrg }) => {
   useEffect(() => {
     getImage();
   }, [
+    // getImage,
     newInfo,
     state.userInformation.profilePicture,
     state.userInformation.data,

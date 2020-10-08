@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./OfferStrip-Style.css";
 import Tag from "../tag-components/Tag";
-import { useModal } from "../../hooks/useModal";
-import InteractionPopup from "../../components/popup-components/InteractionPopup";
+// import { useModal } from "../../hooks/useModal";
+// import InteractionPopup from "../../components/popup-components/InteractionPopup";
 import { useStateMachine } from "little-state-machine";
 import { Link } from "react-router-dom";
 import updateAction from "../../updateAction";
@@ -14,7 +14,7 @@ const OfferStrip = ({
   isInteraction,
   interactionId,
 }) => {
-  const { show: showDetailModal, RenderModal: DetailModal } = useModal();
+  // const { show: showDetailModal, RenderModal: DetailModal } = useModal();
   const { state, action } = useStateMachine(updateAction);
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
@@ -52,9 +52,9 @@ const OfferStrip = ({
 
   return (
     <div>
-      <DetailModal>
+      {/* <DetailModal>
         <InteractionPopup responseInfo={responseInfo}></InteractionPopup>
-      </DetailModal>
+      </DetailModal> */}
       {(typeof state.userInformation.userType !== "undefined" &&
         state.userInformation.userType === "applicant") ||
       state.userInformation.userType === "" ? (
