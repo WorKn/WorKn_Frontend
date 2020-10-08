@@ -15,7 +15,6 @@ import { Link } from "react-router-dom";
 
 const UserProfilePage = (props) => {
   const { state } = useStateMachine(updateAction);
-
   const {
     show: showPasswordModal,
     RenderModal: PasswordModal,

@@ -77,6 +77,7 @@ const UserForm = () => {
                 className="userform__input"
                 type="text"
                 name="name"
+                // pattern="[a-zA-ZáÁéÉíÍóÓúÚýÝ ]*"
                 ref={register({ required: "Por favor ingrese su nombre" })}
               />
               <ErrorMessage
@@ -95,6 +96,9 @@ const UserForm = () => {
                 className="userform__input"
                 type="text"
                 name="lastname"
+
+                // pattern="[a-zA-Z]*"
+
                 ref={register({ required: "Por favor ingrese su apellido" })}
               />
               <ErrorMessage
