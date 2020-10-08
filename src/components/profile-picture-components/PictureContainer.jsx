@@ -31,6 +31,7 @@ const PictureContainer = ({ newInfo, isOrg }) => {
 
   useEffect(() => {
     getImage();
+    // eslint-disable-next-line
   }, [
     // getImage,
     newInfo,
