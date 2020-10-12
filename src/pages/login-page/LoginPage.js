@@ -12,6 +12,8 @@ import { useHistory } from "react-router-dom";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 
+import GoogleSignUpButton from "./../../components/button-components/GoogleSignUpButton"
+
 const LoginPage = React.memo((props) => {
   const [userObject, setUserObject] = useState("");
   const { register, handleSubmit, errors } = useForm();
@@ -147,13 +149,14 @@ const LoginPage = React.memo((props) => {
                 <span>Accede con Facebook</span>
               </div>
             </span>
-            <span className="custom-button bg-red">
+            {/* <span className="custom-button bg-red">
               <div className="inner-container">
                 <i className="fa fa-google"></i>
                 <span className="vl"></span>
                 <span>Accede con Google</span>
               </div>
-            </span>
+            </span> */}
+            <GoogleSignUpButton/>
           </form>
         </div>
       </div>

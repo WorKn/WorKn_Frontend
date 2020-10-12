@@ -68,6 +68,18 @@ export const userLogin = async (user) => {
   }
 };
 
+export const googleAuth = async (code, redirectUri) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/users/login/google`, {
+      code,
+      redirectUri,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
 export const userSignup = async (user) => {
   try {
     const response = await axios.post(`${HOST}/api/v1/users/signup`, {
