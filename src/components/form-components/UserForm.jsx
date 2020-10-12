@@ -25,6 +25,9 @@ const UserForm = () => {
   const { register, handleSubmit, errors, watch } = useForm({
     defaultValues: state.userInformation,
   });
+
+  let isOrg = false;
+
   password.current = watch("password", "");
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
@@ -52,12 +55,20 @@ const UserForm = () => {
     }
   }, [updated, action, state.userInformation.userType]);
 
+  useEffect(() => {
+    getMe().then((res) => {
+      if (res.data !== undefined) {
+        action(res.data.data.data);
+      }
+    });
+  }, [action]);
+
   return (
     <categoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
       <tagsContext.Provider value={{ selectedTags, setSelectedTags }}>
         <form className="userform" onSubmit={handleSubmit(onSubmit)}>
           <div className="userform__LIP">
-            <PicSelector></PicSelector>
+            <PicSelector isOrg={isOrg}></PicSelector>
           </div>
           <div className="userform__2col">
             <div className="userform__LIP">
@@ -66,6 +77,7 @@ const UserForm = () => {
                 className="userform__input"
                 type="text"
                 name="name"
+                // pattern="[a-zA-ZáÁéÉíÍóÓúÚýÝ ]*"
                 ref={register({ required: "Por favor ingrese su nombre" })}
               />
               <ErrorMessage
@@ -84,6 +96,9 @@ const UserForm = () => {
                 className="userform__input"
                 type="text"
                 name="lastname"
+
+                // pattern="[a-zA-Z]*"
+
                 ref={register({ required: "Por favor ingrese su apellido" })}
               />
               <ErrorMessage

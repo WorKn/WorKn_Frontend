@@ -1,23 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./Navbar-Style.css";
 
 import { Link } from "react-router-dom";
 
-import auth from "../../utils/authHelper";
+// import auth from "../../utils/authHelper";
 
 import updateAction from "../../updateAction";
 
 import { useStateMachine } from "little-state-machine";
 
 const Navbar = () => {
-  const isLoggedIn = auth.isAuthenticated();
+  // const isLoggedIn = auth.isAuthenticated();
   const { state } = useStateMachine(updateAction);
   const [hideOnMobile, setHideOnMobile] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleHiddenMobile = () => {
     setHideOnMobile(!hideOnMobile);
   };
+
+  useEffect(() => {
+    if (state.userInformation._id) {
+      setIsLoggedIn(true);
+    }
+  }, [state.userInformation._id]);
 
   return (
     <div className="navbar">
@@ -93,11 +100,11 @@ const Navbar = () => {
               </div>
             </button>
           </Link>
-          <i
-            class="fas fa-bars"
-            id="navbar__hidden"
-            onClick={toggleHiddenMobile}
-          ></i>
+          <div id="navbar__hidden" onClick={toggleHiddenMobile}>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
         </div>
       ) : (
         <div className="navbar__right-items">

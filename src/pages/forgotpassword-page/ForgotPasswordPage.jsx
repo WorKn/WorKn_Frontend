@@ -22,7 +22,7 @@ const FPassword = () => {
           });
           console.log(res.data);
         } else {
-          toast.error(`Hubo un error`, {
+          toast.error(`Introduzca un correo existente`, {
             className: "sendEmail_fail",
             position: toast.POSITION.TOP_LEFT,
             closeButton: false,

@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import "./Profile-selection-Style.css";
-import { sendImage } from "../../utils/apiRequests";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {
+  sendUserProfilePicture,
+  sendOrgProfilePicture,
+} from "../../utils/apiRequests";
+import PictureContainer from "./PictureContainer";
 
-const PictureForm = ({ handleNewImage }) => {
+const PictureForm = ({ handleNewImage, isOrg }) => {
   const [image, setImage] = useState();
   const [preview, setPreview] = useState(false);
+  const [newInfo, setNewInfo] = useState();
+
+
   const handleImageUpload = (e) => {
     setImage(e.target.files[0]);
     setPreview(true);
@@ -18,45 +23,25 @@ const PictureForm = ({ handleNewImage }) => {
   };
 
   const handleSubmit = () => {
-    sendImage(image).then((res) => {
-      console.log(res);
-      try {
-        if (res.data.status === "success") {
-          toast.success(
-            `Bien! ahora refresca la pagina para ver tu nueva foto de perfil`,
-            {
-              className: "Picture_success",
-              position: toast.POSITION.TOP_LEFT,
-              closeButton: false,
-              draggable: true,
-            }
-          );
-          console.log(res.data);
-        } else {
-          toast.error(`Hubo un error, intentalo de nuevo`, {
-            className: "Picture_fail",
-            position: toast.POSITION.TOP_LEFT,
-            closeButton: false,
-            draggable: true,
-          });
-        }
-      } catch (err) {
-        toast.error(err, {
-          className: "Picture_fail",
-          position: toast.POSITION.TOP_LEFT,
-          closeButton: false,
-          draggable: true,
-        });
-      }
-    });
+    if (isOrg === false) {
+      sendUserProfilePicture(image).then((res) => {
+        const pp = res?.data?.data?.user?.profilePicture;
+        setNewInfo(pp);
+      });
+    } else {
+      sendOrgProfilePicture(image).then((res) => {
+        const pp = res?.data?.data?.organization;
+        setNewInfo(pp);
+      });
+    }
     setPreview(false);
     setImage(false);
     handleNewImage();
   };
 
   return (
-    <div>
-      <ToastContainer />
+    <div className="PicSelector">
+      <PictureContainer newInfo={newInfo} isOrg={isOrg}></PictureContainer>
       {preview ? (
         <>
           <div className="PicForm">

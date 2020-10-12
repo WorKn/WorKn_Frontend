@@ -53,6 +53,28 @@
 .offerstrip__icon {
   color: #707070;
 }
+.offerstrip__action {
+  display: flex;
+  margin: 10px 0px;
+  width: auto;
+  justify-content: flex-start;
+  /* color: #00ba6b; */
+  font-size: 15px;
+  border: none;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  padding: 15px;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
+.offerstrip__action--green {
+  color: #00ba6b;
+}
+
+.offerstrip__action--red {
+  color: #ee6055;
+}
 
 @media only screen and (max-width: 1490px) {
   .offerstrip__edit,

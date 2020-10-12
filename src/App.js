@@ -80,6 +80,11 @@ function App() {
               path="/addMember/:orgid/:token"
               component={AddMember}
             />
+            <Route
+              exact
+              path="/organizations/:id"
+              component={EmpresaViewPage}
+            />
             <Route exact path="/manageoffers" component={ManageOffersPage} />
             <Route exact path="/addMember/:token" component={AddMember} />
             <Route exact path="/resumen" component={SummaryPage} />

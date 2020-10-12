@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
 import "./CreateOfferPopup-Style.css";
-
+import "./QuestionPopup-Style.css";
+import "./PasswordPopup-Style.css";
 import { useForm } from "react-hook-form";
 
 import { createOffer } from "../../utils/apiRequests";
@@ -54,14 +55,11 @@ const CreateOfferPage = ({ hide }) => {
   return (
     <categoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
       <tagsContext.Provider value={{ selectedTags, setSelectedTags }}>
-        <div className="create-offer__container">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="create-offer__form"
-          >
+        <div className="popup-wrapper">
+          <form onSubmit={handleSubmit(onSubmit)} className="sizing-container">
             <div className="create-offer__header">
               <h1 className="create-offer__header-title">
-                Creacion de ofertas
+                Creación de ofertas
               </h1>
               <i
                 className="fa fa-times offerstrip__icon offerstrip__delete"

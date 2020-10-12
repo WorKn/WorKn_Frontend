@@ -12,7 +12,7 @@ import Cookies from "js-cookie";
 
 const RegisterPageC1 = () => {
   const [gotResponse, setGotResponse] = useState(false);
-  const [userObject, setUserObject] = useState('');
+  const [userObject, setUserObject] = useState("");
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, errors } = useForm();
   const { push } = useHistory();
@@ -35,7 +35,7 @@ const RegisterPageC1 = () => {
   useEffect(() => {
     if (userObject.data !== undefined && userObject.data.status === "success") {
       action(userObject.data.data.user);
-      Cookies.set("jwt", userObject.data.token);
+      Cookies.set("jwt", userObject.data.token, { expires: 7 });
     }
     const user = Cookies.get("jwt");
     if (user && state.userInformation.category && state.userInformation.tags) {

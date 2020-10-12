@@ -54,8 +54,12 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
         </div>
       </div>
       <div className="op-wrapper__down-content">
-        <span className="op-wrapper__title">Detalles de la oferta</span>
-        <p>{offerInfo ? offerInfo.description : "Descripcion no disponible"}</p>
+        <span className="op-wrapper__title op-wrapper__title--v2">
+          Detalles de la oferta
+        </span>
+        <p className="op-wrapper__downinfo">
+          {offerInfo ? offerInfo.description : "Descripcion no disponible"}
+        </p>
         <p className="op-wrapper__contact">
           Contacto:
           <a href={`mailto:${organizationInformation.email}`}>

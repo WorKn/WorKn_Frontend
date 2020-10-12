@@ -58,11 +58,8 @@ const EditOfferPopup = ({ hide, offerInfo }) => {
   return (
     <categoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
       <tagsContext.Provider value={{ selectedTags, setSelectedTags }}>
-        <div className="create-offer__container">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="create-offer__form"
-          >
+        <div className="popup-wrapper">
+          <form onSubmit={handleSubmit(onSubmit)} className="sizing-container">
             <div className="create-offer__header">
               <h1 className="create-offer__header-title">Edicion de ofertas</h1>
               <i
