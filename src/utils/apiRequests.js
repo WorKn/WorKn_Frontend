@@ -457,3 +457,51 @@ export const deleteOffer = async (id) => {
     return e.response.data;
   }
 };
+
+// CHAT	
+
+export const createChat = async (message, interaction) => {	
+  try {	
+    const response = await axios.post(`${HOST}/api/v1/users/me/chats/`, {	
+      message: message,	
+      interaction: interaction,	
+    });	
+    return response;	
+  } catch (e) {	
+    return e.response.data;	
+  }	
+};	
+
+export const createMessage = async (message, chatId) => {	
+  try {	
+    const response = await axios.post(	
+      `${HOST}/api/v1/users/me/chats/${chatId}/messages`,	
+      {	
+        message: message,	
+      }	
+    );	
+    return response;	
+  } catch (e) {	
+    return e.response.data;	
+  }	
+};	
+
+export const getChatMessages = async (chatId) => {	
+  try {	
+    const response = await axios.get(	
+      `${HOST}/api/v1/users/me/chats/${chatId}/messages`	
+    );	
+    return response;	
+  } catch (e) {	
+    return e.response.data;	
+  }	
+};	
+
+export const getMyChats = async () => {	
+  try {	
+    const response = await axios.get(`${HOST}/api/v1/users/me/chats`);	
+    return response;	
+  } catch (e) {	
+    return e.response.data;	
+  }	
+};
