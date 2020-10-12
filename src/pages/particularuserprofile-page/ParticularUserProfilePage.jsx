@@ -88,9 +88,9 @@ const EmpresaViewPage = ({
       <Banner image={"VfeSojP.png"}></Banner>
       <div className="EmpresaView">
         <div className="EmpresaView__up">
-          <div className="EmpresaView__pp">
+          <div className="EmpresaView__pp EmpresaView__pp--mob">
             <img
-              className="EmpresaView__image"
+              className="EmpresaView__image EmpresaView__image--mob"
               src={userInfo?.profilePicture}
               alt="user profilepic"
             />
@@ -103,14 +103,14 @@ const EmpresaViewPage = ({
               <p>{userInfo?.bio}</p>
             </div>
           </div>
-          <div className="EmpresaView__contact">
+          <div className="EmpresaView__contact EmpresaView__contact--mob">
             <h2>Contacto</h2>
             <span className="EmpresaView__up--span">Email:</span>
             <a href={`mailto:${userInfo?.email}`}>{`${userInfo?.email}`}</a>
           </div>
 
           {!isOfferer && (
-            <div className="EmpresaView__bioleft">
+            <div className="EmpresaView__tags EmpresaView__tags--mob">
               <h2>{category}</h2>
               <div className="tags-container">
                 {userInfo?.tags &&
@@ -124,7 +124,7 @@ const EmpresaViewPage = ({
               </div>
             </div>
           )}
-          <div className="EmpresaView__metrics">
+          <div className="EmpresaView__metrics EmpresaView__metrics--mob">
             <h2>Información</h2>
             <span className="EmpresaView__up--span">Al servicio desde</span>
             <p>{userInfo?.createdAt.substring(0, 10)}</p>
