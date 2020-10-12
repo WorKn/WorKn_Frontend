@@ -16,6 +16,15 @@ import TagsInput from "../input-components/TagsInput";
 import tagsContext from "../../utils/tagsContext";
 import Tag from "../tag-components/Tag";
 
+
+const normalizeId = (value) =>{
+  return value.replace(/\s/g, "").match(/.{1,4}/g)?.join("").substr(0,11) || "";
+}
+
+const normalizePhone = (value) => {
+  return value.replace(/\s/g, "").match(/.{1,4}/g)?.join("").substr(0,10) || "";
+}
+
 const UserForm = () => {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -124,6 +133,12 @@ const UserForm = () => {
                   message: "Su ID debe tener 11 digitos",
                 },
               })}
+              inputMode="numeric"
+              autoComplete="cc-number"
+              onChange={(e)=>{
+                const {value} = e.target
+                e.target.value = normalizeId(value)
+              }}
             />
             <ErrorMessage
               errors={errors}
@@ -166,6 +181,12 @@ const UserForm = () => {
                 type="text"
                 name="phone"
                 ref={register}
+                inputMode="numeric"
+                autoComplete="cc-number"
+                onChange={(e)=>{
+                  const {value} = e.target
+                  e.target.value = normalizePhone(value)
+                }}
               />
             </div>
           </div>
