@@ -62,9 +62,9 @@ const EmpresaViewPage = ({
       <Banner image={"VfeSojP.png"}></Banner>
       <div className="EmpresaView">
         <div className="EmpresaView__up">
-          <div className="EmpresaView__pp">
+          <div className="EmpresaView__pp EmpresaView__pp--mob">
             <img
-              className="EmpresaView__image"
+              className="EmpresaView__image EmpresaView__image--mob"
               src={orgInfo?.profilePicture}
               alt=""
             />
@@ -76,7 +76,7 @@ const EmpresaViewPage = ({
               <p>{orgInfo?.bio}</p>
             </div>
           </div>
-          <div className="EmpresaView__contact">
+          <div className="EmpresaView__contact EmpresaView__contact--mob">
             <h2>Contacto</h2>
             <span>Email:</span>
             <a href={`mailto:${orgInfo?.email}`}>{`${orgInfo?.email}`}</a>
