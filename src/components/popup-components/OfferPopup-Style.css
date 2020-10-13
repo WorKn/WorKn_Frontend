@@ -115,16 +115,16 @@
   text-decoration: none;
 }
 
-/* .op-wrapper__button-content {
+.op-wrapper__button-content {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
   height: 5vw;
-  padding: 15px;
+  padding: 20px;
 }
 
-.op-wrapper__button-content span {
+/*.op-wrapper__button-content span {
   display: flex;
   justify-content: center;
   align-items: center;

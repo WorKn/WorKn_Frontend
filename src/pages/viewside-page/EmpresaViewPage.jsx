@@ -22,7 +22,7 @@ const EmpresaViewPage = ({
     () =>
       orgOffer.map((offer) =>
         offer &&
-        offer.organization?._id === orgInfo._id &&
+        offer.organization?._id === orgInfo?._id &&
         offer.state !== "deleted" ? (
           <OfferMini
             key={offer._id}

@@ -8,7 +8,11 @@ import { useStateMachine } from "little-state-machine";
 
 const OfferCard = ({ responseInfo }) => {
   const { state } = useStateMachine(updateAction);
-  const { show: showDetailModal, RenderModal: DetailModal } = useModal();
+  const {
+    show: showDetailModal,
+    RenderModal: DetailModal,
+    hide: hideDetailModal,
+  } = useModal();
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
   let MyDictionary = {};
@@ -29,7 +33,10 @@ const OfferCard = ({ responseInfo }) => {
   return (
     <div>
       <DetailModal>
-        <DetailPopup responseInfo={responseInfo}></DetailPopup>
+        <DetailPopup
+          responseInfo={responseInfo}
+          hide={hideDetailModal}
+        ></DetailPopup>
       </DetailModal>
       {(typeof state.userInformation.userType !== "undefined" &&
         state.userInformation.userType === "applicant") ||
@@ -61,9 +68,9 @@ const OfferCard = ({ responseInfo }) => {
           <div className="offercard__data">
             {MyDictionary[responseInfo?.offerType]}
             <div className="offercard__vl"></div>
-            <span>{responseInfo?.closingDate.slice(0, 10)}</span>
+            <span>{responseInfo?.closingDate?.slice(0, 10)}</span>
             <div className="offercard__vl"></div>
-            <span>{responseInfo?.category.name}</span>
+            <span>{responseInfo?.category?.name}</span>
           </div>
           <div className="offercard__tags">
             {responseInfo?.tags.map((tag) => (

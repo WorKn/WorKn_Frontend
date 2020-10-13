@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./OfferStrip-Style.css";
 import Tag from "../tag-components/Tag";
-// import { useModal } from "../../hooks/useModal";
-// import InteractionPopup from "../../components/popup-components/InteractionPopup";
+import { useModal } from "../../hooks/useModal";
+import InteractionPopup from "../../components/popup-components/InteractionPopup";
+import DeleteOfferPopup from "../popup-components/DeleteOfferPopup";
 import { useStateMachine } from "little-state-machine";
 import { Link } from "react-router-dom";
 import updateAction from "../../updateAction";
@@ -18,6 +19,17 @@ const OfferStrip = ({
   const { state, action } = useStateMachine(updateAction);
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
+  const {
+    show: showDetailModal,
+    RenderModal: DetailModal,
+    hide: hideDetailModal,
+  } = useModal();
+
+  const {
+    show: showDeleteOfferModal,
+    RenderModal: DeleteOfferModal,
+    hide: hideDeleteOfferModal,
+  } = useModal();
 
   const sendInteractionId = () => {
     const currentId = { interactionId };
@@ -52,9 +64,15 @@ const OfferStrip = ({
 
   return (
     <div>
-      {/* <DetailModal>
+      <DetailModal>
         <InteractionPopup responseInfo={responseInfo}></InteractionPopup>
-      </DetailModal> */}
+      </DetailModal>
+      <DeleteOfferModal>
+        <DeleteOfferPopup
+          responseInfo={responseInfo}
+          hide={hideDeleteOfferModal}
+        />
+      </DeleteOfferModal>
       {(typeof state.userInformation.userType !== "undefined" &&
         state.userInformation.userType === "applicant") ||
       state.userInformation.userType === "" ? (
@@ -64,7 +82,10 @@ const OfferStrip = ({
             className="offerstrip__picture"
             alt="Offerpp"
           />
-          <span className="offerstrip__text offerstrip__org">
+          <span
+            className="offerstrip__text offerstrip__org"
+            onClick={showDetailModal}
+          >
             {offererTitleRoute}
           </span>
           <span className="offerstrip__vl offerstrip__vl--1"></span>
@@ -85,6 +106,7 @@ const OfferStrip = ({
               ></Tag>
             ))}
           </div>
+
           <span className="offerstrip__vl offerstrip__vl--4"></span>
           {typeof isMatch !== "undefined" && isMatch === "true" ? (
             <Link to="/chat" style={{ textDecoration: "none" }}>
@@ -122,7 +144,10 @@ const OfferStrip = ({
           ) : (
             ""
           )}
-          <i className="fa fa-times offerstrip__icon offerstrip__delete"></i>
+          {/* <i
+            className="fa fa-times offerstrip__icon offerstrip__delete"
+            onClick={showDeleteOfferModal}
+          ></i> */}
         </div>
       ) : (
         <div className="offerstrip">
@@ -139,7 +164,10 @@ const OfferStrip = ({
             {responseInfo?.applicant?.email}
           </span>
           <span className="offerstrip__vl offerstrip__vl--2"></span>
-          <span className="offerstrip__text offerstrip__offer">
+          <span
+            className="offerstrip__text offerstrip__offer"
+            onClick={showDetailModal}
+          >
             {responseInfo?.applicant?.name} {responseInfo?.applicant?.lastname}
           </span>
           <span className="offerstrip__vl offerstrip__vl--3"></span>
@@ -152,6 +180,7 @@ const OfferStrip = ({
               ></Tag>
             ))}
           </div>
+
           <span className="offerstrip__vl offerstrip__vl--4"></span>
           {typeof isMatch !== "undefined" && isMatch === "true" ? (
             <Link to="/chat" style={{ textDecoration: "none" }}>
@@ -190,7 +219,10 @@ const OfferStrip = ({
             ""
           )}
 
-          <i className="fa fa-times offerstrip__icon offerstrip__delete"></i>
+          {/* <i
+            className="fa fa-times offerstrip__icon offerstrip__delete"
+            onClick={showDeleteOfferModal}
+          ></i> */}
         </div>
       )}
     </div>
