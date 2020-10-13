@@ -51,7 +51,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   height: 100%;
-  flex: 0 1 45%;
+  flex: 0 1 40%;
 }
 
 .EmpresaView__bioleft {
@@ -91,6 +91,7 @@
   padding: 30px 10px;
   height: 100%;
   flex: 0 1 15%;
+  margin: 0 15px;
   /* background-color: turquoise; */
 }
 
@@ -109,6 +110,11 @@
   padding: 30px 10px;
   height: 100%;
   flex: 0 1 15%;
+  margin: 0 15px;
+}
+
+.EmpresaView__tags h2 {
+  text-transform: capitalize;
 }
 
 .EmpresaView__metrics {
@@ -120,6 +126,7 @@
   padding: 30px 10px;
   height: 100%;
   flex: 0 1 15%;
+  margin: 0 15px;
   /* background-color: tomato; */
 }
 
@@ -152,7 +159,11 @@
   width: inherit;
 }
 
-@media screen and (max-width: 650px) {
+.EmpresaView__upper {
+  display: flex;
+}
+
+@media screen and (max-width: 750px) {
   .EmpresaView__up {
     flex-direction: column;
   }
@@ -177,11 +188,22 @@
     padding: 0px 10px;
     margin: 20px 0px;
   }
+
+  .EmpresaView__tags--mob {
+    padding: 0px 10px;
+    margin: 20px 0px;
+  }
+
+  .EmpresaView__upper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .tags-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
 }
 
 .ppp-offers {

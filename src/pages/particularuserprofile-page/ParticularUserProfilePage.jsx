@@ -23,7 +23,7 @@ const EmpresaViewPage = ({
   //user ID Albert ofertante: 5f70dc57f0880f2d975bd1ff
 
   const [userInfo, setUserInfo] = useState();
-  const [retrieved, setRetrieved] = useState(true);
+  
   const [isOfferer, setIsOfferer] = useState(false);
   const [category, setCategory] = useState();
   const [myoffers, setMyOffers] = useState([]);
@@ -53,7 +53,7 @@ const EmpresaViewPage = ({
     getUserById(id).then((res) => {
       if (res.status === "success") {
         setUserInfo(res.data.data);
-        setRetrieved(true);
+        
         if (
           res.data.data.userType === "offerer" &&
           res.data.data.organization
@@ -76,10 +76,11 @@ const EmpresaViewPage = ({
           });
         }
       } else {
-        setRetrieved(false);
+        
         history.push("/404");
       }
     });
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -102,13 +103,15 @@ const EmpresaViewPage = ({
               <p>{MyDictionary[userInfo?.userType]}</p>
               <p>{userInfo?.bio}</p>
             </div>
+
           </div>
+          <div className="EmpresaView__upper">
+          
           <div className="EmpresaView__contact EmpresaView__contact--mob">
             <h2>Contacto</h2>
             <span className="EmpresaView__up--span">Email:</span>
             <a href={`mailto:${userInfo?.email}`}>{`${userInfo?.email}`}</a>
           </div>
-
           {!isOfferer && (
             <div className="EmpresaView__tags EmpresaView__tags--mob">
               <h2>{category}</h2>
@@ -124,13 +127,19 @@ const EmpresaViewPage = ({
               </div>
             </div>
           )}
-          <div className="EmpresaView__metrics EmpresaView__metrics--mob">
+           <div className="EmpresaView__metrics EmpresaView__metrics--mob">
             <h2>Información</h2>
             <span className="EmpresaView__up--span">Al servicio desde</span>
             <p>{userInfo?.createdAt.substring(0, 10)}</p>
             <span className="EmpresaView__up--span">Rating </span>
             <p>4.75/5</p>
           </div>
+          </div>
+          
+          
+
+          
+         
         </div>
 
         {isOfferer ? (
