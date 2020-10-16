@@ -32,8 +32,8 @@ const LoginPage = React.memo((props) => {
     });
   };
 
-  useEffect(()=>{
-    action({ name: '', lastname: '', bio: "", identificationNumber: "", location: "", phone:"", email:"", birthday:"", password:"", passwordConfirm:"", userType:"", category:"", tags:'', organization:'', organizationRole:'', isEmailValidated:"", createdAt:'', profilePicture:"", _id:'', __v: "", passwordChangedAt:'', signUpMethod:"", isSignupCompleted:"", id:'',  data: '' })                
+  useEffect(() => {
+    action({ name: '', lastname: '', bio: "", identificationNumber: "", location: "", phone: "", email: "", birthday: "", password: "", passwordConfirm: "", userType: "", category: "", tags: '', organization: '', organizationRole: '', isEmailValidated: "", createdAt: '', profilePicture: "", _id: '', __v: "", passwordChangedAt: '', signUpMethod: "", isSignupCompleted: "", id: '', data: '' })
   }, [action])
 
   useEffect(() => {
@@ -44,14 +44,14 @@ const LoginPage = React.memo((props) => {
     const user = Cookies.get("jwt");
     if (user && state.userInformation.category && state.userInformation.tags) {
       auth.login();
-      push("/userprofilepage");
+      push("/userprofile");
     } else if (
       user &&
       !state.userInformation.category &&
       !state.userInformation.tags
     ) {
       auth.login();
-      push("/userprofilepage");
+      push("/userprofile");
       console.log("not completed!");
     }
   }, [
@@ -115,13 +115,13 @@ const LoginPage = React.memo((props) => {
               )}
             />
             {typeof userObject.data !== "undefined" &&
-            userObject.data.status === "success" ? (
-              <div className="input__msg input__msg--success">
-                Bienvenido, {userObject.data.data.user.name}
-              </div>
-            ) : (
-              ""
-            )}
+              userObject.data.status === "success" ? (
+                <div className="input__msg input__msg--success">
+                  Bienvenido, {userObject.data.data.user.name}
+                </div>
+              ) : (
+                ""
+              )}
             <div className="input__msg input__msg--error">
               {userObject.message}
             </div>

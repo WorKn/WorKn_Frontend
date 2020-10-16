@@ -35,13 +35,13 @@ const Footer = () => {
             <Link className="left-foot__nobj" target="_blank" to="/Ofertas">
               Ofertas
             </Link>
-            <Link className="left-foot__nobj" target="_blank" to="/Exploracion">
+            <Link className="left-foot__nobj" target="_blank" to="/explore">
               Exploración
             </Link>
-            <Link className="left-foot__nobj" target="_blank" to="/Resumen">
+            <Link className="left-foot__nobj" target="_blank" to="/summary">
               Resumen
             </Link>
-            <Link className="left-foot__nobj" target="_blank" to="/Mensajeria">
+            <Link className="left-foot__nobj" target="_blank" to="/chat">
               Mensajería
             </Link>
           </div>

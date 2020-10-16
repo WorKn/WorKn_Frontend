@@ -39,12 +39,12 @@ function App() {
         <animated.div key={key} style={props}>
           <Switch location={item}>
             <Route exact path="/" component={LandingPage} />
-            <Route exact path="/LandingPage" component={LandingPage} />
-            <Redirect exact from="/" to="/LandingPage" />
-            <Route exact path="/registerpage" component={RegisterPage} />
-            <Route exact path="/registerpagec1" component={RegisterPageC1} />
-            <Route exact path="/registerpagec2" component={RegisterPageC2} />
-            <Route exact path="/loginpage" component={LoginPage} />
+            <Route exact path="/landing" component={LandingPage} />
+            <Redirect exact from="/" to="/landing" />
+            <Route exact path="/register" component={RegisterPage} />
+            <Route exact path="/registerc1" component={RegisterPageC1} />
+            <Route exact path="/registerc2" component={RegisterPageC2} />
+            <Route exact path="/login" component={LoginPage} />
             <Route
               exact
               path="/forgotPassword"
@@ -62,12 +62,12 @@ function App() {
             />
             <ProtectedRoute
               exact
-              path="/userprofilepage"
+              path="/userprofile"
               component={UserProfilePage}
             />
             <ProtectedRoute
               exact
-              path="/empresaprofilepage"
+              path="/organizationprofile"
               component={EmpresaProfilePage}
             />
             <Route
@@ -88,7 +88,7 @@ function App() {
             />
             <Route exact path="/manageoffers" component={ManageOffersPage} />
             <Route exact path="/addMember/:token" component={AddMember} />
-            <Route exact path="/resumen" component={SummaryPage} />
+            <Route exact path="/summary" component={SummaryPage} />
             <Route exact path="/explore" component={ExplorePage} />
             <Route exact path="/managemembers" component={ManagePopup} />
             {/* <Route exact path="/chat" component={ChatPage} /> */}

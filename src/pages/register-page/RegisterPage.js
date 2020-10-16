@@ -18,7 +18,7 @@ const RegisterPage = () => {
   const { push } = useHistory();
   const onSubmit = (data) => {
     action(data);
-    push("/registerpagec1");
+    push("/registerc1");
   };
 
   const password = useRef({});
@@ -172,7 +172,7 @@ const RegisterPage = () => {
           <div className="ctext-separator">
             <span className="remind-me">
               Ya tienes cuenta? {""}
-              <a className="popup-link " href="/loginpage">
+              <a className="popup-link " href="/login">
                 Inicia sesión
               </a>
             </span>
