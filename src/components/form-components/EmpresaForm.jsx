@@ -12,6 +12,14 @@ import {
 } from "../../utils/apiRequests";
 import PicSelector from "../profile-picture-components/PicSelector";
 
+const normalizeId = (value) => {
+  return value.replace(/\s/g, "").match(/.{1,4}/g)?.join("").substr(0, 9) || "";
+}
+
+const normalizePhone = (value) => {
+  return value.replace(/\s/g, "").match(/.{1,4}/g)?.join("").substr(0, 10) || "";
+}
+
 const EmpresaForm = () => {
   const [updated, setUpdated] = useState("");
   const [disabled, setDisabled] = useState(false);
@@ -85,7 +93,7 @@ const EmpresaForm = () => {
           <input
             disabled={disabled}
             className="userform__input"
-            type="text"
+            type="number"
             name="RNC"
             pattern="[0-9]+"
             title="Por solo incluya numeros en el campo"
@@ -95,6 +103,12 @@ const EmpresaForm = () => {
                 message: "Por favor utilice 9 caracteres para su RNC",
               },
             })}
+            inputMode="numeric"
+            autoComplete="cc-number"
+            onChange={(e) => {
+              const { value } = e.target
+              e.target.value = normalizeId(value)
+            }}
           />
           <ErrorMessage
             errors={errors}
@@ -135,9 +149,15 @@ const EmpresaForm = () => {
           <span className="userform__label">Teléfono</span>
           <input
             className="userform__input"
-            type="text"
+            type="number"
             name="phone"
             ref={register}
+            inputMode="numeric"
+            autoComplete="cc-number"
+            onChange={(e) => {
+              const { value } = e.target
+              e.target.value = normalizePhone(value)
+            }}
           />
           <ErrorMessage
             errors={errors}
@@ -179,14 +199,14 @@ const EmpresaForm = () => {
         </div>
       </div>
       {typeof updated.data !== "undefined" &&
-      updated.data.status === "success" ? (
-        <div className="input__msg input__msg--success">
-          El perfil de {updated.data.data.organization.name} fue actualizado
+        updated.data.status === "success" ? (
+          <div className="input__msg input__msg--success">
+            El perfil de {updated.data.data.organization.name} fue actualizado
           correctamente
-        </div>
-      ) : (
-        ""
-      )}
+          </div>
+        ) : (
+          ""
+        )}
       <div className="input__msg input__msg--error">{updated.message}</div>
       <input
         className="custom-button bg-green"
