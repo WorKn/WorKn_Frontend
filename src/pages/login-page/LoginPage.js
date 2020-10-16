@@ -12,6 +12,7 @@ import { useHistory } from "react-router-dom";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 
+
 const LoginPage = React.memo((props) => {
   const [userObject, setUserObject] = useState("");
   const { register, handleSubmit, errors } = useForm();
@@ -60,6 +61,10 @@ const LoginPage = React.memo((props) => {
     state.userInformation.category,
     state.userInformation.tags,
   ]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <div className="login-wrapper">
