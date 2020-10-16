@@ -13,7 +13,7 @@ const NotFound = () => {
         />
         <h2>Esta pagina no existe</h2>
         <p>Lo sentimos, la pagina solicitada no existe</p>
-        <Link to="/loginpage" className="not_found-container__button">
+        <Link to="/login" className="not_found-container__button">
           <div>Atrás</div>
         </Link>
       </div>

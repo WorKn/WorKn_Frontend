@@ -23,7 +23,7 @@ const NewPassword = ({
       if (res.data !== undefined) {
         Cookies.set("jwt", res.data.token, { expires: 7 });
       }
-      push("/loginpage");
+      push("/login");
     });
   };
 

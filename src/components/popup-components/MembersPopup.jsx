@@ -62,13 +62,13 @@ const MembersPopup = () => {
           </select>
         </div>
         {typeof invited.data !== "undefined" &&
-        invited.data.status === "success" ? (
-          <div className="input__msg input__msg--success">
-            <i class="fa fa-check"></i> Usuario invitado correctamente
-          </div>
-        ) : (
-          ""
-        )}
+          invited.data.status === "success" ? (
+            <div className="input__msg input__msg--success">
+              <i class="fa fa-check"></i> Usuario invitado correctamente
+            </div>
+          ) : (
+            ""
+          )}
 
         <input
           className="custom-button bg-green"
@@ -85,7 +85,7 @@ const MembersPopup = () => {
           </p>
         </div>
         {/*
-        <NavLink to="/registerpage" style={{ textDecoration: "none" }}>
+        <NavLink to="/register" style={{ textDecoration: "none" }}>
           <span className="custom-button bg-green">
             <span>Persona</span>
           </span>

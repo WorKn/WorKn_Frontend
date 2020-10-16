@@ -24,7 +24,7 @@ const QuestionPopup = () => {
             empleo fijo, medio tiempo o pasantías .
           </p>
         </div>
-        <NavLink to="/registerpage" style={{ textDecoration: "none" }}>
+        <NavLink to="/register" style={{ textDecoration: "none" }}>
           <span className="custom-button bg-green">
             <span>Persona</span>
           </span>

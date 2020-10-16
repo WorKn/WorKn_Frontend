@@ -73,7 +73,7 @@ const ManageOffersPage = () => {
         if (!res.data && state.userInformation.userType === "offerer") {
           // history.push("/");
         } else if (!res.data && state.userInformation.userType !== "offerer") {
-          history.push("/loginpage");
+          history.push("/login");
         } else {
           const offers = res.data.data.offers;
           if (offers && Array.isArray(offers)) {
@@ -94,7 +94,7 @@ const ManageOffersPage = () => {
           };
           setMyOrganization(organization);
         } else if (!res.data && state.userInformation.userType !== "offerer") {
-          history.push("/loginpage");
+          history.push("/login");
         } else {
           const organization = res.data.data.data;
           setMyOrganization(organization);
@@ -104,7 +104,7 @@ const ManageOffersPage = () => {
       !state.userInformation.isEmailValidated &&
       !state.userInformation._id
     ) {
-      history.push("/loginpage");
+      history.push("/login");
     } else {
       setSuccess(false);
     }
@@ -158,27 +158,27 @@ const ManageOffersPage = () => {
       </div>
     </div>
   ) : (
-    <div className="manageoffers-nv__container">
-      <div className="manageoffers-nv__body">
-        <img
-          src="https://i.imgur.com/cDCOxmU.png"
-          alt=""
-          className="manageoffers-nv__img"
-        />
-        <h1 className="manageoffers-nv__title">
-          Su correo no ha sido validado
+      <div className="manageoffers-nv__container">
+        <div className="manageoffers-nv__body">
+          <img
+            src="https://i.imgur.com/cDCOxmU.png"
+            alt=""
+            className="manageoffers-nv__img"
+          />
+          <h1 className="manageoffers-nv__title">
+            Su correo no ha sido validado
         </h1>
-        <span>
-          Lo sentimos, para acceder a este contenido requerimos que su cuenta de
-          correo esté validada; aparentemente su cuenta aun no ha sido validada,
-          por favor, diríjase a su correo para continuar con el proceso.
+          <span>
+            Lo sentimos, para acceder a este contenido requerimos que su cuenta de
+            correo esté validada; aparentemente su cuenta aun no ha sido validada,
+            por favor, diríjase a su correo para continuar con el proceso.
         </span>
-        <Link to="/userprofilepage" className="manageoffers-nv__button">
-          <div>Volver a tu perfil</div>
-        </Link>
+          <Link to="/userprofile" className="manageoffers-nv__button">
+            <div>Volver a tu perfil</div>
+          </Link>
+        </div>
       </div>
-    </div>
-  );
+    );
 };
 
 export default ManageOffersPage;
