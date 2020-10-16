@@ -1,0 +1,19 @@
+.starrating-container h1 {
+  color: blueviolet;
+}
+
+.fa.fa-star {
+  font-size: 20px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.starrating__stars-container input[type="radio"] {
+  display: none;
+}
+.fa.fa-star.yellow-star {
+  font-size: 20px;
+  margin: 5px;
+  cursor: pointer;
+  color: #ffc107;
+}
