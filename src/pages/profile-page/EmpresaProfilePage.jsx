@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 import Header from "../../components/navbar-components/Navbar";
@@ -28,6 +28,10 @@ const EmpresaProfilePage = (props) => {
     RenderModal: ManageModal,
     // hide: hideQuestionModal,
   } = useModal();
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <div className="pagewrap">

@@ -65,6 +65,10 @@ const SummaryPage = () => {
     }
   }, [selectedOffer, state.userInformation.userType]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <div className="summarypage">
       <Header />

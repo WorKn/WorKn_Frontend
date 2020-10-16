@@ -117,11 +117,14 @@ const ManageOffersPage = () => {
     state.userInformation.isEmailValidated,
   ]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return success ? (
     <div className="manageoffers-container">
       <Header></Header>
       <Banner image={"qiyrYvI.png"} />
-
       <AddOfferModal>
         <CreateOfferPopup hide={hideAddOfferModal}></CreateOfferPopup>
       </AddOfferModal>
