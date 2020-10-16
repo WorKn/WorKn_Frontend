@@ -31,6 +31,10 @@ const LoginPage = React.memo((props) => {
     });
   };
 
+  useEffect(()=>{
+    action({ name: '', lastname: '', bio: "", identificationNumber: "", location: "", phone:"", email:"", birthday:"", password:"", passwordConfirm:"", userType:"", category:"", tags:'', organization:'', organizationRole:'', isEmailValidated:"", createdAt:'', profilePicture:"", _id:'', __v: "", passwordChangedAt:'', signUpMethod:"", isSignupCompleted:"", id:'',  data: '' })                
+  }, [action])
+
   useEffect(() => {
     if (userObject.data !== undefined && userObject.data.status === "success") {
       action(userObject.data.data.user);
