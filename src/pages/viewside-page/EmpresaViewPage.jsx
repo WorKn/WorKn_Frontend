@@ -37,6 +37,7 @@ const EmpresaViewPage = ({
   useEffect(() => {
     getOrgById(id).then((res) => {
       if (res.status === "success") {
+        console.log(res);
         setOrgInfo(res.data.data);
       } else {
         history.push("/404");
@@ -69,26 +70,28 @@ const EmpresaViewPage = ({
               alt=""
             />
           </div>
-          <div className="EmpresaView__bio">
+          <div className="EmpresaView__bio EmpresaView__bio--b">
             <div className="EmpresaView__bioleft">
               <h2>Biografía</h2>
               <span>{`${orgInfo?.name}`}</span>
               <p>{orgInfo?.bio}</p>
             </div>
           </div>
-          <div className="EmpresaView__contact EmpresaView__contact--mob">
-            <h2>Contacto</h2>
-            <span>Email:</span>
-            <a href={`mailto:${orgInfo?.email}`}>{`${orgInfo?.email}`}</a>
-            <span>Telefono:</span>
-            <p>{`${orgInfo?.phone}`}</p>
-          </div>
-          <div className="EmpresaView__metrics">
-            <h2>Información</h2>
-            <span>Al servicio desde</span>
-            <p>10/02/2020</p>
-            <span>Rating </span>
-            <p>4.75/5</p>
+          <div className="EmpresaView__upper--b">
+            <div className="EmpresaView__contact EmpresaView__contact--mob EmpresaView__contact--b">
+              <h2>Contacto</h2>
+              <span>Email:</span>
+              <a href={`mailto:${orgInfo?.email}`}>{`${orgInfo?.email}`}</a>
+              <span>Telefono:</span>
+              <p>{`${orgInfo?.phone}`}</p>
+            </div>
+            <div className="EmpresaView__metrics EmpresaView__metrics--mob EmpresaView__metrics--b">
+              <h2>Información</h2>
+              <span>Al servicio desde</span>
+              <p>10/02/2020</p>
+              <span>Rating </span>
+              <p>4.75/5</p>
+            </div>
           </div>
         </div>
         <div className="EmpresaView__down">

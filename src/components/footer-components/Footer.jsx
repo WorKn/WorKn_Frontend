@@ -34,7 +34,7 @@ const Footer = () => {
           <div className="left-foot__navbar">
             <Link to="/#">Ofertas</Link>
             <Link to="/explore">Exploración</Link>
-            <Link to="/resumen">Resumen</Link>
+            <Link to="/summary">Resumen</Link>
             <Link to="#">Mensajería</Link>
           </div>
         </div>
