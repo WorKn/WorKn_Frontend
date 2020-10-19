@@ -461,3 +461,47 @@ export const getOffersByUserId = async (id) => {
     return e;
   }
 };
+
+export const getAllReviews = async (id) => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/users/${id}/reviews/`);
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
+export const getReviewValidation = async (id) => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/users/${id}/reviews/validation`);
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
+export const createReview = async (userId, data) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/users/${userId}/reviews`, {
+      rating: data.starValue,
+      review: data.review
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const updateReview = async (userId, reviewId, data) => {
+  try {
+    const response = await axios.patch(`${HOST}/api/v1/users/${userId}/reviews/${reviewId}`, {
+      rating: data.starValue,
+      review: data.review
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+
