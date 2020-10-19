@@ -15,10 +15,10 @@ const Footer = () => {
           </a>
         </div>
         <div className="right-foot__right-down">
-          <Link className="right-foot__utobj" target="_blank" to="/Terms">
+          <Link className="right-foot__utobj" to="/Terms">
             Terms of Service.
           </Link>
-          <Link className="right-foot__utobj" target="_blank" to="/Privacy">
+          <Link className="right-foot__utobj" to="/Privacy">
             Privacy Policy.
           </Link>
         </div>
@@ -47,21 +47,14 @@ const Footer = () => {
           </div>
         </div>
         <div className="left-foot__middle-content">
-          <div className="left-foot__icon-container">
-            <Icon
-              path={"https://www.facebook.com/WorKn"}
-              media={"XL6Cvrz.png"}
-            />
-          </div>
-          <div className="left-foot__icon-container">
-            <Icon path={"https://twitter.com/WorKn"} media={"3mO0prt.png"} />
-          </div>
-          <div className="left-foot__icon-container">
-            <Icon
-              path={"https://www.instagram.com/WorKn/"}
-              media={"uxM8asb.png"}
-            />
-          </div>
+          <Icon path={"https://www.facebook.com/WorKn"} media={"XL6Cvrz.png"} />
+
+          <Icon path={"https://twitter.com/WorKn"} media={"3mO0prt.png"} />
+
+          <Icon
+            path={"https://www.instagram.com/WorKn/"}
+            media={"uxM8asb.png"}
+          />
         </div>
         <div className="left-foot__down-content">
           <span>Desarrollado en la Republica Dominicana, SD</span>
