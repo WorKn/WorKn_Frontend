@@ -495,9 +495,20 @@ export const createReview = async (userId, data) => {
 export const updateReview = async (userId, reviewId, data) => {
   try {
     const response = await axios.patch(`${HOST}/api/v1/users/${userId}/reviews/${reviewId}`, {
-      rating: data.starValue,
+      rating: data.rating,
       review: data.review
     });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const deleteReview = async (userId, reviewId) => {
+  try {
+    const response = await axios.delete(
+      `${HOST}/api/v1/users/${userId}/reviews/${reviewId}`
+    );
     return response;
   } catch (e) {
     return e.response.data;

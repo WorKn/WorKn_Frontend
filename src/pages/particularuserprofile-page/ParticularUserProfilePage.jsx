@@ -16,6 +16,8 @@ import StarRating from "../../components/starrating-components/StarRating";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
 import { useForm } from "react-hook-form";
+import { useModal } from "../../hooks/useModal";
+import EditReviewPopup from "../../components/popup-components/EditReviewPopup";
 
 import "./ParticularUserProfilePage-Style.css";
 
@@ -37,7 +39,7 @@ const EmpresaViewPage = ({
   const [profilePicture, setMyProfilePicture] = useState();
   const [reviews, setReviews] = useState();
   const [canReview, setCanReview] = useState();
-  const { state, action } = useStateMachine(updateAction);
+  const { state } = useStateMachine(updateAction);
   const [starValue, setStarValue] = useState();
   const { register, handleSubmit } = useForm();
 
@@ -52,6 +54,12 @@ const EmpresaViewPage = ({
     createReview(id, data);
     console.log(data);
   };
+
+  const {
+    show: showEditReviewModal,
+    RenderModal: EditReviewModal,
+    hide: hideEditReviewModal,
+  } = useModal();
 
   const activeOffers = useMemo(
     () =>
@@ -167,6 +175,11 @@ const EmpresaViewPage = ({
 
         <div className="EmpresaView__rating">
           <h2 className="EmpresaView__rating-title">Reviews</h2>
+          {!reviews && (
+            <p style={{ marginLeft: "30px" }}>
+              Este usuario no tiene reviews públicas aun
+            </p>
+          )}
           <div className="EmpresaView__rating-container">
             {reviews?.map((review) => (
               <React.Fragment key={review._id}>
@@ -178,11 +191,23 @@ const EmpresaViewPage = ({
                       alt="user profilepic"
                     />
                   </div>
+                  <EditReviewModal>
+                    <EditReviewPopup
+                      hide={hideEditReviewModal}
+                      review={review}
+                      userId={id}
+                    ></EditReviewPopup>
+                  </EditReviewModal>
                   <div className="EmpresaView__rating--description">
                     <div className="EmpresaView__rating-header">
                       <h2>{`${review.createdBy.name} ${review.createdBy.lastname}`}</h2>
 
-                      <i className="fa fa-edit"></i>
+                      {state.userInformation._id === review.createdBy._id ? (
+                        <i
+                          className="fa fa-edit"
+                          onClick={showEditReviewModal}
+                        ></i>
+                      ) : null}
                     </div>
                     <StarRating ratingNumber={review.rating}></StarRating>
                     <p>{review.review}</p>
@@ -214,6 +239,7 @@ const EmpresaViewPage = ({
                         name="review"
                         placeholder="Description"
                         title="Por favor, ingrese los detalles de su review"
+                        className="create-review__textarea"
                         ref={register({
                           required: "Por favor ingrese la descripción",
                         })}
