@@ -27,7 +27,7 @@ const PasswordPopup = (props) => {
 
   // const relogUser = () => {
   //   Auth.logout(() => {
-  //     push("/loginpage");
+  //     push("/login");
   //   });
   // };
 
@@ -129,8 +129,8 @@ const PasswordPopup = (props) => {
             </p>
           </div>
         ) : (
-          ""
-        )}
+            ""
+          )}
         <input
           className="custom-button bg-green"
           type="submit"
@@ -146,7 +146,7 @@ const PasswordPopup = (props) => {
           </p>
         </div>
         {/*
-        <NavLink to="/registerpage" style={{ textDecoration: "none" }}>
+        <NavLink to="/register" style={{ textDecoration: "none" }}>
           <span className="custom-button bg-green">
             <span>Persona</span>
           </span>

@@ -48,29 +48,29 @@ const UserProfilePage = (props) => {
             </button>
             {(typeof (state.userInformation.organizationRole !== "undefined") &&
               state.userInformation.organizationRole === "owner") ||
-            state.userInformation.organizationRole === "member" ||
-            state.userInformation.organizationRole === "supervisor" ? (
-              <Link to="/empresaprofilepage" style={{ textDecoration: "none" }}>
-                <button className="userprofile__action">
-                  <i className="fa fa-cog userprofile__icon"></i>
+              state.userInformation.organizationRole === "member" ||
+              state.userInformation.organizationRole === "supervisor" ? (
+                <Link to="/organizationprofile" style={{ textDecoration: "none" }}>
+                  <button className="userprofile__action">
+                    <i className="fa fa-cog userprofile__icon"></i>
                   Manejar organización
                 </button>
-              </Link>
-            ) : (
-              ""
-            )}
+                </Link>
+              ) : (
+                ""
+              )}
             {typeof state.userInformation !== "undefined" &&
-            state.userInformation.organizationRole === "" &&
-            state.userInformation.userType === "offerer" ? (
-              <Link to="/manageoffers" style={{ textDecoration: "none" }}>
-                <button className="userprofile__action">
-                  <i className="fa fa-cog userprofile__icon"></i>
+              state.userInformation.organizationRole === "" &&
+              state.userInformation.userType === "offerer" ? (
+                <Link to="/manageoffers" style={{ textDecoration: "none" }}>
+                  <button className="userprofile__action">
+                    <i className="fa fa-cog userprofile__icon"></i>
                   Manejar ofertas
                 </button>
-              </Link>
-            ) : (
-              ""
-            )}
+                </Link>
+              ) : (
+                ""
+              )}
             <button
               className="userprofile__action"
               onClick={() => {

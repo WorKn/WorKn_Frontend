@@ -32,10 +32,18 @@ const Footer = () => {
             </Link>
           </div>
           <div className="left-foot__navbar">
-            <Link to="/#">Ofertas</Link>
-            <Link to="/explore">Exploración</Link>
-            <Link to="/summary">Resumen</Link>
-            <Link to="#">Mensajería</Link>
+            <Link className="left-foot__nobj" target="_blank" to="/Ofertas">
+              Ofertas
+            </Link>
+            <Link className="left-foot__nobj" target="_blank" to="/explore">
+              Exploración
+            </Link>
+            <Link className="left-foot__nobj" target="_blank" to="/summary">
+              Resumen
+            </Link>
+            <Link className="left-foot__nobj" target="_blank" to="/chat">
+              Mensajería
+            </Link>
           </div>
         </div>
         <div className="left-foot__middle-content">

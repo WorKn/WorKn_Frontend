@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./LandingPage-Style.css";
 import CounterBanner from "../../components/counter-components/Counter-Banner";
 import Banner from "../../components/banner-components/Banner.jsx";
@@ -21,6 +21,10 @@ const LandingPage = () => {
     pText: `Encargándonos de unir automáticamente profesionales, empresas y freelancers en nuestra plataforma mediante ofertas que nos permiten saber lo que necesitas y donde te necesitan`,
     bText: "",
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <div>
