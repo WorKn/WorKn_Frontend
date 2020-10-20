@@ -1,0 +1,41 @@
+/* .rating-body {
+  display: flex;
+  flex: 0.7 1 70%;
+  border-bottom: 1px solid #d7d0d0;
+  background: white;
+  border-radius: 15px;
+
+  padding: 14px;
+  margin: 15px 0px;
+}
+
+.EmpresaView__rating-pp {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  flex: 0 1 15%;
+}
+
+.EmpresaView__rating--description {
+  margin-left: 15px;
+  width: 80%;
+}
+
+.rating--description p {
+  font-size: 14px;
+}
+
+.rating-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 750px) {
+  .rating-pp--mob {
+    width: 12vw;
+    height: 12vw;
+  }
+} */

@@ -13,11 +13,10 @@ import Footer from "../../components/footer-components/Footer";
 import OfferMini from "../../components/offer-components/OfferMini";
 import Tag from "../../components/tag-components/Tag";
 import StarRating from "../../components/starrating-components/StarRating";
+import Review from "../../components/review-components/Review";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
 import { useForm } from "react-hook-form";
-import { useModal } from "../../hooks/useModal";
-import EditReviewPopup from "../../components/popup-components/EditReviewPopup";
 
 import "./ParticularUserProfilePage-Style.css";
 
@@ -51,15 +50,13 @@ const EmpresaViewPage = ({
 
   const onSubmit = (data) => {
     data.starValue = starValue;
-    createReview(id, data);
+    createReview(id, data).then((res) => {
+      getAllReviews(id).then((res) => {
+        setReviews(res.data?.data.data);
+      });
+    });
     console.log(data);
   };
-
-  const {
-    show: showEditReviewModal,
-    RenderModal: EditReviewModal,
-    hide: hideEditReviewModal,
-  } = useModal();
 
   const activeOffers = useMemo(
     () =>
@@ -182,38 +179,12 @@ const EmpresaViewPage = ({
           )}
           <div className="EmpresaView__rating-container">
             {reviews?.map((review) => (
-              <React.Fragment key={review._id}>
-                <div className="EmpresaView__rating-body">
-                  <div className="EmpresaView__rating-pp">
-                    <img
-                      className="EmpresaView__rating-img EmpresaView__rating-pp--mob"
-                      src={review.createdBy.profilePicture}
-                      alt="user profilepic"
-                    />
-                  </div>
-                  <EditReviewModal>
-                    <EditReviewPopup
-                      hide={hideEditReviewModal}
-                      review={review}
-                      userId={id}
-                    ></EditReviewPopup>
-                  </EditReviewModal>
-                  <div className="EmpresaView__rating--description">
-                    <div className="EmpresaView__rating-header">
-                      <h2>{`${review.createdBy.name} ${review.createdBy.lastname}`}</h2>
-
-                      {state.userInformation._id === review.createdBy._id ? (
-                        <i
-                          className="fa fa-edit"
-                          onClick={showEditReviewModal}
-                        ></i>
-                      ) : null}
-                    </div>
-                    <StarRating ratingNumber={review.rating}></StarRating>
-                    <p>{review.review}</p>
-                  </div>
-                </div>
-              </React.Fragment>
+              <Review
+                key={review._id}
+                review={review}
+                userId={id}
+                setReviews={setReviews}
+              ></Review>
             ))}
 
             {canReview && (

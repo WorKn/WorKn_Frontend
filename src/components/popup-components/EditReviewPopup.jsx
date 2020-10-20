@@ -3,23 +3,48 @@ import { useForm } from "react-hook-form";
 import StarRating from "../../components/starrating-components/StarRating";
 import { useStateMachine } from "little-state-machine";
 import { updateReview } from "../../utils/apiRequests";
+import { deleteReview } from "../../utils/apiRequests";
+import { getAllReviews } from "../../utils/apiRequests";
 import updateAction from "../../updateAction";
 import "./EditReviewPopup-Style.css";
 
-const EditReviewPopup = ({ hide, review, userId }) => {
+const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
   const { register, handleSubmit } = useForm();
 
   const { state } = useStateMachine(updateAction);
   const [starValue, setStarValue] = useState();
+
+  //
   const onSubmit = (data) => {
     data.rating = starValue;
-    updateReview(userId, review._id, data);
+    updateReview(userId, review._id, data).then((res) => {
+      getAllReviews(userId).then((resp) => {
+        setReviews(resp.data?.data.data);
+      });
+    });
     console.log(data);
+  };
+
+  const removeReview = (data) => {
+    deleteReview(userId, review._id).then((res) => {
+      getAllReviews(userId).then((resp) => {
+        setReviews(resp.data?.data.data);
+      });
+    });
   };
 
   return (
     <div className="edit-review__container">
       <div className="edit-review__body">
+        <button
+          onClick={() => {
+            getAllReviews(userId).then((resp) => {
+              setReviews(resp.data?.data.data);
+            });
+          }}
+        >
+          KLK
+        </button>
         <h2 className="EmpresaView__rate-title">Edita tu review</h2>
         <div className="EmpresaView__rate-description">
           <div className="EmpresaView__rating-pp">
@@ -31,7 +56,13 @@ const EditReviewPopup = ({ hide, review, userId }) => {
           </div>
           <div className="edit-review__form">
             <h3 className="EmpresaView__rate-name">{`${state.userInformation.name} ${state.userInformation.lastname}`}</h3>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form
+              onSubmit={handleSubmit((data) => {
+                onSubmit(data);
+
+                hide();
+              })}
+            >
               <StarRating starValue={starValue} setStarValue={setStarValue} />
               <textarea
                 type="textarea"
@@ -59,6 +90,10 @@ const EditReviewPopup = ({ hide, review, userId }) => {
                   type="reset"
                   value="Eliminar review"
                   className="create-review__submit create-review__submit--red"
+                  onClick={() => {
+                    removeReview();
+                    hide();
+                  }}
                 ></input>
               </div>
             </form>

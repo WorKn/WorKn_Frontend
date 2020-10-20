@@ -43,7 +43,7 @@
 .EmpresaView__image {
   width: 12vw;
   height: 12vw;
-  border-radius: 100px;
+  border-radius: 120px;
   object-fit: cover;
 }
 
@@ -191,8 +191,6 @@
   align-items: center;
   height: 100%;
   flex: 0 1 15%;
-  margin-right: 10px;
-  margin-top: 10px;
 }
 .EmpresaView__rating-container {
   display: flex;
@@ -204,7 +202,12 @@
 .EmpresaView__rating-body {
   display: flex;
   flex: 0.7 1 70%;
-  margin: 1em;
+  border-bottom: 1px solid #d7d0d0;
+  background: white;
+  border-radius: 15px;
+
+  padding: 14px;
+  margin: 15px 0px;
 }
 
 .EmpresaView__rating--description {
@@ -312,10 +315,11 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+  margin-top: 10px;
 }
 
 .fa.fa-edit {
-  font-size: 1em;
+  font-size: 1.5em;
   color: black;
   cursor: pointer;
 }
