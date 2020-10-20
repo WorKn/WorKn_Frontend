@@ -11,6 +11,7 @@ import Header from "../../components/navbar-components/Navbar";
 import Banner from "../../components/banner-components/Banner";
 import Footer from "../../components/footer-components/Footer";
 import OfferMini from "../../components/offer-components/OfferMini";
+import CustomButton from "../../components/button-components/CustomButton";
 import Tag from "../../components/tag-components/Tag";
 import StarRating from "../../components/starrating-components/StarRating";
 import Review from "../../components/review-components/Review";
@@ -41,6 +42,7 @@ const EmpresaViewPage = ({
   const { state } = useStateMachine(updateAction);
   const [starValue, setStarValue] = useState();
   const { register, handleSubmit } = useForm();
+  const [couldComment, setCouldComment] = useState();
 
   let MyDictionary = {};
   MyDictionary["offerer"] = "Ofertante";
@@ -55,7 +57,7 @@ const EmpresaViewPage = ({
         setReviews(res.data?.data.data);
       });
     });
-    console.log(data);
+    setCouldComment(true);
   };
 
   const activeOffers = useMemo(
@@ -227,6 +229,12 @@ const EmpresaViewPage = ({
                           className="create-review__submit create-review__submit--light"
                         ></input>
                       </div>
+                      {couldComment && (
+                        <span className="create-review__success">
+                          <i className="fa fa-check-circle"></i>Comentario
+                          publicado correctamente
+                        </span>
+                      )}
                     </form>
                   </div>
                 </div>

@@ -36,26 +36,17 @@ const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
   return (
     <div className="edit-review__container">
       <div className="edit-review__body">
-        <button
-          onClick={() => {
-            getAllReviews(userId).then((resp) => {
-              setReviews(resp.data?.data.data);
-            });
-          }}
-        >
-          KLK
-        </button>
-        <h2 className="EmpresaView__rate-title">Edita tu review</h2>
-        <div className="EmpresaView__rate-description">
-          <div className="EmpresaView__rating-pp">
+        <h2 className="ProfileView__rate-title">Edita tu review</h2>
+        <div className="ProfileView__rate-description">
+          <div className="ProfileView__rating-pp">
             <img
-              className="EmpresaView__rating-img EmpresaView__rating-pp--mob"
+              className="ProfileView__rating-img ProfileView__rating-pp--mob"
               src={state?.userInformation?.profilePicture}
               alt="user profilepic"
             />
           </div>
           <div className="edit-review__form">
-            <h3 className="EmpresaView__rate-name">{`${state.userInformation.name} ${state.userInformation.lastname}`}</h3>
+            <h3 className="ProfileView__rate-name">{`${state.userInformation.name} ${state.userInformation.lastname}`}</h3>
             <form
               onSubmit={handleSubmit((data) => {
                 onSubmit(data);
@@ -79,17 +70,20 @@ const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
                 <input
                   type="submit"
                   value="Confirmar"
-                  className="create-review__submit"
+                  className="create-review__submit create-review__submit--mini"
                 ></input>
                 <input
                   type="reset"
                   value="Descartar"
-                  className="create-review__submit create-review__submit--light"
+                  className="create-review__submit create-review__submit--light create-review__submit--mini"
+                  onClick={() => {
+                    hide();
+                  }}
                 ></input>
                 <input
                   type="reset"
-                  value="Eliminar review"
-                  className="create-review__submit create-review__submit--red"
+                  value="Eliminar"
+                  className="create-review__submit create-review__submit--red create-review__submit--mini"
                   onClick={() => {
                     removeReview();
                     hide();

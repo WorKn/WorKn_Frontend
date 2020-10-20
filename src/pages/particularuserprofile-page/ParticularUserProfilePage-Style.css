@@ -225,6 +225,7 @@
 
 .ProfileView__rating-title {
   margin-left: 30px;
+  margin-bottom: 25px;
 }
 
 .ProfileView__rating-img {
@@ -251,6 +252,7 @@
 
 .ProfileView__rate-title {
   margin-left: 30px;
+  margin-bottom: 25px;
 }
 
 .ProfileView__rate-name {
@@ -260,12 +262,7 @@
   padding: 10px;
   margin-top: 15px;
   width: 65vw;
-}
-
-.create-review__submit {
-  display: flex;
-  justify-content: center;
-  background-color: chartreuse;
+  border: 1px solid #9f9f9f;
 }
 
 .create-rate__buttons {
@@ -275,17 +272,20 @@
 }
 
 .create-review__submit {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  width: 158px;
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
   background-color: #00ba6b;
-  border-radius: 28px;
-  border: 1px solid #18ab29;
-  display: inline-block;
+  border-radius: 10px;
+  padding: 15px;
   cursor: pointer;
-  color: #ffffff;
-  font-size: 12px;
-  padding: 10px;
-  text-decoration: none;
-  text-shadow: 0px 1px 0px #2f6627;
-  margin: 0px 15px;
+  margin-bottom: 16px;
+  border: none;
+  margin: 0px 20px;
 }
 
 .create-review__submit:hover {
@@ -293,12 +293,12 @@
 }
 
 .create-review__submit--light {
-  background-color: #666666;
+  background-color: #8a8a8a;
   border: none;
 }
 
 .create-review__submit--light:hover {
-  background-color: #9e9e9e;
+  background-color: #aca9a9;
 }
 
 .create-review__submit--red {
@@ -309,6 +309,18 @@
 .create-review__submit--red:hover {
   background-color: #ec6060;
   border: none;
+}
+
+.create-review__submit--mini {
+  width: 110px;
+}
+
+.create-review__success {
+  color: #00ba6b;
+}
+
+.edit-review__textarea {
+  border: 1px solid #9f9f9f;
 }
 
 .ProfileView__rating-header {
@@ -322,6 +334,11 @@
   font-size: 1.5em;
   color: black;
   cursor: pointer;
+}
+
+.fa.fa-check-circle {
+  margin-right: 10px;
+  color: #00ba6b;
 }
 
 @media screen and (max-width: 750px) {
