@@ -115,31 +115,31 @@ const EmpresaViewPage = ({
     <div className="pagewrap">
       <Header />
       <Banner image={"VfeSojP.png"}></Banner>
-      <div className="EmpresaView">
-        <div className="EmpresaView__up">
-          <div className="EmpresaView__pp EmpresaView__pp--mob">
+      <div className="ProfileView">
+        <div className="ProfileView__up">
+          <div className="ProfileView__pp ProfileView__pp--mob">
             <img
-              className="EmpresaView__image EmpresaView__image--mob"
+              className="ProfileView__image ProfileView__image--mob"
               src={userInfo?.profilePicture}
               alt="user profilepic"
             />
           </div>
-          <div className="EmpresaView__bio">
-            <div className="EmpresaView__bioleft">
+          <div className="ProfileView__bio">
+            <div className="ProfileView__bioleft">
               <h2>Biografía</h2>
-              <span className="EmpresaView__up--span">{`${userInfo?.name} ${userInfo?.lastname}`}</span>
+              <span className="ProfileView__up--span">{`${userInfo?.name} ${userInfo?.lastname}`}</span>
               <p>{MyDictionary[userInfo?.userType]}</p>
               <p>{userInfo?.bio}</p>
             </div>
           </div>
-          <div className="EmpresaView__upper">
-            <div className="EmpresaView__contact EmpresaView__contact--mob">
+          <div className="ProfileView__upper">
+            <div className="ProfileView__contact ProfileView__contact--mob">
               <h2>Contacto</h2>
-              <span className="EmpresaView__up--span">Email:</span>
+              <span className="ProfileView__up--span">Email:</span>
               <a href={`mailto:${userInfo?.email}`}>{`${userInfo?.email}`}</a>
             </div>
             {!isOfferer && (
-              <div className="EmpresaView__tags EmpresaView__tags--mob">
+              <div className="ProfileView__tags ProfileView__tags--mob">
                 <h2>{category}</h2>
                 <div className="tags-container">
                   {userInfo?.tags &&
@@ -153,31 +153,31 @@ const EmpresaViewPage = ({
                 </div>
               </div>
             )}
-            <div className="EmpresaView__metrics EmpresaView__metrics--mob">
+            <div className="ProfileView__metrics ProfileView__metrics--mob">
               <h2>Información</h2>
-              <span className="EmpresaView__up--span">Al servicio desde</span>
+              <span className="ProfileView__up--span">Al servicio desde</span>
               <p>{userInfo?.createdAt.substring(0, 10)}</p>
-              <span className="EmpresaView__up--span">Rating </span>
+              <span className="ProfileView__up--span">Rating </span>
               <p>4.75/5</p>
             </div>
           </div>
         </div>
 
         {isOfferer ? (
-          <div className="EmpresaView__down">
+          <div className="ProfileView__down">
             <h2>Ofertas</h2>
             <div className="ppp-offers">{activeOffers}</div>
           </div>
         ) : null}
 
-        <div className="EmpresaView__rating">
-          <h2 className="EmpresaView__rating-title">Reviews</h2>
+        <div className="ProfileView__rating">
+          <h2 className="ProfileView__rating-title">Reviews</h2>
           {!reviews && (
             <p style={{ marginLeft: "30px" }}>
               Este usuario no tiene reviews públicas aun
             </p>
           )}
-          <div className="EmpresaView__rating-container">
+          <div className="ProfileView__rating-container">
             {reviews?.map((review) => (
               <Review
                 key={review._id}
@@ -188,18 +188,18 @@ const EmpresaViewPage = ({
             ))}
 
             {canReview && (
-              <div className="EmpresaView__rate-body">
-                <h2 className="EmpresaView__rate-title">Publica tu review</h2>
-                <div className="EmpresaView__rate-description">
-                  <div className="EmpresaView__rating-pp">
+              <div className="ProfileView__rate-body">
+                <h2 className="ProfileView__rate-title">Publica tu review</h2>
+                <div className="ProfileView__rate-description">
+                  <div className="ProfileView__rating-pp">
                     <img
-                      className="EmpresaView__rating-img EmpresaView__rating-pp--mob"
+                      className="ProfileView__rating-img ProfileView__rating-pp--mob"
                       src={state?.userInformation?.profilePicture}
                       alt="user profilepic"
                     />
                   </div>
-                  <div className="EmpresaView__form">
-                    <h3 className="EmpresaView__rate-name">{`${state.userInformation.name} ${state.userInformation.lastname}`}</h3>
+                  <div className="ProfileView__form">
+                    <h3 className="ProfileView__rate-name">{`${state.userInformation.name} ${state.userInformation.lastname}`}</h3>
                     <form onSubmit={handleSubmit(onSubmit)}>
                       <StarRating
                         starValue={starValue}

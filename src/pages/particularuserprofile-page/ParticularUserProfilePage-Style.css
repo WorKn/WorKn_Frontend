@@ -1,11 +1,11 @@
-.EmpresaView {
+.ProfileView {
   padding: 3vw 6vw;
   font-size: 12px;
   color: #707070;
   /* background-color: white; */
 }
 
-.EmpresaView h2 {
+.ProfileView h2 {
   color: #333234;
   font-weight: 700;
   margin-bottom: 12px;
@@ -13,7 +13,7 @@
   flex-wrap: wrap;
 }
 
-.EmpresaView__up {
+.ProfileView__up {
   display: flex;
   height: 60%;
   width: inherit;
@@ -22,12 +22,12 @@
   margin-bottom: 40px;
 }
 
-.EmpresaView__up--span {
+.ProfileView__up--span {
   color: #333234;
   font-size: 15px;
   font-weight: 600;
 }
-.EmpresaView__pp {
+.ProfileView__pp {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -40,14 +40,14 @@
   margin-right: 10px;
 }
 
-.EmpresaView__image {
+.ProfileView__image {
   width: 12vw;
   height: 12vw;
   border-radius: 120px;
   object-fit: cover;
 }
 
-.EmpresaView__bio {
+.ProfileView__bio {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -55,7 +55,7 @@
   flex: 0 1 40%;
 }
 
-.EmpresaView__bioleft {
+.ProfileView__bioleft {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -67,15 +67,15 @@
   /* background-color: yellow; */
 }
 
-.EmpresaView__bioleft p {
+.ProfileView__bioleft p {
   margin-top: 20px;
 }
 
-.EmpresaView__bioleft h2 {
+.ProfileView__bioleft h2 {
   text-transform: capitalize;
 }
 
-.EmpresaView__bioright {
+.ProfileView__bioright {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -85,7 +85,7 @@
   /* background-color: plum; */
 }
 
-.EmpresaView__contact {
+.ProfileView__contact {
   display: flex;
   flex-direction: column;
 
@@ -96,13 +96,13 @@
   /* background-color: turquoise; */
 }
 
-.EmpresaView__contact a {
+.ProfileView__contact a {
   color: #00ba6b;
   text-decoration: none;
   cursor: pointer;
 }
 
-.EmpresaView__tags {
+.ProfileView__tags {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -114,11 +114,11 @@
   margin: 0 15px;
 }
 
-.EmpresaView__tags h2 {
+.ProfileView__tags h2 {
   text-transform: capitalize;
 }
 
-.EmpresaView__metrics {
+.ProfileView__metrics {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -131,14 +131,14 @@
   /* background-color: tomato; */
 }
 
-.EmpresaView__metrics span {
+.ProfileView__metrics span {
   color: #333234;
   font-size: 15px;
   font-weight: 600;
   margin-bottom: 5px;
 }
 
-.EmpresaView__down {
+.ProfileView__down {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -150,7 +150,7 @@
   /* background-color: lavender; */
 }
 
-.EmpresaView__offers {
+.ProfileView__offers {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -160,7 +160,7 @@
   width: inherit;
 }
 
-.EmpresaView__upper {
+.ProfileView__upper {
   display: flex;
 }
 
@@ -180,11 +180,11 @@
 /*
   ESTILOS DE LOS REVIEWS
 */
-.EmpresaView__rating {
+.ProfileView__rating {
   margin-top: 30px;
 }
 
-.EmpresaView__rating-pp {
+.ProfileView__rating-pp {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -192,14 +192,14 @@
   height: 100%;
   flex: 0 1 15%;
 }
-.EmpresaView__rating-container {
+.ProfileView__rating-container {
   display: flex;
   justify-content: space-around;
   margin-top: 20px;
   flex-direction: column;
 }
 
-.EmpresaView__rating-body {
+.ProfileView__rating-body {
   display: flex;
   flex: 0.7 1 70%;
   border-bottom: 1px solid #d7d0d0;
@@ -210,31 +210,31 @@
   margin: 15px 0px;
 }
 
-.EmpresaView__rating--description {
+.ProfileView__rating--description {
   margin-left: 15px;
   width: 80%;
 }
 
-.EmpresaView__rating--description p {
+.ProfileView__rating--description p {
   font-size: 14px;
 }
 
-.EmpresaView__rating-body p {
+.ProfileView__rating-body p {
   margin: 10px 0px;
 }
 
-.EmpresaView__rating-title {
+.ProfileView__rating-title {
   margin-left: 30px;
 }
 
-.EmpresaView__rating-img {
+.ProfileView__rating-img {
   width: 7vw;
   height: 7vw;
   border-radius: 100px;
   object-fit: cover;
 }
 
-.EmpresaView__rate-body {
+.ProfileView__rate-body {
   display: flex;
   flex-direction: column;
   padding: 20px 20px 30px 20px;
@@ -244,16 +244,16 @@
   margin: 20px 10px;
 }
 
-.EmpresaView__rate-description {
+.ProfileView__rate-description {
   display: flex;
   margin-top: 20px;
 }
 
-.EmpresaView__rate-title {
+.ProfileView__rate-title {
   margin-left: 30px;
 }
 
-.EmpresaView__rate-name {
+.ProfileView__rate-name {
   color: #4d4c4c;
 }
 .create-review__textarea {
@@ -311,7 +311,7 @@
   border: none;
 }
 
-.EmpresaView__rating-header {
+.ProfileView__rating-header {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -325,43 +325,43 @@
 }
 
 @media screen and (max-width: 750px) {
-  .EmpresaView__up {
+  .ProfileView__up {
     flex-direction: column;
   }
 
-  .EmpresaView__pp--mob {
+  .ProfileView__pp--mob {
     align-self: center;
     margin-bottom: 15px;
   }
-  .EmpresaView__image {
+  .ProfileView__image {
     width: 24vh;
     height: 24vh;
   }
-  .EmpresaView__contact--mob {
+  .ProfileView__contact--mob {
     padding: 0px 10px;
     margin: 20px 0px;
   }
-  .EmpresaView__bioleft--mob {
+  .ProfileView__bioleft--mob {
     padding: 0px 10px;
     margin: 20px 0px;
   }
-  .EmpresaView__metrics--mob {
-    padding: 0px 10px;
-    margin: 20px 0px;
-  }
-
-  .EmpresaView__tags--mob {
+  .ProfileView__metrics--mob {
     padding: 0px 10px;
     margin: 20px 0px;
   }
 
-  .EmpresaView__upper {
+  .ProfileView__tags--mob {
+    padding: 0px 10px;
+    margin: 20px 0px;
+  }
+
+  .ProfileView__upper {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
 
   /* Estilos de los reviews */
-  .EmpresaView__rating-pp--mob {
+  .ProfileView__rating-pp--mob {
     width: 12vw;
     height: 12vw;
   }
