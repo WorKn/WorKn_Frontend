@@ -13,8 +13,6 @@ import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 import Announcement from 'react-announcement'
 
-
-
 const LoginPage = React.memo((props) => {
   const [userObject, setUserObject] = useState("");
   const { register, handleSubmit, errors } = useForm();
@@ -41,6 +39,7 @@ const LoginPage = React.memo((props) => {
   useEffect(() => {
     if (userObject.data !== undefined && userObject.data.status === "success") {
       action(userObject.data.data.user);
+      action({ hasPasswordUpdated: false })
       Cookies.set("jwt", userObject.data.token, { expires: 7 });
     }
     const user = Cookies.get("jwt");
@@ -66,21 +65,22 @@ const LoginPage = React.memo((props) => {
 
   useEffect(() => {
     window.scrollTo(0, 0)
-
   }, [])
 
   return (
     <div className="login-wrapper">
       {typeof !state.userInformation.hasPasswordUpdated && state.userInformation.hasPasswordUpdated === true ? (
         <Announcement
-          title="Here is your component"
-          subtitle="The best announcement component for React is finally here. Install it in all your projects."
-          link="https://github.com/kristofferandreasen/react-announcement"
-          imageSource="https://www.simplilearn.com/ice9/free_resources_article_thumb/COVER-IMAGE_Digital-Selling-Foundation-Program.jpg"
+          title="Tu contraseña fue cambiada exitosamente"
+          subtitle="Inicia sesión utilizando tu nueva contraseña para acceder a WorKn"
+          link="/login"
+          imageSource="https://i.imgur.com/cLAhwtj.png"
           secondsBeforeBannerShows={1}
+          daysToLive={0}
+          closeIconSize={20}
         />
       ) : (
-          "l;l"
+          ""
         )}
       <QuestionModal>
         <QuestionPopup />
