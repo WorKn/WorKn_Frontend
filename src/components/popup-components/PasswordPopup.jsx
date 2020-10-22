@@ -8,6 +8,9 @@ import { updatePassword } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 import Auth from "../../utils/authHelper";
+import { useStateMachine } from "little-state-machine";
+import updateAction from "../../updateAction";
+
 
 const PasswordPopup = (props) => {
   const [update, setUpdate] = useState();
@@ -15,12 +18,18 @@ const PasswordPopup = (props) => {
   const newPassword = useRef({});
   newPassword.current = watch("newPassword", "");
   const { push } = useHistory();
+  const { action } = useStateMachine(updateAction);
+
 
   const onSubmit = (data) => {
     updatePassword(data).then((res) => {
       if (res.data !== undefined) {
         setUpdate(res);
-        Cookies.set("jwt", res.data.token, { expires: 7 });
+        Cookies.remove("jwt");
+        Auth.logout(() => {
+          push("/");
+        });
+        action({ hasPasswordUpdated: true })
       }
     });
   };
@@ -161,7 +170,7 @@ const PasswordPopup = (props) => {
           </p>
         </div> */}
       </form>
-    </div>
+    </div >
   );
 };
 
