@@ -11,7 +11,7 @@ import { userLogin } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
-
+import Announcement from 'react-announcement'
 
 const LoginPage = React.memo((props) => {
   const [userObject, setUserObject] = useState("");
@@ -39,6 +39,7 @@ const LoginPage = React.memo((props) => {
   useEffect(() => {
     if (userObject.data !== undefined && userObject.data.status === "success") {
       action(userObject.data.data.user);
+      action({ hasPasswordUpdated: false })
       Cookies.set("jwt", userObject.data.token, { expires: 7 });
     }
     const user = Cookies.get("jwt");
@@ -68,6 +69,19 @@ const LoginPage = React.memo((props) => {
 
   return (
     <div className="login-wrapper">
+      {typeof !state.userInformation.hasPasswordUpdated && state.userInformation.hasPasswordUpdated === true ? (
+        <Announcement
+          title="Tu contraseña fue cambiada exitosamente"
+          subtitle="Inicia sesión utilizando tu nueva contraseña para acceder a WorKn"
+          link="/login"
+          imageSource="https://i.imgur.com/cLAhwtj.png"
+          secondsBeforeBannerShows={1}
+          daysToLive={0}
+          closeIconSize={20}
+        />
+      ) : (
+          ""
+        )}
       <QuestionModal>
         <QuestionPopup />
       </QuestionModal>
