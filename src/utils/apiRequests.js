@@ -471,9 +471,22 @@ export const getAllReviews = async (id) => {
   }
 };
 
+export const getXReviews = async (id, quantity, limit) => {
+  try {
+    const response = await axios.get(
+      `${HOST}/api/v1/users/${id}/reviews?page=${quantity}&limit=${limit}`
+    );
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
 export const getReviewValidation = async (id) => {
   try {
-    const response = await axios.get(`${HOST}/api/v1/users/${id}/reviews/validation`);
+    const response = await axios.get(
+      `${HOST}/api/v1/users/${id}/reviews/validation`
+    );
     return response;
   } catch (e) {
     return e;
@@ -482,10 +495,13 @@ export const getReviewValidation = async (id) => {
 
 export const createReview = async (userId, data) => {
   try {
-    const response = await axios.post(`${HOST}/api/v1/users/${userId}/reviews`, {
-      rating: data.starValue,
-      review: data.review
-    });
+    const response = await axios.post(
+      `${HOST}/api/v1/users/${userId}/reviews`,
+      {
+        rating: data.starValue,
+        review: data.review,
+      }
+    );
     return response;
   } catch (e) {
     return e.response.data;
@@ -494,10 +510,13 @@ export const createReview = async (userId, data) => {
 
 export const updateReview = async (userId, reviewId, data) => {
   try {
-    const response = await axios.patch(`${HOST}/api/v1/users/${userId}/reviews/${reviewId}`, {
-      rating: data.rating,
-      review: data.review
-    });
+    const response = await axios.patch(
+      `${HOST}/api/v1/users/${userId}/reviews/${reviewId}`,
+      {
+        rating: data.rating,
+        review: data.review,
+      }
+    );
     return response;
   } catch (e) {
     return e.response.data;
@@ -514,5 +533,3 @@ export const deleteReview = async (userId, reviewId) => {
     return e.response.data;
   }
 };
-
-

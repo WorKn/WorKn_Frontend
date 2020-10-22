@@ -4,6 +4,7 @@ import { getUserById } from "../../utils/apiRequests";
 import { getCategoryById } from "../../utils/apiRequests";
 import { getOffersByUserId } from "../../utils/apiRequests";
 import { getAllReviews } from "../../utils/apiRequests";
+import { getXReviews } from "../../utils/apiRequests";
 import { getReviewValidation } from "../../utils/apiRequests";
 import { createReview } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
@@ -11,7 +12,6 @@ import Header from "../../components/navbar-components/Navbar";
 import Banner from "../../components/banner-components/Banner";
 import Footer from "../../components/footer-components/Footer";
 import OfferMini from "../../components/offer-components/OfferMini";
-import CustomButton from "../../components/button-components/CustomButton";
 import Tag from "../../components/tag-components/Tag";
 import StarRating from "../../components/starrating-components/StarRating";
 import Review from "../../components/review-components/Review";
@@ -20,6 +20,7 @@ import updateAction from "../../updateAction";
 import { useForm } from "react-hook-form";
 
 import "./ParticularUserProfilePage-Style.css";
+import { Container } from "react-bootstrap";
 
 const EmpresaViewPage = ({
   match: {
@@ -43,6 +44,8 @@ const EmpresaViewPage = ({
   const [starValue, setStarValue] = useState();
   const { register, handleSubmit } = useForm();
   const [couldComment, setCouldComment] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [canLoadMoreReviews, setCanLoadMoreReviews] = useState(true);
 
   let MyDictionary = {};
   MyDictionary["offerer"] = "Ofertante";
@@ -60,6 +63,20 @@ const EmpresaViewPage = ({
     setCouldComment(true);
   };
 
+  const submit5 = () => {
+    getXReviews(id, currentPage + 1, 5).then((res) => {
+      console.log(res?.data?.data?.data);
+      if (res?.data?.data?.data.length > 0) {
+        setCurrentPage(currentPage + 1);
+        const newArray = reviews.concat(res.data?.data?.data);
+        setReviews(newArray);
+        console.log(canLoadMoreReviews);
+      } else {
+        setCanLoadMoreReviews(false);
+        console.log(canLoadMoreReviews);
+      }
+    });
+  };
   const activeOffers = useMemo(
     () =>
       myoffers.map((offer) =>
@@ -99,7 +116,10 @@ const EmpresaViewPage = ({
           getCategoryById(res.data.data.category).then((resp) => {
             setCategory(resp.data.data[0].name);
           });
-          getAllReviews(res.data?.data?._id).then((resp) => {
+          // getAllReviews(res.data?.data?._id).then((resp) => {
+          //   setReviews(resp.data?.data.data);
+          // });
+          getXReviews(res.data?.data?._id, currentPage, 5).then((resp) => {
             setReviews(resp.data?.data.data);
           });
         }
@@ -174,21 +194,32 @@ const EmpresaViewPage = ({
 
         <div className="ProfileView__rating">
           <h2 className="ProfileView__rating-title">Reviews</h2>
-          {!reviews && (
+          {!reviews ? (
             <p style={{ marginLeft: "30px" }}>
               Este usuario no tiene reviews públicas aun
             </p>
+          ) : (
+            <div className="ProfileView__rating-container">
+              {reviews?.map((review) => (
+                <Review
+                  key={review._id}
+                  review={review}
+                  userId={id}
+                  setReviews={setReviews}
+                ></Review>
+              ))}
+
+              {canLoadMoreReviews && (
+                <button
+                  className="ProfileView__generate-offers"
+                  onClick={submit5}
+                >
+                  Generar 5 mas
+                </button>
+              )}
+            </div>
           )}
           <div className="ProfileView__rating-container">
-            {reviews?.map((review) => (
-              <Review
-                key={review._id}
-                review={review}
-                userId={id}
-                setReviews={setReviews}
-              ></Review>
-            ))}
-
             {canReview && (
               <div className="ProfileView__rate-body">
                 <h2 className="ProfileView__rate-title">Publica tu review</h2>

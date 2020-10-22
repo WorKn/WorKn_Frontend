@@ -235,6 +235,16 @@
   object-fit: cover;
 }
 
+.ProfileView__loadratings {
+  display: flex;
+  justify-content: center;
+  width: 50vw;
+}
+
+.ProfileView__loadratings--hidden {
+  display: none;
+}
+
 .ProfileView__rate-body {
   display: flex;
   flex-direction: column;
