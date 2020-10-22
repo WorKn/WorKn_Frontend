@@ -11,6 +11,8 @@ import { userLogin } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
+import Announcement from 'react-announcement'
+
 
 
 const LoginPage = React.memo((props) => {
@@ -64,10 +66,22 @@ const LoginPage = React.memo((props) => {
 
   useEffect(() => {
     window.scrollTo(0, 0)
+
   }, [])
 
   return (
     <div className="login-wrapper">
+      {typeof !state.userInformation.hasPasswordUpdated && state.userInformation.hasPasswordUpdated === true ? (
+        <Announcement
+          title="Here is your component"
+          subtitle="The best announcement component for React is finally here. Install it in all your projects."
+          link="https://github.com/kristofferandreasen/react-announcement"
+          imageSource="https://www.simplilearn.com/ice9/free_resources_article_thumb/COVER-IMAGE_Digital-Selling-Foundation-Program.jpg"
+          secondsBeforeBannerShows={1}
+        />
+      ) : (
+          "l;l"
+        )}
       <QuestionModal>
         <QuestionPopup />
       </QuestionModal>
