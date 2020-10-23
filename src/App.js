@@ -22,7 +22,7 @@ import SummaryPage from "./pages/summary-page/SummaryPage";
 import NotFound from "./pages/not_found-page/not_found";
 import ExplorePage from "./pages/explore-page/ExplorePage";
 import EmpresaViewPage from "./pages/viewside-page/EmpresaViewPage";
-import OfertasPage from "./pages/ofertas-page/OfertasPage";
+import RecommendationsPage from "./pages/recommendations-page/RecommendationsPage";
 // import ChatPage from "./pages/chat-page/ChatPage";
 require("dotenv").config({ path: "./.env" });
 
@@ -73,15 +73,15 @@ function App() {
             />
             <Route
               exact
-              path="/ofertas"
-              component={OfertasPage}
+              path="/recommendations"
+              component={RecommendationsPage}
             />
             <Route
               exact
               path="/emailvalidation/:token"
               component={EmailValidation}
             />
-            
+
             <Route
               exact
               path="/addMember/:orgid/:token"

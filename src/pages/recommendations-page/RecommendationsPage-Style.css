@@ -1,0 +1,22 @@
+.recommendationspage__container {
+}
+
+.recommendationspage__body {
+  width: 85%;
+  margin: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.recommendationspage__rectitle {
+  color: #00ba6b;
+  margin: 10px 0px;
+}
+
+.recommendationspage__personlist {
+  margin: 10px 0px;
+}
+
+.recommendationspage__personlist p {
+  color: green;
+}
