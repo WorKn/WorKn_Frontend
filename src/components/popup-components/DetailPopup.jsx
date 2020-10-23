@@ -10,7 +10,6 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import Tag from "../tag-components/Tag";
 import "./DetailPopup-Style.css";
-import "./OfferPopup-Style.css";
 
 const DetailPopup = ({ responseInfo, hide }) => {
   const { state } = useStateMachine(updateAction);
@@ -20,6 +19,8 @@ const DetailPopup = ({ responseInfo, hide }) => {
   const { register, handleSubmit } = useForm({});
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
+  const [profileRoute, setProfileRoute] = useState("");
+
   let MyDictionary = {};
   MyDictionary["free"] = "Freelancer";
   MyDictionary["fixed"] = "Fijo/Indefinido";
@@ -38,9 +39,11 @@ const DetailPopup = ({ responseInfo, hide }) => {
     if (responseInfo.organization) {
       setProfilePictureRoute(responseInfo?.organization?.profilePicture);
       setOffererTitleRoute(responseInfo?.organization?.name);
+      setProfileRoute(`/organizations/${responseInfo.organization?._id}`);
     } else {
       setProfilePictureRoute(responseInfo?.createdBy?.profilePicture);
       setOffererTitleRoute(responseInfo?.createdBy?.name);
+      setProfileRoute(`/users/${responseInfo.createdBy?._id}`);
     }
   }, [responseInfo]);
 
@@ -70,30 +73,39 @@ const DetailPopup = ({ responseInfo, hide }) => {
   };
 
   return (
-    <div>
+    <div className="dp-wrapper">
       {(typeof state.userInformation.userType !== "undefined" &&
         state.userInformation.userType === "applicant") ||
       state.userInformation.userType === "" ? (
-        <div>
-          <div className="op-wrapper__up-content">
-            <img src={profilePictureRoute} alt="Offerpp" />
-            <div className="op-wrapper__text">
-              <span className="op-wrapper__title">
+        <div className="dp-wrapper__child">
+          <div className="dp-wrapper__up-content">
+            <div className="dp-wrapper__img">
+              <img src={profilePictureRoute} alt="Offerpp" />
+            </div>
+            <div className="dp-wrapper__text">
+              <span className="dp-wrapper__title">
                 {responseInfo ? responseInfo.title : "Titulo no disponible"}
               </span>
-              <div className="op-wrapper__bullets">
+              <div className="dp-wrapper__bullets">
                 <ul>
                   <li>
                     Por <b>{offererTitleRoute} </b> en{" "}
                     <b>
-                      {responseInfo?.organization?.location
+                      Santo Domingo
+                      {/* {responseInfo?.organization?.location
                         ? responseInfo?.organization?.location
-                        : " Info no disponible"}
+                        : " Info no disponible"} */}
                     </b>
                   </li>
                   <li>
                     {responseInfo
                       ? MyDictionary[responseInfo?.offerType]
+                      : "Info no disponible"}
+                  </li>
+                  <li>
+                    Fecha de creación:{" "}
+                    {responseInfo?.createdAt
+                      ? `${responseInfo?.createdAt?.slice(0, 10)}`
                       : "Info no disponible"}
                   </li>
                   <li>
@@ -104,7 +116,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
                   </li>
                 </ul>
               </div>
-              <ul className="op-wrapper_tags">
+              <ul className="dp-wrapper__tags">
                 {responseInfo?.tags?.map((tag) => (
                   <Tag
                     key={tag._id}
@@ -115,19 +127,32 @@ const DetailPopup = ({ responseInfo, hide }) => {
               </ul>
             </div>
           </div>
-          <div className="op-wrapper__down-content">
-            <span className="op-wrapper__title op-wrapper__title--v2">
+          <div className="dp-wrapper__down-content">
+            <span className="dp-wrapper__title dp-wrapper__title--v2">
               Detalles de la oferta
             </span>
-            <p className="op-wrapper__downinfo">
+            <p className="dp-wrapper__downinfo dp-wrapper__downinfo--ap">
               {responseInfo
                 ? responseInfo?.description
                 : "Descripcion no disponible"}
             </p>
-            <p className="op-wrapper__contact">
+            <p className="dp-wrapper__salary">
+              Rango salarial:
+              <b>
+                RD${" "}
+                {responseInfo?.salaryRange
+                  ? responseInfo?.salaryRange[0]
+                  : "Descripcion no disponible"}{" "}
+                -{" "}
+                {responseInfo?.salaryRange
+                  ? responseInfo?.salaryRange[1]
+                  : "Descripcion no disponible"}
+              </b>
+            </p>
+            <p className="dp-wrapper__contact dp-wrapper__contact--ap">
               Contacto:
               <Link
-                to={`/organizations/${responseInfo.organization?._id}`}
+                to={profileRoute}
                 target="_blank"
                 style={{ textDecoration: "none" }}
               >
@@ -146,15 +171,14 @@ const DetailPopup = ({ responseInfo, hide }) => {
             >
               Aplicar
             </button>
-            {/* <span className="dp-wrapper__cancel" onClick={hide}>
-              Descartar
-            </span> */}
           </div>
         </div>
       ) : (
-        <div>
+        <div className="dp-wrapper__child">
           <div className="dp-wrapper__up-content">
-            <img src={responseInfo?.profilePicture} alt="Profile" />
+            <div className="dp-wrapper__img">
+              <img src={responseInfo?.profilePicture} alt="Profile" />
+            </div>
             <div className="dp-wrapper__text">
               <span className="dp-wrapper__title">
                 {" "}
@@ -178,7 +202,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
                   </li>
                 </ul>
               </div>
-              <ul className="dp-wrapper_tags">
+              <ul className="dp-wrapper__tags">
                 {responseInfo?.tags?.map((tag) => (
                   <Tag
                     key={tag._id}
@@ -191,12 +215,12 @@ const DetailPopup = ({ responseInfo, hide }) => {
           </div>
           <div className="dp-wrapper__down-content">
             <span className="dp-wrapper__title dp-wrapper__title--v2">
-              Biografía
+              Detalles del usuario
             </span>
             <p className="dp-wrapper__downinfo">
               {responseInfo?.bio
                 ? responseInfo?.bio
-                : "Biografía no disponible"}
+                : "Detalles del usuario no disponible"}
             </p>
             <div className="dp-wrapper__contact">
               Contacto:
@@ -209,29 +233,30 @@ const DetailPopup = ({ responseInfo, hide }) => {
               </Link>
             </div>
           </div>
-
-          <form onSubmit={handleSubmit(onSubmit)}>
-            {typeof offers ? (
-              <select
-                className="form__select form__select--dp"
-                name="offer"
-                ref={register}
-              >
-                {offers?.data?.data?.offers.map((offer) => (
-                  <option key={offer._id} value={offer._id}>
-                    {offer.title}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              "No hay"
-            )}
-            <input
-              className="custom-button bg-green"
-              type="submit"
-              value="Demostrar interés"
-            />
-          </form>
+          <div className="dp-wrapper__child--form">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              {typeof offers ? (
+                <select
+                  className="form__select form__select--dp"
+                  name="offer"
+                  ref={register}
+                >
+                  {offers?.data?.data?.offers.map((offer) => (
+                    <option key={offer._id} value={offer._id}>
+                      {offer.title}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                "No hay"
+              )}
+              <input
+                className="custom-button bg-green"
+                type="submit"
+                value="Demostrar interés"
+              />
+            </form>
+          </div>
         </div>
       )}
     </div>
