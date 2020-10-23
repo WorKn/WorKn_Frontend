@@ -10,6 +10,8 @@ import Cookies from "js-cookie";
 import Auth from "../../utils/authHelper";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
+import { store } from 'react-notifications-component';
+
 
 
 const PasswordPopup = (props) => {
@@ -24,12 +26,29 @@ const PasswordPopup = (props) => {
   const onSubmit = (data) => {
     updatePassword(data).then((res) => {
       if (res.data !== undefined) {
-        setUpdate(res);
-        Cookies.remove("jwt");
-        Auth.logout(() => {
-          push("/");
-        });
-        action({ hasPasswordUpdated: true })
+        if (res?.data?.status && res?.data?.status === "success") {
+          console.log("good")
+          action({ hasPasswordUpdated: true })
+          setUpdate(res);
+          Cookies.remove("jwt");
+          Auth.logout(() => {
+            push("/");
+          });
+        } else if (res?.data?.status && res?.data?.status === "fail") {
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: res?.data?.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 6000,
+              onScreen: true
+            }
+          });
+        }
       }
     });
   };

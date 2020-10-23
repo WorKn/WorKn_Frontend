@@ -22,6 +22,9 @@ import SummaryPage from "./pages/summary-page/SummaryPage";
 import NotFound from "./pages/not_found-page/not_found";
 import ExplorePage from "./pages/explore-page/ExplorePage";
 import EmpresaViewPage from "./pages/viewside-page/EmpresaViewPage";
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+
 // import ChatPage from "./pages/chat-page/ChatPage";
 require("dotenv").config({ path: "./.env" });
 
@@ -35,6 +38,7 @@ function App() {
 
   return (
     <div className="App">
+      <ReactNotification />
       {transitions.map(({ item, props, key }) => (
         <animated.div key={key} style={props}>
           <Switch location={item}>

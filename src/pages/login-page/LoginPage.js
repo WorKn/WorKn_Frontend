@@ -11,7 +11,8 @@ import { userLogin } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
-import Announcement from 'react-announcement'
+import { store } from 'react-notifications-component';
+
 
 const LoginPage = React.memo((props) => {
   const [userObject, setUserObject] = useState("");
@@ -33,7 +34,7 @@ const LoginPage = React.memo((props) => {
   };
 
   useEffect(() => {
-    action({ name: '', lastname: '', bio: "", identificationNumber: "", location: "", phone: "", email: "", birthday: "", password: "", passwordConfirm: "", userType: "", category: "", tags: '', organization: '', organizationRole: '', isEmailValidated: "", createdAt: '', profilePicture: "", _id: '', __v: "", passwordChangedAt: '', signUpMethod: "", isSignupCompleted: "", id: '', data: '' })
+    action({ name: '', lastname: '', bio: "", identificationNumber: "", location: "", phone: "", email: "", birthday: "", password: "", passwordConfirm: "", userType: "", category: "", tags: '', organization: '', organizationRole: '', isEmailValidated: "", createdAt: '', profilePicture: "", _id: '', __v: "", passwordChangedAt: '', signUpMethod: "", isSignupCompleted: "", id: '', data: '', hasPasswordUpdated: false, hasCreatedAccount: false, updatedAt: "", isActive: false, tokens: "" })
   }, [action])
 
   useEffect(() => {
@@ -67,21 +68,31 @@ const LoginPage = React.memo((props) => {
     window.scrollTo(0, 0)
   }, [])
 
+
+  useEffect(() => {
+    if (state.userInformation.hasPasswordUpdated !== "undefined" && state.userInformation.hasPasswordUpdated === true) {
+      setTimeout(() => {
+        store.addNotification({
+          title: "Contraseña cambiada exitosamente!",
+          message: "Accede utilizando tus nuevas credenciales",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 5000,
+            onScreen: true
+          }
+        });
+      }, 1500);
+    } else (
+      console.log("Loading...")
+    )
+  }, [state.userInformation.hasPasswordUpdated])
+
   return (
     <div className="login-wrapper">
-      {typeof !state.userInformation.hasPasswordUpdated && state.userInformation.hasPasswordUpdated === true ? (
-        <Announcement
-          title="Tu contraseña fue cambiada exitosamente"
-          subtitle="Inicia sesión utilizando tu nueva contraseña para acceder a WorKn"
-          link="/login"
-          imageSource="https://i.imgur.com/cLAhwtj.png"
-          secondsBeforeBannerShows={1}
-          daysToLive={0}
-          closeIconSize={20}
-        />
-      ) : (
-          ""
-        )}
       <QuestionModal>
         <QuestionPopup />
       </QuestionModal>

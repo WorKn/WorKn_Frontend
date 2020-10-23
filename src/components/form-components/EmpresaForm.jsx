@@ -11,6 +11,8 @@ import {
   getMe,
 } from "../../utils/apiRequests";
 import PicSelector from "../profile-picture-components/PicSelector";
+import { store } from 'react-notifications-component';
+
 
 const normalizeId = (value) => {
   return value.replace(/\s/g, "").match(/.{1,4}/g)?.join("").substr(0, 9) || "";
@@ -35,14 +37,62 @@ const EmpresaForm = () => {
       createOrganization(data).then((res) => {
         if (res.data !== undefined) {
           setUpdated(res);
+          if (res?.data?.status && res?.data?.status === "success") {
+            store.addNotification({
+              title: "Organización creada correctamente!",
+              message: "Ahora puedes proceder a Manejar  tu Organización",
+              type: "success",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 6000,
+                onScreen: true
+              }
+            });
+          }
         }
       });
     } else {
       data.id = state.userInformation.organization;
       editOrganization(data).then((res) => {
         if (res.data !== undefined) {
-          setDisabled(true);
-          setUpdated(res);
+          if (res.data.status && res.data.status === "success") {
+            setDisabled(true);
+            console.log(res)
+            store.addNotification({
+              title: "Organización editada correctamente!",
+              message: "Ahora puedes proceder a Manejar  tu Organización",
+              type: "success",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 6000,
+                onScreen: true
+              }
+            });
+            setUpdated(res);
+          } else if (res.data.status && res.data.status === "fail") {
+            console.log(res)
+
+            store.addNotification({
+              title: "Ha ocurrido un error",
+              message: res.data.message,
+              type: "danger",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 6000,
+                onScreen: true
+              }
+            });
+          }
+
         }
       });
     }
@@ -198,7 +248,7 @@ const EmpresaForm = () => {
           </span>
         </div>
       </div>
-      {typeof updated.data !== "undefined" &&
+      {/* {typeof updated.data !== "undefined" &&
         updated.data.status === "success" ? (
           <div className="input__msg input__msg--success">
             El perfil de {updated.data.data.organization.name} fue actualizado
@@ -206,8 +256,8 @@ const EmpresaForm = () => {
           </div>
         ) : (
           ""
-        )}
-      <div className="input__msg input__msg--error">{updated.message}</div>
+        )} */}
+      {/* <div className="input__msg input__msg--error">{updated.message}</div> */}
       <input
         className="custom-button bg-green"
         type="submit"

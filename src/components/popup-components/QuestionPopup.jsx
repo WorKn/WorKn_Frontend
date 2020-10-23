@@ -10,7 +10,7 @@ const QuestionPopup = () => {
         <span className="popup-btitle">
           Como quieres acceder a nuestro sistema?
         </span>
-        <NavLink to="/registerpagec2" style={{ textDecoration: "none" }}>
+        <NavLink to="/registerc2" style={{ textDecoration: "none" }}>
           <span className="custom-button bg-green">
             <span>Empresa</span>
           </span>
