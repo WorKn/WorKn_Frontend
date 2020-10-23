@@ -10,17 +10,15 @@ import { store } from 'react-notifications-component';
 // import { useStateMachine } from "little-state-machine";
 
 const MembersPopup = () => {
-  const [setInvited] = useState("");
+  const [invited, setInvited] = useState("");
   // const { state } = useStateMachine(updateAction);
   const { register, handleSubmit, errors, watch } = useForm();
   const newPassword = useRef({});
   newPassword.current = watch("newPassword", "");
 
   const onSubmit = (data, e) => {
-    console.log(data);
     sendInvitation(data).then((res) => {
       if (res.data !== undefined) {
-        console.log(res)
         if (res?.data?.status && res?.data?.status === "success") {
           setInvited(res);
           e.target.reset();
@@ -89,7 +87,9 @@ const MembersPopup = () => {
             ref={register({
               required: "Por favor ingrese el correo a invitar",
             })}
+            placeholder="test"
           >
+            <option selected value="Por favor seleccione un rol">Seleccione el rol del usuario</option>
             <option value="member">Miembro</option>
             <option value="supervisor">Supervisor</option>
           </select>

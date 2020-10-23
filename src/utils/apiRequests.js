@@ -316,7 +316,7 @@ export const sendInvitation = async (org) => {
     );
     return response;
   } catch (e) {
-    return e.response.data;
+    return e.response;
   }
 };
 
