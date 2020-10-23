@@ -2,15 +2,16 @@
 }
 
 .recommendationspage__body {
-  width: 85%;
+  padding: 2% 5%;
   margin: 20px auto;
   display: flex;
   flex-wrap: wrap;
 }
 
 .recommendationspage__rectitle {
-  color: #00ba6b;
+  color: #4c4d4c;
   margin: 10px 0px;
+  width: 100%;
 }
 
 .recommendationspage__personlist {

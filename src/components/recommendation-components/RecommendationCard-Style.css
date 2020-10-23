@@ -57,6 +57,9 @@
   border-left: 1px solid #707070;
   height: 18px;
 }
+.offercard__category-name {
+  text-transform: capitalize;
+}
 
 .offercard__data {
   display: flex;

@@ -19,15 +19,11 @@ const RecommendationCard = ({ personInfo, organizationInfo }) => {
   MyDictionary["fixed"] = "Fijo/Indefinido";
   MyDictionary["applicant"] = "Aplicante";
 
-  const getCategoryInfo = (categoryId) => {
-    getCategoryById(categoryId).then((res) => {
-      setCategory(res.data?.data[0].name);
-      return <span>{category}</span>;
-    });
-  };
-
   useEffect(() => {
     setProfilePictureRoute(personInfo.profilePicture);
+    getCategoryById(personInfo.category).then((res) => {
+      setCategory(res.data?.data[0].name);
+    });
   }, []);
 
   return (
@@ -55,9 +51,9 @@ const RecommendationCard = ({ personInfo, organizationInfo }) => {
         <div className="offercard__data">
           {MyDictionary[personInfo.userType]}
           <div className="offercard__vl"></div>
-          <span>{personInfo.bio.slice(0, 15)}</span>
+          <span>{personInfo.bio.slice(0, 20)}...</span>
           <div className="offercard__vl"></div>
-          <span>HEALTH</span>
+          <span className="offercard__category-name">{category}</span>
         </div>
         <div className="offercard__tags">
           {personInfo?.tags.map((tag) => (
