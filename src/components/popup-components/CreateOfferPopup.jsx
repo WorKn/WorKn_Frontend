@@ -61,10 +61,10 @@ const CreateOfferPage = ({ hide }) => {
               <h1 className="create-offer__header-title">
                 Creación de ofertas
               </h1>
-              <i
+              {/* <i
                 className="fa fa-times offerstrip__icon offerstrip__delete"
                 onClick={hide}
-              ></i>
+              ></i> */}
             </div>
             <div className="create-offer__paired-input">
               <span>Título</span>
