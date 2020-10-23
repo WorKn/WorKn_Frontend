@@ -9,23 +9,46 @@ import {
   getOfferRecommendation,
   getUserRecommendation,
 } from "../../utils/apiRequests";
+import { useHistory } from "react-router-dom";
 import "./RecommendationsPage-Style.css";
 
 const RecommendationsPage = () => {
-  const [recommendations, setRecommendations] = useState([]);
+  const [userRecommendations, setUserRecommendations] = useState([]);
+  const [offerRecommendations, setOfferRecommendations] = useState([]);
+  const { state } = useStateMachine(updateAction);
 
-  const myRecommendations = recommendations.map((rec) => {
+  let history = useHistory();
+
+  useEffect(() => {
+    if (state.userInformation.userType === "offerer") {
+      getUserRecommendation().then((res) => {
+        console.log(res);
+        if (res?.data?.data?.offers) {
+          setUserRecommendations(res?.data?.data?.offers);
+        }
+      });
+    } else if (state.userInformation.userType === "applicant") {
+      getOfferRecommendation().then((res) => {
+        setOfferRecommendations(res?.data?.data?.offers);
+      });
+    } else {
+      history.push("/login");
+    }
+  }, []);
+
+  const uRecommendations = userRecommendations.map((rec) => {
     if (rec.recommended.length > 0) {
       return (
         <React.Fragment key={rec._id}>
-          <div className="recommendationspage__body">
-            <h2 className="recommendationspage__rectitle">
-              Personas recomendadas para la oferta: {rec.title}
-            </h2>
+          <span className="recommendationspage__rectitle">
+            Personas recomendadas para la oferta: <span>{rec.title}</span>
+          </span>
+          <div className="recommendationspage__personlist">
             {rec.recommended.map((person) => (
-              <div className="recommendationspage__personlist" key={person._id}>
-                <RecommendationCard personInfo={person}></RecommendationCard>
-              </div>
+              <RecommendationCard
+                personInfo={person}
+                key={person._id}
+              ></RecommendationCard>
             ))}
           </div>
         </React.Fragment>
@@ -34,26 +57,34 @@ const RecommendationsPage = () => {
     }
   });
 
-  useEffect(() => {
-    getUserRecommendation().then((res) => {
-      console.log(res);
-      if (res?.data?.data?.offers) {
-        setRecommendations(res?.data?.data?.offers);
-      }
-    });
-  }, []);
+  const oRecommendations = offerRecommendations.map((rec) => {
+    return (
+      <React.Fragment key={rec._id}>
+        <RecommendationCard offerInfo={rec} key={rec._id}></RecommendationCard>
+      </React.Fragment>
+    );
+  });
 
-  console.log(recommendations);
+  console.log("your recommendations are:");
+  console.log(offerRecommendations);
   // const [parameter, setParameter] = useState("");
   return (
     <div className="recommendationspage">
       <Header />
       <Banner image={"ooyAGWN.png"} />
       <div className="recommendationspage__container">
-        {recommendations ? (
-          myRecommendations
-        ) : (
-          <h2>No recommendations found... Yet!</h2>
+        {userRecommendations && (
+          <div className="recommendationspage__body">{uRecommendations}</div>
+        )}
+        {offerRecommendations && (
+          <div className="recommendationspage__body">
+            <span className="recommendationspage__rectitle">
+              Ofertas de trabajo <span>recomendadas para ti</span>
+            </span>
+            <div className="recommendationspage__offerlist">
+              {oRecommendations}
+            </div>
+          </div>
         )}
       </div>
       <Footer></Footer>
