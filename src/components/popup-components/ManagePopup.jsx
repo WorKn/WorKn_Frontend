@@ -19,7 +19,6 @@ const ManagePopup = () => {
 
 
   const onSubmit = (data, e) => {
-    console.log(memberToUpdate, data.role);
     updateMemberRole(memberToUpdate, data.role).then((res) => {
       if (res.data !== undefined) {
         if (res?.data?.status && res?.data?.status === "success") {
@@ -58,10 +57,9 @@ const ManagePopup = () => {
   };
 
   const sendMember = (memberId) => {
-    if (window.confirm("Seguro que quiere borrar este usuario?")) {
+    if (window.confirm("Seguro que quiere borrar a este usuario?")) {
       removeMember(memberId).then((res) => {
         if (res.data !== undefined) {
-          console.log(res)
           if (res?.data?.status && res?.data?.status === "success") {
             store.addNotification({
               title: "Usuario eliminado correctamente",
@@ -95,7 +93,7 @@ const ManagePopup = () => {
         }
       });
     } else {
-      console.log("No borrado");
+      console.log("User ND");
     }
   };
 
