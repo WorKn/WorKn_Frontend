@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import "./OfferPopup-Style.css";
 import Tag from "../tag-components/Tag";
 import { Link } from "react-router-dom";
@@ -25,7 +25,7 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
         setProfileRoute(`/users/${res?.data?.data?.data?._id}`);
       });
     }
-  }, [offerInfo]);
+  }, [offerInfo, organizationInformation]);
 
   return (
     <div className="op-wrapper">

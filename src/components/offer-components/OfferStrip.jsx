@@ -3,11 +3,11 @@ import "./OfferStrip-Style.css";
 import Tag from "../tag-components/Tag";
 import { useModal } from "../../hooks/useModal";
 import InteractionPopup from "../../components/popup-components/InteractionPopup";
-import DeleteOfferPopup from "../popup-components/DeleteOfferPopup";
 import { useStateMachine } from "little-state-machine";
 import { Link } from "react-router-dom";
 import updateAction from "../../updateAction";
 import { acceptInteraction, rejectInteraction } from "../../utils/apiRequests";
+// import DeleteOfferPopup from "../popup-components/DeleteOfferPopup";
 
 const OfferStrip = ({
   responseInfo,
@@ -19,17 +19,13 @@ const OfferStrip = ({
   const { state, action } = useStateMachine(updateAction);
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
-  const {
-    show: showDetailModal,
-    RenderModal: DetailModal,
-    hide: hideDetailModal,
-  } = useModal();
+  const { show: showDetailModal, RenderModal: DetailModal } = useModal();
 
-  const {
-    show: showDeleteOfferModal,
-    RenderModal: DeleteOfferModal,
-    hide: hideDeleteOfferModal,
-  } = useModal();
+  // const {
+  //   show: showDeleteOfferModal,
+  //   RenderModal: DeleteOfferModal,
+  //   hide: hideDeleteOfferModal,
+  // } = useModal();
 
   const sendInteractionId = () => {
     const currentId = { interactionId };
@@ -67,12 +63,12 @@ const OfferStrip = ({
       <DetailModal>
         <InteractionPopup responseInfo={responseInfo}></InteractionPopup>
       </DetailModal>
-      <DeleteOfferModal>
+      {/* <DeleteOfferModal>
         <DeleteOfferPopup
           responseInfo={responseInfo}
           hide={hideDeleteOfferModal}
         />
-      </DeleteOfferModal>
+      </DeleteOfferModal> */}
       {(typeof state.userInformation.userType !== "undefined" &&
         state.userInformation.userType === "applicant") ||
       state.userInformation.userType === "" ? (
