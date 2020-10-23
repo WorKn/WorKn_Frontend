@@ -19,6 +19,7 @@ const RegisterPageC1 = () => {
   const onSubmit = (data) => {
     state.userInformation.organizationRole = "";
     action(data);
+    action({ hasCreatedAccount: true })
     setGotResponse(true);
   };
 

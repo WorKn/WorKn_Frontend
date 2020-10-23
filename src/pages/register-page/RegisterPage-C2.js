@@ -25,6 +25,7 @@ const RegisterPageC2 = () => {
     state.userInformation.organizationRole = "owner";
     action(data);
     setGotResponse(true);
+    action({ hasCreatedAccount: true })
   };
 
   useEffect(() => {

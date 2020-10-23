@@ -15,6 +15,7 @@ import categoryContext from "../../utils/categoryContext";
 import TagsInput from "../input-components/TagsInput";
 import tagsContext from "../../utils/tagsContext";
 import Tag from "../tag-components/Tag";
+import { store } from 'react-notifications-component';
 
 
 const normalizeId = (value) => {
@@ -35,6 +36,7 @@ const UserForm = () => {
     defaultValues: state.userInformation,
   });
 
+
   let isOrg = false;
 
   password.current = watch("password", "");
@@ -45,6 +47,35 @@ const UserForm = () => {
     data.tags = newArray;
     updateProfile(data).then((res) => {
       setUpdated(res);
+      if (res?.data?.status && res?.data?.status === "success") {
+        store.addNotification({
+          title: "Perfil actualizado correctamente",
+          message: "Ya puedes seguir navegando con tu nueva información",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 6000,
+            onScreen: true
+          }
+        });
+      } else {
+        store.addNotification({
+          title: "Ha ocurrido un error",
+          message: res.message,
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 6000,
+            onScreen: true
+          }
+        });
+      }
     });
   };
 
@@ -265,7 +296,7 @@ const UserForm = () => {
                 </div>
               )}
           </div>
-          {typeof updated.data !== "undefined" &&
+          {/* {typeof updated.data !== "undefined" &&
             updated.data.status === "success" ? (
               <div className="input__msg input__msg--success">
                 {updated.data.data.user.name}, tu perfil fue actualizado
@@ -273,8 +304,8 @@ const UserForm = () => {
               </div>
             ) : (
               ""
-            )}
-          <div className="input__msg input__msg--error">{updated.message}</div>
+            )} */}
+          {/* <div className="input__msg input__msg--error">{updated.message}</div> */}
           <input
             className="custom-button bg-green"
             type="submit"

@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import AnnouncementBanner from "../../components/announcemnet-components/Announcement-Banner";
 import ManagePopup from "../../components/popup-components/ManagePopup";
 
+
 const EmpresaProfilePage = (props) => {
   const { state } = useStateMachine(updateAction);
   const {
