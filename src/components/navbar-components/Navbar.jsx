@@ -12,7 +12,7 @@ import { useStateMachine } from "little-state-machine";
 
 const Navbar = () => {
   // const isLoggedIn = auth.isAuthenticated();
-  const { state } = useStateMachine(updateAction);
+  const { state, action } = useStateMachine(updateAction);
   const [hideOnMobile, setHideOnMobile] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -124,7 +124,11 @@ const Navbar = () => {
                   ? "navbar__link navbar__link--highlighted navbar__hide-on-mobile"
                   : "navbar__link navbar__link--highlighted"
               }
-              to="/register"
+              to="/login"
+              onClick={() => {
+                action({ isUserFromNav: true })
+
+              }}
             >
               Registrate
           </Link>

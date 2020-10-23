@@ -68,6 +68,17 @@ const LoginPage = React.memo((props) => {
     window.scrollTo(0, 0)
   }, [])
 
+  useEffect(() => {
+    if (state.userInformation.isUserFromNav && state.userInformation.isUserFromNav === true) {
+      setTimeout(() => {
+        showQuestionModal();
+      }, 1000)
+      setTimeout(() => {
+        action({ isUserFromNav: false })
+      }, 1500)
+    }
+  }, [])
+
 
   useEffect(() => {
     if (state.userInformation.hasPasswordUpdated !== "undefined" && state.userInformation.hasPasswordUpdated === true) {
