@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./OfferPopup-Style.css";
 import Tag from "../tag-components/Tag";
 import { Link } from "react-router-dom";
-import { getMe } from "../../utils/apiRequests";
+import updateAction from "../../updateAction";
+import { useStateMachine } from "little-state-machine";
 
 let MyDictionary = {};
 MyDictionary["free"] = "Freelancer";
@@ -11,6 +12,7 @@ MyDictionary["fixed"] = "Fijo/Indefinido";
 const OfferPopup = ({ offerInfo, organizationInformation }) => {
   const [profileRoute, setProfileRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
+  const { state } = useStateMachine(updateAction);
 
   useEffect(() => {
     if (offerInfo.organization) {
@@ -18,14 +20,11 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
       setOffererTitleRoute(organizationInformation?.name);
       setProfileRoute(`/organizations/${organizationInformation?._id}`);
     } else {
-      getMe().then((res) => {
-        setOffererTitleRoute(
-          res?.data?.data?.data?.name + res?.data?.data?.data?.lastname
-        );
-        setProfileRoute(`/users/${res?.data?.data?.data?._id}`);
-      });
+      setOffererTitleRoute(
+        state.userInformation.name + state.userInformation.lastname
+      );
     }
-  }, [offerInfo, organizationInformation]);
+  }, [offerInfo, organizationInformation, state.userInformation]);
 
   return (
     <div className="op-wrapper">
@@ -104,16 +103,18 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
               : "Descripcion no disponible"}
           </b>
         </p>
-        <p className="op-wrapper__contact">
-          Contacto:
-          <Link
-            to={profileRoute}
-            target="_blank"
-            style={{ textDecoration: "none" }}
-          >
-            {offererTitleRoute}
-          </Link>
-        </p>
+        {offerInfo.organization ? (
+          <p className="op-wrapper__contact">
+            Contacto:
+            <Link
+              to={profileRoute}
+              target="_blank"
+              style={{ textDecoration: "none" }}
+            >
+              {offererTitleRoute}
+            </Link>
+          </p>
+        ) : null}
       </div>
     </div>
   );

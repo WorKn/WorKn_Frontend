@@ -96,7 +96,7 @@ const ManageOffersPage = () => {
         } else if (!res.data && state.userInformation.userType !== "offerer") {
           history.push("/loginpage");
         } else {
-          const organization = res.data?.data?.data;
+          const organization = res?.data?.data?.data;
           setMyOrganization(organization);
         }
       });
@@ -117,11 +117,14 @@ const ManageOffersPage = () => {
     state.userInformation.isEmailValidated,
   ]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return success ? (
     <div className="manageoffers-container">
       <Header></Header>
       <Banner image={"qiyrYvI.png"} />
-
       <AddOfferModal>
         <CreateOfferPopup hide={hideAddOfferModal}></CreateOfferPopup>
       </AddOfferModal>
