@@ -63,14 +63,16 @@ const EmpresaViewPage = ({
     setCouldComment(true);
   };
 
-  const submit5 = () => {
+  const LoadMoreReviews = () => {
     getXReviews(id, currentPage + 1, 5).then((res) => {
-      console.log(res?.data?.data?.data);
       if (res?.data?.data?.data.length > 0) {
         setCurrentPage(currentPage + 1);
         const newArray = reviews.concat(res.data?.data?.data);
         setReviews(newArray);
-        console.log(canLoadMoreReviews);
+
+        if (res?.data?.data?.data.length < 5) {
+          setCanLoadMoreReviews(false);
+        }
       } else {
         setCanLoadMoreReviews(false);
         console.log(canLoadMoreReviews);
@@ -212,9 +214,10 @@ const EmpresaViewPage = ({
               {canLoadMoreReviews && (
                 <button
                   className="ProfileView__generate-offers"
-                  onClick={submit5}
+                  onClick={LoadMoreReviews}
+                  className="create-review__submit load-reviews__submit"
                 >
-                  Generar 5 mas
+                  Cargar más reviews
                 </button>
               )}
             </div>

@@ -224,7 +224,6 @@
 }
 
 .ProfileView__rating-title {
-  margin-left: 30px;
   margin-bottom: 25px;
 }
 
@@ -319,6 +318,10 @@
 .create-review__submit--red:hover {
   background-color: #ec6060;
   border: none;
+}
+
+.load-reviews__submit {
+  align-self: center;
 }
 
 .create-review__submit--mini {
