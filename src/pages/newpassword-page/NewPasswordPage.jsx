@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { resetPassword } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const NewPassword = ({
   match: {
@@ -20,9 +21,9 @@ const NewPassword = ({
     data.myToken = token;
     resetPassword(data).then((res) => {
       if (res.data !== undefined) {
-        console.log(res.data);
+        Cookies.set("jwt", res.data.token, { expires: 7 });
       }
-      push("/loginpage");
+      push("/login");
     });
   };
 

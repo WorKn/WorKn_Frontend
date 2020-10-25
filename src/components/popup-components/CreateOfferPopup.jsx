@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 
 import "./CreateOfferPopup-Style.css";
-
+import "./QuestionPopup-Style.css";
+import "./PasswordPopup-Style.css";
 import { useForm } from "react-hook-form";
 
 import { createOffer } from "../../utils/apiRequests";
 
 import { ErrorMessage } from "@hookform/error-message";
-
+import { store } from 'react-notifications-component';
 import categoryContext from "../../utils/categoryContext";
 import CategoryInput from "../input-components/CategoryInput";
 import tagsContext from "../../utils/tagsContext";
@@ -46,6 +47,33 @@ const CreateOfferPage = ({ hide }) => {
       console.log(res);
       if (res === "success") {
         setSuccess(true);
+        store.addNotification({
+          title: "Oferta creada exitosamente",
+          message: "Su oferta será mostrada a los usuarios en WorKn.",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 6000,
+            onScreen: true
+          }
+        });
+      } else {
+        store.addNotification({
+          title: "Ha ocurrido un error",
+          message: res?.message,
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 6000,
+            onScreen: true
+          }
+        });
       }
     });
     console.log(data);
@@ -54,14 +82,11 @@ const CreateOfferPage = ({ hide }) => {
   return (
     <categoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
       <tagsContext.Provider value={{ selectedTags, setSelectedTags }}>
-        <div className="create-offer__container">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="create-offer__form"
-          >
+        <div className="popup-wrapper">
+          <form onSubmit={handleSubmit(onSubmit)} className="sizing-container">
             <div className="create-offer__header">
               <h1 className="create-offer__header-title">
-                Creacion de ofertas
+                Creación de ofertas
               </h1>
               <i
                 className="fa fa-times offerstrip__icon offerstrip__delete"

@@ -2,7 +2,9 @@ import React from "react";
 import "./CustomOfferStrip-Style.css";
 import Tag from "../tag-components/Tag";
 import { useModal } from "../../hooks/useModal";
+import OfferPopup from "../popup-components/OfferPopup";
 import EditOfferPopup from "../popup-components/EditOfferPopup";
+import DeleteOfferPopup from "../popup-components/DeleteOfferPopup";
 
 let MyDictionary = {};
 MyDictionary["free"] = "Freelancer";
@@ -14,9 +16,19 @@ const CustomOfferStrip = ({
   isInactive,
 }) => {
   const {
+    show: showOfferModal,
+    RenderModal: OfferModal,
+    hide: hideOfferModal,
+  } = useModal();
+  const {
     show: showEditOfferModal,
     RenderModal: EditOfferModal,
     hide: hideEditOfferModal,
+  } = useModal();
+  const {
+    show: showDeleteOfferModal,
+    RenderModal: DeleteOfferModal,
+    hide: hideDeleteOfferModal,
   } = useModal();
   //optional chanining JS, o si
   // chekear si offer.
@@ -36,58 +48,70 @@ const CustomOfferStrip = ({
 
   return (
     <div className="offerstrip">
-      {organizationInformation?.profilePicture ? (
-        <img
-          src={organizationInformation.profilePicture}
-          className="offerstrip__picture"
-          alt="Offerpp"
+      <OfferModal>
+        <OfferPopup
+          offerInfo={offerInfo}
+          organizationInformation={organizationInformation}
+          hide={hideOfferModal}
         />
-      ) : (
-        <img
-          src="https://i.imgur.com/lcHQ2QP.jpg"
-          className="offerstrip__picture"
-          alt="Offerpp"
-        />
-      )}
+      </OfferModal>
+      <div className="offerstrip-container" onClick={showOfferModal}>
+        {organizationInformation?.profilePicture ? (
+          <img
+            src={organizationInformation.profilePicture}
+            className="offerstrip__picture"
+            alt="Offerpp"
+          />
+        ) : (
+          <img
+            src="https://i.imgur.com/lcHQ2QP.jpg"
+            className="offerstrip__picture"
+            alt="Offerpp"
+          />
+        )}
 
-      <span className="offerstrip__text offerstrip__org">
-        {offerInfo ? MyDictionary[offerInfo.offerType] : "Info no disponible"}
-      </span>
-      <span className="offerstrip__vl offerstrip__vl--1"></span>
-      <span className="offerstrip__text offerstrip__type">
-        {offerInfo ? shortOfferTitle : "Titulo no disponible"}
-      </span>
-      <span className="offerstrip__vl offerstrip__vl--2"></span>
-      <span className="offerstrip__text offerstrip__offer">
-        {offerInfo ? shortOfferDescription : "Descripcion no disponible"}
-      </span>
-      <span className="offerstrip__vl offerstrip__vl--3"></span>
-      <div className="offerstrip__tagscontainer">
-        {offerInfo.tags.map((tag) => (
-          <Tag
-            key={tag._id}
-            text={tag.name}
-            theme="tag tag__text tag__text--gray"
-          ></Tag>
-        ))}
-      </div>
-
-      <div>
-        <span className="offerstrip__vl offerstrip__vl--4"></span>
-        <EditOfferModal>
-          <EditOfferPopup
-            hide={hideEditOfferModal}
-            offerInfo={offerInfo}
-          ></EditOfferPopup>
-        </EditOfferModal>
-        <span
-          className="offerstrip__text offerstrip__edit"
-          onClick={isInactive ? () => {} : showEditOfferModal}
-        >
-          Editar
+        <span className="offerstrip__text offerstrip__org">
+          {offerInfo ? MyDictionary[offerInfo.offerType] : "Info no disponible"}
         </span>
-        <i className="fa fa-times offerstrip__icon offerstrip__delete"></i>
+        <span className="offerstrip__vl offerstrip__vl--1"></span>
+        <span className="offerstrip__text offerstrip__type">
+          {offerInfo ? shortOfferTitle : "Titulo no disponible"}
+        </span>
+        <span className="offerstrip__vl offerstrip__vl--2"></span>
+        <span className="offerstrip__text offerstrip__offer">
+          {offerInfo ? shortOfferDescription : "Descripcion no disponible"}
+        </span>
+        <span className="offerstrip__vl offerstrip__vl--3"></span>
+        <div className="offerstrip__tagscontainer">
+          {offerInfo.tags.map((tag) => (
+            <Tag
+              key={tag._id}
+              text={tag.name}
+              theme="tag tag__text tag__text--gray"
+            ></Tag>
+          ))}
+        </div>
       </div>
+      <span className="offerstrip__vl offerstrip__vl--4"></span>
+      <EditOfferModal>
+        <EditOfferPopup
+          hide={hideEditOfferModal}
+          offerInfo={offerInfo}
+        ></EditOfferPopup>
+      </EditOfferModal>
+      <span
+        className="offerstrip__text offerstrip__edit"
+        onClick={isInactive ? () => {} : showEditOfferModal}
+      >
+        Editar
+      </span>
+      <i
+        className="fa fa-times offerstrip__icon offerstrip__delete"
+        onClick={showDeleteOfferModal}
+      ></i>
+      <DeleteOfferModal>
+        <DeleteOfferPopup offerInfo={offerInfo} hide={hideDeleteOfferModal} />
+      </DeleteOfferModal>
     </div>
   );
 };

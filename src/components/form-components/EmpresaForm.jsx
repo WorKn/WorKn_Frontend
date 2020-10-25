@@ -11,6 +11,16 @@ import {
   getMe,
 } from "../../utils/apiRequests";
 import PicSelector from "../profile-picture-components/PicSelector";
+import { store } from 'react-notifications-component';
+
+
+const normalizeId = (value) => {
+  return value.replace(/\s/g, "").match(/.{1,4}/g)?.join("").substr(0, 9) || "";
+}
+
+const normalizePhone = (value) => {
+  return value.replace(/\s/g, "").match(/.{1,4}/g)?.join("").substr(0, 10) || "";
+}
 
 const EmpresaForm = () => {
   const [updated, setUpdated] = useState("");
@@ -20,19 +30,69 @@ const EmpresaForm = () => {
     defaultValues: state.userInformation.data,
   });
 
+  let isOrg = true;
+
   const onSubmit = (data) => {
     if (!state.userInformation.organization) {
       createOrganization(data).then((res) => {
         if (res.data !== undefined) {
           setUpdated(res);
+          if (res?.data?.status && res?.data?.status === "success") {
+            store.addNotification({
+              title: "Organización creada correctamente!",
+              message: "Ahora puedes proceder a Manejar  tu Organización",
+              type: "success",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 6000,
+                onScreen: true
+              }
+            });
+          }
         }
       });
     } else {
       data.id = state.userInformation.organization;
       editOrganization(data).then((res) => {
         if (res.data !== undefined) {
-          setDisabled(true);
-          setUpdated(res);
+          if (res.data.status && res.data.status === "success") {
+            setDisabled(true);
+            console.log(res)
+            store.addNotification({
+              title: "Organización editada correctamente!",
+              message: "Ahora puedes proceder a Manejar  tu Organización",
+              type: "success",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 6000,
+                onScreen: true
+              }
+            });
+            setUpdated(res);
+          } else if (res.data.status && res.data.status === "fail") {
+            console.log(res)
+
+            store.addNotification({
+              title: "Ha ocurrido un error",
+              message: res.data.message,
+              type: "danger",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 6000,
+                onScreen: true
+              }
+            });
+          }
+
         }
       });
     }
@@ -55,7 +115,7 @@ const EmpresaForm = () => {
   return (
     <form className="userform" onSubmit={handleSubmit(onSubmit)}>
       <div className="userform__LIP">
-        <PicSelector></PicSelector>
+        <PicSelector isOrg={isOrg}></PicSelector>
       </div>
       <div className="userform__2col">
         <div className="userform__LIP">
@@ -83,7 +143,7 @@ const EmpresaForm = () => {
           <input
             disabled={disabled}
             className="userform__input"
-            type="text"
+            type="number"
             name="RNC"
             pattern="[0-9]+"
             title="Por solo incluya numeros en el campo"
@@ -93,6 +153,12 @@ const EmpresaForm = () => {
                 message: "Por favor utilice 9 caracteres para su RNC",
               },
             })}
+            inputMode="numeric"
+            autoComplete="cc-number"
+            onChange={(e) => {
+              const { value } = e.target
+              e.target.value = normalizeId(value)
+            }}
           />
           <ErrorMessage
             errors={errors}
@@ -133,9 +199,15 @@ const EmpresaForm = () => {
           <span className="userform__label">Teléfono</span>
           <input
             className="userform__input"
-            type="text"
+            type="number"
             name="phone"
             ref={register}
+            inputMode="numeric"
+            autoComplete="cc-number"
+            onChange={(e) => {
+              const { value } = e.target
+              e.target.value = normalizePhone(value)
+            }}
           />
           <ErrorMessage
             errors={errors}
@@ -176,16 +248,16 @@ const EmpresaForm = () => {
           </span>
         </div>
       </div>
-      {typeof updated.data !== "undefined" &&
-      updated.data.status === "success" ? (
-        <div className="input__msg input__msg--success">
-          El perfil de {updated.data.data.organization.name} fue actualizado
+      {/* {typeof updated.data !== "undefined" &&
+        updated.data.status === "success" ? (
+          <div className="input__msg input__msg--success">
+            El perfil de {updated.data.data.organization.name} fue actualizado
           correctamente
-        </div>
-      ) : (
-        ""
-      )}
-      <div className="input__msg input__msg--error">{updated.message}</div>
+          </div>
+        ) : (
+          ""
+        )} */}
+      {/* <div className="input__msg input__msg--error">{updated.message}</div> */}
       <input
         className="custom-button bg-green"
         type="submit"

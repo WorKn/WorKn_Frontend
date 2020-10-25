@@ -12,7 +12,7 @@ import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 
 const RegisterPageC2 = () => {
-  const [userObject, setUserObject] = useState('');
+  const [userObject, setUserObject] = useState("");
   const [gotResponse, setGotResponse] = useState(false);
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, watch, errors } = useForm({
@@ -25,6 +25,7 @@ const RegisterPageC2 = () => {
     state.userInformation.organizationRole = "owner";
     action(data);
     setGotResponse(true);
+    action({ hasCreatedAccount: true })
   };
 
   useEffect(() => {
@@ -39,19 +40,19 @@ const RegisterPageC2 = () => {
   useEffect(() => {
     if (userObject.data !== undefined && userObject.data.status === "success") {
       action(userObject.data.data.user);
-      Cookies.set("jwt", userObject.data.token);
+      Cookies.set("jwt", userObject.data.token, { expires: 7 });
     }
     const user = Cookies.get("jwt");
     if (user && state.userInformation.category && state.userInformation.tags) {
       auth.login();
-      push("/userprofilepage");
+      push("/userprofile");
     } else if (
       user &&
       !state.userInformation.category &&
       !state.userInformation.tags
     ) {
       auth.login();
-      push("/userprofilepage");
+      push("/userprofile");
       console.log("not completed!");
     }
   }, [
@@ -61,8 +62,6 @@ const RegisterPageC2 = () => {
     state.userInformation.category,
     state.userInformation.tags,
   ]);
-
-  
 
   const password = useRef({});
   password.current = watch("password", "");
@@ -214,7 +213,7 @@ const RegisterPageC2 = () => {
           <div className="ctext-separator">
             <span className="remind-me">
               Ya tienes cuenta? {""}
-              <a className="popup-link " href="/loginpage">
+              <a className="popup-link " href="/login">
                 Inicia sesión
               </a>
             </span>

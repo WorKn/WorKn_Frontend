@@ -9,11 +9,9 @@ if (process.env.REACT_APP_ENV === "staging") {
   HOST = process.env.REACT_APP_STAGING_HOST;
 }
 
-const accessToken = Cookies.get("jwt");
-
 axios.interceptors.request.use(
   (config) => {
-    config.headers.authorization = `Bearer ${accessToken}`;
+    config.headers.authorization = `Bearer ${Cookies.get("jwt")}`;
     return config;
   },
   (error) => {
@@ -23,7 +21,8 @@ axios.interceptors.request.use(
 
 export const testing = async () => {
   try {
-    const response = await axios.get(`${HOST}`);
+    const request = axios.get(`${HOST}/`, { withCredentials: true });
+    const response = await request;
     return response;
   } catch (e) {
     return e;
@@ -134,7 +133,7 @@ export const updatePassword = async (user) => {
     );
     return response;
   } catch (e) {
-    return e.response.data.status;
+    return e.response;
   }
 };
 
@@ -143,9 +142,9 @@ export const validateEmail = async (token) => {
     const response = await axios.patch(
       `${HOST}/api/v1/users/validateEmail/${token}`
     );
-    return response.data.status;
+    return response;
   } catch (e) {
-    return false;
+    return e.response.data;
   }
 };
 
@@ -179,11 +178,9 @@ export const sendEmail = async (user) => {
   }
 };
 
-export const sendImage = async (image) => {
-  console.log(image);
+export const sendUserProfilePicture = async (image) => {
   const fd = new FormData();
   fd.append("profilePicture", image);
-  console.log(fd);
   const config = {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -205,9 +202,7 @@ export const sendImage = async (image) => {
 
 export const getMyOrganization = async () => {
   try {
-    const response = await axios.get(
-      `${HOST}/api/v1/organizations/myOrganization`
-    );
+    const response = await axios.get(`${HOST}/api/v1/organizations/me`);
     return response;
   } catch (e) {
     return e;
@@ -225,6 +220,15 @@ export const createOrganization = async (org) => {
       email: org.email,
     });
     return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const getOrgById = async (id) => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/organizations/${id}`);
+    return response.data;
   } catch (e) {
     return e.response.data;
   }
@@ -249,7 +253,6 @@ export const signUpOrganizationMember = async (user) => {
 };
 
 export const resetPassword = async (user) => {
-  console.log(user);
   try {
     const response = await axios.patch(
       `${HOST}/api/v1/users/resetPassword/${user.myToken}`,
@@ -266,7 +269,7 @@ export const resetPassword = async (user) => {
 
 export const editOrganization = async (org) => {
   try {
-    const response = await axios.patch(`${HOST}/api/v1/organizations/`, {
+    const response = await axios.patch(`${HOST}/api/v1/organizations/me`, {
       name: org.name,
       RNC: org.RNC,
       bio: org.bio,
@@ -276,7 +279,27 @@ export const editOrganization = async (org) => {
     });
     return response;
   } catch (e) {
-    return e.response.data;
+    return e.response;
+  }
+};
+
+export const sendOrgProfilePicture = async (image) => {
+  const fd = new FormData();
+  fd.append("profilePicture", image);
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  };
+  try {
+    const response = await axios.patch(
+      `${HOST}/api/v1/organizations/me`,
+      fd,
+      config
+    );
+    return response;
+  } catch (err) {
+    return err;
   }
 };
 
@@ -293,7 +316,7 @@ export const sendInvitation = async (org) => {
     );
     return response;
   } catch (e) {
-    return e.response.data;
+    return e.response;
   }
 };
 
@@ -315,7 +338,7 @@ export const removeMember = async (id) => {
     );
     return response;
   } catch (e) {
-    return e.response.data;
+    return e.response;
   }
 };
 
@@ -327,7 +350,7 @@ export const updateMemberRole = async (id, role) => {
     });
     return response;
   } catch (e) {
-    return e.response.data;
+    return e.response;
   }
 };
 

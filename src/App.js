@@ -22,7 +22,11 @@ import SummaryPage from "./pages/summary-page/SummaryPage";
 import NotFound from "./pages/not_found-page/not_found";
 import ExplorePage from "./pages/explore-page/ExplorePage";
 import ParticularUserProfilePage from "./pages/particularuserprofile-page/ParticularUserProfilePage";
+import EmpresaViewPage from "./pages/viewside-page/EmpresaViewPage";
+import ReactNotification from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
 
+// import ChatPage from "./pages/chat-page/ChatPage";
 require("dotenv").config({ path: "./.env" });
 
 function App() {
@@ -35,16 +39,17 @@ function App() {
 
   return (
     <div className="App">
+      <ReactNotification />
       {transitions.map(({ item, props, key }) => (
         <animated.div key={key} style={props}>
           <Switch location={item}>
             <Route exact path="/" component={LandingPage} />
-            <Route exact path="/LandingPage" component={LandingPage} />
-            <Redirect exact from="/" to="/LandingPage" />
-            <Route exact path="/registerpage" component={RegisterPage} />
-            <Route exact path="/registerpagec1" component={RegisterPageC1} />
-            <Route exact path="/registerpagec2" component={RegisterPageC2} />
-            <Route exact path="/loginpage" component={LoginPage} />
+            <Route exact path="/landing" component={LandingPage} />
+            <Redirect exact from="/" to="/landing" />
+            <Route exact path="/register" component={RegisterPage} />
+            <Route exact path="/registerc1" component={RegisterPageC1} />
+            <Route exact path="/registerc2" component={RegisterPageC2} />
+            <Route exact path="/login" component={LoginPage} />
             <Route
               exact
               path="/forgotPassword"
@@ -62,12 +67,12 @@ function App() {
             />
             <ProtectedRoute
               exact
-              path="/userprofilepage"
+              path="/userprofile"
               component={UserProfilePage}
             />
             <ProtectedRoute
               exact
-              path="/empresaprofilepage"
+              path="/organizationprofile"
               component={EmpresaProfilePage}
             />
             <Route
@@ -87,11 +92,17 @@ function App() {
               path="/addMember/:orgid/:token"
               component={AddMember}
             />
+            <Route
+              exact
+              path="/organizations/:id"
+              component={EmpresaViewPage}
+            />
             <Route exact path="/manageoffers" component={ManageOffersPage} />
             <Route exact path="/addMember/:token" component={AddMember} />
-            <Route exact path="/resumen" component={SummaryPage} />
+            <Route exact path="/summary" component={SummaryPage} />
             <Route exact path="/explore" component={ExplorePage} />
             <Route exact path="/managemembers" component={ManagePopup} />
+            {/* <Route exact path="/chat" component={ChatPage} /> */}
             <Route path="*" component={NotFound} />
           </Switch>
         </animated.div>

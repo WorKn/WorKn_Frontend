@@ -12,6 +12,8 @@ import categoryContext from "../../utils/categoryContext";
 import CategoryInput from "../input-components/CategoryInput";
 import tagsContext from "../../utils/tagsContext";
 import TagsInput from "../input-components/TagsInput";
+import { store } from 'react-notifications-component';
+
 
 const EditOfferPopup = ({ hide, offerInfo }) => {
   const { register, handleSubmit, errors } = useForm({
@@ -48,8 +50,34 @@ const EditOfferPopup = ({ hide, offerInfo }) => {
       console.log(res);
       if (res === "success") {
         setSuccess(true);
+        store.addNotification({
+          title: "Oferta editada exitosamente",
+          message: "Su oferta será mostrada a los usuarios en WorKn.",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 6000,
+            onScreen: true
+          }
+        });
       } else {
         setSuccess(false);
+        store.addNotification({
+          title: "Ha ocurrido un error",
+          message: res?.message,
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 6000,
+            onScreen: true
+          }
+        });
       }
     });
     console.log(data);
@@ -58,11 +86,8 @@ const EditOfferPopup = ({ hide, offerInfo }) => {
   return (
     <categoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
       <tagsContext.Provider value={{ selectedTags, setSelectedTags }}>
-        <div className="create-offer__container">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="create-offer__form"
-          >
+        <div className="popup-wrapper">
+          <form onSubmit={handleSubmit(onSubmit)} className="sizing-container">
             <div className="create-offer__header">
               <h1 className="create-offer__header-title">Edicion de ofertas</h1>
               <i

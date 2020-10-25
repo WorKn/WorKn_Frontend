@@ -12,13 +12,14 @@ import Cookies from "js-cookie";
 
 const RegisterPageC1 = () => {
   const [gotResponse, setGotResponse] = useState(false);
-  const [userObject, setUserObject] = useState('');
+  const [userObject, setUserObject] = useState("");
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, errors } = useForm();
   const { push } = useHistory();
   const onSubmit = (data) => {
     state.userInformation.organizationRole = "";
     action(data);
+    action({ hasCreatedAccount: true })
     setGotResponse(true);
   };
 
@@ -35,19 +36,19 @@ const RegisterPageC1 = () => {
   useEffect(() => {
     if (userObject.data !== undefined && userObject.data.status === "success") {
       action(userObject.data.data.user);
-      Cookies.set("jwt", userObject.data.token);
+      Cookies.set("jwt", userObject.data.token, { expires: 7 });
     }
     const user = Cookies.get("jwt");
     if (user && state.userInformation.category && state.userInformation.tags) {
       auth.login();
-      push("/userprofilepage");
+      push("/userprofile");
     } else if (
       user &&
       !state.userInformation.category &&
       !state.userInformation.tags
     ) {
       auth.login();
-      push("/userprofilepage");
+      push("/userprofile");
       console.log("not completed!");
     }
   }, [
@@ -63,7 +64,7 @@ const RegisterPageC1 = () => {
       <div className="green-line">
         <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
           <span>
-            <a href="/registerpage" className="backtick">
+            <a href="/register" className="backtick">
               <i class="fa fa-chevron-left"></i>Volver
             </a>
           </span>

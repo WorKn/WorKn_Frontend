@@ -6,6 +6,8 @@ import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import { ErrorMessage } from "@hookform/error-message";
 import { getAge } from "../../utils/ageCalculation";
+import auth from "../../utils/authHelper";
+import Cookies from "js-cookie";
 import {
   signUpOrganizationMember,
   getInvitationInfo,
@@ -17,38 +19,40 @@ const AddMember = ({
   },
 }) => {
   const [orgInfo, setOrgInfo] = useState("");
-  const { state } = useStateMachine(updateAction);
+  const [userObject, setUserObject] = useState("");
+  const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, watch, errors } = useForm({
     defaultValues: state.userInformation,
   });
   const { push } = useHistory();
   const onSubmit = (data) => {
     // action(data);
-    console.log(data);
     data.token = token;
-    if (state.userInformation.organization === "") {
-      signUpOrganizationMember(data).then((res) => {
+    action(data);
+  };
+
+  useEffect(() => {
+    if (state.userInformation) {
+      signUpOrganizationMember(state.userInformation).then((res) => {
         console.log(res);
-        push("/loginpage");
+        setUserObject(res);
       });
     } else {
       console.log("loading");
     }
-    // state.userInformation.organizationRole = "owner";
-    // action(data);
-    // setGotResponse(true);
-  };
+  }, [state.userInformation]);
 
-  // useEffect(() => {
-  //   if (state.userInformation.organization == "") {
-  //     signUpOrganizationMember(state.userInformation).then((res) => {
-  //       console.log(res);
-  //     });
-  //     // push("/loginpage");
-  //   } else {
-  //     console.log("loading");
-  //   }
-  // }, [state.userInformation]);
+  useEffect(() => {
+    if (userObject.data !== undefined && userObject.data.status === "success") {
+      action(userObject.data.data.user);
+      Cookies.set("jwt", userObject.data.token, { expires: 7 });
+    }
+    const user = Cookies.get("jwt");
+    if (user) {
+      auth.login();
+      push("/userprofile");
+    }
+  }, [userObject, push, action]);
 
   useEffect(() => {
     getInvitationInfo(token).then((res) => {
@@ -73,14 +77,14 @@ const AddMember = ({
           </div>
           <span className="popup-title">Registra tu cuenta </span>
           {typeof orgInfo.data !== "undefined" &&
-          orgInfo.data.status === "success" ? (
-            <span className="sub-title">
-              Estás siendo invitado a {orgInfo.data.data.organization.name} con
+            orgInfo.data.status === "success" ? (
+              <span className="sub-title">
+                Estás siendo invitado a {orgInfo.data.data.organization.name} con
               el rol de {orgInfo.data.data.invitedRole}{" "}
-            </span>
-          ) : (
-            ""
-          )}
+              </span>
+            ) : (
+              ""
+            )}
 
           <div className="paired-container">
             <div className="paired-input">

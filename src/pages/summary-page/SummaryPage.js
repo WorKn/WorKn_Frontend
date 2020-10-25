@@ -38,7 +38,10 @@ const SummaryPage = () => {
     ) {
       getMyInteractions().then((res) => {
         setApplied(res.data.data.interactions.applied);
-        setInterested(res.data.data.interactions.interested);
+        const filteredInterested = res.data.data.interactions.interested.filter(
+          (interaction) => !interaction.rejected
+        );
+        setInterested(filteredInterested);
         setMatches(res.data.data.interactions.match);
         console.log(res);
       });
@@ -62,6 +65,10 @@ const SummaryPage = () => {
     }
   }, [selectedOffer, state.userInformation.userType]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <div className="summarypage">
       <Header />
@@ -73,17 +80,32 @@ const SummaryPage = () => {
             Estas empresas están interesadas en tí
           </span>
           {interested?.map((i) => (
-            <OfferStrip key={i._id} responseInfo={i}></OfferStrip>
+            <OfferStrip
+              key={i._id}
+              responseInfo={i}
+              interactionId={i._id}
+              isInteraction="true"
+            ></OfferStrip>
           ))}
           <span className="summarypage__title">
             Demostraste interés por estas ofertas
           </span>
           {applied?.map((a) => (
-            <OfferStrip key={a._id} responseInfo={a}></OfferStrip>
+            <OfferStrip
+              key={a._id}
+              responseInfo={a}
+              interactionId={a._id}
+              isInterested="true"
+            ></OfferStrip>
           ))}
           <span className="summarypage__title">Matches</span>
           {match?.map((m) => (
-            <OfferStrip key={m._id} responseInfo={m}></OfferStrip>
+            <OfferStrip
+              key={m._id}
+              interactionId={m._id}
+              responseInfo={m}
+              isMatch="true"
+            ></OfferStrip>
           ))}
         </div>
       ) : (
@@ -116,18 +138,33 @@ const SummaryPage = () => {
               Estas personas están interesadas
             </span>
             {applied?.map((a) => (
-              <OfferStrip key={a._id} responseInfo={a}></OfferStrip>
+              <OfferStrip
+                key={a._id}
+                responseInfo={a}
+                interactionId={a._id}
+                isInteraction="true"
+              ></OfferStrip>
             ))}
             <span className="summarypage__title">
               Demostraste interés por estas personas
             </span>
             {interested?.map((i) => (
-              <OfferStrip key={i._id} responseInfo={i}></OfferStrip>
+              <OfferStrip
+                key={i._id}
+                responseInfo={i}
+                interactionId={i._id}
+                isInterested="true"
+              ></OfferStrip>
             ))}
 
             <span className="summarypage__title">Matches</span>
             {match?.map((m) => (
-              <OfferStrip key={m._id} responseInfo={m}></OfferStrip>
+              <OfferStrip
+                key={m._id}
+                interactionId={m._id}
+                responseInfo={m}
+                isMatch="true"
+              ></OfferStrip>
             ))}
           </div>{" "}
         </div>

@@ -4,6 +4,8 @@ import "../../App.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { sendInvitation } from "../../utils/apiRequests";
+import { store } from 'react-notifications-component';
+
 // import updateAction from "../../updateAction";
 // import { useStateMachine } from "little-state-machine";
 
@@ -15,11 +17,40 @@ const MembersPopup = () => {
   newPassword.current = watch("newPassword", "");
 
   const onSubmit = (data, e) => {
-    console.log(data);
     sendInvitation(data).then((res) => {
       if (res.data !== undefined) {
-        setInvited(res);
-        e.target.reset();
+        if (res?.data?.status && res?.data?.status === "success") {
+          setInvited(res);
+          e.target.reset();
+          store.addNotification({
+            title: "Invitacón enviada correctamente",
+            message: "El usuario recibirá un correo para registrar su cuenta",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 6000,
+              onScreen: true
+            }
+          });
+        } else if (res?.data?.status && res?.data?.status === "fail") {
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: res?.data?.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 6000,
+              onScreen: true
+            }
+          });
+        }
+
       }
     });
   };
@@ -56,19 +87,21 @@ const MembersPopup = () => {
             ref={register({
               required: "Por favor ingrese el correo a invitar",
             })}
+            placeholder="test"
           >
+            <option selected value="Por favor seleccione un rol">Seleccione el rol del usuario</option>
             <option value="member">Miembro</option>
             <option value="supervisor">Supervisor</option>
           </select>
         </div>
-        {typeof invited.data !== "undefined" &&
-        invited.data.status === "success" ? (
-          <div className="input__msg input__msg--success">
-            <i class="fa fa-check"></i> Usuario invitado correctamente
-          </div>
-        ) : (
-          ""
-        )}
+        {/* {typeof invited.data !== "undefined" &&
+          invited.data.status === "success" ? (
+            <div className="input__msg input__msg--success">
+              <i class="fa fa-check"></i> Usuario invitado correctamente
+            </div>
+          ) : (
+            ""
+          )} */}
 
         <input
           className="custom-button bg-green"
@@ -85,7 +118,7 @@ const MembersPopup = () => {
           </p>
         </div>
         {/*
-        <NavLink to="/registerpage" style={{ textDecoration: "none" }}>
+        <NavLink to="/register" style={{ textDecoration: "none" }}>
           <span className="custom-button bg-green">
             <span>Persona</span>
           </span>
