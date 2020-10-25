@@ -20,7 +20,6 @@ import updateAction from "../../updateAction";
 import { useForm } from "react-hook-form";
 
 import "./ParticularUserProfilePage-Style.css";
-import { Container } from "react-bootstrap";
 
 const EmpresaViewPage = ({
   match: {
@@ -139,31 +138,31 @@ const EmpresaViewPage = ({
     <div className="pagewrap">
       <Header />
       <Banner image={"VfeSojP.png"}></Banner>
-      <div className="ProfileView">
-        <div className="ProfileView__up">
-          <div className="ProfileView__pp ProfileView__pp--mob">
+      <div className="pprofilepage">
+        <div className="pprofilepage__up">
+          <div className="pprofilepage__pp pprofilepage__pp--mob">
             <img
-              className="ProfileView__image ProfileView__image--mob"
+              className="pprofilepage__image pprofilepage__image--mob"
               src={userInfo?.profilePicture}
               alt="user profilepic"
             />
           </div>
-          <div className="ProfileView__bio">
-            <div className="ProfileView__bioleft">
+          <div className="pprofilepage__bio">
+            <div className="pprofilepage__bioleft">
               <h2>Biografía</h2>
-              <span className="ProfileView__up--span">{`${userInfo?.name} ${userInfo?.lastname}`}</span>
+              <span className="pprofilepage__up--span">{`${userInfo?.name} ${userInfo?.lastname}`}</span>
               <p>{MyDictionary[userInfo?.userType]}</p>
               <p>{userInfo?.bio}</p>
             </div>
           </div>
-          <div className="ProfileView__upper">
-            <div className="ProfileView__contact ProfileView__contact--mob">
+          <div className="pprofilepage__upper">
+            <div className="pprofilepage__contact pprofilepage__contact--mob">
               <h2>Contacto</h2>
-              <span className="ProfileView__up--span">Email:</span>
+              <span className="pprofilepage__up--span">Email:</span>
               <a href={`mailto:${userInfo?.email}`}>{`${userInfo?.email}`}</a>
             </div>
             {!isOfferer && (
-              <div className="ProfileView__tags ProfileView__tags--mob">
+              <div className="pprofilepage__tags pprofilepage__tags--mob">
                 <h2>{category}</h2>
                 <div className="tags-container">
                   {userInfo?.tags &&
@@ -177,31 +176,31 @@ const EmpresaViewPage = ({
                 </div>
               </div>
             )}
-            <div className="ProfileView__metrics ProfileView__metrics--mob">
+            <div className="pprofilepage__metrics pprofilepage__metrics--mob">
               <h2>Información</h2>
-              <span className="ProfileView__up--span">Al servicio desde</span>
+              <span className="pprofilepage__up--span">Al servicio desde</span>
               <p>{userInfo?.createdAt.substring(0, 10)}</p>
-              <span className="ProfileView__up--span">Rating </span>
+              <span className="pprofilepage__up--span">Rating </span>
               <p>4.75/5</p>
             </div>
           </div>
         </div>
 
         {isOfferer ? (
-          <div className="ProfileView__down">
+          <div className="pprofilepage__down">
             <h2>Ofertas</h2>
             <div className="ppp-offers">{activeOffers}</div>
           </div>
         ) : null}
 
-        <div className="ProfileView__rating">
-          <h2 className="ProfileView__rating-title">Reviews</h2>
+        <div className="pprofilepage__rating">
+          <h2 className="pprofilepage__rating-title">Reviews</h2>
           {!reviews ? (
             <p style={{ marginLeft: "30px" }}>
               Este usuario no tiene reviews públicas aun
             </p>
           ) : (
-            <div className="ProfileView__rating-container">
+            <div className="pprofilepage__rating-container">
               {reviews?.map((review) => (
                 <Review
                   key={review._id}
@@ -213,7 +212,6 @@ const EmpresaViewPage = ({
 
               {canLoadMoreReviews && (
                 <button
-                  className="ProfileView__generate-offers"
                   onClick={LoadMoreReviews}
                   className="create-review__submit load-reviews__submit"
                 >
@@ -222,20 +220,20 @@ const EmpresaViewPage = ({
               )}
             </div>
           )}
-          <div className="ProfileView__rating-container">
+          <div className="pprofilepage__rating-container">
             {canReview && (
-              <div className="ProfileView__rate-body">
-                <h2 className="ProfileView__rate-title">Publica tu review</h2>
-                <div className="ProfileView__rate-description">
-                  <div className="ProfileView__rating-pp">
+              <div className="pprofilepage__rate-body">
+                <h2 className="pprofilepage__rate-title">Publica tu review</h2>
+                <div className="pprofilepage__rate-description">
+                  <div className="pprofilepage__rating-pp">
                     <img
-                      className="ProfileView__rating-img ProfileView__rating-pp--mob"
+                      className="pprofilepage__rating-img pprofilepage__rating-pp--mob"
                       src={state?.userInformation?.profilePicture}
                       alt="user profilepic"
                     />
                   </div>
-                  <div className="ProfileView__form">
-                    <h3 className="ProfileView__rate-name">{`${state.userInformation.name} ${state.userInformation.lastname}`}</h3>
+                  <div className="pprofilepage__form">
+                    <h3 className="pprofilepage__rate-name">{`${state.userInformation.name} ${state.userInformation.lastname}`}</h3>
                     <form onSubmit={handleSubmit(onSubmit)}>
                       <StarRating
                         starValue={starValue}

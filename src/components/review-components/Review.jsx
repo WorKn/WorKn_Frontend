@@ -15,10 +15,10 @@ const ReviewBody = ({ review, userId, setReviews }) => {
   const { state } = useStateMachine(updateAction);
 
   return (
-    <div className="ProfileView__rating-body">
-      <div className="ProfileView__rating-pp">
+    <div className="pprofilepage__rating-body">
+      <div className="pprofilepage__rating-pp">
         <img
-          className="ProfileView__rating-img ProfileView__rating-pp--mob"
+          className="pprofilepage__rating-img pprofilepage__rating-pp--mob"
           src={review.createdBy.profilePicture}
           alt="user profilepic"
         />
@@ -33,8 +33,8 @@ const ReviewBody = ({ review, userId, setReviews }) => {
         ></EditReviewPopup>
       </EditReviewModal>
 
-      <div className="ProfileView__rating--description">
-        <div className="ProfileView__rating-header">
+      <div className="pprofilepage__rating--description">
+        <div className="pprofilepage__rating-header">
           <h2>{`${review.createdBy.name} ${review.createdBy.lastname}`}</h2>
           {review.createdBy._id === state.userInformation._id ? (
             <i className="fa fa-edit" onClick={showEditReviewModal}></i>
