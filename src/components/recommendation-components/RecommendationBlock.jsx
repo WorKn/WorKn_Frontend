@@ -4,10 +4,10 @@ import "./RecommendationBlock-Style.css";
 import RecommendationCard from "./RecommendationCard";
 
 const RecommendationBlock = ({ rec }) => {
-  const [itemsToShow, setItemsToShow] = useState(3);
+  const [itemsToShow, setItemsToShow] = useState(4);
 
   const showThreeMoreRecommendations = useCallback(() => {
-    setItemsToShow(itemsToShow + 3);
+    setItemsToShow(itemsToShow + 4);
   }, [itemsToShow]);
 
   const RecommendationCards = useMemo(
@@ -26,7 +26,7 @@ const RecommendationBlock = ({ rec }) => {
   return rec?.recommended.length ? (
     <div className="recommendationspage__recommendationblock">
       <span className="recommendationspage__rectitle">
-        Personas recomendadas para la oferta: <span>{rec.title}</span>
+        <span>{rec.title}</span>
       </span>
       <div className="recommendationspage__personlist">
         {RecommendationCards}
