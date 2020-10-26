@@ -1,0 +1,24 @@
+.recommendationspage__show-more {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  width: 158px;
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
+  background-color: #00ba6b;
+  border-radius: 10px;
+  padding: 15px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  border: none;
+  margin: 0px auto;
+}
+.recommendationspage__show-more:hover {
+  background-color: #44c767;
+}
+
+.recommendationspage__recommendationblock {
+  margin: 20px 0px;
+  width: 100%;
+}
