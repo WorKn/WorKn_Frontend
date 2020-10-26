@@ -18,6 +18,7 @@ import Review from "../../components/review-components/Review";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
 import { useForm } from "react-hook-form";
+import OfferCard from "../../components/offer-components/OfferCard";
 
 import "./ParticularUserProfilePage-Style.css";
 
@@ -78,19 +79,6 @@ const EmpresaViewPage = ({
       }
     });
   };
-  const activeOffers = useMemo(
-    () =>
-      myoffers.map((offer) =>
-        offer && offer.state !== "deleted" ? (
-          <OfferMini
-            key={offer._id}
-            organizationInformation={profilePicture}
-            offerInfo={offer}
-          ></OfferMini>
-        ) : null
-      ),
-    [myoffers, profilePicture]
-  );
 
   useEffect(() => {
     getUserById(id).then((res) => {
@@ -110,9 +98,7 @@ const EmpresaViewPage = ({
           getOffersByUserId(id).then((res) => {
             setMyOffers(res.data?.data?.data);
           });
-          setMyProfilePicture({
-            profilePicture: res.data?.data?.profilePicture,
-          });
+          setMyProfilePicture(res.data?.data?.profilePicture);
         } else {
           getCategoryById(res.data.data.category).then((resp) => {
             setCategory(resp.data.data[0].name);
@@ -133,6 +119,23 @@ const EmpresaViewPage = ({
     });
     // eslint-disable-next-line
   }, []);
+
+  console.log("your profile pic is>");
+  console.log(profilePicture);
+
+  const activeOffers = useMemo(
+    () =>
+      myoffers.map((offer) =>
+        offer && offer.state !== "deleted" ? (
+          <OfferCard
+            key={offer._id}
+            profilePic={profilePicture}
+            offerInfo={offer}
+          ></OfferCard>
+        ) : null
+      ),
+    [myoffers, profilePicture]
+  );
 
   return (
     <div className="pagewrap">
