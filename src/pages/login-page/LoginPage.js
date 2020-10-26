@@ -77,7 +77,7 @@ const LoginPage = React.memo((props) => {
         action({ isUserFromNav: false })
       }, 1500)
     }
-  }, [])
+  }, [action, showQuestionModal, state.userInformation.isUserFromNav])
 
 
   useEffect(() => {
@@ -92,7 +92,7 @@ const LoginPage = React.memo((props) => {
           animationIn: ["animate__animated", "animate__fadeIn"],
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
-            duration: 5000,
+            duration: 10000,
             onScreen: true
           }
         });

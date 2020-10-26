@@ -59,7 +59,7 @@ const EditOfferPopup = ({ hide, offerInfo }) => {
           animationIn: ["animate__animated", "animate__fadeIn"],
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
-            duration: 6000,
+            duration: 10000,
             onScreen: true
           }
         });
@@ -74,7 +74,7 @@ const EditOfferPopup = ({ hide, offerInfo }) => {
           animationIn: ["animate__animated", "animate__fadeIn"],
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
-            duration: 6000,
+            duration: 10000,
             onScreen: true
           }
         });
