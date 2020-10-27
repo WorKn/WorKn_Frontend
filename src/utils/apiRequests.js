@@ -133,7 +133,7 @@ export const updatePassword = async (user) => {
     );
     return response;
   } catch (e) {
-    return e.response.data.status;
+    return e.response;
   }
 };
 
@@ -279,7 +279,7 @@ export const editOrganization = async (org) => {
     });
     return response;
   } catch (e) {
-    return e.response.data;
+    return e.response;
   }
 };
 
@@ -316,7 +316,7 @@ export const sendInvitation = async (org) => {
     );
     return response;
   } catch (e) {
-    return e.response.data;
+    return e.response;
   }
 };
 

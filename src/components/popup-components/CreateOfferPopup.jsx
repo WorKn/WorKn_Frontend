@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { createOffer } from "../../utils/apiRequests";
 
 import { ErrorMessage } from "@hookform/error-message";
-
+import { store } from 'react-notifications-component';
 import categoryContext from "../../utils/categoryContext";
 import CategoryInput from "../input-components/CategoryInput";
 import tagsContext from "../../utils/tagsContext";
@@ -47,6 +47,33 @@ const CreateOfferPage = ({ hide }) => {
       console.log(res);
       if (res === "success") {
         setSuccess(true);
+        store.addNotification({
+          title: "Oferta creada exitosamente",
+          message: "Su oferta será mostrada a los usuarios en WorKn.",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 6000,
+            onScreen: true
+          }
+        });
+      } else {
+        store.addNotification({
+          title: "Ha ocurrido un error",
+          message: res?.message,
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 6000,
+            onScreen: true
+          }
+        });
       }
     });
     console.log(data);
