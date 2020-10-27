@@ -26,6 +26,7 @@ const OfferCard = ({ responseInfo, offerInfo, profilePic }) => {
         setOffererTitleRoute(responseInfo?.createdBy?.name);
       }
     }
+    // eslint-disable-next-line
   }, [responseInfo]);
 
   return (

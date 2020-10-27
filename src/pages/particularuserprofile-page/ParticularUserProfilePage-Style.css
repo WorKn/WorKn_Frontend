@@ -1,8 +1,7 @@
 .pprofilepage {
-  padding: 3vw 6vw;
+  padding: 2% 4%;
   font-size: 12px;
   color: #707070;
-  /* background-color: white; */
 }
 
 .pprofilepage h2 {
@@ -35,7 +34,7 @@
   height: 100%;
   width: 15%;
   padding-top: 24px;
-  /* background-color: blue; */
+
   flex: 0 1 15%;
   margin-right: 10px;
 }
@@ -64,7 +63,6 @@
   padding: 30px 10px;
   height: 100%;
   width: 100%;
-  /* background-color: yellow; */
 }
 
 .pprofilepage__bioleft p {
@@ -82,7 +80,6 @@
   height: 100%;
   width: 6%;
   padding-top: 30px;
-  /* background-color: plum; */
 }
 
 .pprofilepage__contact {
@@ -93,7 +90,6 @@
   height: 100%;
   flex: 0 1 15%;
   margin: 0 15px;
-  /* background-color: turquoise; */
 }
 
 .pprofilepage__contact a {
@@ -128,7 +124,6 @@
   height: 100%;
   flex: 0 1 15%;
   margin: 0 15px;
-  /* background-color: tomato; */
 }
 
 .pprofilepage__metrics span {
@@ -147,7 +142,6 @@
   height: 40%;
   width: inherit;
   margin-top: 50px;
-  /* background-color: lavender; */
 }
 
 .pprofilepage__offers {
@@ -321,7 +315,17 @@
 }
 
 .load-reviews__submit {
-  align-self: center;
+  justify-content: center;
+  display: flex;
+
+  align-items: center;
+}
+
+.load-reviews__title {
+  font-size: 16px;
+  margin: 20px 00px;
+  font-weight: 700;
+  margin-left: 20px;
 }
 
 .create-review__submit--mini {

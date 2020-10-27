@@ -11,7 +11,6 @@ import { useHistory } from "react-router-dom";
 import Header from "../../components/navbar-components/Navbar";
 import Banner from "../../components/banner-components/Banner";
 import Footer from "../../components/footer-components/Footer";
-import OfferMini from "../../components/offer-components/OfferMini";
 import Tag from "../../components/tag-components/Tag";
 import StarRating from "../../components/starrating-components/StarRating";
 import Review from "../../components/review-components/Review";
@@ -103,9 +102,7 @@ const EmpresaViewPage = ({
           getCategoryById(res.data.data.category).then((resp) => {
             setCategory(resp.data.data[0].name);
           });
-          // getAllReviews(res.data?.data?._id).then((resp) => {
-          //   setReviews(resp.data?.data.data);
-          // });
+
           getXReviews(res.data?.data?._id, currentPage, 5).then((resp) => {
             setReviews(resp.data?.data.data);
           });
@@ -119,9 +116,6 @@ const EmpresaViewPage = ({
     });
     // eslint-disable-next-line
   }, []);
-
-  console.log("your profile pic is>");
-  console.log(profilePicture);
 
   const activeOffers = useMemo(
     () =>
@@ -214,12 +208,15 @@ const EmpresaViewPage = ({
               ))}
 
               {canLoadMoreReviews && (
-                <button
+                <div
+                  className="addoffer__newbutton load-reviews__submit"
                   onClick={LoadMoreReviews}
-                  className="create-review__submit load-reviews__submit"
                 >
-                  Cargar más reviews
-                </button>
+                  <i className="fa fas fa-plus manageoffers__icon"></i>
+                  <span className="load-reviews__title">
+                    Cargar más reviews
+                  </span>
+                </div>
               )}
             </div>
           )}
