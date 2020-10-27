@@ -32,12 +32,15 @@ const RecommendationBlock = ({ rec }) => {
         {RecommendationCards}
       </div>
       {itemsToShow < rec.recommended.length && (
-        <button
-          className="recommendationspage__show-more"
-          onClick={showThreeMoreRecommendations}
-        >
-          Show More
-        </button>
+        <div className="manageoffers__activecontainer">
+          <div
+            className="addoffer__newbutton"
+            onClick={showThreeMoreRecommendations}
+          >
+            <i className="fa fas fa-plus manageoffers__icon"></i>
+            <span className="manageoffers__title--dark">Cargar más</span>
+          </div>
+        </div>
       )}
     </div>
   ) : null;

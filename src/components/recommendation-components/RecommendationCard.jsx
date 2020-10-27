@@ -28,7 +28,7 @@ const RecommendationCard = ({ personInfo, offerInfo }) => {
         setCategory(res.data?.data[0].name);
       });
     }
-  }, []);
+  }, [offerInfo, personInfo.category, personInfo.profilePicture]);
 
   return (
     <div>

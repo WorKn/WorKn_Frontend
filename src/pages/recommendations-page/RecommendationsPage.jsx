@@ -35,6 +35,7 @@ const RecommendationsPage = () => {
     } else {
       history.push("/login");
     }
+    // eslint-disable-next-line
   }, []);
 
   const oRecommendations = useMemo(
