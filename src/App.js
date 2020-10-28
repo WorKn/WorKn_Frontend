@@ -24,8 +24,7 @@ import ExplorePage from "./pages/explore-page/ExplorePage";
 import EmpresaViewPage from "./pages/viewside-page/EmpresaViewPage";
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
-
-// import ChatPage from "./pages/chat-page/ChatPage";
+import ChatPage from "./pages/chat-page/ChatPage";
 require("dotenv").config({ path: "./.env" });
 
 function App() {
@@ -95,7 +94,7 @@ function App() {
             <Route exact path="/summary" component={SummaryPage} />
             <Route exact path="/explore" component={ExplorePage} />
             <Route exact path="/managemembers" component={ManagePopup} />
-            {/* <Route exact path="/chat" component={ChatPage} /> */}
+            <Route exact path="/chat" component={ChatPage} />
             <Route path="*" component={NotFound} />
           </Switch>
         </animated.div>
