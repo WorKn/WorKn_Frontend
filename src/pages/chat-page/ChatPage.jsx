@@ -27,6 +27,14 @@ const ChatPage = () => {
       (res) => {
         if (res.data !== undefined) {
           console.log(res);
+
+          if (res.data.status === "success") {
+            socket.emit(
+              "chat_message",
+              state.userInformation.email,
+              message.current
+            );
+          }
         }
       }
     );
@@ -54,8 +62,8 @@ const ChatPage = () => {
   }, [submit]);
 
   useEffect(() => {
-    // console.log("Joining to chat. Room Id: ", state.userInformation.email);
-    // socket.emit("join_chat", state.userInformation.email);
+    console.log("Joining to chat. Room Id: ", state.userInformation.email);
+    socket.emit("join_chat", state.userInformation.email);
   }, []);
 
   useEffect(() => {
