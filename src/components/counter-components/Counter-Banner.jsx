@@ -13,7 +13,12 @@ function CounterBanner() {
           Usuarios Registrados
         </span>
         <span className="Counter-obj-container__down-text">
-          en nuestra <b>plataforma</b>
+          <b className="tooltip">Ofertantes
+            <span className="tooltiptext">Usuarios que solicitan alguien que trabaje para ellos.</span>
+          </b> y {""}
+          <b className="tooltip">Aplicantes
+            <span className="tooltiptext">Usuarios que ofrecen sus servicios aplicando a ofertas.</span>
+          </b> en nuestra plataforma
         </span>
       </div>
       <div className="Counter-obj-container">
@@ -23,7 +28,9 @@ function CounterBanner() {
           Empresas o negocios
         </span>
         <span className="Counter-obj-container__down-text">
-          buscando <b>empleados</b> como tú
+          Complementando sus <b className="tooltip">Organizaciones
+          <span className="tooltiptext">
+            </span></b>
         </span>
       </div>
       <div className="Counter-obj-container">
