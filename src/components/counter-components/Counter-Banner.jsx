@@ -30,6 +30,7 @@ function CounterBanner() {
         <span className="Counter-obj-container__down-text">
           Complementando sus <b className="tooltip">Organizaciones
           <span className="tooltiptext">
+              WorKn permite crear perfiles de organizaciones con miembros y roles.
             </span></b>
         </span>
       </div>
@@ -40,7 +41,12 @@ function CounterBanner() {
           Matches Realizados
         </span>
         <span className="Counter-obj-container__down-text">
-          encontramos la <b>oferta</b> perfecta
+          encontramos la <b className="tooltip">
+            <span className="tooltiptext">
+              Una oferta especifica el trabajo a realizar y su naturaleza.
+            </span>
+            Oferta
+            </b> perfecta
         </span>
       </div>
     </div>
