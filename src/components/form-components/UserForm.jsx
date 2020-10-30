@@ -266,15 +266,12 @@ const UserForm = () => {
                   </div>
 
                   <div className="userform__LIP">
-                    <span className="userform__label">
-                      Selecciona tu categoría
-                  </span>
+                    <span className="userform__label">Categoría <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Las categorías te permiten filtrar los tags.</span></i></span>
                     <CategoryInput></CategoryInput>
                   </div>
                   <div className="userform__LIP">
-                    <span className="userform__label">
-                      Selecciona tus etiquetas
-                  </span>
+                    <span className="userform__label">Etiquetas <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Son palabras clave que definen las habilidades que tienes para ofrecer.</span></i></span>
+
                     <TagsInput
                       query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
                     ></TagsInput>

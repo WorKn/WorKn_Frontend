@@ -183,7 +183,7 @@ const CreateOfferPage = ({ hide }) => {
             <CategoryInput></CategoryInput>
 
             <div className="create-offer__paired-input">
-              <span>Tags <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Son etiquetas que definen las habilidades que buscas para la oferta.</span></i></span>
+              <span>Etiquetas <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Son palabras clave que definen las habilidades que buscas para la oferta.</span></i></span>
 
               <TagsInput
                 query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
