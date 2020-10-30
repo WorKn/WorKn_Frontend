@@ -64,12 +64,12 @@ function App() {
               path="/landingpage/question"
               component={QuestionPopup}
             />
-            <ProtectedRoute
+            <Route
               exact
               path="/userprofile"
               component={UserProfilePage}
             />
-            <ProtectedRoute
+            <Route
               exact
               path="/organizationprofile"
               component={EmpresaProfilePage}
