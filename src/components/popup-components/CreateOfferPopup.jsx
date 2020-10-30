@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { createOffer } from "../../utils/apiRequests";
 
 import { ErrorMessage } from "@hookform/error-message";
-import { store } from 'react-notifications-component';
+import { store } from "react-notifications-component";
 import categoryContext from "../../utils/categoryContext";
 import CategoryInput from "../input-components/CategoryInput";
 import tagsContext from "../../utils/tagsContext";
@@ -22,10 +22,11 @@ const CreateOfferPage = ({ hide }) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [showSuccess, setSuccess] = useState(false);
 
-  //aniadir manualmente los atributos para asuntos de pruebas
+  // let MyDictionary = {};
+  // MyDictionary["offerer"] = "Ofertante";
+  // MyDictionary["applicant"] = "Aplicante";
 
   const onSubmit = (data) => {
-    console.log("SUBMITTED");
     data.category = selectedCategory.value;
     console.log(data.category);
     let newArray = [];
@@ -57,8 +58,8 @@ const CreateOfferPage = ({ hide }) => {
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
             duration: 6000,
-            onScreen: true
-          }
+            onScreen: true,
+          },
         });
       } else {
         store.addNotification({
@@ -71,8 +72,8 @@ const CreateOfferPage = ({ hide }) => {
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
             duration: 6000,
-            onScreen: true
-          }
+            onScreen: true,
+          },
         });
       }
     });
@@ -143,8 +144,8 @@ const CreateOfferPage = ({ hide }) => {
                   required: "Por favor seleccione un tipo de oferta",
                 })}
               >
-                <option value="free">Free</option>
-                <option value="fixed">Fixed</option>
+                <option value="free">Freelancer</option>
+                <option value="fixed">Fijo/Indefinido</option>
               </select>
 
               <ErrorMessage
