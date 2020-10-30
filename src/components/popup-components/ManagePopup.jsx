@@ -109,7 +109,7 @@ const ManagePopup = () => {
         <div className="members__container">
           <ul className="members__list">
             <span className="members__title">Manejo de miembros</span>
-            <table id="customers">
+            <table className="customers">
               <thead>
                 <tr>
                   <th>Nombre</th>
