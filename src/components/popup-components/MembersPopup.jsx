@@ -79,7 +79,7 @@ const MembersPopup = () => {
               </div>
             )}
           />
-          <span className="userform__label">Rol del invitado</span>
+          <span className='userform__label'>Rol de Invitado <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Un <b>supervisor</b> puede manejar invitaciones, miembros y ofertas. Un <b>miembro</b> solo puede manejar ofertas.</span></i></span>
           <select
             className="form__select"
             name="role"
