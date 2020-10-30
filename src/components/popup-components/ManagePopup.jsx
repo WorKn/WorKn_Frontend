@@ -9,6 +9,8 @@ import "./ManagePopup-Style.css";
 import { store } from 'react-notifications-component';
 import "./QuestionPopup-Style.css";
 
+
+
 const ManagePopup = () => {
   const [current, setCurrent] = useState("");
   // const [memberId, setMemberId] = useState("");
@@ -107,7 +109,35 @@ const ManagePopup = () => {
         <div className="members__container">
           <ul className="members__list">
             <span className="members__title">Manejo de miembros</span>
-            {state.userInformation.data.members.map((member) => (
+            <table id="customers">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Rol</th>
+                  <th>Control</th>
+                </tr>
+              </thead>
+              <tbody>
+                {state.userInformation.data.members.map((member) => (
+                  <tr key={member._id}>
+                    <td className='centered__row'><img
+                      className="members__profilepic"
+                      src={member.profilePicture}
+                      alt=""
+                    />{member.name}{" "}{member.lastname}</td>
+                    <td>{member.organizationRole}</td>
+                    <td className='control__container'><i onClick={() => {
+                      toggleEdit();
+                      setMemberToUpdate(member._id);
+                    }} className="fa fa-pencil-square-o edit__button"></i><i onClick={() => {
+                      sendMember(member._id);
+                    }} className="fa fa-times delete__button"></i></td>
+                  </tr>
+                ))
+                }
+              </tbody>
+            </table>
+            {/* {state.userInformation.data.members.map((member) => (
               <li className="members__item" key={member._id}>
                 <img
                   className="members__profilepic"
@@ -141,7 +171,7 @@ const ManagePopup = () => {
                   Editar
                 </button>
               </li>
-            ))}
+            ))} */}
           </ul>
 
           {typeof current.data !== "undefined" &&
