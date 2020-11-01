@@ -77,7 +77,7 @@ const LoginPage = React.memo((props) => {
         action({ isUserFromNav: false })
       }, 1500)
     }
-  }, [])
+  }, [action, showQuestionModal, state.userInformation.isUserFromNav])
 
 
   useEffect(() => {
