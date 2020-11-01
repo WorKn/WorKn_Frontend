@@ -55,7 +55,7 @@
 }
 .offerstrip__action {
   display: flex;
-  margin: 10px 0px;
+  margin: 10px 10px;
   width: auto;
   justify-content: flex-start;
   /* color: #00ba6b; */
@@ -74,6 +74,10 @@
 
 .offerstrip__action--red {
   color: #ee6055;
+}
+
+.offerstrip__control{
+  display: flex;
 }
 
 @media only screen and (max-width: 1490px) {
@@ -96,7 +100,7 @@
     flex-flow: column;
     justify-items: center;
     align-items: center;
-    height: 200px;
+    height: auto;
     margin: 10px;
   }
   .offerstrip__picture {
