@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import "./QuestionPopup-Style.css";
 import "../../App.css";
 import { useForm } from "react-hook-form";
@@ -10,7 +10,7 @@ import { store } from 'react-notifications-component';
 // import { useStateMachine } from "little-state-machine";
 
 const MembersPopup = () => {
-  const [invited, setInvited] = useState("");
+  // const [invited, setInvited] = useState("");
   // const { state } = useStateMachine(updateAction);
   const { register, handleSubmit, errors, watch } = useForm();
   const newPassword = useRef({});
@@ -20,7 +20,7 @@ const MembersPopup = () => {
     sendInvitation(data).then((res) => {
       if (res.data !== undefined) {
         if (res?.data?.status && res?.data?.status === "success") {
-          setInvited(res);
+          // setInvited(res);
           e.target.reset();
           store.addNotification({
             title: "Invitacón enviada correctamente",
