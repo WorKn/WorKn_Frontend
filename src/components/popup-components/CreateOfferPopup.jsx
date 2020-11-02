@@ -4,9 +4,8 @@ import "./CreateOfferPopup-Style.css";
 import "./QuestionPopup-Style.css";
 import "./PasswordPopup-Style.css";
 import { useForm } from "react-hook-form";
-
 import { createOffer } from "../../utils/apiRequests";
-
+import { getMyOffers } from "../../utils/apiRequests";
 import { ErrorMessage } from "@hookform/error-message";
 import { store } from "react-notifications-component";
 import categoryContext from "../../utils/categoryContext";
@@ -14,7 +13,7 @@ import CategoryInput from "../input-components/CategoryInput";
 import tagsContext from "../../utils/tagsContext";
 import TagsInput from "../input-components/TagsInput";
 
-const CreateOfferPage = ({ hide }) => {
+const CreateOfferPage = ({ hide, setMyOffers }) => {
   const { register, handleSubmit, errors } = useForm({
     // mode: "onBlur",
   });
@@ -58,8 +57,12 @@ const CreateOfferPage = ({ hide }) => {
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
             duration: 10000,
-            onScreen: true
-          }
+            onScreen: true,
+          },
+        });
+
+        getMyOffers().then((res) => {
+          setMyOffers(res.data.data.offers);
         });
       } else {
         store.addNotification({
@@ -72,8 +75,8 @@ const CreateOfferPage = ({ hide }) => {
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
             duration: 10000,
-            onScreen: true
-          }
+            onScreen: true,
+          },
         });
       }
     });
@@ -84,7 +87,13 @@ const CreateOfferPage = ({ hide }) => {
     <categoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
       <tagsContext.Provider value={{ selectedTags, setSelectedTags }}>
         <div className="popup-wrapper">
-          <form onSubmit={handleSubmit(onSubmit)} className="sizing-container">
+          <form
+            onSubmit={handleSubmit((data) => {
+              onSubmit(data);
+              hide();
+            })}
+            className="sizing-container"
+          >
             <div className="create-offer__header">
               <h1 className="create-offer__header-title">
                 Creación de ofertas
@@ -179,12 +188,27 @@ const CreateOfferPage = ({ hide }) => {
               />
             </div>
             <div className="create-offer__paired-input">
-              <span>Categoría <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Las categorías te permiten filtrar los tags.</span></i></span>
+              <span>
+                Categoría{" "}
+                <i className="fa fa-info-circle tooltip">
+                  <span className="tooltiptext">
+                    Las categorías te permiten filtrar los tags.
+                  </span>
+                </i>
+              </span>
             </div>
             <CategoryInput></CategoryInput>
 
             <div className="create-offer__paired-input">
-              <span>Etiquetas <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Son palabras clave que definen las habilidades que buscas para la oferta.</span></i></span>
+              <span>
+                Etiquetas{" "}
+                <i className="fa fa-info-circle tooltip">
+                  <span className="tooltiptext">
+                    Son palabras clave que definen las habilidades que buscas
+                    para la oferta.
+                  </span>
+                </i>
+              </span>
 
               <TagsInput
                 query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}

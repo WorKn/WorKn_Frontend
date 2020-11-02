@@ -14,6 +14,7 @@ const CustomOfferStrip = ({
   offerInfo,
   organizationInformation,
   isInactive,
+  setMyOffers,
 }) => {
   const {
     show: showOfferModal,
@@ -149,6 +150,7 @@ const CustomOfferStrip = ({
         <EditOfferPopup
           hide={hideEditOfferModal}
           offerInfo={offerInfo}
+          setMyOffers={setMyOffers}
         ></EditOfferPopup>
       </EditOfferModal>
       <span

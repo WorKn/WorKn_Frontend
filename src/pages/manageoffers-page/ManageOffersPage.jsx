@@ -44,6 +44,7 @@ const ManageOffersPage = () => {
             key={offer._id}
             organizationInformation={organizationInfo}
             offerInfo={offer}
+            setMyOffers={setMyOffers}
           ></CustomOfferStrip>
         ) : null
       ),
@@ -118,15 +119,18 @@ const ManageOffersPage = () => {
   ]);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   return success ? (
     <div className="manageoffers-container">
       <Header></Header>
       <Banner image={"qiyrYvI.png"} />
       <AddOfferModal>
-        <CreateOfferPopup hide={hideAddOfferModal}></CreateOfferPopup>
+        <CreateOfferPopup
+          hide={hideAddOfferModal}
+          setMyOffers={setMyOffers}
+        ></CreateOfferPopup>
       </AddOfferModal>
       <div className="manageoffers__container">
         <span className="manageoffers__title--dark">Ofertas Activas</span>
@@ -158,27 +162,27 @@ const ManageOffersPage = () => {
       </div>
     </div>
   ) : (
-      <div className="manageoffers-nv__container">
-        <div className="manageoffers-nv__body">
-          <img
-            src="https://i.imgur.com/cDCOxmU.png"
-            alt=""
-            className="manageoffers-nv__img"
-          />
-          <h1 className="manageoffers-nv__title">
-            Su correo no ha sido validado
+    <div className="manageoffers-nv__container">
+      <div className="manageoffers-nv__body">
+        <img
+          src="https://i.imgur.com/cDCOxmU.png"
+          alt=""
+          className="manageoffers-nv__img"
+        />
+        <h1 className="manageoffers-nv__title">
+          Su correo no ha sido validado
         </h1>
-          <span>
-            Lo sentimos, para acceder a este contenido requerimos que su cuenta de
-            correo esté validada; aparentemente su cuenta aun no ha sido validada,
-            por favor, diríjase a su correo para continuar con el proceso.
+        <span>
+          Lo sentimos, para acceder a este contenido requerimos que su cuenta de
+          correo esté validada; aparentemente su cuenta aun no ha sido validada,
+          por favor, diríjase a su correo para continuar con el proceso.
         </span>
-          <Link to="/userprofile" className="manageoffers-nv__button">
-            <div>Volver a tu perfil</div>
-          </Link>
-        </div>
+        <Link to="/userprofile" className="manageoffers-nv__button">
+          <div>Volver a tu perfil</div>
+        </Link>
       </div>
-    );
+    </div>
+  );
 };
 
 export default ManageOffersPage;
