@@ -87,10 +87,10 @@ const EditOfferPopup = ({ hide, offerInfo }) => {
           <form onSubmit={handleSubmit(onSubmit)} className="sizing-container">
             <div className="create-offer__header">
               <h1 className="create-offer__header-title">Edicion de ofertas</h1>
-              <i
+              {/* <i
                 className="fa fa-times offerstrip__icon offerstrip__delete"
                 onClick={hide}
-              ></i>
+              ></i> */}
             </div>
             <div className="create-offer__paired-input">
               <span>Título</span>

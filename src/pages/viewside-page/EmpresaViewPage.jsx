@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import Header from "../../components/navbar-components/Navbar";
 import Banner from "../../components/banner-components/Banner";
 import Footer from "../../components/footer-components/Footer";
-import OfferMini from "../../components/offer-components/OfferMini";
+import OfferCard from "../../components/offer-components/OfferCard";
 import "./EmpresaViewPage-Style.css";
 
 const EmpresaViewPage = ({
@@ -22,13 +22,13 @@ const EmpresaViewPage = ({
     () =>
       orgOffer.map((offer) =>
         offer &&
-        offer.organization?._id === orgInfo._id &&
+        offer.organization?._id === orgInfo?._id &&
         offer.state !== "deleted" ? (
-          <OfferMini
+          <OfferCard
             key={offer._id}
             organizationInformation={orgInfo}
             offerInfo={offer}
-          ></OfferMini>
+          ></OfferCard>
         ) : null
       ),
     [orgOffer, orgInfo]
@@ -56,6 +56,20 @@ const EmpresaViewPage = ({
       }
     });
   }, [id, history]);
+
+  let formatPhoneNumber = (str) => {
+    //Filter only numbers from the input
+    let cleaned = ("" + str).replace(/\D/g, "");
+
+    //Check if the input is of correct length
+    let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+
+    if (match) {
+      return "(" + match[1] + ")-" + match[2] + "-" + match[3];
+    }
+
+    return null;
+  };
   //kiwVnMm.png
   useEffect(() => {
     window.scrollTo(0, 0)

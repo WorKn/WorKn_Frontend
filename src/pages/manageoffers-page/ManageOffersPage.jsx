@@ -96,7 +96,7 @@ const ManageOffersPage = () => {
         } else if (!res.data && state.userInformation.userType !== "offerer") {
           history.push("/login");
         } else {
-          const organization = res.data.data.data;
+          const organization = res?.data?.data?.data;
           setMyOrganization(organization);
         }
       });
