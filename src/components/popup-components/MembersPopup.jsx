@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import "./QuestionPopup-Style.css";
 import "../../App.css";
 import { useForm } from "react-hook-form";
@@ -10,7 +10,7 @@ import { store } from 'react-notifications-component';
 // import { useStateMachine } from "little-state-machine";
 
 const MembersPopup = () => {
-  const [invited, setInvited] = useState("");
+  // const [invited, setInvited] = useState("");
   // const { state } = useStateMachine(updateAction);
   const { register, handleSubmit, errors, watch } = useForm();
   const newPassword = useRef({});
@@ -20,7 +20,7 @@ const MembersPopup = () => {
     sendInvitation(data).then((res) => {
       if (res.data !== undefined) {
         if (res?.data?.status && res?.data?.status === "success") {
-          setInvited(res);
+          // setInvited(res);
           e.target.reset();
           store.addNotification({
             title: "Invitacón enviada correctamente",
@@ -31,7 +31,7 @@ const MembersPopup = () => {
             animationIn: ["animate__animated", "animate__fadeIn"],
             animationOut: ["animate__animated", "animate__fadeOut"],
             dismiss: {
-              duration: 6000,
+              duration: 10000,
               onScreen: true
             }
           });
@@ -45,12 +45,11 @@ const MembersPopup = () => {
             animationIn: ["animate__animated", "animate__fadeIn"],
             animationOut: ["animate__animated", "animate__fadeOut"],
             dismiss: {
-              duration: 6000,
+              duration: 10000,
               onScreen: true
             }
           });
         }
-
       }
     });
   };
@@ -79,7 +78,7 @@ const MembersPopup = () => {
               </div>
             )}
           />
-          <span className="userform__label">Rol del invitado</span>
+          <span className='userform__label'>Rol de Invitado <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Un <b>supervisor</b> puede manejar invitaciones, miembros y ofertas. Un <b>miembro</b> solo puede manejar ofertas.</span></i></span>
           <select
             className="form__select"
             name="role"

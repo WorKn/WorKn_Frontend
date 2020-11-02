@@ -6,9 +6,18 @@ import DetailPopup from "../../components/popup-components/DetailPopup";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 
-const OfferCard = ({ responseInfo, offerInfo, profilePic }) => {
+const OfferCard = ({
+  responseInfo,
+  offerInfo,
+  organizationInformation,
+  profilePic,
+}) => {
   const { state } = useStateMachine(updateAction);
-  const { show: showDetailModal, RenderModal: DetailModal } = useModal();
+  const {
+    show: showDetailModal,
+    RenderModal: DetailModal,
+    hide: hideDetailModal,
+  } = useModal();
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
   let MyDictionary = {};
@@ -34,7 +43,10 @@ const OfferCard = ({ responseInfo, offerInfo, profilePic }) => {
       {responseInfo ? (
         <div>
           <DetailModal>
-            <DetailPopup responseInfo={responseInfo}></DetailPopup>
+            <DetailPopup
+              responseInfo={responseInfo}
+              hide={hideDetailModal}
+            ></DetailPopup>
           </DetailModal>
           {(typeof state.userInformation.userType !== "undefined" &&
             state.userInformation.userType === "applicant") ||
@@ -75,7 +87,7 @@ const OfferCard = ({ responseInfo, offerInfo, profilePic }) => {
                   <Tag
                     key={tag.id}
                     text={tag.name}
-                    theme="tag tag__text tag__text--gray"
+                    theme="tag tag_text tag_text--gray"
                   ></Tag>
                 ))}
               </div>
@@ -116,7 +128,7 @@ const OfferCard = ({ responseInfo, offerInfo, profilePic }) => {
                   <Tag
                     key={tag.id}
                     text={tag.name}
-                    theme="tag tag__text tag__text--gray"
+                    theme="tag tag_text tag_text--gray"
                   ></Tag>
                 ))}
               </div>
@@ -125,48 +137,91 @@ const OfferCard = ({ responseInfo, offerInfo, profilePic }) => {
         </div>
       ) : (
         <div>
-          <div className="offercard__wrapper">
-            <div className="offercard__header">
-              <img
-                src={profilePic}
-                alt="Profile"
-                className="offercard__picture"
-              ></img>
-              <div className="offercard__text">
-                <span className="offercard__text--title">
-                  {" "}
-                  {offerInfo.title}
-                </span>
-                <span className="offercard__text--subtitle">
-                  Por{" "}
-                  <span className="offercard__text--highlight">
-                    {offerInfo?.createdBy?.name}{" "}
-                    {offerInfo?.createdBy?.lastname}
-                  </span>{" "}
-                  en{" "}
-                  <span className="offercard__text--highlight">
-                    Santo Domingo
+          {organizationInformation ? (
+            <div className="offercard__wrapper">
+              <div className="offercard__header">
+                <img
+                  src={organizationInformation.profilePicture}
+                  alt="Offerpp"
+                  className="offercard__picture"
+                />
+                <div className="offercard__text">
+                  <span className="offercard__text--title">
+                    {offerInfo ? offerInfo.title : "Titulo no disponible"}
                   </span>
-                </span>
+                  <span className="offercard__text--subtitle">
+                    Por{" "}
+                    <span className="offercard__text--highlight">
+                      {organizationInformation.name}
+                    </span>{" "}
+                    en{" "}
+                    <span className="offercard__text--highlight">
+                      Santo Domingo
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div className="offercard__data">
+                {MyDictionary[offerInfo?.offerType]}
+                <div className="offercard__vl"></div>
+                <span>{offerInfo?.closingDate?.slice(0, 10)}</span>
+                <div className="offercard__vl"></div>
+                <span>{offerInfo?.category?.name}</span>
+              </div>
+              <div className="offercard__tags">
+                {offerInfo.tags.map((tag) => (
+                  <Tag
+                    key={tag._id}
+                    text={tag.name}
+                    theme="tag tag_text tag_text--gray "
+                  ></Tag>
+                ))}
               </div>
             </div>
-            <div className="offercard__data">
-              {MyDictionary[offerInfo?.offerType]}
-              <div className="offercard__vl"></div>
-              <span>{offerInfo?.closingDate?.slice(0, 10)}</span>
-              <div className="offercard__vl"></div>
-              <span>{offerInfo?.category?.name}</span>
+          ) : (
+            <div className="offercard__wrapper">
+              <div className="offercard__header">
+                <img
+                  src={profilePic}
+                  alt="Profile"
+                  className="offercard__picture"
+                ></img>
+                <div className="offercard__text">
+                  <span className="offercard__text--title">
+                    {" "}
+                    {offerInfo.title}
+                  </span>
+                  <span className="offercard__text--subtitle">
+                    Por{" "}
+                    <span className="offercard__text--highlight">
+                      {offerInfo?.createdBy?.name}{" "}
+                      {offerInfo?.createdBy?.lastname}
+                    </span>{" "}
+                    en{" "}
+                    <span className="offercard__text--highlight">
+                      Santo Domingo
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div className="offercard__data">
+                {MyDictionary[offerInfo?.offerType]}
+                <div className="offercard__vl"></div>
+                <span>{offerInfo?.closingDate?.slice(0, 10)}</span>
+                <div className="offercard__vl"></div>
+                <span>{offerInfo?.category?.name}</span>
+              </div>
+              <div className="offercard__tags">
+                {offerInfo?.tags.map((tag) => (
+                  <Tag
+                    key={tag.id}
+                    text={tag.name}
+                    theme="tag tag_text tag_text--gray"
+                  ></Tag>
+                ))}
+              </div>
             </div>
-            <div className="offercard__tags">
-              {offerInfo?.tags.map((tag) => (
-                <Tag
-                  key={tag.id}
-                  text={tag.name}
-                  theme="tag tag__text tag__text--gray"
-                ></Tag>
-              ))}
-            </div>
-          </div>
+          )}
         </div>
       )}
     </React.Fragment>

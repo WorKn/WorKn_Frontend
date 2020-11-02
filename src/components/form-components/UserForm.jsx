@@ -57,7 +57,7 @@ const UserForm = () => {
           animationIn: ["animate__animated", "animate__fadeIn"],
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
-            duration: 6000,
+            duration: 10000,
             onScreen: true
           }
         });
@@ -71,7 +71,7 @@ const UserForm = () => {
           animationIn: ["animate__animated", "animate__fadeIn"],
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
-            duration: 6000,
+            duration: 10000,
             onScreen: true
           }
         });
@@ -231,6 +231,7 @@ const UserForm = () => {
                     <div className="userform__tagscontainer">
                       {state.userInformation.tags.map((tag) => (
                         <Tag
+                          key={tag._id}
                           text={tag.name}
                           theme="tag tag__text tag__text--white"
                         ></Tag>
@@ -266,15 +267,12 @@ const UserForm = () => {
                   </div>
 
                   <div className="userform__LIP">
-                    <span className="userform__label">
-                      Selecciona tu categoría
-                  </span>
+                    <span className="userform__label">Categoría <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Las categorías te permiten filtrar los tags.</span></i></span>
                     <CategoryInput></CategoryInput>
                   </div>
                   <div className="userform__LIP">
-                    <span className="userform__label">
-                      Selecciona tus etiquetas
-                  </span>
+                    <span className="userform__label">Etiquetas <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Son palabras clave que definen las habilidades que tienes para ofrecer.</span></i></span>
+
                     <TagsInput
                       query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
                     ></TagsInput>
@@ -313,7 +311,7 @@ const UserForm = () => {
           />
         </form>
       </tagsContext.Provider>
-    </categoryContext.Provider>
+    </categoryContext.Provider >
   );
 };
 

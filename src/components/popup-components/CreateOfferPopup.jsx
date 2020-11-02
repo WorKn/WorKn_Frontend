@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { createOffer } from "../../utils/apiRequests";
 
 import { ErrorMessage } from "@hookform/error-message";
-import { store } from 'react-notifications-component';
+import { store } from "react-notifications-component";
 import categoryContext from "../../utils/categoryContext";
 import CategoryInput from "../input-components/CategoryInput";
 import tagsContext from "../../utils/tagsContext";
@@ -22,10 +22,11 @@ const CreateOfferPage = ({ hide }) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [showSuccess, setSuccess] = useState(false);
 
-  //aniadir manualmente los atributos para asuntos de pruebas
+  // let MyDictionary = {};
+  // MyDictionary["offerer"] = "Ofertante";
+  // MyDictionary["applicant"] = "Aplicante";
 
   const onSubmit = (data) => {
-    console.log("SUBMITTED");
     data.category = selectedCategory.value;
     console.log(data.category);
     let newArray = [];
@@ -56,7 +57,7 @@ const CreateOfferPage = ({ hide }) => {
           animationIn: ["animate__animated", "animate__fadeIn"],
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
-            duration: 6000,
+            duration: 10000,
             onScreen: true
           }
         });
@@ -70,7 +71,7 @@ const CreateOfferPage = ({ hide }) => {
           animationIn: ["animate__animated", "animate__fadeIn"],
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
-            duration: 6000,
+            duration: 10000,
             onScreen: true
           }
         });
@@ -88,10 +89,10 @@ const CreateOfferPage = ({ hide }) => {
               <h1 className="create-offer__header-title">
                 Creación de ofertas
               </h1>
-              <i
+              {/* <i
                 className="fa fa-times offerstrip__icon offerstrip__delete"
                 onClick={hide}
-              ></i>
+              ></i> */}
             </div>
             <div className="create-offer__paired-input">
               <span>Título</span>
@@ -143,8 +144,8 @@ const CreateOfferPage = ({ hide }) => {
                   required: "Por favor seleccione un tipo de oferta",
                 })}
               >
-                <option value="free">Free</option>
-                <option value="fixed">Fixed</option>
+                <option value="free">Freelancer</option>
+                <option value="fixed">Fijo/Indefinido</option>
               </select>
 
               <ErrorMessage
@@ -178,12 +179,12 @@ const CreateOfferPage = ({ hide }) => {
               />
             </div>
             <div className="create-offer__paired-input">
-              <span>Categoría</span>
+              <span>Categoría <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Las categorías te permiten filtrar los tags.</span></i></span>
             </div>
             <CategoryInput></CategoryInput>
 
             <div className="create-offer__paired-input">
-              <span>Tags</span>
+              <span>Etiquetas <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Son palabras clave que definen las habilidades que buscas para la oferta.</span></i></span>
 
               <TagsInput
                 query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}

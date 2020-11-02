@@ -31,6 +31,17 @@
   border-radius: 10px;
 }
 
+.modal--style {
+  /* display: flex;
+  justify-content: flex-end; */
+  color: #707070;
+  order: 1;
+  padding-top: 15px;
+  cursor: pointer;
+  width: 10%;
+  height: 35px;
+}
+
 @media screen and (max-width: 1000px) {
   .modal-box {
     max-width: 56%;
@@ -40,5 +51,8 @@
 @media screen and (max-width: 680px) {
   .modal-box {
     max-width: 95%;
+  }
+  .modal--style {
+    padding-top: 8px;
   }
 }
