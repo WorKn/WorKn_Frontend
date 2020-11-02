@@ -57,7 +57,7 @@ const UserForm = () => {
           animationIn: ["animate__animated", "animate__fadeIn"],
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
-            duration: 6000,
+            duration: 10000,
             onScreen: true
           }
         });
@@ -71,7 +71,7 @@ const UserForm = () => {
           animationIn: ["animate__animated", "animate__fadeIn"],
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
-            duration: 6000,
+            duration: 10000,
             onScreen: true
           }
         });
@@ -231,6 +231,7 @@ const UserForm = () => {
                     <div className="userform__tagscontainer">
                       {state.userInformation.tags.map((tag) => (
                         <Tag
+                          key={tag._id}
                           text={tag.name}
                           theme="tag tag__text tag__text--white"
                         ></Tag>
@@ -310,7 +311,7 @@ const UserForm = () => {
           />
         </form>
       </tagsContext.Provider>
-    </categoryContext.Provider>
+    </categoryContext.Provider >
   );
 };
 
