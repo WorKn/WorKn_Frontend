@@ -12,7 +12,7 @@ import QuestionPopup from "./components/popup-components/QuestionPopup";
 import UserProfilePage from "./pages/profile-page/UserProfilePage";
 import EmpresaProfilePage from "./pages/profile-page/EmpresaProfilePage";
 import ManageOffersPage from "./pages/manageoffers-page/ManageOffersPage";
-import { ProtectedRoute } from "./components/route-components/ProtectedRoute";
+// import { ProtectedRoute } from "./components/route-components/ProtectedRoute";
 import ManagePopup from "./components/popup-components/ManagePopup";
 import ForgotPasswordPage from "./pages/forgotpassword-page/ForgotPasswordPage.jsx";
 import NewPasswordPage from "./pages/newpassword-page/NewPasswordPage.jsx";
@@ -24,6 +24,7 @@ import ExplorePage from "./pages/explore-page/ExplorePage";
 import EmpresaViewPage from "./pages/viewside-page/EmpresaViewPage";
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
+
 
 // import ChatPage from "./pages/chat-page/ChatPage";
 require("dotenv").config({ path: "./.env" });
@@ -64,12 +65,12 @@ function App() {
               path="/landingpage/question"
               component={QuestionPopup}
             />
-            <ProtectedRoute
+            <Route
               exact
               path="/userprofile"
               component={UserProfilePage}
             />
-            <ProtectedRoute
+            <Route
               exact
               path="/organizationprofile"
               component={EmpresaProfilePage}
