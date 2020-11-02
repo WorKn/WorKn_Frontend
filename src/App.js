@@ -21,12 +21,11 @@ import AddMember from "./pages/addmember-page/AddMemberPage";
 import SummaryPage from "./pages/summary-page/SummaryPage";
 import NotFound from "./pages/not_found-page/not_found";
 import ExplorePage from "./pages/explore-page/ExplorePage";
+import ParticularUserProfilePage from "./pages/particularuserprofile-page/ParticularUserProfilePage";
 import EmpresaViewPage from "./pages/viewside-page/EmpresaViewPage";
 import RecommendationsPage from "./pages/recommendations-page/RecommendationsPage";
 import ReactNotification from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
-
-
 // import ChatPage from "./pages/chat-page/ChatPage";
 require("dotenv").config({ path: "./.env" });
 
@@ -85,6 +84,11 @@ function App() {
               exact
               path="/emailvalidation/:token"
               component={EmailValidation}
+            />
+            <Route
+              exact
+              path="/users/:id"
+              component={ParticularUserProfilePage}
             />
 
             <Route

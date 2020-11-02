@@ -458,6 +458,105 @@ export const deleteOffer = async (id) => {
   }
 };
 
+export const getUserById = async (id) => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/users/${id}`);
+    return response.data;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const getCategoryById = async (id) => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/categories/?_id=${id}`);
+    return response.data;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const getOffersByUserId = async (id) => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/offers/?createdBy=${id}`);
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
+export const getAllReviews = async (id) => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/users/${id}/reviews/`);
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
+export const getXReviews = async (id, quantity, limit) => {
+  try {
+    const response = await axios.get(
+      `${HOST}/api/v1/users/${id}/reviews?page=${quantity}&limit=${limit}`
+    );
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
+export const getReviewValidation = async (id) => {
+  try {
+    const response = await axios.get(
+      `${HOST}/api/v1/users/${id}/reviews/validation`
+    );
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
+export const createReview = async (userId, data) => {
+  try {
+    const response = await axios.post(
+      `${HOST}/api/v1/users/${userId}/reviews`,
+      {
+        rating: data.starValue,
+        review: data.review,
+      }
+    );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const updateReview = async (userId, reviewId, data) => {
+  try {
+    const response = await axios.patch(
+      `${HOST}/api/v1/users/${userId}/reviews/${reviewId}`,
+      {
+        rating: data.rating,
+        review: data.review,
+      }
+    );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const deleteReview = async (userId, reviewId) => {
+  try {
+    const response = await axios.delete(
+      `${HOST}/api/v1/users/${userId}/reviews/${reviewId}`
+    );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
 export const getUserRecommendation = async () => {
   try {
     const response = await axios.get(`${HOST}/api/v1/recommendations/user`);
@@ -471,15 +570,6 @@ export const getOfferRecommendation = async () => {
   try {
     const response = await axios.get(`${HOST}/api/v1/recommendations/offer`);
     return response;
-  } catch (e) {
-    return e.response.data;
-  }
-};
-
-export const getCategoryById = async (id) => {
-  try {
-    const response = await axios.get(`${HOST}/api/v1/categories/?_id=${id}`);
-    return response.data;
   } catch (e) {
     return e.response.data;
   }

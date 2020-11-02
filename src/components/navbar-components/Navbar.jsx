@@ -45,7 +45,7 @@ const Navbar = () => {
           }
           to="#"
         >
-          Ofertas
+          Recomendaciones
         </Link>
         <Link
           className={
@@ -107,38 +107,37 @@ const Navbar = () => {
           </div>
         </div>
       ) : (
-          <div className="navbar__right-items">
-            <Link
-              className={
-                hideOnMobile
-                  ? "navbar__link navbar__link--highlighted navbar__hide-on-mobile"
-                  : "navbar__link navbar__link--highlighted"
-              }
-              to="/login"
-            >
-              Iniciar sesión
+        <div className="navbar__right-items">
+          <Link
+            className={
+              hideOnMobile
+                ? "navbar__link navbar__link--highlighted navbar__hide-on-mobile"
+                : "navbar__link navbar__link--highlighted"
+            }
+            to="/login"
+          >
+            Iniciar sesión
           </Link>
-            <Link
-              className={
-                hideOnMobile
-                  ? "navbar__link navbar__link--highlighted navbar__hide-on-mobile"
-                  : "navbar__link navbar__link--highlighted"
-              }
-              to="/login"
-              onClick={() => {
-                action({ isUserFromNav: true })
-
-              }}
-            >
-              Registrate
+          <Link
+            className={
+              hideOnMobile
+                ? "navbar__link navbar__link--highlighted navbar__hide-on-mobile"
+                : "navbar__link navbar__link--highlighted"
+            }
+            to="/login"
+            onClick={() => {
+              action({ isUserFromNav: true });
+            }}
+          >
+            Registrate
           </Link>
-            <i
-              className="fa fa-bars icon-2x"
-              id="navbar__hidden"
-              onClick={toggleHiddenMobile}
-            ></i>
-          </div>
-        )}
+          <i
+            className="fa fa-bars icon-2x"
+            id="navbar__hidden"
+            onClick={toggleHiddenMobile}
+          ></i>
+        </div>
+      )}
     </div>
   );
 };
