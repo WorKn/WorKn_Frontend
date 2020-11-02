@@ -58,8 +58,8 @@ const CreateOfferPage = ({ hide }) => {
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
             duration: 10000,
-            onScreen: true
-          }
+            onScreen: true,
+          },
         });
       } else {
         store.addNotification({
@@ -72,8 +72,8 @@ const CreateOfferPage = ({ hide }) => {
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
             duration: 10000,
-            onScreen: true
-          }
+            onScreen: true,
+          },
         });
       }
     });
@@ -117,8 +117,8 @@ const CreateOfferPage = ({ hide }) => {
             <div className="create-offer__paired-input">
               <span>Descripción</span>
 
-              <input
-                type="text"
+              <textarea
+                type="textarea"
                 name="description"
                 placeholder="Descripción"
                 title="Por favor, ingrese la descripción de la oferta"
@@ -179,12 +179,27 @@ const CreateOfferPage = ({ hide }) => {
               />
             </div>
             <div className="create-offer__paired-input">
-              <span>Categoría <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Las categorías te permiten filtrar los tags.</span></i></span>
+              <span>
+                Categoría{" "}
+                <i className="fa fa-info-circle tooltip">
+                  <span className="tooltiptext">
+                    Las categorías te permiten filtrar los tags.
+                  </span>
+                </i>
+              </span>
             </div>
             <CategoryInput></CategoryInput>
 
             <div className="create-offer__paired-input">
-              <span>Etiquetas <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Son palabras clave que definen las habilidades que buscas para la oferta.</span></i></span>
+              <span>
+                Etiquetas{" "}
+                <i className="fa fa-info-circle tooltip">
+                  <span className="tooltiptext">
+                    Son palabras clave que definen las habilidades que buscas
+                    para la oferta.
+                  </span>
+                </i>
+              </span>
 
               <TagsInput
                 query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
@@ -200,6 +215,7 @@ const CreateOfferPage = ({ hide }) => {
                 step="any"
                 name="salaryRangeFrom"
                 placeholder="Desde [opcional]"
+                className="create-offer__salaryRangeFrom"
                 ref={register}
                 title="Por favor, ingrese el rango inicial sin comas [opcional]"
               />
@@ -218,6 +234,7 @@ const CreateOfferPage = ({ hide }) => {
                 step="any"
                 name="salaryRangeTo"
                 placeholder="Hasta [opcional]"
+                className="create-offer__salaryRangeFrom"
                 ref={register}
                 title="Por favor, ingrese el rango final [opcional]"
               />
