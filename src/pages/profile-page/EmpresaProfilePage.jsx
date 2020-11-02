@@ -31,8 +31,8 @@ const EmpresaProfilePage = (props) => {
   } = useModal();
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="pagewrap">
@@ -52,8 +52,8 @@ const EmpresaProfilePage = (props) => {
               {state.userInformation.data.name}
             </span>
           ) : (
-              <span className="profile__header">Nombres de la Empresa</span>
-            )}
+            <span className="profile__header">Nombres de la Empresa</span>
+          )}
           <Link to="/userprofile" style={{ textDecoration: "none" }}>
             <div className="profile__backtick">
               <i className="fa fa-chevron-left icon"></i>
@@ -76,27 +76,27 @@ const EmpresaProfilePage = (props) => {
               administradores nunca te la solicitarán.
             </span>
             {typeof state.userInformation.organizationRole !== "undefined" &&
-              (state.userInformation.organizationRole === "owner" ||
-                state.userInformation.organizationRole === "supervisor") ? (
-                <div>
-                  <button
-                    className="userprofile__action"
-                    onClick={showMembersModal}
-                  >
-                    <i className="fa fa-cog userprofile__icon"></i>
-                  Manejar invitaciones de miembros
+            (state.userInformation.organizationRole === "owner" ||
+              state.userInformation.organizationRole === "supervisor") ? (
+              <div>
+                <button
+                  className="userprofile__action"
+                  onClick={showMembersModal}
+                >
+                  <i className="fa fa-cog userprofile__icon"></i>
+                  Invitar miembros
                 </button>
-                  <button
-                    className="userprofile__action"
-                    onClick={ShowManageModal}
-                  >
-                    <i className="fa fa-cog userprofile__icon"></i>
+                <button
+                  className="userprofile__action"
+                  onClick={ShowManageModal}
+                >
+                  <i className="fa fa-cog userprofile__icon"></i>
                   Manejar miembros
                 </button>
-                </div>
-              ) : (
-                ""
-              )}
+              </div>
+            ) : (
+              ""
+            )}
             <Link to="/manageoffers">
               <button className="userprofile__action">
                 <i className="fa fa-cog userprofile__icon"></i>
