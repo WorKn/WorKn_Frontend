@@ -12,8 +12,7 @@ import categoryContext from "../../utils/categoryContext";
 import CategoryInput from "../input-components/CategoryInput";
 import tagsContext from "../../utils/tagsContext";
 import TagsInput from "../input-components/TagsInput";
-import { store } from 'react-notifications-component';
-
+import { store } from "react-notifications-component";
 
 const EditOfferPopup = ({ hide, offerInfo }) => {
   const { register, handleSubmit, errors } = useForm({
@@ -26,7 +25,6 @@ const EditOfferPopup = ({ hide, offerInfo }) => {
   //aniadir manualmente los atributos para asuntos de pruebas
 
   const onSubmit = (data) => {
-    console.log("Submitting...");
     data.category = selectedCategory.value;
     console.log(data.category);
     let newArray = [];
@@ -47,7 +45,6 @@ const EditOfferPopup = ({ hide, offerInfo }) => {
     }
 
     editOffer(data).then((res) => {
-      console.log(res);
       if (res === "success") {
         setSuccess(true);
         store.addNotification({
@@ -148,8 +145,8 @@ const EditOfferPopup = ({ hide, offerInfo }) => {
                   required: "Por favor seleccione un tipo de oferta",
                 })}
               >
-                <option value="free">Free</option>
-                <option value="fixed">Fixed</option>
+                <option value="free">Freelancer</option>
+                <option value="fixed">Fijo/Indefinido</option>
               </select>
 
               <ErrorMessage
