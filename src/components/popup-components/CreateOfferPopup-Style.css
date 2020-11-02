@@ -65,7 +65,8 @@
   border-radius: 5px;
   border-style: solid;
   border-width: 1px;
-  max-width: 100%;
+  resize: vertical;
+  max-height: 320px;
 }
 
 .create-offer__salary-range {

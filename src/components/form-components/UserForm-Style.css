@@ -47,6 +47,12 @@
   height: 65px;
 }
 
+.userform__input-bio {
+  min-height: 60px;
+  resize: vertical;
+  max-height: 400px;
+}
+
 .userform__footer {
   margin-top: 32px;
   margin-bottom: 42px;

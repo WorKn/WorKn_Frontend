@@ -15,16 +15,27 @@ import categoryContext from "../../utils/categoryContext";
 import TagsInput from "../input-components/TagsInput";
 import tagsContext from "../../utils/tagsContext";
 import Tag from "../tag-components/Tag";
-import { store } from 'react-notifications-component';
-
+import { store } from "react-notifications-component";
 
 const normalizeId = (value) => {
-  return value.replace(/\s/g, "").match(/.{1,4}/g)?.join("").substr(0, 11) || "";
-}
+  return (
+    value
+      .replace(/\s/g, "")
+      .match(/.{1,4}/g)
+      ?.join("")
+      .substr(0, 11) || ""
+  );
+};
 
 const normalizePhone = (value) => {
-  return value.replace(/\s/g, "").match(/.{1,4}/g)?.join("").substr(0, 10) || "";
-}
+  return (
+    value
+      .replace(/\s/g, "")
+      .match(/.{1,4}/g)
+      ?.join("")
+      .substr(0, 10) || ""
+  );
+};
 
 const UserForm = () => {
   const [selectedCategory, setSelectedCategory] = useState([]);
@@ -35,7 +46,6 @@ const UserForm = () => {
   const { register, handleSubmit, errors, watch } = useForm({
     defaultValues: state.userInformation,
   });
-
 
   let isOrg = false;
 
@@ -58,8 +68,8 @@ const UserForm = () => {
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
             duration: 10000,
-            onScreen: true
-          }
+            onScreen: true,
+          },
         });
       } else {
         store.addNotification({
@@ -72,8 +82,8 @@ const UserForm = () => {
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
             duration: 10000,
-            onScreen: true
-          }
+            onScreen: true,
+          },
         });
       }
     });
@@ -136,7 +146,6 @@ const UserForm = () => {
                 className="userform__input"
                 type="text"
                 name="lastname"
-
                 // pattern="[a-zA-Z]*"
 
                 ref={register({ required: "Por favor ingrese su apellido" })}
@@ -167,8 +176,8 @@ const UserForm = () => {
               inputMode="numeric"
               autoComplete="cc-number"
               onChange={(e) => {
-                const { value } = e.target
-                e.target.value = normalizeId(value)
+                const { value } = e.target;
+                e.target.value = normalizeId(value);
               }}
             />
             <ErrorMessage
@@ -183,9 +192,9 @@ const UserForm = () => {
           </div>
           <div className="userform__LIP">
             <span className="userform__label">Biografía</span>
-            <input
-              className="userform__input userform__input--lg"
-              type="text"
+            <textarea
+              className="userform__input userform__input--lg userform__input-bio"
+              type="textarea"
               name="bio"
               ref={register({
                 maxLength: {
@@ -215,84 +224,99 @@ const UserForm = () => {
                 inputMode="numeric"
                 autoComplete="cc-number"
                 onChange={(e) => {
-                  const { value } = e.target
-                  e.target.value = normalizePhone(value)
+                  const { value } = e.target;
+                  e.target.value = normalizePhone(value);
                 }}
               />
             </div>
           </div>
           <div>
             {typeof state.userInformation !== "undefined" &&
-              state.userInformation.tags &&
-              state.userInformation.category ? (
-                <div>
-                  <div className="userform__LIP">
-                    <span className="userform__label">Etiquetas</span>
-                    <div className="userform__tagscontainer">
-                      {state.userInformation.tags.map((tag) => (
-                        <Tag
-                          key={tag._id}
-                          text={tag.name}
-                          theme="tag tag__text tag__text--white"
-                        ></Tag>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="userform__LIP">
-                    <span className="userform__label">Categoría</span>
-                    <Tag
-                      text={state.userInformation.tags[0].category.name}
-                      theme="tag tag__text tag__text--white"
-                    ></Tag>
+            state.userInformation.tags &&
+            state.userInformation.category ? (
+              <div>
+                <div className="userform__LIP">
+                  <span className="userform__label">Etiquetas</span>
+                  <div className="userform__tagscontainer">
+                    {state.userInformation.tags.map((tag) => (
+                      <Tag
+                        key={tag._id}
+                        text={tag.name}
+                        theme="tag tag__text tag__text--white"
+                      ></Tag>
+                    ))}
                   </div>
                 </div>
-              ) : (
-                ""
-              )}
+                <div className="userform__LIP">
+                  <span className="userform__label">Categoría</span>
+                  <Tag
+                    text={state.userInformation.tags[0].category.name}
+                    theme="tag tag__text tag__text--white"
+                  ></Tag>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
 
             {typeof state.userInformation.organizationRole !== "undefined" &&
-              state.userInformation.organizationRole !== "owner" &&
-              state.userInformation.userType !== "offerer" ? (
-                <div>
-                  <div className="userform__footer">
-                    <span className="userform__title">
-                      Selecciona tu categoría y tus etiquetas
+            state.userInformation.organizationRole !== "owner" &&
+            state.userInformation.userType !== "offerer" ? (
+              <div>
+                <div className="userform__footer">
+                  <span className="userform__title">
+                    Selecciona tu categoría y tus etiquetas
                   </span>
-                    <span className="userform__text">
-                      Las etiqueta sirven para emparejarte con ofertas de trabajo
-                      y personas en tus mismas áreas de conocimiento, la categoría
-                      sirve para filtrar dichas etiquetas de una manera más
-                      precisa.
+                  <span className="userform__text">
+                    Las etiqueta sirven para emparejarte con ofertas de trabajo
+                    y personas en tus mismas áreas de conocimiento, la categoría
+                    sirve para filtrar dichas etiquetas de una manera más
+                    precisa.
                   </span>
-                  </div>
-
-                  <div className="userform__LIP">
-                    <span className="userform__label">Categoría <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Las categorías te permiten filtrar los tags.</span></i></span>
-                    <CategoryInput></CategoryInput>
-                  </div>
-                  <div className="userform__LIP">
-                    <span className="userform__label">Etiquetas <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Son palabras clave que definen las habilidades que tienes para ofrecer.</span></i></span>
-
-                    <TagsInput
-                      query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
-                    ></TagsInput>
-                  </div>
                 </div>
-              ) : (
-                <div>
-                  <div className="userform__footer">
-                    <span className="userform__title">
-                      Mantén tu perfil actualizado
+
+                <div className="userform__LIP">
+                  <span className="userform__label">
+                    Categoría{" "}
+                    <i className="fa fa-info-circle tooltip">
+                      <span className="tooltiptext">
+                        Las categorías te permiten filtrar los tags.
+                      </span>
+                    </i>
                   </span>
-                    <span className="userform__text">
-                      Recuerda que esta información será vista por los usuarios
-                      que deseen interactuar contigo, mantenla actualizada y crea
-                      una descripción llamativa. Ten en cuenta que solo puedes
-                      modificar tu Identificación una vez.
-                  </span>
-                  </div>
+                  <CategoryInput></CategoryInput>
                 </div>
-              )}
+                <div className="userform__LIP">
+                  <span className="userform__label">
+                    Etiquetas{" "}
+                    <i className="fa fa-info-circle tooltip">
+                      <span className="tooltiptext">
+                        Son palabras clave que definen las habilidades que
+                        tienes para ofrecer.
+                      </span>
+                    </i>
+                  </span>
+
+                  <TagsInput
+                    query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
+                  ></TagsInput>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div className="userform__footer">
+                  <span className="userform__title">
+                    Mantén tu perfil actualizado
+                  </span>
+                  <span className="userform__text">
+                    Recuerda que esta información será vista por los usuarios
+                    que deseen interactuar contigo, mantenla actualizada y crea
+                    una descripción llamativa. Ten en cuenta que solo puedes
+                    modificar tu Identificación una vez.
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
           {/* {typeof updated.data !== "undefined" &&
             updated.data.status === "success" ? (
@@ -311,7 +335,7 @@ const UserForm = () => {
           />
         </form>
       </tagsContext.Provider>
-    </categoryContext.Provider >
+    </categoryContext.Provider>
   );
 };
 
