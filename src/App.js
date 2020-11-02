@@ -22,8 +22,9 @@ import SummaryPage from "./pages/summary-page/SummaryPage";
 import NotFound from "./pages/not_found-page/not_found";
 import ExplorePage from "./pages/explore-page/ExplorePage";
 import EmpresaViewPage from "./pages/viewside-page/EmpresaViewPage";
-import ReactNotification from 'react-notifications-component'
-import 'react-notifications-component/dist/theme.css'
+import RecommendationsPage from "./pages/recommendations-page/RecommendationsPage";
+import ReactNotification from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
 
 
 // import ChatPage from "./pages/chat-page/ChatPage";
@@ -77,10 +78,15 @@ function App() {
             />
             <Route
               exact
+              path="/recommendations"
+              component={RecommendationsPage}
+            />
+            <Route
+              exact
               path="/emailvalidation/:token"
               component={EmailValidation}
             />
-            {/* <Route exact path="/addMember/:token" component={AddMember} /> */}
+
             <Route
               exact
               path="/addMember/:orgid/:token"
