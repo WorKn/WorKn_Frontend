@@ -81,8 +81,6 @@ const ExplorePage = () => {
     ) {
       setParameter("name");
       getAllUsers().then((res) => {
-        console.log(res);
-        console.log("ofertante detected");
         setResponses(res.data.data.data);
       });
     } else if (
@@ -91,15 +89,11 @@ const ExplorePage = () => {
     ) {
       setParameter("title");
       getAllOffers().then((res) => {
-        console.log("aplicante detected");
-        console.log(res.data.data.data);
         setResponses(res.data.data.data);
       });
     } else {
       setParameter("title");
       getAllOffers().then((res) => {
-        console.log("no type detected");
-        console.log(res.data.data.data);
         setResponses(res.data.data.data);
       });
     }
@@ -123,34 +117,34 @@ const ExplorePage = () => {
               ></input>
 
               {typeof state.userInformation.userType !== "undefined" &&
-              state.userInformation.userType === "offerer" ? (
-                <select
-                  type="text"
-                  name="type"
-                  className="explorepage__select explorepage__searchbtn"
-                  ref={register()}
-                  onChange={(e) => setParameter(e.target.value)}
-                >
-                  <option value="name">Nombre</option>
-                  <option value="lastname">Apellido</option>
-                  <option value="category">Categoría</option>
-                  <option value="tag">Etiqueta</option>
-                </select>
-              ) : (
-                <select
-                  type="text"
-                  name="type"
-                  className="explorepage__select explorepage__searchbtn"
-                  ref={register()}
-                  onChange={(e) => setParameter(e.target.value)}
-                >
-                  <option value="title">Nombre</option>
-                  <option value="category">Categoría</option>
-                  <option value="tag">Etiqueta</option>
-                  <option value="orgname">Organización</option>
-                  <option value="offertype">Tipo de oferta</option>
-                </select>
-              )}
+                state.userInformation.userType === "offerer" ? (
+                  <select
+                    type="text"
+                    name="type"
+                    className="explorepage__select explorepage__searchbtn"
+                    ref={register()}
+                    onChange={(e) => setParameter(e.target.value)}
+                  >
+                    <option value="name">Nombre</option>
+                    <option value="lastname">Apellido</option>
+                    <option value="category">Categoría</option>
+                    <option value="tag">Etiqueta</option>
+                  </select>
+                ) : (
+                  <select
+                    type="text"
+                    name="type"
+                    className="explorepage__select explorepage__searchbtn"
+                    ref={register()}
+                    onChange={(e) => setParameter(e.target.value)}
+                  >
+                    <option value="title">Nombre</option>
+                    <option value="category">Categoría</option>
+                    <option value="tag">Etiqueta</option>
+                    <option value="orgname">Organización</option>
+                    <option value="offertype">Tipo de oferta</option>
+                  </select>
+                )}
               {/* <div
                 onClick={handleSubmit(onSubmit)}
                 className="explorepage__searchbtn"

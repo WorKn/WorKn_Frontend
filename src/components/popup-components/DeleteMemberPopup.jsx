@@ -1,18 +1,21 @@
 import React from "react";
 import "./DeleteOfferPopup-Style.css";
-import { deleteOffer } from "../../utils/apiRequests";
+import { removeMember } from "../../utils/apiRequests";
 
-const DeleteOfferPopup = ({ offerInfo, hide }) => {
+const DeleteOfferPopup = ({ memberId, hide }) => {
   const handleDelete = () => {
-    let id = offerInfo._id;
-    deleteOffer(id).then((res) => {
-      hide();
+    removeMember(memberId).then((res) => {
+      if (res.data !== undefined) {
+        console.log(res);
+        hide();
+        window.confirm("Usuario borrado");
+      }
     });
   };
   return (
     <div className="dop-wrapper">
       <div className="dop-wrapper__up-content">
-        ¿Esta seguro/a que desea borrar esta oferta?
+        ¿Esta seguro/a que desea borrar este usuario?
       </div>
       <div className="dop-wrapper__down-content">
         <span

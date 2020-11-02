@@ -1,6 +1,6 @@
 .summarypage {
   background-color: #f7f7f7;
-  width: 100vw;
+  width: 100%;
 }
 
 .summarypage__inner {
@@ -35,11 +35,18 @@
 
 .summarypage__form {
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .summarypage__form select {
   margin-right: 10px;
+}
+
+.form__select{
+    width: 50%
 }
 
 .custom-button {

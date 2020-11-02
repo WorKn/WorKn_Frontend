@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 import Header from "../../components/navbar-components/Navbar";
@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import AnnouncementBanner from "../../components/announcemnet-components/Announcement-Banner";
 import ManagePopup from "../../components/popup-components/ManagePopup";
 
+
 const EmpresaProfilePage = (props) => {
   const { state } = useStateMachine(updateAction);
   const {
@@ -28,6 +29,10 @@ const EmpresaProfilePage = (props) => {
     RenderModal: ManageModal,
     // hide: hideQuestionModal,
   } = useModal();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="pagewrap">
@@ -49,7 +54,7 @@ const EmpresaProfilePage = (props) => {
           ) : (
             <span className="profile__header">Nombres de la Empresa</span>
           )}
-          <Link to="/userprofilepage" style={{ textDecoration: "none" }}>
+          <Link to="/userprofile" style={{ textDecoration: "none" }}>
             <div className="profile__backtick">
               <i className="fa fa-chevron-left icon"></i>
               <span>Volver al perfil de propietario</span>
@@ -79,7 +84,7 @@ const EmpresaProfilePage = (props) => {
                   onClick={showMembersModal}
                 >
                   <i className="fa fa-cog userprofile__icon"></i>
-                  Manejar invitaciones de miembros
+                  Invitar miembros
                 </button>
                 <button
                   className="userprofile__action"

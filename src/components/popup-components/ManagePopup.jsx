@@ -6,7 +6,10 @@ import { removeMember, updateMemberRole } from "../../utils/apiRequests";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import "./ManagePopup-Style.css";
+import { store } from 'react-notifications-component';
 import "./QuestionPopup-Style.css";
+
+
 
 const ManagePopup = () => {
   const [current, setCurrent] = useState("");
@@ -16,27 +19,83 @@ const ManagePopup = () => {
   const { state } = useStateMachine(updateAction);
   const { register, handleSubmit } = useForm();
 
+
   const onSubmit = (data, e) => {
-    console.log(memberToUpdate, data.role);
     updateMemberRole(memberToUpdate, data.role).then((res) => {
       if (res.data !== undefined) {
-        console.log(res);
-        setCurrent(res);
+        if (res?.data?.status && res?.data?.status === "success") {
+          store.addNotification({
+            title: "Rol actualizado correctamente",
+            message: "El rol de " + res?.data?.data?.member?.name + " fue actualizado a " + data?.role,
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true
+            }
+          });
+          setCurrent(res);
+        } else if (res?.data?.status && res?.data?.status === "fail") {
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: res?.data?.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true
+            }
+          });
+        }
       }
     });
     setIsVisible(false);
   };
 
   const sendMember = (memberId) => {
-    if (window.confirm("Seguro que quiere borrar este usuario?")) {
+    if (window.confirm("Seguro que quiere borrar a este usuario?")) {
       removeMember(memberId).then((res) => {
         if (res.data !== undefined) {
-          console.log(res);
-          setCurrent(res);
+          if (res?.data?.status && res?.data?.status === "success") {
+            store.addNotification({
+              title: "Usuario eliminado correctamente",
+              message: "El miembro fue eliminado de " + res?.data?.data?.organization?.name,
+              type: "success",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 10000,
+                onScreen: true
+              }
+            });
+            setCurrent(res);
+          } else if (res?.data?.status && res?.data?.status === "fail") {
+            store.addNotification({
+              title: "Ha ocurrido un error",
+              message: res?.data?.message,
+              type: "danger",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 10000,
+                onScreen: true
+              }
+            });
+          }
         }
       });
     } else {
-      console.log("No borrado");
+      console.log("User ND");
     }
   };
 
@@ -50,7 +109,35 @@ const ManagePopup = () => {
         <div className="members__container">
           <ul className="members__list">
             <span className="members__title">Manejo de miembros</span>
-            {state.userInformation.data.members.map((member) => (
+            <table className="customers">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Rol</th>
+                  <th>Control</th>
+                </tr>
+              </thead>
+              <tbody>
+                {state.userInformation.data.members.map((member) => (
+                  <tr key={member._id}>
+                    <td className='centered__row'><img
+                      className="members__profilepic"
+                      src={member.profilePicture}
+                      alt=""
+                    />{member.name}{" "}{member.lastname}</td>
+                    <td>{member.organizationRole}</td>
+                    <td className='control__container'><i onClick={() => {
+                      toggleEdit();
+                      setMemberToUpdate(member._id);
+                    }} className="fa fa-pencil-square-o edit__button"></i><i onClick={() => {
+                      sendMember(member._id);
+                    }} className="fa fa-times delete__button"></i></td>
+                  </tr>
+                ))
+                }
+              </tbody>
+            </table>
+            {/* {state.userInformation.data.members.map((member) => (
               <li className="members__item" key={member._id}>
                 <img
                   className="members__profilepic"
@@ -84,36 +171,36 @@ const ManagePopup = () => {
                   Editar
                 </button>
               </li>
-            ))}
+            ))} */}
           </ul>
 
           {typeof current.data !== "undefined" &&
-          current.data.status === "successs" ? (
-            <div className="input__msg input__msg--success">
-              <i class="fa fa-check"></i> Usuario actualizado correctamente
-            </div>
-          ) : (
-            ""
-          )}
+            current.data.status === "successs" ? (
+              <div className="input__msg input__msg--success">
+                <i class="fa fa-check"></i> Usuario actualizado correctamente
+              </div>
+            ) : (
+              ""
+            )}
 
           {typeof current.data !== "undefined" &&
-          current.data.status === "member deleted" ? (
-            <div className="input__msg input__msg--success">
-              <i className="fa fa-check"></i> Usuario eliminado correctamente
-            </div>
-          ) : (
-            ""
-          )}
+            current.data.status === "member deleted" ? (
+              <div className="input__msg input__msg--success">
+                <i className="fa fa-check"></i> Usuario eliminado correctamente
+              </div>
+            ) : (
+              ""
+            )}
 
           {typeof current.data !== "undefined" &&
-          current.data.status === "fail" ? (
-            <div className="input__msg input__msg--error">
-              <i className="fa fa-times"></i> Esta acción sobrepasa tus
+            current.data.status === "fail" ? (
+              <div className="input__msg input__msg--error">
+                <i className="fa fa-times"></i> Esta acción sobrepasa tus
               permisos. Contáctate con tu superior.
-            </div>
-          ) : (
-            ""
-          )}
+              </div>
+            ) : (
+              ""
+            )}
 
           {typeof isVisible !== "undefined" && isVisible === true ? (
             <div className="members__update">
@@ -138,8 +225,8 @@ const ManagePopup = () => {
               </div>
             </div>
           ) : (
-            ""
-          )}
+              ""
+            )}
         </div>
       </form>
     </div>

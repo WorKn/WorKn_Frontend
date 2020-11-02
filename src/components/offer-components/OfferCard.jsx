@@ -87,7 +87,7 @@ const OfferCard = ({
                   <Tag
                     key={tag.id}
                     text={tag.name}
-                    theme="tag tag__text tag__text--gray"
+                    theme="tag tag_text tag_text--gray"
                   ></Tag>
                 ))}
               </div>
@@ -128,7 +128,7 @@ const OfferCard = ({
                   <Tag
                     key={tag.id}
                     text={tag.name}
-                    theme="tag tag__text tag__text--gray"
+                    theme="tag tag_text tag_text--gray"
                   ></Tag>
                 ))}
               </div>
@@ -173,7 +173,7 @@ const OfferCard = ({
                   <Tag
                     key={tag._id}
                     text={tag.name}
-                    theme="tag tag__text tag__text--gray "
+                    theme="tag tag_text tag_text--gray "
                   ></Tag>
                 ))}
               </div>
@@ -216,7 +216,7 @@ const OfferCard = ({
                   <Tag
                     key={tag.id}
                     text={tag.name}
-                    theme="tag tag__text tag__text--gray"
+                    theme="tag tag_text tag_text--gray"
                   ></Tag>
                 ))}
               </div>

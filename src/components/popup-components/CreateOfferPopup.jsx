@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { createOffer } from "../../utils/apiRequests";
 
 import { ErrorMessage } from "@hookform/error-message";
-
+import { store } from "react-notifications-component";
 import categoryContext from "../../utils/categoryContext";
 import CategoryInput from "../input-components/CategoryInput";
 import tagsContext from "../../utils/tagsContext";
@@ -22,10 +22,11 @@ const CreateOfferPage = ({ hide }) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [showSuccess, setSuccess] = useState(false);
 
-  //aniadir manualmente los atributos para asuntos de pruebas
+  // let MyDictionary = {};
+  // MyDictionary["offerer"] = "Ofertante";
+  // MyDictionary["applicant"] = "Aplicante";
 
   const onSubmit = (data) => {
-    console.log("SUBMITTED");
     data.category = selectedCategory.value;
     console.log(data.category);
     let newArray = [];
@@ -47,6 +48,33 @@ const CreateOfferPage = ({ hide }) => {
       console.log(res);
       if (res === "success") {
         setSuccess(true);
+        store.addNotification({
+          title: "Oferta creada exitosamente",
+          message: "Su oferta será mostrada a los usuarios en WorKn.",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true
+          }
+        });
+      } else {
+        store.addNotification({
+          title: "Ha ocurrido un error",
+          message: res?.message,
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true
+          }
+        });
       }
     });
     console.log(data);
@@ -116,8 +144,8 @@ const CreateOfferPage = ({ hide }) => {
                   required: "Por favor seleccione un tipo de oferta",
                 })}
               >
-                <option value="free">Free</option>
-                <option value="fixed">Fixed</option>
+                <option value="free">Freelancer</option>
+                <option value="fixed">Fijo/Indefinido</option>
               </select>
 
               <ErrorMessage
@@ -151,12 +179,12 @@ const CreateOfferPage = ({ hide }) => {
               />
             </div>
             <div className="create-offer__paired-input">
-              <span>Categoría</span>
+              <span>Categoría <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Las categorías te permiten filtrar los tags.</span></i></span>
             </div>
             <CategoryInput></CategoryInput>
 
             <div className="create-offer__paired-input">
-              <span>Tags</span>
+              <span>Etiquetas <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Son palabras clave que definen las habilidades que buscas para la oferta.</span></i></span>
 
               <TagsInput
                 query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}

@@ -11,6 +11,8 @@ import { userLogin } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
+import { store } from 'react-notifications-component';
+
 
 const LoginPage = React.memo((props) => {
   const [userObject, setUserObject] = useState("");
@@ -32,21 +34,26 @@ const LoginPage = React.memo((props) => {
   };
 
   useEffect(() => {
+    action({ name: '', lastname: '', bio: "", identificationNumber: "", location: "", phone: "", email: "", birthday: "", password: "", passwordConfirm: "", userType: "", category: "", tags: '', organization: '', organizationRole: '', isEmailValidated: "", createdAt: '', profilePicture: "", _id: '', __v: "", passwordChangedAt: '', signUpMethod: "", isSignupCompleted: "", id: '', data: '', hasPasswordUpdated: false, hasCreatedAccount: false, updatedAt: "", isActive: false, tokens: "" })
+  }, [action])
+
+  useEffect(() => {
     if (userObject.data !== undefined && userObject.data.status === "success") {
       action(userObject.data.data.user);
+      action({ hasPasswordUpdated: false })
       Cookies.set("jwt", userObject.data.token, { expires: 7 });
     }
     const user = Cookies.get("jwt");
     if (user && state.userInformation.category && state.userInformation.tags) {
       auth.login();
-      push("/userprofilepage");
+      push("/userprofile");
     } else if (
       user &&
       !state.userInformation.category &&
       !state.userInformation.tags
     ) {
       auth.login();
-      push("/userprofilepage");
+      push("/userprofile");
       console.log("not completed!");
     }
   }, [
@@ -56,6 +63,44 @@ const LoginPage = React.memo((props) => {
     state.userInformation.category,
     state.userInformation.tags,
   ]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
+    if (state.userInformation.isUserFromNav && state.userInformation.isUserFromNav === true) {
+      setTimeout(() => {
+        showQuestionModal();
+      }, 1000)
+      setTimeout(() => {
+        action({ isUserFromNav: false })
+      }, 1500)
+    }
+  }, [action, showQuestionModal, state.userInformation.isUserFromNav])
+
+
+  useEffect(() => {
+    if (state.userInformation.hasPasswordUpdated !== "undefined" && state.userInformation.hasPasswordUpdated === true) {
+      setTimeout(() => {
+        store.addNotification({
+          title: "Contraseña cambiada exitosamente!",
+          message: "Accede utilizando tus nuevas credenciales",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true
+          }
+        });
+      }, 1500);
+    } else (
+      console.log("Loading...")
+    )
+  }, [state.userInformation.hasPasswordUpdated])
 
   return (
     <div className="login-wrapper">
@@ -106,13 +151,13 @@ const LoginPage = React.memo((props) => {
               )}
             />
             {typeof userObject.data !== "undefined" &&
-            userObject.data.status === "success" ? (
-              <div className="input__msg input__msg--success">
-                Bienvenido, {userObject.data.data.user.name}
-              </div>
-            ) : (
-              ""
-            )}
+              userObject.data.status === "success" ? (
+                <div className="input__msg input__msg--success">
+                  Bienvenido, {userObject.data.data.user.name}
+                </div>
+              ) : (
+                ""
+              )}
             <div className="input__msg input__msg--error">
               {userObject.message}
             </div>

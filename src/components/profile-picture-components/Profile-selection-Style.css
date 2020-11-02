@@ -2,20 +2,28 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  /* background-color: mediumaquamarine; */
 }
 
 .Pic-selector {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: flex-start;
+  align-items: center;
   height: 140px;
   width: 105px;
+  color: #4d4e52;
+}
+
+.Pic-selector--F {
+  width: auto;
+  order: 1;
 }
 
 .Pic-selector span {
   font-size: 15px;
+  font-weight: 500;
   margin-top: 20px;
 }
 
@@ -47,6 +55,13 @@
   object-fit: cover;
 }
 
+.Pic-selector__img--square {
+  width: 130px;
+  height: 130px;
+  border-radius: 0px;
+  order: 1;
+}
+
 .Pic-selector__label {
   width: 105px;
   display: flex;
@@ -74,12 +89,25 @@
 
 .PicForm {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 240px;
-  height: 90px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 300px;
+  height: 140px;
   margin: 0;
   padding-left: 0px;
+  /* background-color: magenta; */
+}
+
+.PicForm_choice {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 120px;
+  height: 100%;
+  margin: 0;
+  padding-left: 0px;
+  /* background-color: blue; */
 }
 
 .PicForm button {

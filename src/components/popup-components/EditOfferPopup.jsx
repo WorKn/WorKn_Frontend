@@ -12,6 +12,7 @@ import categoryContext from "../../utils/categoryContext";
 import CategoryInput from "../input-components/CategoryInput";
 import tagsContext from "../../utils/tagsContext";
 import TagsInput from "../input-components/TagsInput";
+import { store } from "react-notifications-component";
 
 const EditOfferPopup = ({ hide, offerInfo }) => {
   const { register, handleSubmit, errors } = useForm({
@@ -24,7 +25,6 @@ const EditOfferPopup = ({ hide, offerInfo }) => {
   //aniadir manualmente los atributos para asuntos de pruebas
 
   const onSubmit = (data) => {
-    console.log("Submitting...");
     data.category = selectedCategory.value;
     console.log(data.category);
     let newArray = [];
@@ -45,11 +45,36 @@ const EditOfferPopup = ({ hide, offerInfo }) => {
     }
 
     editOffer(data).then((res) => {
-      console.log(res);
       if (res === "success") {
         setSuccess(true);
+        store.addNotification({
+          title: "Oferta editada exitosamente",
+          message: "Su oferta será mostrada a los usuarios en WorKn.",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true
+          }
+        });
       } else {
         setSuccess(false);
+        store.addNotification({
+          title: "Ha ocurrido un error",
+          message: res?.message,
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true
+          }
+        });
       }
     });
     console.log(data);
@@ -120,8 +145,8 @@ const EditOfferPopup = ({ hide, offerInfo }) => {
                   required: "Por favor seleccione un tipo de oferta",
                 })}
               >
-                <option value="free">Free</option>
-                <option value="fixed">Fixed</option>
+                <option value="free">Freelancer</option>
+                <option value="fixed">Fijo/Indefinido</option>
               </select>
 
               <ErrorMessage
@@ -156,12 +181,12 @@ const EditOfferPopup = ({ hide, offerInfo }) => {
               />
             </div>
             <div className="create-offer__paired-input">
-              <span>Categoría</span>
+              <span>Categoría <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Las categorías te permiten filtrar los tags.</span></i></span>
               <CategoryInput></CategoryInput>
             </div>
 
             <div className="create-offer__paired-input">
-              <span>Tags</span>
+              <span>Etiquetas <i className="fa fa-info-circle tooltip"><span className="tooltiptext">Son etiquetas que definen las habilidades que buscas para la oferta.</span></i></span>
 
               <TagsInput
                 query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}

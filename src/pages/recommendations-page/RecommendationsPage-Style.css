@@ -1,0 +1,51 @@
+.recommendationspage {
+  background-color: #f7f7f7;
+}
+
+.recommendationspage__container {
+  margin-top: 20px;
+}
+
+.recommendationspage__body {
+  padding: 2% 4%;
+  margin: 0px auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.recommendationspage__rectitle {
+  color: #363537;
+
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  width: 100%;
+  font-weight: 700;
+  margin-left: 4%;
+}
+
+.recommendationspage__rectitle span {
+  color: #5bba6f;
+}
+
+.recommendationspage__personlist {
+  margin: 20px 0px 20px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.recommendationspage__personlist p {
+  color: green;
+}
+.recommendationspage__offerlist {
+  margin: 10px 0px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.recommendationspage__offerlist p {
+  color: green;
+}

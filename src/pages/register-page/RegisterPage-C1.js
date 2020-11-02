@@ -19,6 +19,7 @@ const RegisterPageC1 = () => {
   const onSubmit = (data) => {
     state.userInformation.organizationRole = "";
     action(data);
+    action({ hasCreatedAccount: true })
     setGotResponse(true);
   };
 
@@ -40,14 +41,14 @@ const RegisterPageC1 = () => {
     const user = Cookies.get("jwt");
     if (user && state.userInformation.category && state.userInformation.tags) {
       auth.login();
-      push("/userprofilepage");
+      push("/userprofile");
     } else if (
       user &&
       !state.userInformation.category &&
       !state.userInformation.tags
     ) {
       auth.login();
-      push("/userprofilepage");
+      push("/userprofile");
       console.log("not completed!");
     }
   }, [
@@ -63,7 +64,7 @@ const RegisterPageC1 = () => {
       <div className="green-line">
         <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
           <span>
-            <a href="/registerpage" className="backtick">
+            <a href="/register" className="backtick">
               <i class="fa fa-chevron-left"></i>Volver
             </a>
           </span>

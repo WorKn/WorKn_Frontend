@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 import Header from "../../components/navbar-components/Navbar";
@@ -12,14 +12,43 @@ import { useModal } from "../../hooks/useModal";
 import PasswordPopup from "../../components/popup-components/PasswordPopup";
 import AnnouncementBanner from "../../components/announcemnet-components/Announcement-Banner";
 import { Link } from "react-router-dom";
+import { store } from 'react-notifications-component';
+
 
 const UserProfilePage = (props) => {
-  const { state } = useStateMachine(updateAction);
+  const { state, action } = useStateMachine(updateAction);
+
   const {
     show: showPasswordModal,
     RenderModal: PasswordModal,
     // hide: hideQuestionModal,
   } = useModal();
+
+  useEffect(() => {
+    if (state.userInformation.hasCreatedAccount !== "undefined" && state.userInformation.hasCreatedAccount === true) {
+      setTimeout(() => {
+        store.addNotification({
+          title: "Bienvenido " + state.userInformation.name + " tu cuenta ha sido creada exitosamente",
+          message: "Procede a completar tu perfil para poder navegar en nuestro sitio",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true
+          }
+        });
+      }, 1500);
+      setTimeout(() => {
+        action({ hasCreatedAccount: false })
+      }, 5000);
+    } else (
+      console.log("Loading...")
+    )
+  }, [state.userInformation.hasCreatedAccount, action, state.userInformation.name])
+
   return (
     <div className="pagewrap">
       <PasswordModal>
@@ -48,29 +77,29 @@ const UserProfilePage = (props) => {
             </button>
             {(typeof (state.userInformation.organizationRole !== "undefined") &&
               state.userInformation.organizationRole === "owner") ||
-            state.userInformation.organizationRole === "member" ||
-            state.userInformation.organizationRole === "supervisor" ? (
-              <Link to="/empresaprofilepage" style={{ textDecoration: "none" }}>
-                <button className="userprofile__action">
-                  <i className="fa fa-cog userprofile__icon"></i>
+              state.userInformation.organizationRole === "member" ||
+              state.userInformation.organizationRole === "supervisor" ? (
+                <Link to="/organizationprofile" style={{ textDecoration: "none" }}>
+                  <button className="userprofile__action">
+                    <i className="fa fa-cog userprofile__icon"></i>
                   Manejar organización
                 </button>
-              </Link>
-            ) : (
-              ""
-            )}
+                </Link>
+              ) : (
+                ""
+              )}
             {typeof state.userInformation !== "undefined" &&
-            state.userInformation.organizationRole === "" &&
-            state.userInformation.userType === "offerer" ? (
-              <Link to="/manageoffers" style={{ textDecoration: "none" }}>
-                <button className="userprofile__action">
-                  <i className="fa fa-cog userprofile__icon"></i>
+              state.userInformation.organizationRole === "" &&
+              state.userInformation.userType === "offerer" ? (
+                <Link to="/manageoffers" style={{ textDecoration: "none" }}>
+                  <button className="userprofile__action">
+                    <i className="fa fa-cog userprofile__icon"></i>
                   Manejar ofertas
                 </button>
-              </Link>
-            ) : (
-              ""
-            )}
+                </Link>
+              ) : (
+                ""
+              )}
             <button
               className="userprofile__action"
               onClick={() => {

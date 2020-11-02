@@ -3,8 +3,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 33vw;
+  width: 90%;
   font-weight: 500;
+  padding: 10px;
 }
 
 .dop-wrapper__up-content {
@@ -26,72 +27,61 @@
   padding: 15px;
 }
 
-.dop-wrapper__accept {
+.dop-wrapper__button {
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 13.5px;
-  height: 8vh;
-  width: 12vw;
-  padding: 15px;
-  background-color: #5bba6f;
+  height: 6vh;
+  width: 10vw;
+  /* padding: 15px; */
   color: white;
-  margin: 10px;
+  margin: 0 20px;
   border-radius: 10px;
   cursor: pointer;
 }
 
-.dop-wrapper__accept:hover {
+.dop-wrapper__button--accept {
+  background-color: #5bba6f;
+}
+
+.dop-wrapper__button--accept:hover {
   background-color: #259e6c;
 }
 
-.dop-wrapper__cancel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 13.5px;
-  height: 8vh;
-  width: 12vw;
-  padding: 15px;
+.dop-wrapper__button--cancel {
   background-color: #ee6055;
-  color: white;
-  margin: 10px;
-  border-radius: 10px;
-  cursor: pointer;
 }
 
-.dop-wrapper__cancel:hover {
+.dop-wrapper__button--cancel:hover {
   background-color: #d3453b;
 }
 
-@media screen and (max-width: 685px) {
+@media screen and (max-width: 416px) {
   .dop-wrapper__up-content {
-    font-size: 13px;
+    font-size: 10px;
+    padding: 10px;
+    margin-bottom: 5px;
   }
 
   .dop-wrapper__down-content {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: inherit;
+    padding: 0px;
+    padding-bottom: 10px;
   }
 
-  .dop-wrapper__accept {
+  .dop-wrapper__button {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 12px;
-    height: 8vh;
-    width: 17vw;
-  }
-
-  .dop-wrapper__cancel {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    height: 8vh;
-    width: 17vw;
+    font-size: 8px;
+    height: auto;
+    width: 30vw;
+    padding: 8px;
+    margin: 0 10px;
+    border-radius: 6px;
   }
 }

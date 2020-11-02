@@ -133,7 +133,7 @@ export const updatePassword = async (user) => {
     );
     return response;
   } catch (e) {
-    return e.response.data.status;
+    return e.response;
   }
 };
 
@@ -279,7 +279,7 @@ export const editOrganization = async (org) => {
     });
     return response;
   } catch (e) {
-    return e.response.data;
+    return e.response;
   }
 };
 
@@ -316,7 +316,7 @@ export const sendInvitation = async (org) => {
     );
     return response;
   } catch (e) {
-    return e.response.data;
+    return e.response;
   }
 };
 
@@ -453,6 +453,33 @@ export const deleteOffer = async (id) => {
   try {
     const response = await axios.delete(`${HOST}/api/v1/offers/${id}`);
     return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const getUserRecommendation = async () => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/recommendations/user`);
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const getOfferRecommendation = async () => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/recommendations/offer`);
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const getCategoryById = async (id) => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/categories/?_id=${id}`);
+    return response.data;
   } catch (e) {
     return e.response.data;
   }
