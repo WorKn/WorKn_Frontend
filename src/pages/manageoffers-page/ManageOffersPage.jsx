@@ -8,8 +8,8 @@ import CreateOfferPopup from "../../components/popup-components/CreateOfferPopup
 import { useModal } from "../../hooks/useModal";
 import CustomOfferStrip from "../../components/offer-components/CustomOfferStrip";
 import updateAction from "../../updateAction";
+import EmailNotValidated from "../../components/emailnotvalidated-components/EmailNotValidated";
 import { useStateMachine } from "little-state-machine";
-import { Link } from "react-router-dom";
 import Banner from "../../components/banner-components/Banner";
 
 const ManageOffersPage = () => {
@@ -44,6 +44,7 @@ const ManageOffersPage = () => {
             key={offer._id}
             organizationInformation={organizationInfo}
             offerInfo={offer}
+            setMyOffers={setMyOffers}
           ></CustomOfferStrip>
         ) : null
       ),
@@ -126,7 +127,10 @@ const ManageOffersPage = () => {
       <Header></Header>
       <Banner image={"qiyrYvI.png"} />
       <AddOfferModal>
-        <CreateOfferPopup hide={hideAddOfferModal}></CreateOfferPopup>
+        <CreateOfferPopup
+          hide={hideAddOfferModal}
+          setMyOffers={setMyOffers}
+        ></CreateOfferPopup>
       </AddOfferModal>
       <div className="manageoffers__container">
         <span className="manageoffers__title--dark">Ofertas Activas</span>
@@ -151,26 +155,7 @@ const ManageOffersPage = () => {
       </div>
     </div>
   ) : (
-    <div className="manageoffers-nv__container">
-      <div className="manageoffers-nv__body">
-        <img
-          src="https://i.imgur.com/cDCOxmU.png"
-          alt=""
-          className="manageoffers-nv__img"
-        />
-        <h1 className="manageoffers-nv__title">
-          Su correo no ha sido validado
-        </h1>
-        <span>
-          Lo sentimos, para acceder a este contenido requerimos que su cuenta de
-          correo esté validada; aparentemente su cuenta aun no ha sido validada,
-          por favor, diríjase a su correo para continuar con el proceso.
-        </span>
-        <Link to="/userprofile" className="manageoffers-nv__button">
-          <div>Volver a tu perfil</div>
-        </Link>
-      </div>
-    </div>
+    <EmailNotValidated />
   );
 };
 

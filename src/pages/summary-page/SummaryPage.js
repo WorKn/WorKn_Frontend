@@ -4,6 +4,7 @@ import updateAction from "../../updateAction";
 import Banner from "../../components/banner-components/Banner";
 import Header from "../../components/navbar-components/Navbar";
 import Footer from "../../components/footer-components/Footer";
+import EmailNotValidated from "../../components/emailnotvalidated-components/EmailNotValidated";
 import "./SummaryPage-Style.css";
 import OfferStrip from "../../components/offer-components/OfferStrip";
 import { getMyInteractions, getMyOffers } from "../../utils/apiRequests";
@@ -13,6 +14,7 @@ const SummaryPage = () => {
   const [offers, setOffers] = useState();
   const [applied, setApplied] = useState();
   const [interested, setInterested] = useState();
+  const [success, setSuccess] = useState(true);
   const [match, setMatches] = useState();
   const { state } = useStateMachine(updateAction);
   const { register, handleSubmit } = useForm({});
@@ -32,53 +34,63 @@ const SummaryPage = () => {
   }, []);
 
   useEffect(() => {
-    if (
-      state.userInformation.userType !== "undefined" &&
-      state.userInformation.userType === "applicant"
-    ) {
-      getMyInteractions().then((res) => {
-        setApplied(res.data.data.interactions.applied);
-        const filteredInterested = res.data.data.interactions.interested.filter(
-          (interaction) => !interaction.rejected
-        );
-        setInterested(filteredInterested);
-        setMatches(res.data.data.interactions.match);
-        console.log(res);
-      });
-    }
-  }, [state.userInformation.userType]);
-
-  useEffect(() => {
-    if (
-      state.userInformation.userType !== "undefined" &&
-      state.userInformation.userType === "offerer" &&
-      selectedOffer
-    ) {
-      getMyInteractions(selectedOffer).then((res) => {
-        if (res !== undefined) {
+    if (!state.userInformation.isEmailValidated) {
+      setSuccess(false);
+    } else {
+      if (
+        state.userInformation.userType !== "undefined" &&
+        state.userInformation.userType === "applicant"
+      ) {
+        getMyInteractions().then((res) => {
+          setApplied(res.data.data.interactions.applied);
+          const filteredInterested = res.data.data.interactions.interested.filter(
+            (interaction) => !interaction.rejected
+          );
+          setInterested(filteredInterested);
+          setMatches(res.data.data.interactions.match);
           console.log(res);
-        }
-        setApplied(res.data.data.interactions.applied);
-        setInterested(res.data.data.interactions.interested);
-        setMatches(res.data.data.interactions.match);
-      });
+        });
+      }
     }
-  }, [selectedOffer, state.userInformation.userType]);
+  }, [state.userInformation.userType, state.userInformation.isEmailValidated]);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    if (!state.userInformation.isEmailValidated) {
+      setSuccess(false);
+    } else {
+      if (
+        state.userInformation.userType !== "undefined" &&
+        state.userInformation.userType === "offerer" &&
+        selectedOffer
+      ) {
+        getMyInteractions(selectedOffer).then((res) => {
+          if (res !== undefined) {
+            console.log(res);
+          }
+          setApplied(res.data.data.interactions.applied);
+          setInterested(res.data.data.interactions.interested);
+          setMatches(res.data.data.interactions.match);
+        });
+      }
+    }
+  }, [
+    selectedOffer,
+    state.userInformation.userType,
+    state.userInformation.isEmailValidated,
+  ]);
 
-  return (
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return success ? (
     <div className="summarypage">
       <Header />
       <Banner image={"qSOKi8h.png"} />
       {typeof state.userInformation.userType !== "undefined" &&
       state.userInformation.userType === "applicant" ? (
         <div className="summarypage__inner">
-          <span className="summarypage__title">
-            Estas empresas están interesadas en tí
-          </span>
+          <span className="summarypage__title">Interesados en ti</span>
           {interested?.map((i) => (
             <OfferStrip
               key={i._id}
@@ -171,6 +183,8 @@ const SummaryPage = () => {
       )}
       <Footer />
     </div>
+  ) : (
+    <EmailNotValidated />
   );
 };
 

@@ -1,20 +1,16 @@
 import React, { useState } from "react";
-
-import "./CreateOfferPopup-Style.css";
-
 import { useForm } from "react-hook-form";
-
 import { editOffer } from "../../utils/apiRequests";
-
+import { getMyOffers } from "../../utils/apiRequests";
 import { ErrorMessage } from "@hookform/error-message";
-
 import categoryContext from "../../utils/categoryContext";
 import CategoryInput from "../input-components/CategoryInput";
 import tagsContext from "../../utils/tagsContext";
 import TagsInput from "../input-components/TagsInput";
 import { store } from "react-notifications-component";
+import "./CreateOfferPopup-Style.css";
 
-const EditOfferPopup = ({ hide, offerInfo }) => {
+const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
   const { register, handleSubmit, errors } = useForm({
     // mode: "onBlur",
   });
@@ -60,6 +56,9 @@ const EditOfferPopup = ({ hide, offerInfo }) => {
             onScreen: true,
           },
         });
+        getMyOffers().then((res) => {
+          setMyOffers(res.data.data.offers);
+        });
       } else {
         setSuccess(false);
         store.addNotification({
@@ -84,7 +83,13 @@ const EditOfferPopup = ({ hide, offerInfo }) => {
     <categoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
       <tagsContext.Provider value={{ selectedTags, setSelectedTags }}>
         <div className="popup-wrapper">
-          <form onSubmit={handleSubmit(onSubmit)} className="sizing-container">
+          <form
+            onSubmit={handleSubmit((data) => {
+              onSubmit(data);
+              hide();
+            })}
+            className="sizing-container"
+          >
             <div className="create-offer__header">
               <h1 className="create-offer__header-title">Edicion de ofertas</h1>
               {/* <i
