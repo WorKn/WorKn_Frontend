@@ -44,6 +44,7 @@ const ManageOffersPage = () => {
             key={offer._id}
             organizationInformation={organizationInfo}
             offerInfo={offer}
+            setMyOffers={setMyOffers}
           ></CustomOfferStrip>
         ) : null
       ),
@@ -126,7 +127,10 @@ const ManageOffersPage = () => {
       <Header></Header>
       <Banner image={"qiyrYvI.png"} />
       <AddOfferModal>
-        <CreateOfferPopup hide={hideAddOfferModal}></CreateOfferPopup>
+        <CreateOfferPopup
+          hide={hideAddOfferModal}
+          setMyOffers={setMyOffers}
+        ></CreateOfferPopup>
       </AddOfferModal>
       <div className="manageoffers__container">
         <span className="manageoffers__title--dark">Ofertas Activas</span>
