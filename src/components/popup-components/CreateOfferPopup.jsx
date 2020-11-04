@@ -163,7 +163,7 @@ const CreateOfferPage = ({ hide }) => {
 
               <input
                 type="text"
-                placeholder="Ubicacion [opcional]"
+                placeholder="Ubicación [opcional]"
                 title="Por favor, ingrese la Ubicacion de la oferta [opcional]"
                 name="location"
                 ref={register}
