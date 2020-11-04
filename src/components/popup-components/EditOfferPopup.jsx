@@ -121,8 +121,8 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
             <div className="create-offer__paired-input">
               <span>Descripción</span>
 
-              <input
-                type="text"
+              <textarea
+                type="textarea"
                 name="description"
                 placeholder="Descripción"
                 defaultValue={offerInfo.description}

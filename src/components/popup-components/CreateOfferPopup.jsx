@@ -126,8 +126,8 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
             <div className="create-offer__paired-input">
               <span>Descripción</span>
 
-              <input
-                type="text"
+              <textarea
+                type="textarea"
                 name="description"
                 placeholder="Descripción"
                 title="Por favor, ingrese la descripción de la oferta"
@@ -172,7 +172,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
 
               <input
                 type="text"
-                placeholder="Ubicacion [opcional]"
+                placeholder="Ubicación [opcional]"
                 title="Por favor, ingrese la Ubicacion de la oferta [opcional]"
                 name="location"
                 ref={register}
@@ -224,6 +224,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                 step="any"
                 name="salaryRangeFrom"
                 placeholder="Desde [opcional]"
+                className="create-offer__salaryRangeFrom"
                 ref={register}
                 title="Por favor, ingrese el rango inicial sin comas [opcional]"
               />
@@ -242,6 +243,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                 step="any"
                 name="salaryRangeTo"
                 placeholder="Hasta [opcional]"
+                className="create-offer__salaryRangeFrom"
                 ref={register}
                 title="Por favor, ingrese el rango final [opcional]"
               />

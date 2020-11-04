@@ -143,13 +143,6 @@ const ManageOffersPage = () => {
           </span>
         </div>
       </div>
-      {/* <button
-        type="button"
-        className="manageoffers__create-button"
-        onClick={showAddOfferModal}
-      >
-        <i className="fa fas fa-plus manageoffers__icon"></i>Crear oferta
-      </button> */}
 
       <div className="manageoffers__inner">{activeOffers}</div>
       <div className="manageoffers__container">

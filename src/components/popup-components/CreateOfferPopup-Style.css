@@ -1,12 +1,10 @@
 .create-offer__container {
   display: flex;
-  /* flex-flow: column; */
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 721px;
-  /* background: url("https://i.imgur.com/VloYU9M.jpg") center fixed; */
 }
 
 .create-offer__form {
@@ -48,13 +46,6 @@
 }
 
 .create-offer__paired-input select {
-  /* background-color: #e5e4e4;
-  border: none;
-  border-radius: 5px;
-  height: 30px;
-  margin-bottom: 16px;
-  padding: auto 20px; */
-
   height: 42px;
   margin-bottom: 3px;
   padding: 13px;
@@ -65,10 +56,22 @@
   border-width: 1px;
 }
 
+.create-offer__description-input {
+  height: 80px;
+  margin-bottom: 3px;
+  padding: 14px;
+  background-color: white;
+  border-color: hsl(0, 0%, 80%);
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  resize: vertical;
+  max-height: 320px;
+  font-size: 14px;
+}
+
 .create-offer__salary-range {
   display: flex;
-  /* margin-right: 30%;
-    justify-content: space-between; */
 }
 
 .popup-wrapper {
