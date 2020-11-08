@@ -81,7 +81,7 @@
 }
 
 @media only screen and (max-width: 1490px) {
-  .offerstrip__edit,
+  /* .offerstrip__edit, */
   .offerstrip__type,
   .offerstrip__delete,
   .offerstrip__org,

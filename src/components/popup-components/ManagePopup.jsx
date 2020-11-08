@@ -207,7 +207,7 @@ const ManagePopup = () => {
               <span className="members__subtitle">Inserte el nuevo rol</span>
               <div className="members__update--inner">
                 <select
-                  className="form__select"
+                  className="sform__select"
                   name="role"
                   id="role"
                   ref={register({
