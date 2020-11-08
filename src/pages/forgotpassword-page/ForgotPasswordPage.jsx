@@ -39,36 +39,39 @@ const FPassword = () => {
   };
 
   return (
-    <div className="login-wrapper">
+    <div className="forgot-wrapper">
       <ToastContainer />
-      <form className="forgot-container" onSubmit={handleSubmit(onSubmit)}>
-        <h1 className="forgot-container__popup-title">
-          ¡Olvide mi contraseña!
+      <div className="green-line">
+        <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
+          <h1 className="forgot-container__popup-title">
+            ¡Olvidé mi contraseña!
         </h1>
-        <span className="forgot-container__popup-text">Correo</span>
-        <input
-          className="forgot-container__form-input"
-          type="email"
-          name="email"
-          placeholder="Email"
-          ref={register({ required: "Por favor ingrese su correo" })}
-        />
-        <ErrorMessage
-          errors={errors}
-          name="email"
-          render={({ message }) => (
-            <div className="input__msg input__msg--error">
-              <i class="fa fa-asterisk"></i> {message}
-            </div>
-          )}
-        />
-        <div className="input__msg input__msg--error">{userObject.message}</div>
-        <input
-          className="forgot-container__custom-button bg-green"
-          type="submit"
-          value="Enviar"
-        />
-      </form>
+          <span className="forgot-container__popup-text">Correo</span>
+          <input
+            className="forgot-container__form-input"
+            type="email"
+            name="email"
+            placeholder="Email"
+            ref={register({ required: "Por favor ingrese su correo" })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="email"
+            render={({ message }) => (
+              <div className="input__msg input__msg--error">
+                <i class="fa fa-asterisk"></i> {message}
+              </div>
+            )}
+          />
+          <div className="input__msg input__msg--error">{userObject.message}</div>
+          <input
+            className="forgot-container__custom-button bg-green"
+            type="submit"
+            value="Enviar"
+          />
+        </form>
+      </div>
+
     </div>
   );
 };

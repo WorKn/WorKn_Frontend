@@ -172,7 +172,7 @@ const OfferStrip = ({
                 <Tag
                   key={tag.id}
                   text={tag.name}
-                  theme="tag tag_text tag_text--gray"
+                  theme="tag tag__text tag__text--gray"
                 ></Tag>
               ))}
             </div>
