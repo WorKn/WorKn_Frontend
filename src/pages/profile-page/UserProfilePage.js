@@ -29,7 +29,7 @@ const UserProfilePage = (props) => {
       setTimeout(() => {
         store.addNotification({
           title: "Bienvenido " + state.userInformation.name + " tu cuenta ha sido creada exitosamente",
-          message: "Procede a completar tu perfil para poder navegar en nuestro sitio",
+          message: "Procede a completar tu perfil para poder navegar en nuestro sitio, recuerda que debes validar tu cuenta.",
           type: "success",
           insert: "top",
           container: "top-right",

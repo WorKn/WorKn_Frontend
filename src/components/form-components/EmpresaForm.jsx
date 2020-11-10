@@ -173,9 +173,9 @@ const EmpresaForm = () => {
       </div>
       <div className="userform__LIP">
         <span className="userform__label">Descripción</span>
-        <input
-          className="userform__input userform__input--lg"
-          type="text"
+        <textarea
+          className="userform__input userform__input--lg userform__input-bio"
+          type="textarea"
           name="bio"
           ref={register({
             maxLength: {
