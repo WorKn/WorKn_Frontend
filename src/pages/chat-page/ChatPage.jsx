@@ -29,11 +29,8 @@ const ChatPage = () => {
           console.log(res);
 
           if (res.data.status === "success") {
-            socket.emit(
-              "chat_message",
-              state.userInformation.email,
-              message.current
-            );
+            socket.emit("join_chat", res.data.data.chat.id);
+            socket.emit("chat_message", res.data.data.chat.id, message.current);
           }
         }
       }
@@ -61,10 +58,10 @@ const ChatPage = () => {
     });
   }, [submit]);
 
-  useEffect(() => {
-    console.log("Joining to chat. Room Id: ", state.userInformation.email);
-    socket.emit("join_chat", state.userInformation.email);
-  }, []);
+  // useEffect(() => {
+  //   console.log("Joining to chat. Room Id: ", state.userInformation.email);
+  //   socket.emit("join_chat", state.userInformation.email);
+  // }, []);
 
   useEffect(() => {
     socket.on("is_online", (data) => {
