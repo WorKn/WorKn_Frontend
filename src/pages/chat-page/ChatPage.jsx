@@ -4,6 +4,9 @@ import { ErrorMessage } from "@hookform/error-message";
 import { createChat } from "../../utils/apiRequests";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
+import Banner from "../../components/banner-components/Banner";
+import Header from "../../components/navbar-components/Navbar";
+import Footer from "../../components/footer-components/Footer";
 
 // import { getTesting } from "../utils/apiRequests";
 
@@ -83,26 +86,47 @@ const ChatPage = () => {
   //   };
 
   return (
-    <div className="main-div">
-      <h1>CHAT</h1>
-      {messages.map((el) => (
-        <span>{el}</span>
-      ))}
-      <form
-        action={HOST}
-        method="POST"
-        id="chatForm"
-        onSubmit={handleSubmit(submit)}
-      >
-        <input
-          name="message_input"
-          autocomplete="off"
-          ref={register}
-          autofocus="on"
-          placeholder="type your message here..."
-        />
-        <button>Send</button>
-      </form>
+    <div className="chatpage">
+      <Header />
+      <Banner image={"qSOKi8h.png"} />
+      <div className="chatpage__inner">
+        {/* <h1>CHAT</h1> */}
+        <div className="chat__box">
+          <div className="chat__boxleft">
+            <h1> a ver</h1>
+          </div>
+          <div className="chat__boxright">
+            <ul className="chat__messagecontainer">
+              {messages.map((el) => (
+                <li className="chat__message">{el}<span className="message__time">6:17 p.m.</span></li>
+              ))}
+            </ul>
+            <div className="chat__barcontainer">
+              <form
+                className="chat__form"
+                action={HOST}
+                method="POST"
+                id="chatForm"
+                onSubmit={handleSubmit(submit)}
+              >
+                <div className="chat__barbutton">
+                  <input
+                    className="chat__bar"
+                    name="message_input"
+                    autocomplete="off"
+                    ref={register}
+                    autofocus="on"
+                    placeholder="type your message here..."
+                  />
+                  <button className="chat__button"><i className="fa fa-paper-plane"></i></button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   );
 };
