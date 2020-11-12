@@ -31,8 +31,8 @@ const EmpresaProfilePage = (props) => {
   } = useModal();
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="pagewrap">
@@ -78,22 +78,26 @@ const EmpresaProfilePage = (props) => {
             {typeof state.userInformation.organizationRole !== "undefined" &&
               (state.userInformation.organizationRole === "owner" ||
                 state.userInformation.organizationRole === "supervisor") ? (
-                <div>
-                  <button
-                    className="userprofile__action"
-                    onClick={showMembersModal}
-                  >
-                    <i className="fa fa-cog userprofile__icon"></i>
-                  Manejar invitaciones de miembros
+                <button
+                  className="userprofile__action"
+                  onClick={showMembersModal}
+                >
+                  <i className="fa fa-cog userprofile__icon"></i>
+                  Invitar miembros
                 </button>
-                  <button
-                    className="userprofile__action"
-                    onClick={ShowManageModal}
-                  >
-                    <i className="fa fa-cog userprofile__icon"></i>
+              ) : (
+                ""
+              )}
+            {typeof state.userInformation.organizationRole !== "undefined" &&
+              (state.userInformation.organizationRole === "owner" ||
+                state.userInformation.organizationRole === "supervisor") ? (
+                <button
+                  className="userprofile__action"
+                  onClick={ShowManageModal}
+                >
+                  <i className="fa fa-cog userprofile__icon"></i>
                   Manejar miembros
                 </button>
-                </div>
               ) : (
                 ""
               )}

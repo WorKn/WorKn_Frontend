@@ -12,7 +12,7 @@ import QuestionPopup from "./components/popup-components/QuestionPopup";
 import UserProfilePage from "./pages/profile-page/UserProfilePage";
 import EmpresaProfilePage from "./pages/profile-page/EmpresaProfilePage";
 import ManageOffersPage from "./pages/manageoffers-page/ManageOffersPage";
-import { ProtectedRoute } from "./components/route-components/ProtectedRoute";
+// import { ProtectedRoute } from "./components/route-components/ProtectedRoute";
 import ManagePopup from "./components/popup-components/ManagePopup";
 import ForgotPasswordPage from "./pages/forgotpassword-page/ForgotPasswordPage.jsx";
 import NewPasswordPage from "./pages/newpassword-page/NewPasswordPage.jsx";
@@ -21,10 +21,13 @@ import AddMember from "./pages/addmember-page/AddMemberPage";
 import SummaryPage from "./pages/summary-page/SummaryPage";
 import NotFound from "./pages/not_found-page/not_found";
 import ExplorePage from "./pages/explore-page/ExplorePage";
+import ParticularUserProfilePage from "./pages/particularuserprofile-page/ParticularUserProfilePage";
 import EmpresaViewPage from "./pages/viewside-page/EmpresaViewPage";
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 import ChatPage from "./pages/chat-page/ChatPage";
+import RecommendationsPage from "./pages/recommendations-page/RecommendationsPage";
+// import ChatPage from "./pages/chat-page/ChatPage";
 require("dotenv").config({ path: "./.env" });
 
 function App() {
@@ -63,22 +66,32 @@ function App() {
               path="/landingpage/question"
               component={QuestionPopup}
             />
-            <ProtectedRoute
+            <Route
               exact
               path="/userprofile"
               component={UserProfilePage}
             />
-            <ProtectedRoute
+            <Route
               exact
               path="/organizationprofile"
               component={EmpresaProfilePage}
             />
             <Route
               exact
+              path="/recommendations"
+              component={RecommendationsPage}
+            />
+            <Route
+              exact
               path="/emailvalidation/:token"
               component={EmailValidation}
             />
-            {/* <Route exact path="/addMember/:token" component={AddMember} /> */}
+            <Route
+              exact
+              path="/users/:id"
+              component={ParticularUserProfilePage}
+            />
+
             <Route
               exact
               path="/addMember/:orgid/:token"

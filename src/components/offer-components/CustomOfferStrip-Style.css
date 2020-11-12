@@ -33,6 +33,13 @@
   align-items: center;
 }
 
+.offerstrip__tagscontainer--inactive {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 15vw;
+}
+
 .offerstrip__picture {
   width: 53px;
   height: 53px;
@@ -56,7 +63,7 @@
 }
 
 @media only screen and (max-width: 1490px) {
-  .offerstrip__edit,
+  /* .offerstrip__edit, */
   .offerstrip__type,
   .offerstrip__delete,
   .offerstrip__org,

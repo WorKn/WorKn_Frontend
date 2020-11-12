@@ -223,7 +223,7 @@ const AddMember = ({
           <div className="ctext-separator">
             <span className="remind-me">
               Ya tienes cuenta? {""}
-              <a className="popup-link " href="/loginpage">
+              <a className="popup-link " href="/login">
                 Inicia sesión
               </a>
             </span>

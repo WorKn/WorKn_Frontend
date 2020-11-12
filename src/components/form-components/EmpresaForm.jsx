@@ -47,7 +47,7 @@ const EmpresaForm = () => {
               animationIn: ["animate__animated", "animate__fadeIn"],
               animationOut: ["animate__animated", "animate__fadeOut"],
               dismiss: {
-                duration: 6000,
+                duration: 10000,
                 onScreen: true
               }
             });
@@ -70,7 +70,7 @@ const EmpresaForm = () => {
               animationIn: ["animate__animated", "animate__fadeIn"],
               animationOut: ["animate__animated", "animate__fadeOut"],
               dismiss: {
-                duration: 6000,
+                duration: 10000,
                 onScreen: true
               }
             });
@@ -87,7 +87,7 @@ const EmpresaForm = () => {
               animationIn: ["animate__animated", "animate__fadeIn"],
               animationOut: ["animate__animated", "animate__fadeOut"],
               dismiss: {
-                duration: 6000,
+                duration: 10000,
                 onScreen: true
               }
             });
@@ -173,9 +173,9 @@ const EmpresaForm = () => {
       </div>
       <div className="userform__LIP">
         <span className="userform__label">Descripción</span>
-        <input
-          className="userform__input userform__input--lg"
-          type="text"
+        <textarea
+          className="userform__input userform__input--lg userform__input-bio"
+          type="textarea"
           name="bio"
           ref={register({
             maxLength: {

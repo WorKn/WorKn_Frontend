@@ -43,9 +43,9 @@ const Navbar = () => {
               ? "navbar__link navbar__link--hidden navbar__hide-on-mobile"
               : "navbar__link navbar__link--hidden"
           }
-          to="#"
+          to="/recommendations"
         >
-          Ofertas
+          Recomendaciones
         </Link>
         <Link
           className={
@@ -126,8 +126,7 @@ const Navbar = () => {
               }
               to="/login"
               onClick={() => {
-                action({ isUserFromNav: true })
-
+                action({ isUserFromNav: true });
               }}
             >
               Registrate

@@ -32,7 +32,8 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  margin-right: 50px;
+  margin-right: 15px;
+  border: 2px solid #5BBA6F;
 }
 
 .members__fullname {
@@ -77,4 +78,56 @@
   flex-wrap: wrap;
   padding: 10px;
   margin-left: 10px;
+}
+
+.customers {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 0.5em;
+  overflow: hidden;
+}
+
+.customers td, .customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.customers tr:nth-child(even){background-color: #f2f2f2;}
+
+.customers tr:hover {background-color: #ddd;}
+
+.customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #5BBA6F;
+  color: white;
+}
+
+.centered__row{
+  display: flex;
+  align-items: center;
+  height: 105px;
+}
+
+.control__container{
+font-size: 20px;
+color: white;
+}
+
+.edit__button{
+  background-color: #363537;
+  padding: 7px;
+  border-radius: 0.2em;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.delete__button{
+  background-color: #ee6055;
+  padding: 7px;
+  border-radius: 0.2em;
+  cursor: pointer;
 }
