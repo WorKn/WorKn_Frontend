@@ -102,18 +102,16 @@ const DetailPopup = ({ responseInfo, hide }) => {
                       ? MyDictionary[responseInfo?.offerType]
                       : "Info no disponible"}
                   </li>
-                  <li>
-                    Fecha de creación:{" "}
-                    {responseInfo?.createdAt
-                      ? `${responseInfo?.createdAt?.slice(0, 10)}`
-                      : "Info no disponible"}
-                  </li>
-                  <li>
-                    Fecha de cierre:{" "}
-                    {responseInfo?.closingDate
-                      ? `${responseInfo?.closingDate?.slice(0, 10)}`
-                      : "Info no disponible"}
-                  </li>
+                  {responseInfo?.createdAt ? (
+                    <li>
+                      Fecha de creación: {responseInfo?.createdAt?.slice(0, 10)}
+                    </li>
+                  ) : null}
+                  {responseInfo?.closingDate ? (
+                    <li>
+                      Fecha de cierre: {responseInfo?.closingDate?.slice(0, 10)}
+                    </li>
+                  ) : null}
                 </ul>
               </div>
               <ul className="dp-wrapper__tags">
@@ -137,17 +135,15 @@ const DetailPopup = ({ responseInfo, hide }) => {
                 : "Descripcion no disponible"}
             </p>
             <p className="dp-wrapper__salary">
-              Rango salarial:
-              <b>
-                RD${" "}
-                {responseInfo?.salaryRange
-                  ? responseInfo?.salaryRange[0]
-                  : "Descripcion no disponible"}{" "}
-                -{" "}
-                {responseInfo?.salaryRange
-                  ? responseInfo?.salaryRange[1]
-                  : "Descripcion no disponible"}
-              </b>
+              {responseInfo?.offer?.salaryRange ? (
+                <p>
+                  Rango salarial:<br></br>
+                  <b>
+                    RD$ {responseInfo?.salaryRange[0]} -{" "}
+                    {responseInfo?.salaryRange[1]}
+                  </b>
+                </p>
+              ) : null}
             </p>
             <p className="dp-wrapper__contact dp-wrapper__contact--ap">
               Contacto:

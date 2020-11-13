@@ -101,7 +101,7 @@ const EmpresaViewPage = ({
               <span>Email:</span>
               <a href={`mailto:${orgInfo?.email}`}>{`${orgInfo?.email}`}</a>
               <span>Telefono:</span>
-              <p>{`${orgInfo?.phone}`}</p>
+              <p>{formatPhoneNumber(orgInfo?.phone)}</p>
             </div>
             <div className="EmpresaView__metrics EmpresaView__metrics--mob EmpresaView__metrics--b">
               <h2>Información</h2>

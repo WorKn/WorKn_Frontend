@@ -58,18 +58,12 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
                   ? MyDictionary[offerInfo.offerType]
                   : "Info no disponible"}
               </li>
-              <li>
-                Fecha de creación:{" "}
-                {offerInfo
-                  ? `${offerInfo.createdAt.slice(0, 10)}`
-                  : "Info no disponible"}
-              </li>
-              <li>
-                Fecha de cierre:{" "}
-                {offerInfo
-                  ? `${offerInfo.closingDate.slice(0, 10)}`
-                  : "Info no disponible"}
-              </li>
+              {offerInfo.createdAt ? (
+                <li>Fecha de creación: {offerInfo.createdAt.slice(0, 10)}</li>
+              ) : null}
+              {offerInfo.closingDate ? (
+                <li>Fecha de cierre: {offerInfo.closingDate.slice(0, 10)}</li>
+              ) : null}
             </ul>
           </div>
           <ul className="op-wrapper_tags">
@@ -91,17 +85,14 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
           {offerInfo ? offerInfo.description : "Descripcion no disponible"}
         </p>
         <p className="op-wrapper__salary">
-          Rango salarial:
-          <b>
-            RD${" "}
-            {offerInfo?.salaryRange
-              ? offerInfo?.salaryRange[0]
-              : "Descripcion no disponible"}{" "}
-            -{" "}
-            {offerInfo?.salaryRange
-              ? offerInfo?.salaryRange[1]
-              : "Descripcion no disponible"}
-          </b>
+          {offerInfo?.salaryRange ? (
+            <p>
+              Rango salarial:<br></br>
+              <b>
+                RD$ {offerInfo?.salaryRange[0]} - {offerInfo?.salaryRange[1]}
+              </b>
+            </p>
+          ) : null}
         </p>
         {offerInfo.organization ? (
           <p className="op-wrapper__contact">

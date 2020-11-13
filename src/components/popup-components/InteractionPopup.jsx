@@ -70,18 +70,18 @@ const InteractionPopup = ({ responseInfo }) => {
                           ? MyDictionary[responseInfo?.offer?.offerType]
                           : "Info no disponible"}
                       </li>
-                      <li>
-                        Fecha de creacion:{" "}
-                        {responseInfo?.offer?.createdAt
-                          ? `${responseInfo?.offer?.createdAt?.slice(0, 10)}`
-                          : "Info no disponible"}
-                      </li>
-                      <li>
-                        Fecha de cierre:{" "}
-                        {responseInfo?.offer?.closingDate
-                          ? `${responseInfo?.offer?.closingDate?.slice(0, 10)}`
-                          : "Info no disponible"}
-                      </li>
+                      {responseInfo?.offer?.createdAt ? (
+                        <li>
+                          Fecha de creación:{" "}
+                          {responseInfo?.offer?.createdAt?.slice(0, 10)}
+                        </li>
+                      ) : null}
+                      {responseInfo?.offer?.closingDate ? (
+                        <li>
+                          Fecha de cierre:{" "}
+                          {responseInfo?.offer?.closingDate?.slice(0, 10)}
+                        </li>
+                      ) : null}
                     </ul>
                   </div>
                   <ul className="dp-wrapper__tags">
@@ -105,17 +105,15 @@ const InteractionPopup = ({ responseInfo }) => {
                     : "Descripcion no disponible"}
                 </p>
                 <p className="dp-wrapper__salary">
-                  Rango salarial:
-                  <b>
-                    RD${" "}
-                    {responseInfo?.offer?.salaryRange
-                      ? responseInfo?.offer?.salaryRange[0]
-                      : "Descripcion no disponible"}{" "}
-                    -{" "}
-                    {responseInfo?.offer?.salaryRange
-                      ? responseInfo?.offer?.salaryRange[1]
-                      : "Descripcion no disponible"}
-                  </b>
+                  {responseInfo?.offer?.salaryRange ? (
+                    <p>
+                      Rango salarial:<br></br>
+                      <b>
+                        RD$ {responseInfo?.offer?.salaryRange[0]} -{" "}
+                        {responseInfo?.offer?.salaryRange[1]}
+                      </b>
+                    </p>
+                  ) : null}
                 </p>
                 <p className="dp-wrapper__contact ">
                   Contacto:

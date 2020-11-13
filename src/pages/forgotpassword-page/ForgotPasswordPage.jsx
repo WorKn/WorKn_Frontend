@@ -3,9 +3,9 @@ import "./ForgotPassword-Style.css";
 import "../../App.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { sendEmail } from "../../utils/apiRequests";
+import { store } from 'react-notifications-component';
+
 
 const FPassword = () => {
   const { register, handleSubmit, errors } = useForm();
@@ -14,33 +14,56 @@ const FPassword = () => {
   const onSubmit = (data) => {
     sendEmail(data)
       .then((res) => {
-        if (res.data !== undefined) {
-          toast.success(`Porfavor, revise su correo`, {
-            className: "sendEmail_success",
-            position: toast.POSITION.TOP_LEFT,
-            closeButton: false,
+        if (res?.status && res?.status === "success") {
+          store.addNotification({
+            title: "Correo enviado correctamente",
+            message: "Por favor revise su correo",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true
+            }
           });
           console.log(res.data);
-        } else {
-          toast.error(`Introduzca un correo existente`, {
-            className: "sendEmail_fail",
-            position: toast.POSITION.TOP_LEFT,
-            closeButton: false,
+        } else if (res?.status && res?.status === "fail"){
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: res?.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true
+            }
           });
         }
       })
       .catch((err) => {
-        toast.error(err, {
-          className: "sendEmail_fail",
-          position: toast.POSITION.TOP_LEFT,
-          closeButton: false,
+        store.addNotification({
+          title: "Ha ocurrido un error",
+          message: err,
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true
+          }
         });
       });
   };
 
   return (
-    <div className="login-wrapper">
-      <ToastContainer />
+    <div className="forgot-wrapper">
       <form className="forgot-container" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="forgot-container__popup-title">
           ¡Olvide mi contraseña!
@@ -74,3 +97,9 @@ const FPassword = () => {
 };
 
 export default FPassword;
+
+
+
+
+
+
