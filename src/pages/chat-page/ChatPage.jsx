@@ -7,6 +7,8 @@ import { useStateMachine } from "little-state-machine";
 import Banner from "../../components/banner-components/Banner";
 import Header from "../../components/navbar-components/Navbar";
 import Footer from "../../components/footer-components/Footer";
+import { getMyChats } from "../../utils/apiRequests";
+
 
 // import { getTesting } from "../utils/apiRequests";
 
@@ -14,10 +16,12 @@ import "./ChatPage-Style.css";
 
 import socketIOClient from "socket.io-client";
 import interactionContext from "../../utils/interactionContext";
+import Contact from "../../components/chat-components/Contact";
 const HOST = "http://127.0.0.1:3000";
 const socket = socketIOClient(HOST);
 
 const ChatPage = () => {
+  const [chats, setChats] = useState([]);
   const { state } = useStateMachine(updateAction);
   const [messages, setMessages] = useState([]);
   // const [username, setUsername] = useState([]);
@@ -30,7 +34,6 @@ const ChatPage = () => {
       (res) => {
         if (res.data !== undefined) {
           console.log(res);
-
           if (res.data.status === "success") {
             socket.emit("join_chat", res.data.data.chat.id);
             socket.emit("chat_message", res.data.data.chat.id, message.current);
@@ -72,6 +75,13 @@ const ChatPage = () => {
     });
   }, [submit]);
 
+  useEffect(() => {
+    getMyChats().then((res) => {
+      setChats(res.data.data.chats)
+      console.log(res);
+    });
+  }, []);
+
   //   const addItem = () => {
   //     setMessages([...messages, "Hola Jay"]);
   //   };
@@ -93,7 +103,14 @@ const ChatPage = () => {
         {/* <h1>CHAT</h1> */}
         <div className="chat__box">
           <div className="chat__boxleft">
-            <h1> a ver</h1>
+            {chats.map((response) =>
+              response ? (
+                <Contact
+                  key={response._id}
+                  responseInfo={response}
+                ></Contact>
+              ) : null
+            )}
           </div>
           <div className="chat__boxright">
             <ul className="chat__messagecontainer">
@@ -123,10 +140,9 @@ const ChatPage = () => {
               </form>
             </div>
           </div>
-
         </div>
       </div>
-
+      <Footer />
     </div>
   );
 };
