@@ -6,10 +6,8 @@ import { removeMember, updateMemberRole } from "../../utils/apiRequests";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import "./ManagePopup-Style.css";
-import { store } from 'react-notifications-component';
+import { store } from "react-notifications-component";
 import "./QuestionPopup-Style.css";
-
-
 
 const ManagePopup = () => {
   const [current, setCurrent] = useState("");
@@ -18,7 +16,10 @@ const ManagePopup = () => {
   const [isVisible, setIsVisible] = useState(false);
   const { state } = useStateMachine(updateAction);
   const { register, handleSubmit } = useForm();
-
+  let UsersTypeDictionary = {};
+  UsersTypeDictionary["owner"] = "Propietario";
+  UsersTypeDictionary["member"] = "Miembro";
+  UsersTypeDictionary["supervisor"] = "Supervisor";
 
   const onSubmit = (data, e) => {
     updateMemberRole(memberToUpdate, data.role).then((res) => {
@@ -26,7 +27,11 @@ const ManagePopup = () => {
         if (res?.data?.status && res?.data?.status === "success") {
           store.addNotification({
             title: "Rol actualizado correctamente",
-            message: "El rol de " + res?.data?.data?.member?.name + " fue actualizado a " + data?.role,
+            message:
+              "El rol de " +
+              res?.data?.data?.member?.name +
+              " fue actualizado a " +
+              data?.role,
             type: "success",
             insert: "top",
             container: "top-right",
@@ -34,8 +39,8 @@ const ManagePopup = () => {
             animationOut: ["animate__animated", "animate__fadeOut"],
             dismiss: {
               duration: 10000,
-              onScreen: true
-            }
+              onScreen: true,
+            },
           });
           setCurrent(res);
         } else if (res?.data?.status && res?.data?.status === "fail") {
@@ -49,8 +54,8 @@ const ManagePopup = () => {
             animationOut: ["animate__animated", "animate__fadeOut"],
             dismiss: {
               duration: 10000,
-              onScreen: true
-            }
+              onScreen: true,
+            },
           });
         }
       }
@@ -65,7 +70,9 @@ const ManagePopup = () => {
           if (res?.data?.status && res?.data?.status === "success") {
             store.addNotification({
               title: "Usuario eliminado correctamente",
-              message: "El miembro fue eliminado de " + res?.data?.data?.organization?.name,
+              message:
+                "El miembro fue eliminado de " +
+                res?.data?.data?.organization?.name,
               type: "success",
               insert: "top",
               container: "top-right",
@@ -73,8 +80,8 @@ const ManagePopup = () => {
               animationOut: ["animate__animated", "animate__fadeOut"],
               dismiss: {
                 duration: 10000,
-                onScreen: true
-              }
+                onScreen: true,
+              },
             });
             setCurrent(res);
           } else if (res?.data?.status && res?.data?.status === "fail") {
@@ -88,8 +95,8 @@ const ManagePopup = () => {
               animationOut: ["animate__animated", "animate__fadeOut"],
               dismiss: {
                 duration: 10000,
-                onScreen: true
-              }
+                onScreen: true,
+              },
             });
           }
         }
@@ -120,21 +127,32 @@ const ManagePopup = () => {
               <tbody>
                 {state.userInformation.data.members.map((member) => (
                   <tr key={member._id}>
-                    <td className='centered__row'><img
-                      className="members__profilepic"
-                      src={member.profilePicture}
-                      alt=""
-                    />{member.name}{" "}{member.lastname}</td>
-                    <td>{member.organizationRole}</td>
-                    <td className='control__container'><i onClick={() => {
-                      toggleEdit();
-                      setMemberToUpdate(member._id);
-                    }} className="fa fa-pencil-square-o edit__button"></i><i onClick={() => {
-                      sendMember(member._id);
-                    }} className="fa fa-times delete__button"></i></td>
+                    <td className="centered__row">
+                      <img
+                        className="members__profilepic"
+                        src={member.profilePicture}
+                        alt=""
+                      />
+                      {member.name} {member.lastname}
+                    </td>
+                    <td>{UsersTypeDictionary[member.organizationRole]}</td>
+                    <td className="control__container">
+                      <i
+                        onClick={() => {
+                          toggleEdit();
+                          setMemberToUpdate(member._id);
+                        }}
+                        className="fa fa-pencil-square-o edit__button"
+                      ></i>
+                      <i
+                        onClick={() => {
+                          sendMember(member._id);
+                        }}
+                        className="fa fa-times delete__button"
+                      ></i>
+                    </td>
                   </tr>
-                ))
-                }
+                ))}
               </tbody>
             </table>
             {/* {state.userInformation.data.members.map((member) => (
@@ -175,32 +193,32 @@ const ManagePopup = () => {
           </ul>
 
           {typeof current.data !== "undefined" &&
-            current.data.status === "successs" ? (
-              <div className="input__msg input__msg--success">
-                <i class="fa fa-check"></i> Usuario actualizado correctamente
-              </div>
-            ) : (
-              ""
-            )}
+          current.data.status === "successs" ? (
+            <div className="input__msg input__msg--success">
+              <i class="fa fa-check"></i> Usuario actualizado correctamente
+            </div>
+          ) : (
+            ""
+          )}
 
           {typeof current.data !== "undefined" &&
-            current.data.status === "member deleted" ? (
-              <div className="input__msg input__msg--success">
-                <i className="fa fa-check"></i> Usuario eliminado correctamente
-              </div>
-            ) : (
-              ""
-            )}
+          current.data.status === "member deleted" ? (
+            <div className="input__msg input__msg--success">
+              <i className="fa fa-check"></i> Usuario eliminado correctamente
+            </div>
+          ) : (
+            ""
+          )}
 
           {typeof current.data !== "undefined" &&
-            current.data.status === "fail" ? (
-              <div className="input__msg input__msg--error">
-                <i className="fa fa-times"></i> Esta acción sobrepasa tus
+          current.data.status === "fail" ? (
+            <div className="input__msg input__msg--error">
+              <i className="fa fa-times"></i> Esta acción sobrepasa tus
               permisos. Contáctate con tu superior.
-              </div>
-            ) : (
-              ""
-            )}
+            </div>
+          ) : (
+            ""
+          )}
 
           {typeof isVisible !== "undefined" && isVisible === true ? (
             <div className="members__update">
@@ -225,8 +243,8 @@ const ManagePopup = () => {
               </div>
             </div>
           ) : (
-              ""
-            )}
+            ""
+          )}
         </div>
       </form>
     </div>

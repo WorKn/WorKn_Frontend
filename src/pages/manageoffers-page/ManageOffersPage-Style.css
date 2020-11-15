@@ -16,8 +16,11 @@
   font-size: 57px;
   text-shadow: 1px 2px 5px #7e7d7d;
 }
+.manageoffers-inner {
+  padding: 2% 0%;
+}
 
-.manageoffers__inner {
+.manageoffers__offers-list {
   display: flex;
   flex-flow: column;
   width: 100%;
@@ -52,6 +55,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 15px 0px;
 }
 
 .addoffer__newbutton {

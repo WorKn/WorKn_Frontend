@@ -52,6 +52,7 @@
   resize: vertical;
   max-height: 400px;
   font-size: 14px;
+  min-height: 100px;
 }
 
 .userform__footer {
