@@ -7,7 +7,7 @@ import { useStateMachine } from "little-state-machine";
 import Banner from "../../components/banner-components/Banner";
 import Header from "../../components/navbar-components/Navbar";
 import Footer from "../../components/footer-components/Footer";
-import { getMyChats } from "../../utils/apiRequests";
+import { getMyChats, getChatMessages, createMessage } from "../../utils/apiRequests";
 
 
 // import { getTesting } from "../utils/apiRequests";
@@ -17,31 +17,42 @@ import "./ChatPage-Style.css";
 import socketIOClient from "socket.io-client";
 import interactionContext from "../../utils/interactionContext";
 import Contact from "../../components/chat-components/Contact";
+import Message from "../../components/chat-components/Message";
 const HOST = "http://127.0.0.1:3000";
 const socket = socketIOClient(HOST);
 
 const ChatPage = () => {
   const [chats, setChats] = useState([]);
-  var today = new Date();
-  var time = today.getHours() + ":" + today.getMinutes();
   const { state } = useStateMachine(updateAction);
   const [messages, setMessages] = useState([]);
+  const [chatExists, setChatExists] = useState(false);
+  const [currentChat, setCurrentChat] = useState({});
   // const [username, setUsername] = useState([]);
   const { register, handleSubmit, watch, reset } = useForm({});
   // prompt("Hola nene");
   const submit = (data) => {
-    createChat(message.current, state.userInformation.chatPivot.interactionId).then(
-      (res) => {
-        if (res.data !== undefined) {
-          console.log(res);
-          if (res.data.status === "success") {
-            socket.emit("join_chat", res.data.data.chat.id);
-            socket.emit("chat_message", res.data.data.chat.id, message.current);
-            message.current = reset();
+    if (chatExists) {
+      createMessage(message.current, currentChat._id).then((res) => {
+        socket.emit("join_chat", currentChat._id);
+        socket.emit("chat_message", currentChat._id, res.data.data.message);
+        console.log(res);
+        message.current = reset();
+      });
+      // socket.emit("chat_message", res.data.data.chat.id, res.data.data.lastMessage);
+    } else {
+      createChat(message.current, state.userInformation.chatPivot.interactionId).then(
+        (res) => {
+          if (res.data !== undefined) {
+            console.log(res);
+            if (res.data.status === "success") {
+              socket.emit("join_chat", res.data.data.chat.id);
+              socket.emit("chat_message", res.data.data.chat.id, res.data.data.lastMessage);
+              message.current = reset();
+            }
           }
         }
-      }
-    );
+      );
+    }
     // console.log(data);
     // socket.emit("chat_message", message.current);
     // console.log("Message: ", message);
@@ -78,9 +89,35 @@ const ChatPage = () => {
 
   useEffect(() => {
     getMyChats().then((res) => {
-      const chats = res.data.data.chats;
-      setChats(chats);
-      console.log(chats)
+      let myChats = res.data.data.chats;
+      // console.log(chats);
+      const found = myChats.find(chat => chat.user.id == state.userInformation.chatPivot.userInfo.id);
+      if (found) {
+        setChatExists(true);
+        setCurrentChat(found);
+        console.log(found);
+        getChatMessages(found._id).then((res) => {
+          socket.emit("join_chat", found._id);
+          console.log(res);
+          console.log(res.data.data.chat.messages);
+          setMessages(res.data?.data.chat?.messages)
+          // action(res.data.c)
+        });
+      } else {
+        const chatPreview = {
+          user: state.userInformation.chatPivot.userInfo
+        }
+        myChats.push(chatPreview);
+        // createChat(message.current, state.userInformation.chatPivot.interactionId).then(
+        //   (res) => {
+        //     if (res.data !== undefined) {
+
+        //     }
+        //   }
+        // );
+      }
+      console.log(myChats);
+      setChats(myChats);
     });
   }, []);
 
@@ -116,10 +153,11 @@ const ChatPage = () => {
           </div>
           <div className="chat__boxright">
             <ul className="chat__messagecontainer">
-              {messages.map((el) => (
-                <li className="chat__message">{el}<span className="message__time">{time}</span></li>
+              {messages?.map((el) => (
+                <Message message={el.message} createdAt={el.createdAt} isMyMessage={el.sender === state.userInformation._id ? true : false} ></Message>
               ))}
             </ul>
+
             <div className="chat__barcontainer">
               <form
                 className="chat__form"

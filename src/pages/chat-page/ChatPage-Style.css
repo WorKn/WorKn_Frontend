@@ -157,6 +157,13 @@ form button {
   padding: 10px;
 }
 
+.chat__message--me{
+  height: auto;
+  align-self: flex-end;
+  background-color: #5BBA6F;
+  color: white;
+}
+
 .message__time{
   align-self: flex-end;
   margin-right: 5px;
@@ -173,11 +180,14 @@ form button {
   /* flex-wrap: wrap; */
 }
 
-.chat__messagecontainer li:nth-child(odd) {
+/* .chat__messagecontainer li:nth-child(odd) {
   align-self: flex-end;
   background-color: #5BBA6F;
   color: white;
-}
+} */
+
+
+
 
 @media screen and (max-width: 799px) {
   .chat__boxleft{
