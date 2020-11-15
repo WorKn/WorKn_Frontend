@@ -22,21 +22,22 @@ const socket = socketIOClient(HOST);
 
 const ChatPage = () => {
   const [chats, setChats] = useState([]);
+  var today = new Date();
+  var time = today.getHours() + ":" + today.getMinutes();
   const { state } = useStateMachine(updateAction);
   const [messages, setMessages] = useState([]);
   // const [username, setUsername] = useState([]);
   const { register, handleSubmit, watch, reset } = useForm({});
-
   // prompt("Hola nene");
-
   const submit = (data) => {
-    createChat(message.current, state.userInformation.interactionId).then(
+    createChat(message.current, state.userInformation.chatPivot.interactionId).then(
       (res) => {
         if (res.data !== undefined) {
           console.log(res);
           if (res.data.status === "success") {
             socket.emit("join_chat", res.data.data.chat.id);
             socket.emit("chat_message", res.data.data.chat.id, message.current);
+            message.current = reset();
           }
         }
       }
@@ -77,8 +78,9 @@ const ChatPage = () => {
 
   useEffect(() => {
     getMyChats().then((res) => {
-      setChats(res.data.data.chats)
-      console.log(res);
+      const chats = res.data.data.chats;
+      setChats(chats);
+      console.log(chats)
     });
   }, []);
 
@@ -115,7 +117,7 @@ const ChatPage = () => {
           <div className="chat__boxright">
             <ul className="chat__messagecontainer">
               {messages.map((el) => (
-                <li className="chat__message">{el}<span className="message__time">6:17 p.m.</span></li>
+                <li className="chat__message">{el}<span className="message__time">{time}</span></li>
               ))}
             </ul>
             <div className="chat__barcontainer">

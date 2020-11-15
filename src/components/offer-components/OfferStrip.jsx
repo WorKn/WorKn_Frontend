@@ -28,8 +28,9 @@ const OfferStrip = ({
   // } = useModal();
 
   const sendInteractionId = () => {
-    const currentId = { interactionId };
-    action(currentId);
+    const chatPivot = { chatPivot: { interactionId, userInfo: responseInfo.applicant } }
+    console.log(chatPivot);
+    action(chatPivot);
   };
 
   const catchInteraction = () => {
