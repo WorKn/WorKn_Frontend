@@ -21,6 +21,7 @@ import AddMember from "./pages/addmember-page/AddMemberPage";
 import SummaryPage from "./pages/summary-page/SummaryPage";
 import NotFound from "./pages/not_found-page/not_found";
 import ExplorePage from "./pages/explore-page/ExplorePage";
+import TermsOfServicePage from "./pages/termsofservice/TermsOfServicePage";
 import ParticularUserProfilePage from "./pages/particularuserprofile-page/ParticularUserProfilePage";
 import EmpresaViewPage from "./pages/viewside-page/EmpresaViewPage";
 import RecommendationsPage from "./pages/recommendations-page/RecommendationsPage";
@@ -65,11 +66,7 @@ function App() {
               path="/landingpage/question"
               component={QuestionPopup}
             />
-            <Route
-              exact
-              path="/userprofile"
-              component={UserProfilePage}
-            />
+            <Route exact path="/userprofile" component={UserProfilePage} />
             <Route
               exact
               path="/organizationprofile"
@@ -102,6 +99,7 @@ function App() {
               component={EmpresaViewPage}
             />
             <Route exact path="/manageoffers" component={ManageOffersPage} />
+            <Route exact path="/tos" component={TermsOfServicePage} />
             <Route exact path="/addMember/:token" component={AddMember} />
             <Route exact path="/summary" component={SummaryPage} />
             <Route exact path="/explore" component={ExplorePage} />
