@@ -77,14 +77,14 @@ const AddMember = ({
           </div>
           <span className="popup-title">Registra tu cuenta </span>
           {typeof orgInfo.data !== "undefined" &&
-            orgInfo.data.status === "success" ? (
-              <span className="sub-title">
-                Estás siendo invitado a {orgInfo.data.data.organization.name} con
+          orgInfo.data.status === "success" ? (
+            <span className="sub-title">
+              Estás siendo invitado a {orgInfo.data.data.organization.name} con
               el rol de {orgInfo.data.data.invitedRole}{" "}
-              </span>
-            ) : (
-              ""
-            )}
+            </span>
+          ) : (
+            ""
+          )}
 
           <div className="paired-container">
             <div className="paired-input">
@@ -223,7 +223,7 @@ const AddMember = ({
           <div className="ctext-separator">
             <span className="remind-me">
               Ya tienes cuenta? {""}
-              <a className="popup-link " href="/loginpage">
+              <a className="popup-link " href="/login">
                 Inicia sesión
               </a>
             </span>

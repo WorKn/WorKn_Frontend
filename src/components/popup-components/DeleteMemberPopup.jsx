@@ -39,7 +39,6 @@ const DeleteOfferPopup = ({ memberId, hide }) => {
           });
         }
         hide();
-        window.confirm("Usuario borrado");
       }
     });
   };
