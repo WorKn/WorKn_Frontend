@@ -24,6 +24,7 @@ import ExplorePage from "./pages/explore-page/ExplorePage";
 import ParticularUserProfilePage from "./pages/particularuserprofile-page/ParticularUserProfilePage";
 import EmpresaViewPage from "./pages/viewside-page/EmpresaViewPage";
 import RecommendationsPage from "./pages/recommendations-page/RecommendationsPage";
+import FAQPage from "./pages/FAQ-page/FAQPage";
 import ReactNotification from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 // import ChatPage from "./pages/chat-page/ChatPage";
@@ -65,11 +66,7 @@ function App() {
               path="/landingpage/question"
               component={QuestionPopup}
             />
-            <Route
-              exact
-              path="/userprofile"
-              component={UserProfilePage}
-            />
+            <Route exact path="/userprofile" component={UserProfilePage} />
             <Route
               exact
               path="/organizationprofile"
@@ -102,9 +99,10 @@ function App() {
               component={EmpresaViewPage}
             />
             <Route exact path="/manageoffers" component={ManageOffersPage} />
-            <Route exact path="/addMember/:token" component={AddMember} />
             <Route exact path="/summary" component={SummaryPage} />
             <Route exact path="/explore" component={ExplorePage} />
+            <Route exact path="/FAQ" component={FAQPage} />
+            <Route exact path="/addMember/:token" component={AddMember} />
             <Route exact path="/managemembers" component={ManagePopup} />
             {/* <Route exact path="/chat" component={ChatPage} /> */}
             <Route path="*" component={NotFound} />
