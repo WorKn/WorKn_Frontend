@@ -15,37 +15,65 @@ const TermsOfServicePage = () => {
       <div className="tos-wrapper">
         <div className="tos-container__left-items">
           <ol>
-            <li>Introduccion</li>
-            <li>Terminos y Condiciones</li>
-            <li>Cookies</li>
-            <li>Licencia</li>
-            <li>Hipervínculos a nuestro contenido</li>
-            <li>iFrames</li>
-            <li>Responsabilidad del contenido</li>
-            <li>Reserva de derechos</li>
-            <li>Eliminación de enlaces de nuestro sitio web</li>
-            <li>Descargo de responsabilidad</li>
-            <li>Política de datos</li>
+            <li>
+              <a href="#section1">Introduccion</a>
+            </li>
+            <li>
+              <a href="#section2">Terminos y Condiciones</a>
+            </li>
+            <li>
+              <a href="#section3">Cookies</a>
+            </li>
+            <li>
+              <a href="#section4">Licencia</a>
+            </li>
+            <li>
+              <a href="#section5">Hipervínculos a nuestro contenido</a>
+            </li>
+            <li>
+              <a href="#section6">iFrames</a>
+            </li>
+            <li>
+              <a href="#section7">Responsabilidad del contenido</a>
+            </li>
+            <li>
+              <a href="#section8">Reserva de derechos</a>
+            </li>
+            <li>
+              <a href="#section9">
+                Eliminación de enlaces de nuestro sitio web
+              </a>
+            </li>
+            <li>
+              <a href="#section10">Descargo de responsabilidad</a>
+            </li>
+            <li>
+              <a href="#section11">Política de datos</a>
+            </li>
           </ol>
         </div>
         <div className="tos-container__right-items">
-          <h3 className="tos-container__title">1. Introducción</h3>
+          <h3 className="tos-container__title" id="section1">
+            1. Introducción
+          </h3>
           <p className="tos-container__section">
             El siguiente documento denominado Términos y Condiciones actúa como
-            contrato entre nosotros (WorKn) y nuestros clientes (los usuarios).
-            Este documento previene que los usuarios puedan abusar de nuestro
-            servicio y por igual establece límites del uso de nuestra
+            contrato entre nosotros <span>WorKn</span> y nuestros clientes (los
+            usuarios). Este documento previene que los usuarios puedan abusar de
+            nuestro servicio y por igual establece límites del uso de nuestra
             plataforma.
           </p>
 
-          <h3 className="tos-container__title">2. Términos y Condiciones</h3>
+          <h3 className="tos-container__title" id="section2">
+            2. Términos y Condiciones
+          </h3>
           <div className="tos-container__section">
             <p>
               ¡Bienvenido a <span>WorKn!</span>
             </p>
             <p>
               Estos términos y condiciones describen las reglas y regulaciones
-              para el uso del sitio web de WorKn, ubicado en{" "}
+              para el uso del sitio web de <span>WorKn</span>, ubicado en{" "}
               <span>http://workn.com.</span>
             </p>
             <p>
@@ -80,11 +108,13 @@ const TermsOfServicePage = () => {
               Nosotros no venderemos sus datos personales a terceros y no
               compartiremos su información salvo que nos otorgue el permiso para
               hacerlo. En este apartado se especificará de qué manera se usarán
-              sus datos para el funcionamiento de WorKn.
+              sus datos para el funcionamiento de <span>WorKn</span>.
             </p>
           </div>
 
-          <h3 className="tos-container__title">3. Cookies</h3>
+          <h3 className="tos-container__title" id="section3">
+            3. Cookies
+          </h3>
           <div className="tos-container__section">
             <p>
               Empleamos el uso de <span>cookies</span>. Al acceder a{" "}
@@ -102,23 +132,34 @@ const TermsOfServicePage = () => {
             </p>
           </div>
 
-          <h3 className="tos-container__title">4. Licencia</h3>
+          <h3 className="tos-container__title" id="section4">
+            4. Licencia
+          </h3>
           <div className="tos-container__section">
             <p>
-              A menos que se indique lo contrario, WorKn y / o sus licenciantes
-              poseen los derechos de propiedad intelectual de todo el material
-              de WorKn. Todos los derechos de propiedad intelectual están
-              reservados. Puede acceder a esto desde WorKn para su uso personal
-              sujeto a las restricciones establecidas en estos términos y
-              condiciones.
+              A menos que se indique lo contrario, <span>WorKn</span> y / o sus
+              licenciantes poseen los derechos de propiedad intelectual de todo
+              el material de <span>WorKn</span>. Todos los derechos de propiedad
+              intelectual están reservados. Puede acceder a esto desde{" "}
+              <span>WorKn</span>
+              para su uso personal sujeto a las restricciones establecidas en
+              estos términos y condiciones.
             </p>
             <p>
               No debes:
               <ul>
-                <li>Republicar material de WorKn</li>
-                <li>Vender, alquilar o sublicenciar material de WorKn</li>
-                <li>Reproducir, duplicar o copiar material de WorKn</li>
-                <li>Redistribuir contenido de WorKn</li>
+                <li>
+                  Republicar material de <span>WorKn</span>
+                </li>
+                <li>
+                  Vender, alquilar o sublicenciar material de <span>WorKn</span>
+                </li>
+                <li>
+                  Reproducir, duplicar o copiar material de <span>WorKn</span>
+                </li>
+                <li>
+                  Redistribuir contenido de <span>WorKn</span>
+                </li>
               </ul>
             </p>
             <p>
@@ -128,20 +169,21 @@ const TermsOfServicePage = () => {
             <p>
               Partes de este sitio web ofrecen a los usuarios la oportunidad de
               publicar e intercambiar opiniones e información en determinadas
-              áreas del sitio web. WorKn no filtra, edita, publica ni revisa los
-              Comentarios, Reviews u Ofertas antes de su presencia en el sitio
-              web. Los comentarios no reflejan los puntos de vista y opiniones
-              de WorKn, sus agentes y / o afiliados. Los
+              áreas del sitio web. <span>WorKn</span> no filtra, edita, publica
+              ni revisa los Comentarios, Reviews u Ofertas antes de su presencia
+              en el sitio web. Los comentarios no reflejan los puntos de vista y
+              opiniones de <span>WorKn</span>, sus agentes y / o afiliados. Los
               Comentarios/Reviews/Ofertas reflejan los puntos de vista y
               opiniones de la persona que publica sus puntos de vista y
               opiniones. En la medida en que lo permitan las leyes aplicables,
-              WorKn no será responsable de los Comentarios/Reviews/Ofertas ni de
-              ninguna responsabilidad, daños o gastos causados ​​y / o sufridos
-              como resultado de cualquier uso y / o publicación y / o aparición
-              de los Comentarios/Reviews/Ofertas en este sitio web.
+              <span>WorKn</span> no será responsable de los
+              Comentarios/Reviews/Ofertas ni de ninguna responsabilidad, daños o
+              gastos causados ​​y / o sufridos como resultado de cualquier uso y
+              / o publicación y / o aparición de los Comentarios/Reviews/Ofertas
+              en este sitio web.
             </p>
             <p>
-              WorKn se reserva el derecho de monitorear todos los
+              <span>WorKn</span> se reserva el derecho de monitorear todos los
               Comentarios/Reviews/Ofertas y eliminar cualquier
               Comentario/Review/Oferta que pueda considerarse inapropiado,
               ofensivo o que cause el incumplimiento de estos Términos y
@@ -160,14 +202,14 @@ const TermsOfServicePage = () => {
               Comentarios/Reviews/Ofertas no se utilizarán para solicitar o
               promover negocios o actividades comerciales personalizadas sin
               justificación o actividades ilegales. Por la presente, otorga a
-              WorKn una licencia no exclusiva para usar, reproducir, editar y
-              autorizar a otros a usar, reproducir y editar cualquiera de sus
-              Comentarios/Reviews/Ofertas en todas y cada una de las formas,
-              formatos o medios.
+              <span>WorKn</span> una licencia no exclusiva para usar,
+              reproducir, editar y autorizar a otros a usar, reproducir y editar
+              cualquiera de sus Comentarios/Reviews/Ofertas en todas y cada una
+              de las formas, formatos o medios.
             </p>
           </div>
 
-          <h3 className="tos-container__title">
+          <h3 className="tos-container__title" id="section5">
             5. Hipervínculos a nuestro contenido
           </h3>
           <div className="tos-container__section">
@@ -216,8 +258,8 @@ const TermsOfServicePage = () => {
               a nosotros mismos ni a nuestras empresas vinculadas; (b) la
               organización no tiene registros negativos con nosotros; (c) el
               beneficio para nosotros de la visibilidad del hipervínculo
-              compensa la ausencia de WorKn; y (d) el enlace está en el contexto
-              de información general de recursos.
+              compensa la ausencia de <span>WorKn</span>; y (d) el enlace está
+              en el contexto de información general de recursos.
             </p>
             <p>
               Estas organizaciones pueden enlazar a nuestra página de inicio
@@ -229,11 +271,11 @@ const TermsOfServicePage = () => {
             <p>
               Si usted es una de las organizaciones enumeradas en el párrafo
               anterior y está interesado en vincularse a nuestro sitio web, debe
-              informarnos enviando un correo electrónico a WorKn. Incluya su
-              nombre, el nombre de su organización, la información de contacto,
-              así como la URL de su sitio, una lista de las URL desde las que
-              desea vincular a nuestro sitio web y una lista de las URL de
-              nuestro sitio a las que le gustaría enlace. Y espere entre 2-4
+              informarnos enviando un correo electrónico a <span>WorKn</span>.
+              Incluya su nombre, el nombre de su organización, la información de
+              contacto, así como la URL de su sitio, una lista de las URL desde
+              las que desea vincular a nuestro sitio web y una lista de las URL
+              de nuestro sitio a las que le gustaría enlace. Y espere entre 2-4
               semanas para una respuesta.
             </p>
             <p>
@@ -255,7 +297,9 @@ const TermsOfServicePage = () => {
             </p>
           </div>
 
-          <h3 className="tos-container__title">6. iFrames</h3>
+          <h3 className="tos-container__title" id="section6">
+            6. iFrames
+          </h3>
           <div className="tos-container__section">
             <p>
               Sin la aprobación previa y el permiso por escrito, no puede crear
@@ -265,7 +309,7 @@ const TermsOfServicePage = () => {
             </p>
           </div>
 
-          <h3 className="tos-container__title">
+          <h3 className="tos-container__title" id="section7">
             7. Responsabilidad del contenido
           </h3>
           <div className="tos-container__section">
@@ -279,7 +323,9 @@ const TermsOfServicePage = () => {
               terceros.
             </p>
           </div>
-          <h3 className="tos-container__title">8. Reserva de derechos</h3>
+          <h3 className="tos-container__title" id="section8">
+            8. Reserva de derechos
+          </h3>
           <div className="tos-container__section">
             <p>
               Nos reservamos el derecho a solicitar que elimine todos los
@@ -292,7 +338,7 @@ const TermsOfServicePage = () => {
               términos y condiciones de vinculación.
             </p>
           </div>
-          <h3 className="tos-container__title">
+          <h3 className="tos-container__title" id="section9">
             9. Eliminación de enlaces de nuestro sitio web
           </h3>
           <div className="tos-container__section">
@@ -311,7 +357,7 @@ const TermsOfServicePage = () => {
               web se mantenga actualizado.
             </p>
           </div>
-          <h3 className="tos-container__title">
+          <h3 className="tos-container__title" id="section10">
             10. Descargo de responsabilidad
           </h3>
           <div className="tos-container__section">
@@ -342,13 +388,15 @@ const TermsOfServicePage = () => {
               responsables de ninguna pérdida o daño de cualquier naturaleza.
             </p>
           </div>
-          <h3 className="tos-container__title">11. Política de datos</h3>
+          <h3 className="tos-container__title" id="section11">
+            11. Política de datos
+          </h3>
           <div className="tos-container__section">
             <p>
-              Para poder proveer el funcionamiento principal de WorKn nosotros
-              recolectamos información provista por usted en virtud del uso
-              transparente de la misma. Esta información abarca el uso de
-              informaciones tales como:
+              Para poder proveer el funcionamiento principal de{" "}
+              <span>WorKn</span> nosotros recolectamos información provista por
+              usted en virtud del uso transparente de la misma. Esta información
+              abarca el uso de informaciones tales como:
               <ul>
                 <li>Su nombre, apellidos y documento de identidad</li>
                 <li>Su dirección de residencia o de domicilio de su empresa</li>
@@ -363,10 +411,10 @@ const TermsOfServicePage = () => {
               </ul>
             </p>
             <p>
-              Estas informaciones permiten que WorKn pueda trabajar ofreciendo
-              sus servicios de Match, entendiéndose por esto la actividad
-              principal de la plataforma que consiste en vincular dos usuarios
-              de acuerdo a sus preferencias y aptitudes profesionales.
+              Estas informaciones permiten que <span>WorKn</span> pueda trabajar
+              ofreciendo sus servicios de Match, entendiéndose por esto la
+              actividad principal de la plataforma que consiste en vincular dos
+              usuarios de acuerdo a sus preferencias y aptitudes profesionales.
             </p>
             <p>
               Estas informaciones son utilizadas para proveer, personalizar y

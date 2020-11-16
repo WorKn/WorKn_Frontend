@@ -1,15 +1,28 @@
 .tos-wrapper {
-  padding: 2% 10%;
+  padding: 3% 10%;
   display: flex;
-  margin-top: 0.75em;
+  background-color: #f7f7f7;
 }
 .tos-container__left-items {
   flex: 1 1 20%;
+  padding-top: 2em;
+  margin-right: 2em;
+  position: sticky;
+  height: 50%;
+  top: 0;
 }
 
 .tos-container__left-items ol li {
   margin: 1em 0;
 }
+.tos-container__left-items ol li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* .tos-container__left-items ol li a {
+  text-decoration: none;
+} */
 
 .tos-container__right-items {
   flex: 1 1 75%;
