@@ -21,6 +21,7 @@ const OfferStrip = ({
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
   const { show: showDetailModal, RenderModal: DetailModal } = useModal();
+  const [updateFlag, setUpdateFlag] = useState(false);
 
   // const {
   //   show: showDeleteOfferModal,
@@ -34,6 +35,8 @@ const OfferStrip = ({
   };
 
   const catchInteraction = () => {
+    setUpdateFlag(!updateFlag);
+    action({updateFlag: updateFlag});
     acceptInteraction(responseInfo._id).then((res) => {
       console.log(res);
       if (res === "success") {
@@ -69,6 +72,8 @@ const OfferStrip = ({
     
   };
   const deleteInteraction = () => {
+    setUpdateFlag(!updateFlag);
+    action(updateFlag);
     rejectInteraction(responseInfo._id).then((res) => {
         store.addNotification({
           title: "Aplicación rechazada",

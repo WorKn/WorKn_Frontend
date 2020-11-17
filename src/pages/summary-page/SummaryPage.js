@@ -52,7 +52,7 @@ const SummaryPage = () => {
         });
       }
     }
-  }, [state.userInformation.userType, state.userInformation.isEmailValidated]);
+  }, [state.userInformation.userType, state.userInformation.isEmailValidated, state.userInformation.updateFlag]);
 
   useEffect(() => {
     if (!state.userInformation.isEmailValidated) {
@@ -77,6 +77,7 @@ const SummaryPage = () => {
     selectedOffer,
     state.userInformation.userType,
     state.userInformation.isEmailValidated,
+    state.userInformation.updateFlag
   ]);
 
   useEffect(() => {
