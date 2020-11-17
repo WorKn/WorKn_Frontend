@@ -56,7 +56,7 @@ const EmpresaViewPage = ({
       }
     });
   }, [id, history]);
-
+// eslint-disable-next-line
   let formatPhoneNumber = (str) => {
     //Filter only numbers from the input
     let cleaned = ("" + str).replace(/\D/g, "");
