@@ -29,15 +29,11 @@ const OfferStrip = ({
   // } = useModal();
 
   const updateInteractions = () => {
-    if (state.userInformation.updateFlag !== "undefined" && state.userInformation.updateFlag === false){
-      console.log("es falsa")
+    // if (state.userInformation.updateFlag !== "undefined" && state.userInformation.updateFlag === false){
+      window.location.reload()
       action({updateFlag: true});
-      // window.location.reload()
-    } else {
-      console.log("es verdadera")
-      action({updateFlag: false});
-      // window.location.reload()
-    }
+      setTimeout(() => {  console.log("World!"); }, 2000);
+
   };
 
   const sendInteractionId = () => {

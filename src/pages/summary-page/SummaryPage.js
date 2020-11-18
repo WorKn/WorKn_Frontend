@@ -9,6 +9,8 @@ import "./SummaryPage-Style.css";
 import OfferStrip from "../../components/offer-components/OfferStrip";
 import { getMyInteractions, getMyOffers } from "../../utils/apiRequests";
 import { useForm } from "react-hook-form";
+import { store } from "react-notifications-component";
+
 
 const SummaryPage = () => {
   const [offers, setOffers] = useState();
@@ -16,7 +18,7 @@ const SummaryPage = () => {
   const [interested, setInterested] = useState();
   const [success, setSuccess] = useState(true);
   const [match, setMatches] = useState();
-  const { state } = useStateMachine(updateAction);
+  const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit } = useForm({});
   const [selectedOffer, setSelectedOffer] = useState();
 
@@ -32,6 +34,28 @@ const SummaryPage = () => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (state.userInformation.updateFlag && state.userInformation.updateFlag === true) {
+      setTimeout(() => {  
+        store.addNotification({
+          title: "Acción realizada",
+          message: "En caso de haber aceptado, el usuario será notificado de tu demostración de interés, puedes comunicarte a través de los Matches.",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true,
+          },
+        });
+        action({updateFlag: false});
+      }, 2000);
+
+    }
+  }, [action, state.userInformation.updateFlag ]);
 
   useEffect(() => {
     if (!state.userInformation.isEmailValidated) {
