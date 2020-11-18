@@ -100,6 +100,7 @@ const EmpresaForm = () => {
   useEffect(() => {
     getMyOrganization().then((res) => {
       if (res.data !== undefined) {
+        console.log(res)
         action(res.data.data);
       }
     });

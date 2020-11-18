@@ -50,6 +50,11 @@ const EmpresaProfilePage = (props) => {
           {typeof state.userInformation.data !== "undefined" ? (
             <span className="profile__header">
               {state.userInformation.data.name}
+              {typeof state.userInformation.data.isVerified && state.userInformation.data.isVerified === true ? (
+                <div className="profile__validated tooltip"><span className="tooltiptext">Esta organización está verificada</span><i class="fa fa-check profile__validatedicon"></i></div>
+              ) : (
+                  ""
+                )}
             </span>
           ) : (
               <span className="profile__header">Nombres de la Empresa</span>
