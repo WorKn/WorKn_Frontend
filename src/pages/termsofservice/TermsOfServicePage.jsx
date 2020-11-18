@@ -6,7 +6,7 @@ import Footer from "../../components/footer-components/Footer";
 import "./TermsOfServicePage-Style.css";
 
 const TermsOfServicePage = () => {
-  // const [invited, setInvited] = useState("");
+  const [active, setIsActive] = useState(false);
 
   return (
     <React.Fragment>
@@ -69,7 +69,7 @@ const TermsOfServicePage = () => {
           </h3>
           <div className="tos-container__section">
             <p>
-              ¡Bienvenido a <span>WorKn!</span>
+              ¡Bienvenido a <span>WorKn</span>!
             </p>
             <p>
               Estos términos y condiciones describen las reglas y regulaciones
@@ -141,24 +141,24 @@ const TermsOfServicePage = () => {
               licenciantes poseen los derechos de propiedad intelectual de todo
               el material de <span>WorKn</span>. Todos los derechos de propiedad
               intelectual están reservados. Puede acceder a esto desde{" "}
-              <span>WorKn</span>
-              para su uso personal sujeto a las restricciones establecidas en
-              estos términos y condiciones.
+              <span>WorKn</span> para su uso personal sujeto a las restricciones
+              establecidas en estos términos y condiciones.
             </p>
             <p>
               No debes:
               <ul>
                 <li>
-                  Republicar material de <span>WorKn</span>
+                  Republicar material de <span>WorKn</span>.
                 </li>
                 <li>
                   Vender, alquilar o sublicenciar material de <span>WorKn</span>
+                  .
                 </li>
                 <li>
-                  Reproducir, duplicar o copiar material de <span>WorKn</span>
+                  Reproducir, duplicar o copiar material de <span>WorKn</span>.
                 </li>
                 <li>
-                  Redistribuir contenido de <span>WorKn</span>
+                  Redistribuir contenido de <span>WorKn</span>.
                 </li>
               </ul>
             </p>
@@ -173,38 +173,41 @@ const TermsOfServicePage = () => {
               ni revisa los Comentarios, Reviews u Ofertas antes de su presencia
               en el sitio web. Los comentarios no reflejan los puntos de vista y
               opiniones de <span>WorKn</span>, sus agentes y / o afiliados. Los
-              Comentarios/Reviews/Ofertas reflejan los puntos de vista y
+              Comentarios / Reviews / Ofertas reflejan los puntos de vista y
               opiniones de la persona que publica sus puntos de vista y
-              opiniones. En la medida en que lo permitan las leyes aplicables,
-              <span>WorKn</span> no será responsable de los
-              Comentarios/Reviews/Ofertas ni de ninguna responsabilidad, daños o
-              gastos causados ​​y / o sufridos como resultado de cualquier uso y
-              / o publicación y / o aparición de los Comentarios/Reviews/Ofertas
+              opiniones. En la medida en que lo permitan las leyes aplicables,{" "}
+              <span>WorKn</span> no será responsable de los Comentarios /
+              Reviews / Ofertas ni de ninguna responsabilidad, daños o gastos
+              causados ​​y / o sufridos como resultado de cualquier uso y / o
+              publicación y / o aparición de los Comentarios / Reviews / Ofertas
               en este sitio web.
             </p>
             <p>
               <span>WorKn</span> se reserva el derecho de monitorear todos los
-              Comentarios/Reviews/Ofertas y eliminar cualquier
+              Comentarios / Reviews / Ofertas y eliminar cualquier
               Comentario/Review/Oferta que pueda considerarse inapropiado,
               ofensivo o que cause el incumplimiento de estos Términos y
               Condiciones.
             </p>
             <p>Usted garantiza y manifiesta que:</p>
             <p>
-              Tiene derecho a publicar los Comentarios/Reviews/Ofertas en
-              nuestro sitio web y tiene todas las licencias y consentimientos
-              necesarios para hacerlo; Los Comentarios/Reviews/Ofertas no
+              Tiene derecho a publicar los{" "}
+              <span>Comentarios / Reviews / Ofertas</span> en nuestro sitio web
+              y tiene todas las licencias y consentimientos necesarios para
+              hacerlo; Los <span>Comentarios / Reviews / Ofertas</span> no
               invaden ningún derecho de propiedad intelectual, incluidos, entre
               otros, los derechos de autor, patentes o marcas comerciales de
-              terceros; Los Comentarios/Reviews/Ofertas no contienen ningún
-              material difamatorio, calumnioso, ofensivo, indecente o ilegal de
-              cualquier otro modo que sea una invasión de la privacidad. Los
-              Comentarios/Reviews/Ofertas no se utilizarán para solicitar o
-              promover negocios o actividades comerciales personalizadas sin
-              justificación o actividades ilegales. Por la presente, otorga a
-              <span>WorKn</span> una licencia no exclusiva para usar,
-              reproducir, editar y autorizar a otros a usar, reproducir y editar
-              cualquiera de sus Comentarios/Reviews/Ofertas en todas y cada una
+              terceros; Los <span>Comentarios / Reviews / Ofertas</span> no
+              contienen ningún material difamatorio, calumnioso, ofensivo,
+              indecente o ilegal de cualquier otro modo que sea una invasión de
+              la privacidad. Los
+              <span>Comentarios / Reviews / Ofertas</span> no se utilizarán para
+              solicitar o promover negocios o actividades comerciales
+              personalizadas sin justificación o actividades ilegales. Por la
+              presente, otorga a <span>WorKn</span> una licencia no exclusiva
+              para usar, reproducir, editar y autorizar a otros a usar,
+              reproducir y editar cualquiera de sus{" "}
+              <span>Comentarios / Reviews / Ofertas</span> en todas y cada una
               de las formas, formatos o medios.
             </p>
           </div>

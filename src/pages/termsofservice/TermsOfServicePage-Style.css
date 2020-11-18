@@ -20,10 +20,6 @@
   color: inherit;
 }
 
-/* .tos-container__left-items ol li a {
-  text-decoration: none;
-} */
-
 .tos-container__right-items {
   flex: 1 1 75%;
 }
@@ -46,6 +42,7 @@
 }
 .tos-container__section p span {
   color: #00ba6b;
+  font-weight: 600;
 }
 .tos-container__section p ul {
   margin: 1em 0em 1em 2em;
