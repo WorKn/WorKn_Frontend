@@ -66,10 +66,11 @@ const SummaryPage = () => {
         getMyInteractions(selectedOffer).then((res) => {
           if (res !== undefined) {
             console.log(res);
+            setApplied(res?.data?.data?.interactions?.applied);
+            setInterested(res?.data?.data?.interactions?.interested);
+            setMatches(res?.data?.data?.interactions?.match);
           }
-          setApplied(res.data.data.interactions.applied);
-          setInterested(res.data.data.interactions.interested);
-          setMatches(res.data.data.interactions.match);
+
         });
       }
     }
@@ -92,7 +93,7 @@ const SummaryPage = () => {
       state.userInformation.userType === "applicant" ? (
         <div className="summarypage__inner">
           <span className="summarypage__title">Interesados en ti</span>
-          {typeof applied &&  (applied?.length < 1 || applied === undefined) ? (
+          {typeof interested &&  (interested?.length < 1 || interested === undefined) ? (
              <div className="summary__announcement">
             <div className="summarypage__imgbg">
               <img src="https://i.imgur.com/VhPGUOU.png" alt="applied" className="summarypage_appliedimg"></img>
@@ -116,7 +117,7 @@ const SummaryPage = () => {
           <span className="summarypage__title">
             Demostraste interés por estas ofertas
           </span>
-          {typeof interested &&  (interested?.length < 1 || interested === undefined) ? (
+          {typeof applied &&  (applied?.length < 1 || applied === undefined) ? (
             <div className="summary__announcement">
             <div className="summarypage__imgbg">
               <img src="https://i.imgur.com/CAtVIjs.png" alt="applied" className="summarypage_appliedimg"></img>
