@@ -92,6 +92,19 @@ const SummaryPage = () => {
       state.userInformation.userType === "applicant" ? (
         <div className="summarypage__inner">
           <span className="summarypage__title">Interesados en ti</span>
+          {typeof applied &&  (applied?.length < 1 || applied === undefined) ? (
+             <div className="summary__announcement">
+            <div className="summarypage__imgbg">
+              <img src="https://i.imgur.com/VhPGUOU.png" alt="applied" className="summarypage_appliedimg"></img>
+            </div>
+              <div className="summary__announcementinner">
+                <span className="summarypagea__title--dark">Ninguna organización ha demostrado interés por ti aún.</span>
+                <span>Asegurate de crear un perfil llamativo que atrape a los usuarios que se encuentren contigo en la plataforma.</span>
+              </div>
+             </div>
+            ) : (
+              ""
+            )}
           {interested?.map((i) => (
             <OfferStrip
               key={i._id}
@@ -103,6 +116,19 @@ const SummaryPage = () => {
           <span className="summarypage__title">
             Demostraste interés por estas ofertas
           </span>
+          {typeof interested &&  (interested?.length < 1 || interested === undefined) ? (
+            <div className="summary__announcement">
+            <div className="summarypage__imgbg">
+              <img src="https://i.imgur.com/CAtVIjs.png" alt="applied" className="summarypage_appliedimg"></img>
+            </div>
+              <div className="summary__announcementinner">
+                <span className="summarypagea__title--dark">No has demostrado interés por ninguna oferta.</span>
+                <span>Accede a nuestra página de Recomendaciones o de Exploración para encontrar ofertas perfectas para ti.</span>
+              </div>
+             </div>
+            ) : (
+              ""
+            )}
           {applied?.map((a) => (
             <OfferStrip
               key={a._id}
@@ -112,6 +138,19 @@ const SummaryPage = () => {
             ></OfferStrip>
           ))}
           <span className="summarypage__title">Matches</span>
+          {typeof match &&  (match?.length < 1 || match === undefined) ? (
+            <div className="summary__announcement">
+              <div className="summarypage__imgbg">
+              <img src="https://i.imgur.com/BztLr0l.png" alt="applied" className="summarypage_appliedimg"></img>
+              </div>
+              <div className="summary__announcementinner">
+                <span className="summarypagea__title--dark">Todavía no tienes ningún Match.</span>
+                <span>Recuerda que para que exista un Match, deben haber demostraciones de interés mutuas entre un ofertante y tu.</span>
+              </div>
+             </div>
+            ) : (
+              ""
+            )}
           {match?.map((m) => (
             <OfferStrip
               key={m._id}
