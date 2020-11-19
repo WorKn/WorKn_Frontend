@@ -39,20 +39,22 @@ const SummaryPage = () => {
     if (!state.userInformation.isEmailValidated) {
       setSuccess(false);
     } else {
-      if (
-        state.userInformation.userType !== "undefined" &&
-        state.userInformation.userType === "applicant"
-      ) {
-        getMyInteractions().then((res) => {
-          setApplied(res.data.data.interactions.applied);
-          const filteredInterested = res.data.data.interactions.interested.filter(
-            (interaction) => !interaction.rejected
-          );
-          setInterested(filteredInterested);
-          setMatches(res.data.data.interactions.match);
-          console.log(res);
-        });
-      }
+      setTimeout(() => {
+        if (
+          state.userInformation.userType !== "undefined" &&
+          state.userInformation.userType === "applicant"
+        ) {
+          getMyInteractions().then((res) => {
+            setApplied(res.data.data.interactions.applied);
+            const filteredInterested = res.data.data.interactions.interested.filter(
+              (interaction) => !interaction.rejected
+            );
+            setInterested(filteredInterested);
+            setMatches(res.data.data.interactions.match);
+            console.log(res);
+          });
+        }
+      }, 1500);
     }
   }, [state.userInformation.userType, state.userInformation.isEmailValidated, state.userInformation.updateFlag]);
 
@@ -60,21 +62,23 @@ const SummaryPage = () => {
     if (!state.userInformation.isEmailValidated) {
       setSuccess(false);
     } else {
-      if (
-        state.userInformation.userType !== "undefined" &&
-        state.userInformation.userType === "offerer" &&
-        selectedOffer
-      ) {
-        getMyInteractions(selectedOffer).then((res) => {
-          if (res !== undefined) {
-            console.log(res);
-            setApplied(res?.data?.data?.interactions?.applied);
-            setInterested(res?.data?.data?.interactions?.interested);
-            setMatches(res?.data?.data?.interactions?.match);
-          }
+      setTimeout(() => {
+        if (
+          state.userInformation.userType !== "undefined" &&
+          state.userInformation.userType === "offerer" &&
+          selectedOffer
+        ) {
+          getMyInteractions(selectedOffer).then((res) => {
+            if (res !== undefined) {
+              console.log(res);
+              setApplied(res?.data?.data?.interactions?.applied);
+              setInterested(res?.data?.data?.interactions?.interested);
+              setMatches(res?.data?.data?.interactions?.match);
+            }
 
-        });
-      }
+          });
+        }
+      }, 1500);
     }
   }, [
     selectedOffer,
