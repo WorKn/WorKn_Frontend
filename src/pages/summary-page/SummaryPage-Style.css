@@ -100,3 +100,22 @@
   margin-bottom: 10px;
   font-weight: 700;
 }
+
+.sweet-loading{
+  background-color: #403F40;
+  padding: 15px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  border-radius: 15px;
+    /* left: 0; 
+    right: 0;  */
+  margin-left: auto; 
+  margin-right: auto; 
+  margin-top: 20px;
+  width: 100px; /* Need a specific value to work */
+  position: sticky;
+  top: 0;
+}

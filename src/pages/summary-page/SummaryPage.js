@@ -10,9 +10,10 @@ import OfferStrip from "../../components/offer-components/OfferStrip";
 import { getMyInteractions, getMyOffers } from "../../utils/apiRequests";
 import { useForm } from "react-hook-form";
 import { css } from "@emotion/core";
-import FadeLoader from "react-spinners/FadeLoader";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const SummaryPage = () => {
+  const [loadingVar, setLoadingVar] = useState(false);
   const [offers, setOffers] = useState();
   const [applied, setApplied] = useState();
   const [interested, setInterested] = useState();
@@ -23,8 +24,6 @@ const SummaryPage = () => {
   const [selectedOffer, setSelectedOffer] = useState();
   const override = css`
   display: block;
-  margin: 0 auto;
-  border-color: red;
 `;
   const onSubmit = (data) => {
     setSelectedOffer(data.offer);
@@ -63,10 +62,12 @@ const SummaryPage = () => {
   }, [state.userInformation.userType, state.userInformation.isEmailValidated, state.userInformation.updateFlag]);
 
   useEffect(() => {
+    setLoadingVar(true);
     if (!state.userInformation.isEmailValidated) {
       setSuccess(false);
     } else {
       setTimeout(() => {
+        setLoadingVar(false);
         if (
           state.userInformation.userType !== "undefined" &&
           state.userInformation.userType === "offerer" &&
@@ -98,14 +99,19 @@ const SummaryPage = () => {
     <div className="summarypage">
       <Header />
       <Banner image={"qSOKi8h.png"} />
+      {typeof loadingVar && loadingVar === true ? (
       <div className="sweet-loading">
-        <FadeLoader
+        <BeatLoader
           css={override}
-          size={150}
-          color={"#123abc"}
+          size={10}
+          color={"#00BA6B"}
           loading={true}
         />
       </div>
+      ):(
+        ""
+      )}
+
       {typeof state.userInformation.userType !== "undefined" &&
         state.userInformation.userType === "applicant" ? (
           <div className="summarypage__inner">
