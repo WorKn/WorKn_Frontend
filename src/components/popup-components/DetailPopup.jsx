@@ -34,7 +34,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
         setOffers(res);
       }
     });
-  }, []);
+  }, [responseInfo]);
 
   useEffect(() => {
     if (responseInfo.organization) {
