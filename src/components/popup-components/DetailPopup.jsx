@@ -28,6 +28,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
   MyDictionary["applicant"] = "Aplicante";
 
   useEffect(() => {
+    console.log(responseInfo);
     getMyOffers().then((res) => {
       if (res !== undefined) {
         setOffers(res);
@@ -143,6 +144,11 @@ const DetailPopup = ({ responseInfo, hide }) => {
               <div className="dp-wrapper__text">
                 <span className="dp-wrapper__title">
                   {responseInfo ? responseInfo.title : "Titulo no disponible"}
+                  {typeof responseInfo?.organization?.isVerified && responseInfo?.organization?.isVerified === true ? (
+                    <div className="profile__validated tooltip"><span className="tooltiptext">Esta organización está verificada</span><i class="fa fa-check profile__validatedicon"></i></div>
+                  ) : (
+                      ""
+                    )}
                 </span>
                 <div className="dp-wrapper__bullets">
                   <ul>
@@ -222,7 +228,9 @@ const DetailPopup = ({ responseInfo, hide }) => {
               <button
                 className="custom-button custom-button--dpa bg-green "
                 onClick={() => {
+                  console.log(responseInfo?._id);
                   setInteractionTarget(responseInfo?._id);
+                  console.log(selectedOffer);
                 }}
               >
                 Aplicar
