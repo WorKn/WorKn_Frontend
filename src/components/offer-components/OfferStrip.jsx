@@ -21,6 +21,7 @@ const OfferStrip = ({
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
   const { show: showDetailModal, RenderModal: DetailModal } = useModal();
+  // const [updateFlag, setUpdateFlag] = useState(false);
 
   // const {
   //   show: showDeleteOfferModal,
@@ -28,12 +29,20 @@ const OfferStrip = ({
   //   hide: hideDeleteOfferModal,
   // } = useModal();
 
-  const updateInteractions = () => {
-    // if (state.userInformation.updateFlag !== "undefined" && state.userInformation.updateFlag === false){
-      window.location.reload()
-      action({updateFlag: true});
-      setTimeout(() => {  console.log("World!"); }, 2000);
+  // const updateInteractions = () => {
+  //   // if (state.userInformation.updateFlag !== "undefined" && state.userInformation.updateFlag === false){
+  //     window.location.reload()
+  //     action({updateFlag: true});
+  //     setTimeout(() => {  console.log("World!"); }, 2000);
+  // };
 
+  const updateInteractions = () => {
+    // setUpdateFlag(!updateFlag);
+    if (state.userInformation.updateFlag === true) {
+      action({ updateFlag: false });
+    } else {
+      action({ updateFlag: true });
+    }
   };
 
   const sendInteractionId = () => {
@@ -75,24 +84,24 @@ const OfferStrip = ({
         });
       }
     });
-    
+
   };
   const deleteInteraction = () => {
     updateInteractions();
     rejectInteraction(responseInfo._id).then((res) => {
-        store.addNotification({
-          title: "Aplicación rechazada",
-          message: "El usuario será removido de tu bandeja de resumen.",
-          type: "success",
-          insert: "top",
-          container: "top-right",
-          animationIn: ["animate__animated", "animate__fadeIn"],
-          animationOut: ["animate__animated", "animate__fadeOut"],
-          dismiss: {
-            duration: 10000,
-            onScreen: true,
-          },
-        });
+      store.addNotification({
+        title: "Aplicación rechazada",
+        message: "El usuario será removido de tu bandeja de resumen.",
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 10000,
+          onScreen: true,
+        },
+      });
       console.log(res);
     });
   };
