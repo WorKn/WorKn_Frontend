@@ -9,7 +9,6 @@ import "./SummaryPage-Style.css";
 import OfferStrip from "../../components/offer-components/OfferStrip";
 import { getMyInteractions, getMyOffers } from "../../utils/apiRequests";
 import { useForm } from "react-hook-form";
-import { store } from "react-notifications-component";
 
 
 const SummaryPage = () => {
@@ -18,7 +17,7 @@ const SummaryPage = () => {
   const [interested, setInterested] = useState();
   const [success, setSuccess] = useState(true);
   const [match, setMatches] = useState();
-  const { state, action } = useStateMachine(updateAction);
+  const { state } = useStateMachine(updateAction);
   const { register, handleSubmit } = useForm({});
   const [selectedOffer, setSelectedOffer] = useState();
 
