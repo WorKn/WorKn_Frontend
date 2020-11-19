@@ -30,6 +30,7 @@ const RecommendationsPage = () => {
       });
     } else if (state.userInformation.userType === "applicant") {
       getOfferRecommendation().then((res) => {
+        console.log(res);
         setOfferRecommendations(res?.data?.data?.offers);
       });
     } else {
@@ -76,6 +77,19 @@ const RecommendationsPage = () => {
             <span className="recommendationspage__rectitle">
               Ofertas de trabajo <span>recomendadas para ti</span>
             </span>
+            {typeof offerRecommendations &&  (offerRecommendations?.length < 1 || offerRecommendations === undefined) ? (
+             <div className="summary__announcement">
+            <div className="summarypage__imgbg">
+              <img src="https://i.imgur.com/ESdjiH3.png" alt="applied" className="summarypage_appliedimg"></img>
+            </div>
+              <div className="summary__announcementinner">
+                <span className="summarypagea__title--dark">No hemos podido generar ninguna recomendación.</span>
+                <span>Asegurate de crear un perfil llamativo que atrape a los usuarios que se encuentren contigo en la plataforma. También puedes utilizar la página de Exploración para aplicar manualmente a ofertas de trabajo.</span>
+              </div>
+             </div>
+            ) : (
+              ""
+            )}
             <div className="recommendationspage__offerlist">
               {oRecommendations}
             </div>

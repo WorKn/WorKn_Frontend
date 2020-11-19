@@ -9,8 +9,11 @@ import "./SummaryPage-Style.css";
 import OfferStrip from "../../components/offer-components/OfferStrip";
 import { getMyInteractions, getMyOffers } from "../../utils/apiRequests";
 import { useForm } from "react-hook-form";
+import { css } from "@emotion/core";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const SummaryPage = () => {
+  const [loadingVar, setLoadingVar] = useState(false);
   const [offers, setOffers] = useState();
   const [applied, setApplied] = useState();
   const [interested, setInterested] = useState();
@@ -19,7 +22,9 @@ const SummaryPage = () => {
   const { state } = useStateMachine(updateAction);
   const { register, handleSubmit } = useForm({});
   const [selectedOffer, setSelectedOffer] = useState();
-
+  const override = css`
+  display: block;
+`;
   const onSubmit = (data) => {
     setSelectedOffer(data.offer);
   };
@@ -37,46 +42,53 @@ const SummaryPage = () => {
     if (!state.userInformation.isEmailValidated) {
       setSuccess(false);
     } else {
-      if (
-        state.userInformation.userType !== "undefined" &&
-        state.userInformation.userType === "applicant"
-      ) {
-        getMyInteractions().then((res) => {
-          setApplied(res.data.data.interactions.applied);
-          const filteredInterested = res.data.data.interactions.interested.filter(
-            (interaction) => !interaction.rejected
-          );
-          setInterested(filteredInterested);
-          setMatches(res.data.data.interactions.match);
-          console.log(res);
-        });
-      }
+      setTimeout(() => {
+        if (
+          state.userInformation.userType !== "undefined" &&
+          state.userInformation.userType === "applicant"
+        ) {
+          getMyInteractions().then((res) => {
+            setApplied(res.data.data.interactions.applied);
+            const filteredInterested = res.data.data.interactions.interested.filter(
+              (interaction) => !interaction.rejected
+            );
+            setInterested(filteredInterested);
+            setMatches(res.data.data.interactions.match);
+            console.log(res);
+          });
+        }
+      }, 1500);
     }
-  }, [state.userInformation.userType, state.userInformation.isEmailValidated]);
+  }, [state.userInformation.userType, state.userInformation.isEmailValidated, state.userInformation.updateFlag]);
 
   useEffect(() => {
+    setLoadingVar(true);
     if (!state.userInformation.isEmailValidated) {
       setSuccess(false);
     } else {
-      if (
-        state.userInformation.userType !== "undefined" &&
-        state.userInformation.userType === "offerer" &&
-        selectedOffer
-      ) {
-        getMyInteractions(selectedOffer).then((res) => {
-          if (res !== undefined) {
-            console.log(res);
-          }
-          setApplied(res.data.data.interactions.applied);
-          setInterested(res.data.data.interactions.interested);
-          setMatches(res.data.data.interactions.match);
-        });
-      }
+      setTimeout(() => {
+        setLoadingVar(false);
+        if (
+          state.userInformation.userType !== "undefined" &&
+          state.userInformation.userType === "offerer" &&
+          selectedOffer
+        ) {
+          getMyInteractions(selectedOffer).then((res) => {
+            if (res !== undefined) {
+              console.log(res);
+              setApplied(res?.data?.data?.interactions?.applied);
+              setInterested(res?.data?.data?.interactions?.interested);
+              setMatches(res?.data?.data?.interactions?.match);
+            }
+          });
+        }
+      }, 1500);
     }
   }, [
     selectedOffer,
     state.userInformation.userType,
     state.userInformation.isEmailValidated,
+    state.userInformation.updateFlag
   ]);
 
   useEffect(() => {
@@ -87,89 +99,82 @@ const SummaryPage = () => {
     <div className="summarypage">
       <Header />
       <Banner image={"qSOKi8h.png"} />
-      {typeof state.userInformation.userType !== "undefined" &&
-      state.userInformation.userType === "applicant" ? (
-        <div className="summarypage__inner">
-          <span className="summarypage__title">Interesados en ti</span>
-          {interested?.map((i) => (
-            <OfferStrip
-              key={i._id}
-              responseInfo={i}
-              interactionId={i._id}
-              isInteraction="true"
-            ></OfferStrip>
-          ))}
-          <span className="summarypage__title">
-            Demostraste interés por estas ofertas
-          </span>
-          {applied?.map((a) => (
-            <OfferStrip
-              key={a._id}
-              responseInfo={a}
-              interactionId={a._id}
-              isInterested="true"
-            ></OfferStrip>
-          ))}
-          <span className="summarypage__title">Matches</span>
-          {match?.map((m) => (
-            <OfferStrip
-              key={m._id}
-              interactionId={m._id}
-              responseInfo={m}
-              isMatch="true"
-            ></OfferStrip>
-          ))}
-        </div>
-      ) : (
-        <div className="summarypage__inner">
-          <div className="summarypage__inner">
-            <div className="summarypage__header">
-              <span className="summarypage__title--dark">
-                Selecciona la oferta que quieres revisar
-              </span>
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="summarypage__form"
-              >
-                <select className="form__select" name="offer" ref={register}>
-                  {offers?.data?.data?.offers.map((offer) => (
-                    <option key={offer._id} value={offer._id}>
-                      {offer.title}
-                    </option>
-                  ))}
-                </select>
-                <input
-                  className="custom-button bg-green"
-                  type="submit"
-                  value="Ir"
-                />
-              </form>
-            </div>
+      {typeof loadingVar && loadingVar === true ? (
+      <div className="sweet-loading">
+        <BeatLoader
+          css={override}
+          size={10}
+          color={"#00BA6B"}
+          loading={true}
+        />
+      </div>
+      ):(
+        ""
+      )}
 
-            <span className="summarypage__title">
-              Estas personas están interesadas
-            </span>
-            {applied?.map((a) => (
-              <OfferStrip
-                key={a._id}
-                responseInfo={a}
-                interactionId={a._id}
-                isInteraction="true"
-              ></OfferStrip>
-            ))}
-            <span className="summarypage__title">
-              Demostraste interés por estas personas
-            </span>
+      {typeof state.userInformation.userType !== "undefined" &&
+        state.userInformation.userType === "applicant" ? (
+          <div className="summarypage__inner">
+            <span className="summarypage__title">Interesados en ti</span>
+            {typeof interested && (interested?.length < 1 || interested === undefined) ? (
+              <div className="summary__announcement">
+                <div className="summarypage__imgbg">
+                  <img src="https://i.imgur.com/VhPGUOU.png" alt="applied" className="summarypage_appliedimg"></img>
+                </div>
+                <div className="summary__announcementinner">
+                  <span className="summarypagea__title--dark">Ninguna organización ha demostrado interés por ti aún.</span>
+                  <span>Asegurate de crear un perfil llamativo que atrape a los usuarios que se encuentren contigo en la plataforma.</span>
+                </div>
+              </div>
+            ) : (
+                ""
+              )}
             {interested?.map((i) => (
               <OfferStrip
                 key={i._id}
                 responseInfo={i}
                 interactionId={i._id}
+                isInteraction="true"
+              ></OfferStrip>
+            ))}
+            <span className="summarypage__title">
+              Demostraste interés por estas ofertas
+          </span>
+            {typeof applied && (applied?.length < 1 || applied === undefined) ? (
+              <div className="summary__announcement">
+                <div className="summarypage__imgbg">
+                  <img src="https://i.imgur.com/CAtVIjs.png" alt="applied" className="summarypage_appliedimg"></img>
+                </div>
+                <div className="summary__announcementinner">
+                  <span className="summarypagea__title--dark">No has demostrado interés por ninguna oferta.</span>
+                  <span>Accede a nuestra página de Recomendaciones o de Exploración para encontrar ofertas perfectas para ti.</span>
+                </div>
+              </div>
+            ) : (
+                ""
+              )}
+            {applied?.map((a) => (
+              <OfferStrip
+                key={a._id}
+                responseInfo={a}
+                interactionId={a._id}
                 isInterested="true"
               ></OfferStrip>
             ))}
-
             <span className="summarypage__title">Matches</span>
+            {typeof match && (match?.length < 1 || match === undefined) ? (
+              <div className="summary__announcement">
+                <div className="summarypage__imgbg">
+                  <img src="https://i.imgur.com/BztLr0l.png" alt="applied" className="summarypage_appliedimg"></img>
+                </div>
+                <div className="summary__announcementinner">
+                  <span className="summarypagea__title--dark">Todavía no tienes ningún Match.</span>
+                  <span>Recuerda que para que exista un Match, deben haber demostraciones de interés mutuas entre un ofertante y tu.</span>
+                </div>
+              </div>
+            ) : (
+                ""
+              )}
             {match?.map((m) => (
               <OfferStrip
                 key={m._id}
@@ -178,14 +183,112 @@ const SummaryPage = () => {
                 isMatch="true"
               ></OfferStrip>
             ))}
-          </div>{" "}
-        </div>
-      )}
+          </div>
+        ) : (
+          <div className="summarypage__inner">
+            <div className="summarypage__inner">
+              <div className="summarypage__header">
+                <span className="summarypage__title--dark">
+                  Selecciona la oferta que quieres revisar
+              </span>
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="summarypage__form"
+                >
+                  <select className="form__select" name="offer" ref={register}>
+                    {offers?.data?.data?.offers.map((offer) => (
+                      <option key={offer._id} value={offer._id}>
+                        {offer.title}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    className="custom-button bg-green"
+                    type="submit"
+                    value="Ir"
+                  />
+                </form>
+              </div>
+
+              <span className="summarypage__title">
+                Estas personas están interesadas
+            </span>
+              {typeof applied && (applied?.length < 1 || applied === undefined) ? (
+                <div className="summary__announcement">
+                  <div className="summarypage__imgbg">
+                    <img src="https://i.imgur.com/VhPGUOU.png" alt="applied" className="summarypage_appliedimg"></img>
+                  </div>
+                  <div className="summary__announcementinner">
+                    <span className="summarypagea__title--dark">Ningún usuario ha demostrado interés por esta oferta aún.</span>
+                    <span>Asegurate de crear una oferta llamativa que atrape a los usuarios que se encuentren con ella en la plataforma.</span>
+                  </div>
+                </div>
+              ) : (
+                  ""
+                )}
+              {applied?.map((a) => (
+                <OfferStrip
+                  key={a._id}
+                  responseInfo={a}
+                  interactionId={a._id}
+                  isInteraction="true"
+                ></OfferStrip>
+              ))}
+              <span className="summarypage__title">
+                Demostraste interés por estas personas
+            </span>
+              {typeof interested && (interested?.length < 1 || interested === undefined) ? (
+                <div className="summary__announcement">
+                  <div className="summarypage__imgbg">
+                    <img src="https://i.imgur.com/CAtVIjs.png" alt="applied" className="summarypage_appliedimg"></img>
+                  </div>
+                  <div className="summary__announcementinner">
+                    <span className="summarypagea__title--dark">No has demostrado interés por nadie en esta oferta.</span>
+                    <span>Accede a nuestra página de Recomendaciones o de Exploración para encontrar aplicantes perfectos para ti.</span>
+                  </div>
+                </div>
+              ) : (
+                  ""
+                )}
+              {interested?.map((i) => (
+                <OfferStrip
+                  key={i._id}
+                  responseInfo={i}
+                  interactionId={i._id}
+                  isInterested="true"
+                ></OfferStrip>
+              ))}
+
+              <span className="summarypage__title">Matches</span>
+              {typeof match && (match?.length < 1 || match === undefined) ? (
+                <div className="summary__announcement">
+                  <div className="summarypage__imgbg">
+                    <img src="https://i.imgur.com/BztLr0l.png" alt="applied" className="summarypage_appliedimg"></img>
+                  </div>
+                  <div className="summary__announcementinner">
+                    <span className="summarypagea__title--dark">Todavía no tienes ningún Match.</span>
+                    <span>Recuerda que para que exista un Match, deben haber demostraciones de interés mutuas entre un aplicante y tu.</span>
+                  </div>
+                </div>
+              ) : (
+                  ""
+                )}
+              {match?.map((m) => (
+                <OfferStrip
+                  key={m._id}
+                  interactionId={m._id}
+                  responseInfo={m}
+                  isMatch="true"
+                ></OfferStrip>
+              ))}
+            </div>{" "}
+          </div>
+        )}
       <Footer />
     </div>
   ) : (
-    <EmailNotValidated />
-  );
+      <EmailNotValidated />
+    );
 };
 
 export default SummaryPage;

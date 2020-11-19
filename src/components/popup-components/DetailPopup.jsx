@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import Tag from "../tag-components/Tag";
 import "./DetailPopup-Style.css";
+import { store } from 'react-notifications-component';
 
 const DetailPopup = ({ responseInfo, hide }) => {
   const { state } = useStateMachine(updateAction);
@@ -30,7 +31,6 @@ const DetailPopup = ({ responseInfo, hide }) => {
     console.log(responseInfo);
     getMyOffers().then((res) => {
       if (res !== undefined) {
-        console.log(res);
         setOffers(res);
       }
     });
@@ -52,20 +52,78 @@ const DetailPopup = ({ responseInfo, hide }) => {
     if (interactionTarget && state.userInformation.userType === "applicant") {
       createInteractionAO(interactionTarget).then((res) => {
         if (res !== undefined) {
-          console.log(res);
+          if (res?.data?.status && res?.data?.status === "success") {
+            store.addNotification({
+              title: "Interacción creada correctamente!",
+              message: "Puedes confirmar la interacción en tu página de resumen",
+              type: "success",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 10000,
+                onScreen: true
+              }
+            });
+          } else if (res?.status && res?.status === "fail") {
+            store.addNotification({
+              title: "Ha ocurrido un error",
+              message: res?.message,
+              type: "danger",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 10000,
+                onScreen: true
+              }
+            });
+          }
         }
       });
     } else {
-      console.log("es ofertante");
     }
   }, [interactionTarget, state.userInformation.userType]);
 
   useEffect(() => {
-    createInteractionOA(interactionTarget, selectedOffer).then((res) => {
-      if (res !== undefined) {
-        console.log(res);
-      }
-    });
+    if (interactionTarget && selectedOffer) {
+      createInteractionOA(interactionTarget, selectedOffer).then((res) => {
+        if (res !== undefined) {
+          if (res?.data?.status && res?.data?.status === "success") {
+            store.addNotification({
+              title: "Interacción creada correctamente!",
+              message: "Puedes confirmar la interacción en tu página de resumen",
+              type: "success",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 10000,
+                onScreen: true
+              }
+            });
+          } else if (res?.status && res?.status === "fail") {
+            store.addNotification({
+              title: "Ha ocurrido un error",
+              message: res?.message,
+              type: "danger",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 10000,
+                onScreen: true
+              }
+            });
+          }
+        }
+      });
+    }
+
   }, [interactionTarget, selectedOffer]);
 
   const onSubmit = (data) => {
