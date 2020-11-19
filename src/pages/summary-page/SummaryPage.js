@@ -9,7 +9,8 @@ import "./SummaryPage-Style.css";
 import OfferStrip from "../../components/offer-components/OfferStrip";
 import { getMyInteractions, getMyOffers } from "../../utils/apiRequests";
 import { useForm } from "react-hook-form";
-
+import { css } from "@emotion/core";
+import FadeLoader from "react-spinners/FadeLoader";
 
 const SummaryPage = () => {
   const [offers, setOffers] = useState();
@@ -20,7 +21,11 @@ const SummaryPage = () => {
   const { state } = useStateMachine(updateAction);
   const { register, handleSubmit } = useForm({});
   const [selectedOffer, setSelectedOffer] = useState();
-
+  const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
   const onSubmit = (data) => {
     setSelectedOffer(data.offer);
   };
@@ -74,7 +79,6 @@ const SummaryPage = () => {
               setInterested(res?.data?.data?.interactions?.interested);
               setMatches(res?.data?.data?.interactions?.match);
             }
-
           });
         }
       }, 1500);
@@ -94,6 +98,14 @@ const SummaryPage = () => {
     <div className="summarypage">
       <Header />
       <Banner image={"qSOKi8h.png"} />
+      <div className="sweet-loading">
+        <FadeLoader
+          css={override}
+          size={150}
+          color={"#123abc"}
+          loading={true}
+        />
+      </div>
       {typeof state.userInformation.userType !== "undefined" &&
         state.userInformation.userType === "applicant" ? (
           <div className="summarypage__inner">
