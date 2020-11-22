@@ -27,27 +27,29 @@ const ChatPage = () => {
   const [messages, setMessages] = useState([]);
   const [chatExists, setChatExists] = useState(false);
   const [currentChat, setCurrentChat] = useState({});
+  const [chatUpdateFlag, setChatUpdateFlag] = useState(false);
   // const [username, setUsername] = useState([]);
   const { register, handleSubmit, watch, reset } = useForm({});
   // prompt("Hola nene");
   const submit = (data) => {
+    setChatUpdateFlag(!chatUpdateFlag);
     if (chatExists) {
-      createMessage(message.current, currentChat._id).then((res) => {
+      createMessage(data.message_input, currentChat._id).then((res) => {
         socket.emit("join_chat", currentChat._id);
         socket.emit("chat_message", currentChat._id, res.data.data.message);
-        console.log(res);
-        message.current = reset();
+        // console.log(res);
+        data.message_input = reset();
       });
       // socket.emit("chat_message", res.data.data.chat.id, res.data.data.lastMessage);
     } else {
-      createChat(message.current, state.userInformation.chatPivot.interactionId).then(
+      createChat(data.message_input, state.userInformation.chatPivot.interactionId).then(
         (res) => {
           if (res.data !== undefined) {
-            console.log(res);
+            // console.log(res);
             if (res.data.status === "success") {
               socket.emit("join_chat", res.data.data.chat.id);
               socket.emit("chat_message", res.data.data.chat.id, res.data.data.lastMessage);
-              message.current = reset();
+              data.message_input = reset();
             }
           }
         }
@@ -71,10 +73,10 @@ const ChatPage = () => {
 
   useEffect(() => {
     socket.on("chat_message", (data) => {
-      console.log("New message: ", data);
+      console.log("New message");
       setMessages([...messages, data]);
     });
-  }, [submit]);
+  }, [chatUpdateFlag]);
 
   // useEffect(() => {
   //   console.log("Joining to chat. Room Id: ", state.userInformation.email);
@@ -95,11 +97,11 @@ const ChatPage = () => {
       if (found) {
         setChatExists(true);
         setCurrentChat(found);
-        console.log(found);
+        // console.log(found);
         getChatMessages(found._id).then((res) => {
           socket.emit("join_chat", found._id);
-          console.log(res);
-          console.log(res.data.data.chat.messages);
+          // console.log(res);
+          // console.log(res.data.data.chat.messages);
           setMessages(res.data?.data.chat?.messages)
           // action(res.data.c)
         });
@@ -116,7 +118,7 @@ const ChatPage = () => {
         //   }
         // );
       }
-      console.log(myChats);
+      // console.log(myChats);
       setChats(myChats);
     });
   }, []);
@@ -125,8 +127,8 @@ const ChatPage = () => {
   //     setMessages([...messages, "Hola Jay"]);
   //   };
 
-  const message = useRef({});
-  message.current = watch("message_input", "");
+  // const message = useRef({});
+  // message.current = watch("message_input", "");
 
   //   const submit = (data) => {
   //     socket.emit("testEvent", message.current);
@@ -164,6 +166,7 @@ const ChatPage = () => {
                 action={HOST}
                 method="POST"
                 id="chatForm"
+                name="chatForm"
                 onSubmit={handleSubmit(submit)}
               >
                 <div className="chat__barbutton">
