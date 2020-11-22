@@ -12,9 +12,18 @@
   top: 0;
 }
 
+.tos-container__li--black {
+  color: black;
+}
+
+.tos-container__li--green {
+  color: #00ba6b;
+}
+
 .tos-container__left-items ol li {
   margin: 1em 0;
 }
+
 .tos-container__left-items ol li a {
   text-decoration: none;
   color: inherit;

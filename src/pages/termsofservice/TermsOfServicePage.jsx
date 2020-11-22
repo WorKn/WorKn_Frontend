@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../App.css";
 import Header from "../../components/navbar-components/Navbar";
 import Banner from "../../components/banner-components/Banner";
 import Footer from "../../components/footer-components/Footer";
 import "./TermsOfServicePage-Style.css";
 
+const SECTIONS = [
+  "Introduccion",
+  "Terminos y Condiciones",
+  "Cookies",
+  "Licencia",
+  "Hipervínculos a nuestro contenido",
+  "iFrames",
+  "Responsabilidad del contenido",
+  "Reserva de derechos",
+  "Eliminación de enlaces de nuestro sitio web",
+  "Descargo de responsabilidad",
+  "Política de datos",
+];
+
 const TermsOfServicePage = () => {
-  const [active, setIsActive] = useState(false);
+  const [active, setIsActive] = useState(0);
+
+  const toggleActive = (idx) => {
+    setIsActive(idx);
+  };
 
   return (
     <React.Fragment>
@@ -15,16 +33,23 @@ const TermsOfServicePage = () => {
       <div className="tos-wrapper">
         <div className="tos-container__left-items">
           <ol>
-            <li>
-              <a href="#section1">Introduccion</a>
-            </li>
-            <li>
-              <a href="#section2">Terminos y Condiciones</a>
-            </li>
-            <li>
-              <a href="#section3">Cookies</a>
-            </li>
-            <li>
+            {SECTIONS.map((sectionName, idx) => (
+              <li
+                key={sectionName}
+                onClick={() => {
+                  setIsActive(idx);
+                }}
+                className={
+                  active === idx
+                    ? "tos-container__li--green"
+                    : "tos-container__li--black"
+                }
+              >
+                <a href={`#section${idx}`}>{sectionName}</a>
+              </li>
+            ))}
+
+            {/* <li>
               <a href="#section4">Licencia</a>
             </li>
             <li>
@@ -49,7 +74,7 @@ const TermsOfServicePage = () => {
             </li>
             <li>
               <a href="#section11">Política de datos</a>
-            </li>
+            </li> */}
           </ol>
         </div>
         <div className="tos-container__right-items">
