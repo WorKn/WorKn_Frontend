@@ -143,10 +143,11 @@ form button {
   flex-flow: column;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   border-radius: 10px;
   width: 300px;
-  min-height: 50px;
+  /* width: auto; */
+  /* min-height: 50px; */
   word-break:break-all;
   height: auto;
   font-size: 14px;
@@ -158,7 +159,6 @@ form button {
 }
 
 .chat__message--me{
-  height: auto;
   align-self: flex-end;
   background-color: #5BBA6F;
   color: white;
@@ -166,6 +166,7 @@ form button {
 
 .message__time{
   align-self: flex-end;
+  margin-top: 10px;
   margin-right: 5px;
   font-size: 10px;
 }

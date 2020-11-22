@@ -31,6 +31,7 @@ const ChatPage = () => {
   // const [username, setUsername] = useState([]);
   const { register, handleSubmit, watch, reset } = useForm({});
   // prompt("Hola nene");
+
   const submit = (data) => {
     setChatUpdateFlag(!chatUpdateFlag);
     if (chatExists) {
@@ -50,6 +51,7 @@ const ChatPage = () => {
               socket.emit("join_chat", res.data.data.chat.id);
               socket.emit("chat_message", res.data.data.chat.id, res.data.data.lastMessage);
               data.message_input = reset();
+              setCurrentChat(res.data.data.chat);
             }
           }
         }
@@ -78,6 +80,13 @@ const ChatPage = () => {
     });
   }, [chatUpdateFlag]);
 
+  useEffect(() => {
+    getChatMessages(currentChat._id).then((res) => {
+      socket.emit("join_chat", currentChat._id);
+      setMessages(res.data?.data.chat?.messages)
+    });
+  }, [currentChat]);
+
   // useEffect(() => {
   //   console.log("Joining to chat. Room Id: ", state.userInformation.email);
   //   socket.emit("join_chat", state.userInformation.email);
@@ -92,7 +101,7 @@ const ChatPage = () => {
   useEffect(() => {
     getMyChats().then((res) => {
       let myChats = res.data.data.chats;
-      // console.log(chats);
+      console.log(res);
       const found = myChats.find(chat => chat.user.id == state.userInformation.chatPivot.userInfo.id);
       if (found) {
         setChatExists(true);
@@ -118,7 +127,7 @@ const ChatPage = () => {
         //   }
         // );
       }
-      // console.log(myChats);
+      console.log(myChats);
       setChats(myChats);
     });
   }, []);
@@ -141,14 +150,20 @@ const ChatPage = () => {
       <Header />
       <Banner image={"qSOKi8h.png"} />
       <div className="chatpage__inner">
-        {/* <h1>CHAT</h1> */}
         <div className="chat__box">
           <div className="chat__boxleft">
-            {chats.map((response) =>
-              response ? (
+            {chats.map((chat) =>
+              chat ? (
                 <Contact
-                  key={response._id}
-                  responseInfo={response}
+                  isCurrentChat={chat._id === currentChat._id}
+                  // onClick={enterRoom}
+                  onClick={() => {
+                    console.log("Clicked Chat " + chat._id);
+                    setCurrentChat(chat);
+                    console.log(chat);
+                  }}
+                  key={chat._id}
+                  responseInfo={chat}
                 ></Contact>
               ) : null
             )}
@@ -186,7 +201,7 @@ const ChatPage = () => {
         </div>
       </div>
       <Footer />
-    </div>
+    </div >
   );
 };
 export default ChatPage;
