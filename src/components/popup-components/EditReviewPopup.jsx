@@ -14,7 +14,6 @@ const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
   const { state } = useStateMachine(updateAction);
   const [starValue, setStarValue] = useState();
 
-  //
   const onSubmit = (data) => {
     data.rating = starValue;
     updateReview(userId, review._id, data).then((res) => {
@@ -38,13 +37,23 @@ const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
       <div className="edit-review__body">
         <h2 className="ProfileView__rate-title">Edita tu review</h2>
         <div className="ProfileView__rate-description">
-          <div className="ProfileView__rating-pp">
+          {/* <div className="ProfileView__rating-pp">
             <img
               className="ProfileView__rating-img ProfileView__rating-pp--mob"
               src={state?.userInformation?.profilePicture}
               alt="user profilepic"
             />
+          </div> */}
+          <div className="ProfileView__rating-pp">
+            <div className="pprofilepage__pp pprofilepage__pp--mob">
+              <img
+                className="pprofilepage__image pprofilepage__image--mob"
+                src={state?.userInformation?.profilePicture}
+                alt="user profilepic"
+              />
+            </div>
           </div>
+
           <div className="edit-review__form">
             <h3 className="ProfileView__rate-name">{`${state.userInformation.name} ${state.userInformation.lastname}`}</h3>
             <form

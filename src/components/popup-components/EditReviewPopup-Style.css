@@ -18,3 +18,9 @@
 .edit-review__form {
   margin-left: 30px;
 }
+
+.ProfileView__rating-pp {
+  display: flex;
+  justify-content: center;
+  margin: 2em 0;
+}
