@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 import { createChat } from "../../utils/apiRequests";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
@@ -7,37 +8,47 @@ import Banner from "../../components/banner-components/Banner";
 import Header from "../../components/navbar-components/Navbar";
 import Footer from "../../components/footer-components/Footer";
 import { getMyChats, getChatMessages, createMessage } from "../../utils/apiRequests";
+
+
+// import { getTesting } from "../utils/apiRequests";
+
 import "./ChatPage-Style.css";
+
 import socketIOClient from "socket.io-client";
+import interactionContext from "../../utils/interactionContext";
 import Contact from "../../components/chat-components/Contact";
 import Message from "../../components/chat-components/Message";
-
 const HOST = "http://127.0.0.1:3000";
 const socket = socketIOClient(HOST);
+
 const ChatPage = () => {
   const [chats, setChats] = useState([]);
+  const { state } = useStateMachine(updateAction);
   const [messages, setMessages] = useState([]);
   const [chatExists, setChatExists] = useState(false);
   const [currentChat, setCurrentChat] = useState({});
-  const [chatUpdateFlag, setChatUpdateFlag] = useState(false);
-  const { state } = useStateMachine(updateAction);
-  const { register, handleSubmit, reset } = useForm({});
-
+  // const [username, setUsername] = useState([]);
+  const { register, handleSubmit, watch, reset } = useForm({});
+  // prompt("Hola nene");
   const submit = (data) => {
-    setChatUpdateFlag(!chatUpdateFlag);
+    console.log(data.message_input);
+    console.log("data: " + data[1]);
     if (chatExists) {
       createMessage(data.message_input, currentChat._id).then((res) => {
-        // socket.emit("join_chat", currentChat._id);
+        socket.emit("join_chat", currentChat._id);
         socket.emit("chat_message", currentChat._id, res.data.data.message);
+        console.log(res);
         data.message_input = reset();
       });
+      // socket.emit("chat_message", res.data.data.chat.id, res.data.data.lastMessage);
     } else {
       createChat(data.message_input, state.userInformation.chatPivot.interactionId).then(
         (res) => {
           if (res.data !== undefined) {
+            console.log(res);
             if (res.data.status === "success") {
               setCurrentChat(res.data.data.chat);
-              // socket.emit("join_chat", res.data.data.chat.id);
+              socket.emit("join_chat", res.data.data.chat.id);
               socket.emit("chat_message", res.data.data.chat.id, res.data.data.lastMessage);
               data.message_input = reset();
             }
@@ -45,56 +56,108 @@ const ChatPage = () => {
         }
       );
     }
+    // console.log(data);
+    // socket.emit("chat_message", message.current);
+    // console.log("Message: ", message);
+    // console.log("Messagesssss:", messages);
+    // getTesting().then((res) => {
+    //   console.log(res);
+    // });
+    // message.current = reset();
   };
+
+  // useEffect(() => {
+  //   const username = prompt("Ingrese su nombre de usuario: ");
+  //   socket.emit("username", username);
+  //   // setUsername(username);
+  // }, []);
+
+  useEffect(() => {
+    socket.on("chat_message", (data) => {
+      console.log("New message: ", data);
+      setMessages([...messages, data]);
+    });
+  }, [messages]);
+
+  // useEffect(() => {
+  //   console.log("Joining to chat. Room Id: ", state.userInformation.email);
+  //   socket.emit("join_chat", state.userInformation.email);
+  // }, []);
+
+  useEffect(() => {
+    socket.on("is_online", (data) => {
+      setMessages([...messages, data]);
+    });
+  }, [submit]);
+
+  useEffect(() => {
+    if (currentChat._id) {
+      getChatMessages(currentChat._id).then((res) => {
+        console.log(res)
+        let temporary = res.data.data.chat.messages;
+        socket.emit("join_chat", currentChat._id);
+        setTimeout(() => {
+          console.log(res)
+          setMessages(temporary)
+        }, 3000);
+        console.log(res)
+      });
+    }
+  }, [currentChat]);
 
   useEffect(() => {
     getMyChats().then((res) => {
       let myChats = res.data.data.chats;
-      console.log(res);
+      // console.log(chats);
       const found = myChats.find(chat => chat.user.id == state.userInformation.chatPivot.userInfo.id);
       if (found) {
         setChatExists(true);
         setCurrentChat(found);
-        // getChatMessages(found._id).then((res) => {
-        //   socket.emit("join_chat", found._id);
-        //   setMessages(res.data?.data.chat?.messages)
-        // });
+        console.log(found);
+        getChatMessages(found._id).then((res) => {
+          socket.emit("join_chat", found._id);
+          console.log(res);
+          console.log(res.data.data.chat.messages);
+          setMessages(res.data?.data.chat?.messages)
+          // action(res.data.c)
+        });
       } else {
         const chatPreview = {
           user: state.userInformation.chatPivot.userInfo
         }
         myChats.push(chatPreview);
+        // createChat(message.current, state.userInformation.chatPivot.interactionId).then(
+        //   (res) => {
+        //     if (res.data !== undefined) {
+
+        //     }
+        //   }
+        // );
       }
       console.log(myChats);
       setChats(myChats);
     });
   }, []);
 
-  useEffect(() => {
-    socket.on("chat_message", (data) => {
-      console.log("New message");
-      setMessages([...messages, data]);
-    });
-  }, [chatUpdateFlag]);
+  //   const addItem = () => {
+  //     setMessages([...messages, "Hola Jay"]);
+  //   };
 
-  useEffect(() => {
-    getChatMessages(currentChat._id).then((res) => {
-      socket.emit("join_chat", currentChat._id);
-      setMessages(res.data?.data.chat?.messages)
-    });
-  }, [currentChat]);
+  // const message = useRef({});
+  // message.current = watch("message_input", "");
 
-  // useEffect(() => {
-  //   socket.on("is_online", (data) => {
-  //     setMessages([...messages, data]);
-  //   });
-  // }, [submit]);
+  //   const submit = (data) => {
+  //     socket.emit("testEvent", message.current);
+  //     console.log(message);
+  //     // message.current = reset();
+  //   };
 
   return (
     <div className="chatpage">
       <Header />
       <Banner image={"qSOKi8h.png"} />
       <div className="chatpage__inner">
+        {/* <h1>CHAT</h1> */}
         <div className="chat__box">
           <div className="chat__boxleft">
             {chats.map((chat) =>
@@ -145,7 +208,7 @@ const ChatPage = () => {
         </div>
       </div>
       <Footer />
-    </div >
+    </div>
   );
 };
 export default ChatPage;
