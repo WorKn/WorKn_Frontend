@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import { createChat } from "../../utils/apiRequests";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
@@ -23,11 +22,12 @@ const ChatPage = () => {
   const [chatUpdateFlag, setChatUpdateFlag] = useState(false);
   const { state } = useStateMachine(updateAction);
   const { register, handleSubmit, reset } = useForm({});
+
   const submit = (data) => {
     setChatUpdateFlag(!chatUpdateFlag);
     if (chatExists) {
       createMessage(data.message_input, currentChat._id).then((res) => {
-        socket.emit("join_chat", currentChat._id);
+        // socket.emit("join_chat", currentChat._id);
         socket.emit("chat_message", currentChat._id, res.data.data.message);
         data.message_input = reset();
       });
@@ -36,10 +36,10 @@ const ChatPage = () => {
         (res) => {
           if (res.data !== undefined) {
             if (res.data.status === "success") {
-              socket.emit("join_chat", res.data.data.chat.id);
+              setCurrentChat(res.data.data.chat);
+              // socket.emit("join_chat", res.data.data.chat.id);
               socket.emit("chat_message", res.data.data.chat.id, res.data.data.lastMessage);
               data.message_input = reset();
-              setCurrentChat(res.data.data.chat);
             }
           }
         }
@@ -55,10 +55,10 @@ const ChatPage = () => {
       if (found) {
         setChatExists(true);
         setCurrentChat(found);
-        getChatMessages(found._id).then((res) => {
-          socket.emit("join_chat", found._id);
-          setMessages(res.data?.data.chat?.messages)
-        });
+        // getChatMessages(found._id).then((res) => {
+        //   socket.emit("join_chat", found._id);
+        //   setMessages(res.data?.data.chat?.messages)
+        // });
       } else {
         const chatPreview = {
           user: state.userInformation.chatPivot.userInfo
@@ -84,11 +84,11 @@ const ChatPage = () => {
     });
   }, [currentChat]);
 
-  useEffect(() => {
-    socket.on("is_online", (data) => {
-      setMessages([...messages, data]);
-    });
-  }, [submit]);
+  // useEffect(() => {
+  //   socket.on("is_online", (data) => {
+  //     setMessages([...messages, data]);
+  //   });
+  // }, [submit]);
 
   return (
     <div className="chatpage">

@@ -145,7 +145,8 @@ form button {
   justify-content: center;
   align-items: flex-start;
   border-radius: 10px;
-  width: 300px;
+  max-width: 300px;
+  min-width: 120px;
   /* width: auto; */
   /* min-height: 50px; */
   word-break:break-all;
