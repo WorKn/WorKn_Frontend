@@ -25,21 +25,15 @@ const ChatPage = () => {
   const [currentChat, setCurrentChat] = useState({});
   const { register, handleSubmit, watch, reset } = useForm({});
   const submit = (data) => {
-    console.log(data.message_input);
-    console.log("data: " + data[1]);
     if (chatExists) {
       createMessage(data.message_input, currentChat._id).then((res) => {
-        socket.emit("join_chat", currentChat._id); //borrar
         socket.emit("chat_message", currentChat._id, res.data.data.message);
-        console.log(res);
       });
     } else {
       createChat(data.message_input, state.userInformation.chatPivot.interactionId).then(
         (res) => {
           if (res.data !== undefined && res.data.status === "success") {
-            console.log(res);
             setCurrentChat(res.data.data.chat);
-            socket.emit("join_chat", res.data.data.chat.id); // borrar
             socket.emit("chat_message", res.data.data.chat.id, res.data.data.lastMessage);
           }
         }
@@ -55,11 +49,7 @@ const ChatPage = () => {
       if (found) {
         setChatExists(true);
         setCurrentChat(found);
-        console.log(found);
         getChatMessages(found._id).then((res) => {
-          socket.emit("join_chat", found._id); //borrar
-          console.log(res);
-          console.log(res.data.data.chat.messages);
           setMessages(res.data?.data.chat?.messages)
         });
       } else {
@@ -68,7 +58,6 @@ const ChatPage = () => {
         }
         myChats.push(chatPreview);
       }
-      console.log(myChats);
       setChats(myChats);
     });
   }, []);
@@ -88,13 +77,12 @@ const ChatPage = () => {
   // }, [submit]);
 
   useEffect(() => {
+    console.log("Clicked Chat " + currentChat._id);
     if (currentChat._id) {
       getChatMessages(currentChat._id).then((res) => {
-        console.log(res)
         let temporary = res.data.data.chat.messages;
         socket.emit("join_chat", currentChat._id);
         setMessages(temporary)
-        console.log(res)
       });
     }
   }, [currentChat]);
@@ -112,9 +100,7 @@ const ChatPage = () => {
                 <Contact
                   isCurrentChat={chat._id === currentChat._id}
                   onClick={() => {
-                    console.log("Clicked Chat " + chat._id);
                     setCurrentChat(chat);
-                    console.log(chat);
                   }}
                   key={chat._id}
                   responseInfo={chat}
