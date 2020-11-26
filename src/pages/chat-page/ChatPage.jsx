@@ -23,8 +23,9 @@ const ChatPage = () => {
   const [messages, setMessages] = useState([]);
   const [chatExists, setChatExists] = useState(false);
   const [currentChat, setCurrentChat] = useState({});
-  const { register, handleSubmit, watch, reset } = useForm({});
+  const { register, handleSubmit, reset } = useForm({});
   const submit = (data) => {
+    if (!data.message_input) return null
     if (chatExists) {
       createMessage(data.message_input, currentChat._id).then((res) => {
         socket.emit("chat_message", currentChat._id, res.data.data.message);
@@ -50,8 +51,9 @@ const ChatPage = () => {
         setChatExists(true);
         setCurrentChat(found);
         getChatMessages(found._id).then((res) => {
-          setMessages(res.data?.data.chat?.messages)
+          setMessages(res.data.data.chat.messages)
         });
+
       } else {
         const chatPreview = {
           user: state.userInformation.chatPivot.userInfo
@@ -63,11 +65,11 @@ const ChatPage = () => {
   }, []);
 
   useEffect(() => {
-    socket.on("chat_message", (data) => {
+    socket.on("chat_message", (message) => {
       console.log("New message: ");
-      setMessages([...messages, data]);
+      setMessages((messages) => [...messages, message])
     });
-  }, [messages]); //Review update flag
+  }, []);
 
 
   // useEffect(() => {
@@ -80,9 +82,9 @@ const ChatPage = () => {
     console.log("Clicked Chat " + currentChat._id);
     if (currentChat._id) {
       getChatMessages(currentChat._id).then((res) => {
-        let temporary = res.data.data.chat.messages;
+        let messages = res.data.data.chat.messages;
         socket.emit("join_chat", currentChat._id);
-        setMessages(temporary)
+        setMessages(messages)
       });
     }
   }, [currentChat]);
