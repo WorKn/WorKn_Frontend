@@ -175,7 +175,7 @@ form button {
 .chat__messagecontainer{
   width: 100%;
   height: 520px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   display: flex;
   flex-flow: column;
   align-items: flex-start;
