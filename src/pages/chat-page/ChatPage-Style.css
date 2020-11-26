@@ -83,18 +83,73 @@ form button {
   display: flex;
   flex-flow: column;
   flex-wrap: wrap;
-  /* width: 70%; */
   height: auto;
   border-radius: 0px 15px 15px 0px;
   background-color: #fff;
-  padding: 10px;
+}
+
+.chat__boxrightheader{
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid #e7e7e7;
+  border-radius: 0px 15px 0px 0px;
+  height: 50px;
+  width: 100%;
 }
 
 .chat__boxleft{
   min-width: 305px;
-  padding: 17px;
   background-color: #EFEFEF;
   border-radius: 15px 0px 0px 15px;
+}
+
+.chat__boxleftheader{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 15px 0px 0px 0px;
+  border-left: 1px solid #e7e7e7;
+  border-top: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+  height: 50px;
+  width: 100%;
+}
+
+.chat__header{
+  color: #333234;
+  font-size: 20px;
+  font-weight: 700; 
+  margin-left: 20px;
+}
+
+.chat__headericon{
+  margin-right: 20px;
+}
+
+.chat__userwrapper{
+  margin-left: 10px ;
+}
+
+.chat__headertext{
+  color: #333234;
+  font-size: 14px;
+  font-weight: 600; 
+  margin-left: 5px;
+}
+
+.chat__headerlighttext{
+  color: #777777;
+  font-size: 12px;
+  font-weight: 300; 
+  margin-left: 15px;
+}
+
+.chat__contactcontainer{
+  padding: 15px;
 }
 
 .chat__form{
@@ -113,6 +168,8 @@ form button {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px;
+
 }
 
 .chat__bar{
@@ -154,7 +211,6 @@ form button {
   font-size: 14px;
   font-weight: 300;
   margin-bottom: 15px;
-  margin-right: 10px;
   background-color: #E3E3E3;
   padding: 10px;
 }
@@ -180,6 +236,14 @@ form button {
   flex-flow: column;
   align-items: flex-start;
   /* flex-wrap: wrap; */
+  padding: 10px;
+
+}
+
+.chat__typing{
+  font-size: 13px ;
+  font-weight: 500;
+  color: #8B8299;
 }
 
 /* .chat__messagecontainer li:nth-child(odd) {
@@ -194,5 +258,14 @@ form button {
 @media screen and (max-width: 799px) {
   .chat__boxleft{
     min-width: 105px;
+  }
+
+  .chat__header{
+    display: none;
+  }
+
+  .chat__headericon{
+    display: none;
+
   }
 }

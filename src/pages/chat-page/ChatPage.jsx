@@ -22,6 +22,8 @@ const ChatPage = () => {
   const { state } = useStateMachine(updateAction);
   const [messages, setMessages] = useState([]);
   const [chatExists, setChatExists] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+  const [typing, setTyping] = useState("escribiendo");
   const [currentChat, setCurrentChat] = useState({});
   const { register, handleSubmit, reset } = useForm({});
   const submit = (data) => {
@@ -43,6 +45,29 @@ const ChatPage = () => {
     data.message_input = reset();
   };
 
+  const emmitTyping = () => {
+    socket.emit("chat_typing", currentChat._id);
+    console.log(currentChat)
+
+  }
+
+  const showTyping = () => {
+    setIsTyping(true);
+    const dot = "."
+    setTimeout(() => {
+      setTyping(typing.concat(dot))
+      setTimeout(() => {
+        setTyping(typing.concat(dot).concat(dot))
+        setTimeout(() => {
+          setTyping(typing.concat(dot).concat(dot).concat(dot))
+          setTimeout(() => {
+            setIsTyping(false);
+          }, 1000);
+        }, 1000);
+      }, 1000);
+    }, 1000);
+  }
+
   useEffect(() => {
     getMyChats().then((res) => {
       let myChats = res.data.data.chats;
@@ -53,7 +78,6 @@ const ChatPage = () => {
         getChatMessages(found._id).then((res) => {
           setMessages(res.data.data.chat.messages)
         });
-
       } else {
         const chatPreview = {
           user: state.userInformation.chatPivot.userInfo
@@ -68,7 +92,15 @@ const ChatPage = () => {
     socket.on("chat_message", (message) => {
       setMessages((messages) => [...messages, message])
     });
+
+    socket.on("chat_typing", () => {
+      showTyping()
+    });
+
+
   }, []);
+
+
 
   // useEffect(() => {
   //   socket.on("is_online", (data) => {
@@ -91,30 +123,49 @@ const ChatPage = () => {
       <Header />
       <Banner image={"qSOKi8h.png"} />
       <div className="chatpage__inner">
-        {/* <h1>CHAT</h1> */}
         <div className="chat__box">
           <div className="chat__boxleft">
-            {chats.map((chat) =>
-              chat ? (
-                <Contact
-                  isCurrentChat={chat._id === currentChat._id}
-                  onClick={() => {
-                    setCurrentChat(chat);
-                  }}
-                  key={chat._id}
-                  responseInfo={chat}
-                ></Contact>
-              ) : null
-            )}
+            <div className="chat__boxleftheader">
+              <span className="chat__header">Contactos</span>
+              <i className="fa fa-pencil-square-o chat__headericon tooltip"><span className="tooltiptext">Para iniciar un nuevo chat debes hacerlo mediante un Match a través de la página de Resumen</span></i>
+            </div>
+            <div className="chat__contactcontainer">
+              {chats.map((chat) =>
+                chat ? (
+                  <Contact
+                    isCurrentChat={chat._id === currentChat._id}
+                    onClick={() => {
+                      setCurrentChat(chat);
+                    }}
+                    key={chat._id}
+                    responseInfo={chat}
+                  ></Contact>
+                ) : null
+              )}
+            </div>
+
           </div>
           <div className="chat__boxright">
+            <div className="chat__boxrightheader">
+              <div className="chat__userwrapper">
+                <span className="chat__headertext">{currentChat?.user?.name}</span>
+                <span className="chat__headertext">{currentChat?.user?.lastname}</span>
+              </div>
+              <span className="chat__headerlighttext">Miembro de WorKn Frontend</span>
+
+            </div>
             <ScrollToBottom mode="bottom" className="chat__messagecontainer">
               <ul className="chat__messagecontainer">
                 {messages?.map((el) => (
                   <Message message={el.message} createdAt={el.createdAt} isMyMessage={el.sender === state.userInformation._id ? true : false} ></Message>
                 ))}
+                {isTyping ? (
+                  <span className="chat__typing">{typing}</span>
+                ) : undefined}
               </ul>
+
             </ScrollToBottom>
+
             <div className="chat__barcontainer">
               <form
                 className="chat__form"
@@ -132,6 +183,7 @@ const ChatPage = () => {
                     ref={register}
                     autofocus="on"
                     placeholder="type your message here..."
+                    onChange={emmitTyping}
                   />
                   <button className="chat__button"><i className="fa fa-paper-plane"></i></button>
                 </div>
