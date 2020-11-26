@@ -28,7 +28,26 @@ const OfferStrip = ({
   // } = useModal();
 
   const sendInteractionId = () => {
-    const chatPivot = { chatPivot: { interactionId, userInfo: responseInfo.applicant } }
+    let chatPivot;
+    if (state.userInformation.userType === "offerer") {
+      chatPivot = {
+        chatPivot: {
+          interactionId,
+          userInfo: responseInfo.applicant
+        }
+      }
+    } else {
+      chatPivot = {
+        chatPivot: {
+          interactionId,
+          userInfo: {
+            ...responseInfo.offer.createdBy,
+            organization: responseInfo.offer.organization
+          }
+
+        }
+      }
+    }
     console.log(chatPivot);
     action(chatPivot);
   };
@@ -50,6 +69,7 @@ const OfferStrip = ({
   MyDictionary["fixed"] = "Fijo/Indefinido";
 
   useEffect(() => {
+    console.log(responseInfo)
     if (responseInfo.offer.organization) {
       setProfilePictureRoute(responseInfo?.offer?.organization?.profilePicture);
       setOffererTitleRoute(responseInfo?.offer?.organization?.name);
@@ -58,6 +78,7 @@ const OfferStrip = ({
       setOffererTitleRoute(responseInfo?.offer?.createdBy?.name);
     }
   }, [responseInfo]);
+
 
   return (
     <div>

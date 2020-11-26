@@ -66,11 +66,9 @@ const ChatPage = () => {
 
   useEffect(() => {
     socket.on("chat_message", (message) => {
-      console.log("New message: ");
       setMessages((messages) => [...messages, message])
     });
   }, []);
-
 
   // useEffect(() => {
   //   socket.on("is_online", (data) => {
@@ -79,7 +77,6 @@ const ChatPage = () => {
   // }, [submit]);
 
   useEffect(() => {
-    console.log("Clicked Chat " + currentChat._id);
     if (currentChat._id) {
       getChatMessages(currentChat._id).then((res) => {
         let messages = res.data.data.chat.messages;
