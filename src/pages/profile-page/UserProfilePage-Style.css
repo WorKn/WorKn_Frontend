@@ -45,7 +45,8 @@
 }
 
 .formss {
-  flex: 2;
+  width: 50%;
+  align-self: flex-start;
 }
 
 .klk {
@@ -66,5 +67,9 @@
 
   .klk {
     margin-right: 0;
+  }
+
+  .formss {
+    width: 100%;
   }
 }
