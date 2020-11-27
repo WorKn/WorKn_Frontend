@@ -1,6 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import { createChat } from "../../utils/apiRequests";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
@@ -11,7 +10,6 @@ import { getMyChats, getChatMessages, createMessage } from "../../utils/apiReque
 import ScrollToBottom from "react-scroll-to-bottom";
 import "./ChatPage-Style.css";
 import socketIOClient from "socket.io-client";
-import interactionContext from "../../utils/interactionContext";
 import Contact from "../../components/chat-components/Contact";
 import Message from "../../components/chat-components/Message";
 const HOST = "http://127.0.0.1:3000";
@@ -71,7 +69,7 @@ const ChatPage = () => {
   useEffect(() => {
     getMyChats().then((res) => {
       let myChats = res.data.data.chats;
-      const found = myChats.find(chat => chat.user.id == state.userInformation.chatPivot.userInfo.id);
+      const found = myChats.find(chat => chat.user.id === state.userInformation.chatPivot.userInfo.id);
       if (found) {
         setChatExists(true);
         setCurrentChat(found);
@@ -86,7 +84,7 @@ const ChatPage = () => {
       }
       setChats(myChats);
     });
-  }, []);
+  }, [state.userInformation.chatPivot.userInfo]);
 
   useEffect(() => {
     socket.on("chat_message", (message) => {
@@ -97,7 +95,7 @@ const ChatPage = () => {
       showTyping()
     });
 
-
+    // eslint-disable-next-line
   }, []);
 
 
@@ -151,8 +149,11 @@ const ChatPage = () => {
                 <span className="chat__headertext">{currentChat?.user?.name}</span>
                 <span className="chat__headertext">{currentChat?.user?.lastname}</span>
               </div>
-              <span className="chat__headerlighttext">Miembro de WorKn Frontend</span>
-
+              {currentChat?.user?.organization && currentChat?.user?.organization !== "undefined" ? (
+                <span className="chat__headerlighttext">Miembro de {currentChat?.user?.organization?.name}</span>
+              ) : (
+                  <span className="chat__headerlighttext">Está usando WorKn</span>
+                )}
             </div>
             <ScrollToBottom mode="bottom" className="chat__messagecontainer">
               <ul className="chat__messagecontainer">

@@ -22,14 +22,14 @@ const EmpresaViewPage = ({
     () =>
       orgOffer.map((offer) =>
         offer &&
-        offer.organization?._id === orgInfo?._id &&
-        offer.state !== "deleted" ? (
-          <OfferCard
-            key={offer._id}
-            organizationInformation={orgInfo}
-            offerInfo={offer}
-          ></OfferCard>
-        ) : null
+          offer.organization?._id === orgInfo?._id &&
+          offer.state !== "deleted" ? (
+            <OfferCard
+              key={offer._id}
+              organizationInformation={orgInfo}
+              offerInfo={offer}
+            ></OfferCard>
+          ) : null
       ),
     [orgOffer, orgInfo]
   );
@@ -57,24 +57,24 @@ const EmpresaViewPage = ({
     });
   }, [id, history]);
 
-  let formatPhoneNumber = (str) => {
-    //Filter only numbers from the input
-    let cleaned = ("" + str).replace(/\D/g, "");
+  // let formatPhoneNumber = (str) => {
+  //   //Filter only numbers from the input
+  //   let cleaned = ("" + str).replace(/\D/g, "");
 
-    //Check if the input is of correct length
-    let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+  //   //Check if the input is of correct length
+  //   let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
 
-    if (match) {
-      return "(" + match[1] + ")-" + match[2] + "-" + match[3];
-    }
+  //   if (match) {
+  //     return "(" + match[1] + ")-" + match[2] + "-" + match[3];
+  //   }
 
-    return null;
-  };
+  //   return null;
+  // };
   //kiwVnMm.png
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
-  
+
   return (
     <div className="pagewrap">
       <Header />
