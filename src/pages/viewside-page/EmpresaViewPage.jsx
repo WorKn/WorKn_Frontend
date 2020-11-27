@@ -7,6 +7,7 @@ import Footer from "../../components/footer-components/Footer";
 import OfferCard from "../../components/offer-components/OfferCard";
 import "./EmpresaViewPage-Style.css";
 
+
 const EmpresaViewPage = ({
   match: {
     params: { id },
@@ -60,17 +61,18 @@ const EmpresaViewPage = ({
   // let formatPhoneNumber = (str) => {
   //   //Filter only numbers from the input
   //   let cleaned = ("" + str).replace(/\D/g, "");
-
+  // eslint-disable-next-line
+  //Filter only numbers from the input
   //   //Check if the input is of correct length
   //   let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
 
   //   if (match) {
   //     return "(" + match[1] + ")-" + match[2] + "-" + match[3];
   //   }
-
   //   return null;
   // };
   //kiwVnMm.png
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -91,7 +93,14 @@ const EmpresaViewPage = ({
           <div className="EmpresaView__bio EmpresaView__bio--b">
             <div className="EmpresaView__bioleft">
               <h2>Biografía</h2>
-              <span>{`${orgInfo?.name}`}</span>
+              <span className="profile__header">
+                <span>{`${orgInfo?.name}`}</span>
+                {typeof orgInfo?.isVerified && orgInfo?.isVerified === true ? (
+                  <div className="profile__validated tooltip"><span className="tooltiptext">Esta organización está verificada</span><i class="fa fa-check profile__validatedicon"></i></div>
+                ) : (
+                    ""
+                  )}
+              </span>
               <p>{orgInfo?.bio}</p>
             </div>
           </div>

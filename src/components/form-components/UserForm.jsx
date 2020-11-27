@@ -50,7 +50,9 @@ const UserForm = () => {
   let isOrg = false;
 
   password.current = watch("password", "");
+
   const onSubmit = (data) => {
+    console.log(data);
     data.category = selectedCategory.value;
     let newArray = [];
     selectedTags.forEach((tag) => newArray.push(tag.value));
@@ -92,6 +94,7 @@ const UserForm = () => {
   useEffect(() => {
     if (state.userInformation.userType !== "") {
       getMe().then((res) => {
+        console.log(res)
         if (res.data !== undefined) {
           action(res.data.data.data);
         }
@@ -230,6 +233,16 @@ const UserForm = () => {
               />
             </div>
           </div>
+          <div className="userform__LIP">
+              <span className="userform__label">Correo</span>
+              <input
+                className="form-input"
+                type="email"
+                name="email"
+                ref={register}
+                disabled
+              />
+            </div>
           <div>
             {typeof state.userInformation !== "undefined" &&
             state.userInformation.tags &&

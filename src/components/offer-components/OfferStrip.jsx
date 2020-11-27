@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import updateAction from "../../updateAction";
 import { acceptInteraction, rejectInteraction } from "../../utils/apiRequests";
 // import DeleteOfferPopup from "../popup-components/DeleteOfferPopup";
+import { store } from "react-notifications-component";
 
 const OfferStrip = ({
   responseInfo,
@@ -20,12 +21,29 @@ const OfferStrip = ({
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
   const { show: showDetailModal, RenderModal: DetailModal } = useModal();
+  // const [updateFlag, setUpdateFlag] = useState(false);
 
   // const {
   //   show: showDeleteOfferModal,
   //   RenderModal: DeleteOfferModal,
   //   hide: hideDeleteOfferModal,
   // } = useModal();
+
+  // const updateInteractions = () => {
+  //   // if (state.userInformation.updateFlag !== "undefined" && state.userInformation.updateFlag === false){
+  //     window.location.reload()
+  //     action({updateFlag: true});
+  //     setTimeout(() => {  console.log("World!"); }, 2000);
+  // };
+
+  const updateInteractions = () => {
+    // setUpdateFlag(!updateFlag);
+    if (state.userInformation.updateFlag === true) {
+      action({ updateFlag: false });
+    } else {
+      action({ updateFlag: true });
+    }
+  };
 
   const sendInteractionId = () => {
     let chatPivot;
@@ -53,13 +71,57 @@ const OfferStrip = ({
   };
 
   const catchInteraction = () => {
+    updateInteractions();
     acceptInteraction(responseInfo._id).then((res) => {
       console.log(res);
+      if (res === "success") {
+        store.addNotification({
+          title: "Aplicación aceptada",
+          message: "El usuario será notificado de tu demostración de interés, puedes comunicarte a través de los Matches.",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true,
+          },
+        });
+      } else {
+        store.addNotification({
+          title: "Ha ocurrido un error",
+          message: res.message,
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true,
+          },
+        });
+      }
     });
-  };
 
+  };
   const deleteInteraction = () => {
+    updateInteractions();
     rejectInteraction(responseInfo._id).then((res) => {
+      store.addNotification({
+        title: "Aplicación rechazada",
+        message: "El usuario será removido de tu bandeja de resumen.",
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 10000,
+          onScreen: true,
+        },
+      });
       console.log(res);
     });
   };
