@@ -34,7 +34,7 @@ const LoginPage = React.memo((props) => {
   };
 
   useEffect(() => {
-    action({ name: '', lastname: '', bio: "", identificationNumber: "", location: "", phone: "", email: "", birthday: "", password: "", passwordConfirm: "", userType: "", category: "", tags: '', organization: '', organizationRole: '', isEmailValidated: "", createdAt: '', profilePicture: "", _id: '', __v: "", passwordChangedAt: '', signUpMethod: "", isSignupCompleted: "", id: '', data: '', hasPasswordUpdated: false, hasCreatedAccount: false, updatedAt: "", isActive: false, tokens: "" })
+    action({ name: '', lastname: '', bio: "", identificationNumber: "", location: "", phone: "", email: "", birthday: "", password: "", passwordConfirm: "", userType: "", category: "", tags: '', organization: '', organizationRole: '', isEmailValidated: "", createdAt: '', profilePicture: "", _id: '', __v: "", passwordChangedAt: '', signUpMethod: "", isSignupCompleted: "", id: '', data: '', hasPasswordUpdated: false, hasCreatedAccount: false, updatedAt: "", isActive: false, tokens: "", chats: "", chatPivot: "", })
   }, [action])
 
   useEffect(() => {

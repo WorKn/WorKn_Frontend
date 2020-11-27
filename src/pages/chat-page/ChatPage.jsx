@@ -12,9 +12,11 @@ import "./ChatPage-Style.css";
 import socketIOClient from "socket.io-client";
 import Contact from "../../components/chat-components/Contact";
 import Message from "../../components/chat-components/Message";
+import SimpleBar from 'simplebar-react';
+import 'simplebar/dist/simplebar.min.css';
+
 const HOST = "http://127.0.0.1:3000";
 const socket = socketIOClient(HOST);
-
 const ChatPage = () => {
   const [chats, setChats] = useState([]);
   const { state } = useStateMachine(updateAction);
@@ -127,20 +129,22 @@ const ChatPage = () => {
               <span className="chat__header">Contactos</span>
               <i className="fa fa-pencil-square-o chat__headericon tooltip"><span className="tooltiptext">Para iniciar un nuevo chat debes hacerlo mediante un Match a través de la página de Resumen</span></i>
             </div>
-            <div className="chat__contactcontainer">
-              {chats.map((chat) =>
-                chat ? (
-                  <Contact
-                    isCurrentChat={chat._id === currentChat._id}
-                    onClick={() => {
-                      setCurrentChat(chat);
-                    }}
-                    key={chat._id}
-                    responseInfo={chat}
-                  ></Contact>
-                ) : null
-              )}
-            </div>
+            <SimpleBar>
+              <div className="chat__contactcontainer">
+                {chats.map((chat) =>
+                  chat ? (
+                    <Contact
+                      isCurrentChat={chat._id === currentChat._id}
+                      onClick={() => {
+                        setCurrentChat(chat);
+                      }}
+                      key={chat._id}
+                      responseInfo={chat}
+                    ></Contact>
+                  ) : null
+                )}
+              </div>
+            </SimpleBar>
 
           </div>
           <div className="chat__boxright">
@@ -164,9 +168,7 @@ const ChatPage = () => {
                   <span className="chat__typing">{typing}</span>
                 ) : undefined}
               </ul>
-
             </ScrollToBottom>
-
             <div className="chat__barcontainer">
               <form
                 className="chat__form"
