@@ -252,7 +252,6 @@ const UserForm = () => {
             value="Viejo Guardar Perfil"
           /> */}
             <button className="custom-button bg-green" onClick={() => { setIsEditMode(true) }}>Editar Perfil</button>
-
           </div>
         ) : (
             <form className="userform" onSubmit={handleSubmit(onSubmit)}>
