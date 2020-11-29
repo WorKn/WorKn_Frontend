@@ -19,10 +19,11 @@ const HOST = "http://127.0.0.1:3000";
 const socket = socketIOClient(HOST);
 const ChatPage = () => {
   const [chats, setChats] = useState([]);
-  const { state } = useStateMachine(updateAction);
+  const { state, action } = useStateMachine(updateAction);
   const [messages, setMessages] = useState([]);
   const [chatExists, setChatExists] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  const [interactionId, setInteractionId] = useState("");
   const [typing, setTyping] = useState("escribiendo");
   const [currentChat, setCurrentChat] = useState({});
   const { register, handleSubmit, reset } = useForm({});
@@ -33,8 +34,10 @@ const ChatPage = () => {
         socket.emit("chat_message", currentChat._id, res.data.data.message);
       });
     } else {
-      createChat(data.message_input, state.userInformation.chatPivot.interactionId).then(
+      createChat(data.message_input, interactionId).then(
         (res) => {
+          console.log(res)
+          console.log(interactionId)
           if (res.data !== undefined && res.data.status === "success") {
             setCurrentChat(res.data.data.chat);
             socket.emit("chat_message", res.data.data.chat.id, res.data.data.lastMessage);
@@ -48,8 +51,12 @@ const ChatPage = () => {
   const emmitTyping = () => {
     socket.emit("chat_typing", currentChat._id);
     console.log(currentChat)
-
   }
+
+  // const testingFunction = () => {
+  //   setChatExists(true);
+
+  // }
 
   const showTyping = () => {
     setIsTyping(true);
@@ -71,22 +78,27 @@ const ChatPage = () => {
   useEffect(() => {
     getMyChats().then((res) => {
       let myChats = res.data.data.chats;
-      const found = myChats.find(chat => chat.user.id === state.userInformation.chatPivot.userInfo.id);
-      if (found) {
-        setChatExists(true);
-        setCurrentChat(found);
-        getChatMessages(found._id).then((res) => {
-          setMessages(res.data.data.chat.messages)
-        });
-      } else {
-        const chatPreview = {
-          user: state.userInformation.chatPivot.userInfo
+      if (state.userInformation.chatPivot) {
+        const found = myChats.find(chat => chat.user.id === state.userInformation.chatPivot.userInfo.id);
+        if (found) {
+          setChatExists(true);
+          setCurrentChat(found);
+          getChatMessages(found._id).then((res) => {
+            setMessages(res.data.data.chat.messages)
+          });
+        } else {
+          setInteractionId(state.userInformation.chatPivot.interactionId)
+          const chatPreview = {
+            user: state.userInformation.chatPivot.userInfo
+          }
+          myChats.push(chatPreview);
         }
-        myChats.push(chatPreview);
+        action({ chatPivot: undefined })
       }
       setChats(myChats);
     });
-  }, [state.userInformation.chatPivot.userInfo]);
+  }, []);
+
 
   useEffect(() => {
     socket.on("chat_message", (message) => {
@@ -136,6 +148,7 @@ const ChatPage = () => {
                     <Contact
                       isCurrentChat={chat._id === currentChat._id}
                       onClick={() => {
+                        setChatExists(true)
                         setCurrentChat(chat);
                       }}
                       key={chat._id}
