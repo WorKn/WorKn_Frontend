@@ -10,13 +10,16 @@ import CustomOfferStrip from "../../components/offer-components/CustomOfferStrip
 import updateAction from "../../updateAction";
 import EmailNotValidated from "../../components/emailnotvalidated-components/EmailNotValidated";
 import { useStateMachine } from "little-state-machine";
+import { useForm } from "react-hook-form";
 import Banner from "../../components/banner-components/Banner";
 
 const ManageOffersPage = () => {
   const [myoffers, setMyOffers] = useState([]);
   const [organizationInfo, setMyOrganization] = useState();
   const [success, setSuccess] = useState(false);
+  const [isOfferActive, setIsOfferActive] = useState(true);
   const { state } = useStateMachine(updateAction);
+  const { register, handleSubmit } = useForm({});
   const {
     show: showAddOfferModal,
     RenderModal: AddOfferModal,
@@ -65,6 +68,10 @@ const ManageOffersPage = () => {
       ),
     [myoffers, organizationInfo]
   );
+
+  const onSubmit = () => {
+    setIsOfferActive(!isOfferActive);
+  };
 
   useEffect(() => {
     //si fallo el get my offers y el usuario actual no es tipo ofertante entonces hay que rebotarlo. Por el otro lado, si fallo el getoffers y es ofertante dejarlo entrar
@@ -132,26 +139,53 @@ const ManageOffersPage = () => {
           setMyOffers={setMyOffers}
         ></CreateOfferPopup>
       </AddOfferModal>
-      <div className="manageoffers__container">
-        <span className="manageoffers__title--dark">Ofertas Activas</span>
-      </div>
-      <div className="manageoffers__activecontainer">
-        <div className="addoffer__newbutton" onClick={showAddOfferModal}>
-          <i className="fa fas fa-plus manageoffers__icon"></i>
+      <div className="manageoffers-inner">
+        <div className="manageoffers__container">
           <span className="manageoffers__title--dark">
-            Crea una nueva oferta
+            Seleccione el tipo de oferta a mostrar
           </span>
         </div>
-      </div>
+        <form
+          className="summarypage__form manageoffers__typeselector"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <select className="form__select" name="type" ref={register}>
+            <option value="active">Ofertas activas</option>
+            <option value="inactive">Ofertas inactivas</option>
+          </select>
+          <input className="custom-button bg-green" type="submit" value="Ir" />
+        </form>
 
-      <div className="manageoffers__inner">{activeOffers}</div>
-      <div className="manageoffers__container">
-        <span className="manageoffers__title--dark">Ofertas Inactivas</span>
-      </div>
-      <div className="manageoffers__inner">
-        {inactiveOffers
-          ? inactiveOffers
-          : "Usted no ha borrado ninguna oferta aún"}
+        <div className="manageoffers__activecontainer">
+          <div className="addoffer__newbutton" onClick={showAddOfferModal}>
+            <i className="fa fas fa-plus manageoffers__icon"></i>
+            <span className="manageoffers__title--dark">
+              Crea una nueva oferta
+            </span>
+          </div>
+        </div>
+        {isOfferActive ? (
+          <React.Fragment>
+            {" "}
+            <div className="manageoffers__container">
+              <span className="manageoffers__title--dark">Ofertas Activas</span>
+            </div>
+            <div className="manageoffers__offers-list">{activeOffers}</div>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <div className="manageoffers__container">
+              <span className="manageoffers__title--dark">
+                Ofertas Inactivas
+              </span>
+            </div>
+            <div className="manageoffers__offers-list">
+              {inactiveOffers
+                ? inactiveOffers
+                : "Usted no ha colocado ninguna oferta como inactiva aún"}
+            </div>
+          </React.Fragment>
+        )}
       </div>
     </div>
   ) : (
