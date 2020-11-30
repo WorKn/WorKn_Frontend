@@ -27,7 +27,6 @@ const PasswordPopup = (props) => {
     updatePassword(data).then((res) => {
       if (res.data !== undefined) {
         if (res?.data?.status && res?.data?.status === "success") {
-          console.log("good")
           action({ hasPasswordUpdated: true })
           setUpdate(res);
           Cookies.remove("jwt");

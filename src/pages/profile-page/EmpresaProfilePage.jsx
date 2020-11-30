@@ -50,10 +50,15 @@ const EmpresaProfilePage = (props) => {
           {typeof state.userInformation.data !== "undefined" ? (
             <span className="profile__header">
               {state.userInformation.data.name}
+              {typeof state.userInformation.data.isVerified && state.userInformation.data.isVerified === true ? (
+                <div className="profile__validated tooltip"><span className="tooltiptext">Esta organización está verificada</span><i class="fa fa-check profile__validatedicon"></i></div>
+              ) : (
+                  ""
+                )}
             </span>
           ) : (
-            <span className="profile__header">Nombres de la Empresa</span>
-          )}
+              <span className="profile__header">Nombres de la Empresa</span>
+            )}
           <Link to="/userprofile" style={{ textDecoration: "none" }}>
             <div className="profile__backtick">
               <i className="fa fa-chevron-left icon"></i>
@@ -76,9 +81,8 @@ const EmpresaProfilePage = (props) => {
               administradores nunca te la solicitarán.
             </span>
             {typeof state.userInformation.organizationRole !== "undefined" &&
-            (state.userInformation.organizationRole === "owner" ||
-              state.userInformation.organizationRole === "supervisor") ? (
-              <div>
+              (state.userInformation.organizationRole === "owner" ||
+                state.userInformation.organizationRole === "supervisor") ? (
                 <button
                   className="userprofile__action"
                   onClick={showMembersModal}
@@ -86,6 +90,12 @@ const EmpresaProfilePage = (props) => {
                   <i className="fa fa-cog userprofile__icon"></i>
                   Invitar miembros
                 </button>
+              ) : (
+                ""
+              )}
+            {typeof state.userInformation.organizationRole !== "undefined" &&
+              (state.userInformation.organizationRole === "owner" ||
+                state.userInformation.organizationRole === "supervisor") ? (
                 <button
                   className="userprofile__action"
                   onClick={ShowManageModal}
@@ -93,10 +103,9 @@ const EmpresaProfilePage = (props) => {
                   <i className="fa fa-cog userprofile__icon"></i>
                   Manejar miembros
                 </button>
-              </div>
-            ) : (
-              ""
-            )}
+              ) : (
+                ""
+              )}
             <Link to="/manageoffers">
               <button className="userprofile__action">
                 <i className="fa fa-cog userprofile__icon"></i>

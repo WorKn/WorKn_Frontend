@@ -1,6 +1,7 @@
 .userform {
   display: flex;
   flex-flow: column;
+  width: 100%;
 }
 
 .userform__LIP {
@@ -12,11 +13,13 @@
 
 .userform__LIP--separated {
   margin-left: 10px;
+
 }
 
 .userform__2col {
   display: flex;
   flex-flow: row;
+  width: 100%;
 }
 
 .userform__label {
@@ -35,6 +38,22 @@
   margin-bottom: 16px;
 }
 
+.userform__placeholder{
+  background-color: #fff;
+  border: none;
+  border-radius: 5px;
+  height: 45px;
+  padding: 20px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  font-size: 13.2px;
+}
+
+.userform__placeholder--bio{
+  height: auto;
+  flex-wrap: wrap;
+}
 .userform__select {
   background-color: #fff;
   border: none;
@@ -52,6 +71,7 @@
   resize: vertical;
   max-height: 400px;
   font-size: 14px;
+  min-height: 100px;
 }
 
 .userform__footer {

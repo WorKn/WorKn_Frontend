@@ -11,18 +11,22 @@ import "./ManagePopup-Style.css";
 import "./QuestionPopup-Style.css";
 import DeleteMemberPopup from "./DeleteMemberPopup";
 
+
 const ManagePopup = () => {
   const [current, setCurrent] = useState("");
   const [memberToUpdate, setMemberToUpdate] = useState({});
   const [isVisible, setIsVisible] = useState(false);
   const { state } = useStateMachine(updateAction);
   const { register, handleSubmit } = useForm();
-
   const {
     show: showDeleteMemberModal,
     RenderModal: DeleteMemberModal,
     hide: hideDeleteMemberModal,
   } = useModal();
+  let UsersTypeDictionary = {};
+  UsersTypeDictionary["owner"] = "Propietario";
+  UsersTypeDictionary["member"] = "Miembro";
+  UsersTypeDictionary["supervisor"] = "Supervisor";
 
   const onSubmit = (data, e) => {
     updateMemberRole(memberToUpdate, data.role).then((res) => {
@@ -66,6 +70,48 @@ const ManagePopup = () => {
     setIsVisible(false);
   };
 
+  const sendMember = (memberId) => {
+    if (window.confirm("Seguro que quiere borrar a este usuario?")) {
+      removeMember(memberId).then((res) => {
+        if (res.data !== undefined) {
+          if (res?.data?.status && res?.data?.status === "success") {
+            store.addNotification({
+              title: "Usuario eliminado correctamente",
+              message:
+                "El miembro fue eliminado de " +
+                res?.data?.data?.organization?.name,
+              type: "success",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 10000,
+                onScreen: true,
+              },
+            });
+            setCurrent(res);
+          } else if (res?.data?.status && res?.data?.status === "fail") {
+            store.addNotification({
+              title: "Ha ocurrido un error",
+              message: res?.data?.message,
+              type: "danger",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 10000,
+                onScreen: true,
+              },
+            });
+          }
+        }
+      });
+    } else {
+      console.log("User ND");
+    }
+  };
   const toggleEdit = () => {
     setIsVisible(true);
   };
@@ -101,7 +147,7 @@ const ManagePopup = () => {
                       />
                       {member.name} {member.lastname}
                     </td>
-                    <td>{member.organizationRole}</td>
+                    <td>{UsersTypeDictionary[member.organizationRole]}</td>
                     <td className="control__container">
                       <i
                         onClick={() => {
@@ -189,7 +235,7 @@ const ManagePopup = () => {
               <span className="members__subtitle">Inserte el nuevo rol</span>
               <div className="members__update--inner">
                 <select
-                  className="form__select"
+                  className="sform__select"
                   name="role"
                   id="role"
                   ref={register({

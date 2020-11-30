@@ -1,23 +1,15 @@
 import React from "react";
-import { useCountUp } from "react-countup";
+import CountUp from "react-countup";
 
-const Counter = () => {
-  const { countUp } = useCountUp({
-    start: 0,
-    end: 18340,
-    delay: 0,
-    duration: 1.8,
-    separator: ",",
-  });
+const Counter = ({ limit }) => {
   return (
-    <div className="counter-container">
+    <CountUp start={0} end={limit} delay={1.9}>
       {({ countUpRef }) => (
-        <div>
+        <div className="counter-container">
           <span ref={countUpRef} />
         </div>
       )}
-      <div>{countUp}</div>
-    </div>
+    </CountUp>
   );
 };
 

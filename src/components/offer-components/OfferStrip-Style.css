@@ -7,7 +7,7 @@
   width: 100%;
   margin-bottom: 30px;
   background-color: white;
-  border-radius: 45px;
+  border-radius: 10px;
   cursor: pointer;
   transition: transform 0.5s ease;
   box-shadow: 1px 7px 10px -12px rgba(0, 0, 0, 0.75);
@@ -81,7 +81,7 @@
 }
 
 @media only screen and (max-width: 1490px) {
-  .offerstrip__edit,
+  /* .offerstrip__edit, */
   .offerstrip__type,
   .offerstrip__delete,
   .offerstrip__org,

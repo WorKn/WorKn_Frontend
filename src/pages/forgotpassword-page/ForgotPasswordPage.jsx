@@ -14,10 +14,10 @@ const FPassword = () => {
   const onSubmit = (data) => {
     sendEmail(data)
       .then((res) => {
-        if (res?.status && res?.status === "success") {
+        if (res?.data?.status && res?.data?.status === 'success') {
           store.addNotification({
-            title: "Correo enviado correctamente",
-            message: "Por favor revise su correo",
+            title: "Mensaje Enviado",
+            message: "Hemos enviado un mensaje con las instrucciones para reestablecer su contrase­ña",
             type: "success",
             insert: "top",
             container: "top-right",
@@ -28,8 +28,7 @@ const FPassword = () => {
               onScreen: true
             }
           });
-          console.log(res.data);
-        } else if (res?.status && res?.status === "fail"){
+        } else {
           store.addNotification({
             title: "Ha ocurrido un error",
             message: res?.message,
@@ -64,34 +63,38 @@ const FPassword = () => {
 
   return (
     <div className="forgot-wrapper">
-      <form className="forgot-container" onSubmit={handleSubmit(onSubmit)}>
-        <h1 className="forgot-container__popup-title">
-          ¡Olvide mi contraseña!
+      <ToastContainer />
+      <div className="green-line">
+        <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
+          <h1 className="forgot-container__popup-title">
+            Restauración de Contraseña
         </h1>
-        <span className="forgot-container__popup-text">Correo</span>
-        <input
-          className="forgot-container__form-input"
-          type="email"
-          name="email"
-          placeholder="Email"
-          ref={register({ required: "Por favor ingrese su correo" })}
-        />
-        <ErrorMessage
-          errors={errors}
-          name="email"
-          render={({ message }) => (
-            <div className="input__msg input__msg--error">
-              <i class="fa fa-asterisk"></i> {message}
-            </div>
-          )}
-        />
-        <div className="input__msg input__msg--error">{userObject.message}</div>
-        <input
-          className="forgot-container__custom-button bg-green"
-          type="submit"
-          value="Enviar"
-        />
-      </form>
+          <span className="forgot-container__popup-text">Correo</span>
+          <input
+            className="forgot-container__form-input"
+            type="email"
+            name="email"
+            placeholder="Email"
+            ref={register({ required: "Por favor ingrese su correo" })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="email"
+            render={({ message }) => (
+              <div className="input__msg input__msg--error">
+                <i class="fa fa-asterisk"></i> {message}
+              </div>
+            )}
+          />
+          <div className="input__msg input__msg--error">{userObject.message}</div>
+          <input
+            className="forgot-container__custom-button bg-green"
+            type="submit"
+            value="Enviar"
+          />
+        </form>
+      </div>
+
     </div>
   );
 };

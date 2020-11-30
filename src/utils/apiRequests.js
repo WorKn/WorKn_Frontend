@@ -29,6 +29,15 @@ export const testing = async () => {
   }
 };
 
+export const getLandingPageStats = async () => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/stats/landingpage`);
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
 export const getMe = async () => {
   try {
     const response = await axios.get(`${HOST}/api/v1/users/me`);
