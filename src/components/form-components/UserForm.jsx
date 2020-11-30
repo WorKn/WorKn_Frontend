@@ -44,22 +44,17 @@ const UserForm = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const { state, action } = useStateMachine(updateAction);
   const password = useRef({});
-  const { register, handleSubmit, errors, watch } = useForm({
-    defaultValues: state.userInformation,
-  });
-
+  const { register, handleSubmit, errors, watch } = useForm({});
   let isOrg = false;
-
   password.current = watch("password", "");
 
   const onSubmit = (data) => {
-    console.log(data);
     data.category = selectedCategory.value;
     let newArray = [];
     selectedTags.forEach((tag) => newArray.push(tag.value));
     data.tags = newArray;
     updateProfile(data).then((res) => {
-      setUpdated(res);
+      // setUpdated(res);
       if (res?.data?.status && res?.data?.status === "success") {
         store.addNotification({
           title: "Perfil actualizado correctamente",
@@ -96,9 +91,9 @@ const UserForm = () => {
   useEffect(() => {
     if (state.userInformation.userType !== "") {
       getMe().then((res) => {
-        console.log(res)
         if (res.data !== undefined) {
           action(res.data.data.data);
+          setUpdated(res.data.data.data)
         }
       });
       getMyOrganization().then((res) => {
@@ -108,7 +103,7 @@ const UserForm = () => {
       });
     } else {
     }
-  }, [updated, action, state.userInformation.userType]);
+  }, [action, state.userInformation.userType]);
 
   useEffect(() => {
     getMe().then((res) => {
@@ -130,37 +125,36 @@ const UserForm = () => {
               <div className="userform__LIP">
                 <span className="userform__label">Nombre</span>
                 <div className="userform__placeholder">
-                  <span>{state.userInformation.name}</span>
+                  <span>{updated.name}</span>
                 </div>
               </div>
               <div className="userform__LIP userform__LIP--separated">
                 <span className="userform__label">Apellido</span>
                 <div className="userform__placeholder">
-                  <span>{state.userInformation.lastname}</span>
+                  <span>{updated.lastname}</span>
                 </div>
               </div>
             </div>
             <div className="userform__LIP">
               <span className="userform__label">Identificación</span>
               <div className="userform__placeholder">
-                <span>{state.userInformation.identificationNumber}</span>
+                <span>{updated.identificationNumber}</span>
               </div>
             </div>
             <div className="userform__LIP">
               <span className="userform__label">Biografia</span>
               <div className="userform__placeholder userform__placeholder--bio">
-                <span>{state.userInformation.bio}</span>
+                <span>{updated.bio}</span>
               </div>
             </div>
             <div className="userform__2col">
               <div className="userform__LIP">
                 <span className="userform__label">Telefono</span>
                 <div className="userform__placeholder">
-                  <span>{state.userInformation.phone}</span>
+                  <span>{updated.phone}</span>
                 </div>
               </div>
             </div>
-
             <div>
               {typeof state.userInformation !== "undefined" &&
                 state.userInformation.tags &&
@@ -262,7 +256,12 @@ const UserForm = () => {
                     className="userform__input"
                     type="text"
                     name="name"
-                    // pattern="[a-zA-ZáÁéÉíÍóÓúÚýÝ ]*"
+                    value={updated.name}
+                    onChange={
+                      (e) => {
+                        setUpdated({ ...updated, name: e.target.value })
+                      }
+                    }
                     ref={register({ required: "Por favor ingrese su nombre" })}
                   />
                   <ErrorMessage
@@ -281,8 +280,13 @@ const UserForm = () => {
                     className="userform__input"
                     type="text"
                     name="lastname"
+                    value={updated.lastname}
+                    onChange={
+                      (e) => {
+                        setUpdated({ ...updated, lastname: e.target.value })
+                      }
+                    }
                     // pattern="[a-zA-Z]*"
-
                     ref={register({ required: "Por favor ingrese su apellido" })}
                   />
                   <ErrorMessage
@@ -302,6 +306,7 @@ const UserForm = () => {
                   className="userform__input"
                   type="number"
                   name="identificationNumber"
+                  value={updated.identificationNumber}
                   ref={register({
                     maxLength: {
                       value: 11,
@@ -313,6 +318,7 @@ const UserForm = () => {
                   onChange={(e) => {
                     const { value } = e.target;
                     e.target.value = normalizeId(value);
+                    setUpdated({ ...updated, identificationNumber: e.target.value })
                   }}
                 />
                 <ErrorMessage
@@ -331,6 +337,12 @@ const UserForm = () => {
                   className="userform__input userform__input--lg userform__input-bio"
                   type="textarea"
                   name="bio"
+                  value={updated.bio}
+                  onChange={
+                    (e) => {
+                      setUpdated({ ...updated, bio: e.target.value })
+                    }
+                  }
                   ref={register({
                     maxLength: {
                       value: 400,
@@ -358,9 +370,11 @@ const UserForm = () => {
                     ref={register}
                     inputMode="numeric"
                     autoComplete="cc-number"
+                    value={updated.phone}
                     onChange={(e) => {
                       const { value } = e.target;
                       e.target.value = normalizePhone(value);
+                      setUpdated({ ...updated, phone: e.target.value })
                     }}
                   />
                 </div>
@@ -371,6 +385,12 @@ const UserForm = () => {
                   className="form-input"
                   type="email"
                   name="email"
+                  value={updated.email}
+                  onChange={
+                    (e) => {
+                      setUpdated({ ...updated, email: e.target.value })
+                    }
+                  }
                   ref={register}
                   disabled
                 />

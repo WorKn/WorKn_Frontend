@@ -24,14 +24,11 @@ const normalizePhone = (value) => {
 
 const EmpresaForm = () => {
   const [updated, setUpdated] = useState("");
-  const [disabled, setDisabled] = useState(false);
+  const [setDisabled] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const { state, action } = useStateMachine(updateAction);
-  const { register, handleSubmit, errors, watch } = useForm({
-  });
-
+  const { register, handleSubmit, errors, watch } = useForm({});
   let isOrg = true;
-
   const onSubmit = (data) => {
     if (!state.userInformation.organization) {
       createOrganization(data).then((res) => {
@@ -60,7 +57,6 @@ const EmpresaForm = () => {
         if (res.data !== undefined) {
           if (res.data.status && res.data.status === "success") {
             setDisabled(true);
-            console.log(res)
             store.addNotification({
               title: "Organización editada correctamente!",
               message: "Ahora puedes proceder a Manejar  tu Organización",
@@ -74,10 +70,8 @@ const EmpresaForm = () => {
                 onScreen: true
               }
             });
-            setUpdated(res);
+            // setUpdated(res);
           } else if (res.data.status && res.data.status === "fail") {
-            console.log(res)
-
             store.addNotification({
               title: "Ha ocurrido un error",
               message: res.data.message,
@@ -101,7 +95,6 @@ const EmpresaForm = () => {
   useEffect(() => {
     getMyOrganization().then((res) => {
       if (res.data !== undefined) {
-        console.log(res)
         action(res.data.data);
       }
     });
@@ -129,34 +122,34 @@ const EmpresaForm = () => {
             <div className="userform__LIP">
               <span className="userform__label">Nombre</span>
               <div className="userform__placeholder">
-                <span>{state.userInformation.data.name}</span>
+                <span>{updated.name}</span>
               </div>
             </div>
             <div className="userform__LIP userform__LIP--separated">
               <span className="userform__label">RNC</span>
               <div className="userform__placeholder">
-                <span>{state.userInformation.data.RNC}</span>
+                <span>{updated.RNC}</span>
               </div>
             </div>
           </div>
           <div className="userform__LIP">
             <span className="userform__label">Descripción</span>
             <div className="userform__placeholder userform__placeholder--bio">
-              <span>{state.userInformation.data.bio}</span>
+              <span>{updated.bio}</span>
             </div>
           </div>
           <div className="userform__2col">
             <div className="userform__LIP">
               <span className="userform__label">Teléfono</span>
               <div className="userform__placeholder">
-                <span>{state.userInformation.data.phone}</span>
+                <span>{updated.phone}</span>
               </div>
             </div>
           </div>
           <div className="userform__LIP">
             <span className="userform__label">Correo de contacto</span>
             <div className="userform__placeholder">
-              <span>{state.userInformation.data.email}</span>
+              <span>{updated.email}</span>
             </div>
           </div>
           <div>
@@ -170,7 +163,6 @@ const EmpresaForm = () => {
             </div>
           </div>
           <button className="custom-button bg-green" onClick={() => { setIsEditMode(true) }}>Editar Perfil</button>
-
         </div>
       ) : (
           <form className="userform" onSubmit={handleSubmit(onSubmit)}>
@@ -182,9 +174,11 @@ const EmpresaForm = () => {
                   type="text"
                   name="name"
                   value={updated.name}
-                  onChange={(e) => setUpdated()}
-                  // onChange={(e) => setEmail(e.target.value)}
-
+                  onChange={
+                    (e) => {
+                      setUpdated({ ...updated, name: e.target.value })
+                    }
+                  }
                   ref={register({
                     required: "Por favor ingrese el nombre de la empresa",
                   })}
@@ -202,10 +196,10 @@ const EmpresaForm = () => {
               <div className="userform__LIP userform__LIP--separated">
                 <span className="userform__label">RNC</span>
                 <input
-                  disabled={disabled}
                   className="userform__input"
                   type="number"
                   name="RNC"
+                  value={updated.RNC}
                   pattern="[0-9]+"
                   title="Por solo incluya numeros en el campo"
                   ref={register({
@@ -219,6 +213,8 @@ const EmpresaForm = () => {
                   onChange={(e) => {
                     const { value } = e.target
                     e.target.value = normalizeId(value)
+                    setUpdated({ ...updated, RNC: e.target.value })
+
                   }}
                 />
                 <ErrorMessage
@@ -238,6 +234,12 @@ const EmpresaForm = () => {
                 className="userform__input userform__input--lg userform__input-bio"
                 type="textarea"
                 name="bio"
+                value={updated.bio}
+                onChange={
+                  (e) => {
+                    setUpdated({ ...updated, bio: e.target.value })
+                  }
+                }
                 ref={register({
                   maxLength: {
                     value: 400,
@@ -262,12 +264,14 @@ const EmpresaForm = () => {
                   className="userform__input"
                   type="number"
                   name="phone"
+                  value={updated.phone}
                   ref={register}
                   inputMode="numeric"
                   autoComplete="cc-number"
                   onChange={(e) => {
                     const { value } = e.target
                     e.target.value = normalizePhone(value)
+                    setUpdated({ ...updated, phone: e.target.value })
                   }}
                 />
                 <ErrorMessage
@@ -287,6 +291,12 @@ const EmpresaForm = () => {
                 className="userform__input"
                 type="email"
                 name="email"
+                value={updated.email}
+                onChange={
+                  (e) => {
+                    setUpdated({ ...updated, email: e.target.value })
+                  }
+                }
                 ref={register}
               />
               <ErrorMessage
