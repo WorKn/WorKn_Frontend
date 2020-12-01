@@ -63,7 +63,6 @@ const FPassword = () => {
 
   return (
     <div className="forgot-wrapper">
-      <ToastContainer />
       <div className="green-line">
         <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
           <h1 className="forgot-container__popup-title">

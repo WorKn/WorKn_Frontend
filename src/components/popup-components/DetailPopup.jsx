@@ -10,7 +10,6 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import Tag from "../tag-components/Tag";
 import "./DetailPopup-Style.css";
-import { store } from 'react-notifications-component';
 
 const DetailPopup = ({ responseInfo, hide }) => {
   const { state } = useStateMachine(updateAction);
@@ -28,13 +27,13 @@ const DetailPopup = ({ responseInfo, hide }) => {
   MyDictionary["applicant"] = "Aplicante";
 
   useEffect(() => {
-    console.log(responseInfo);
     getMyOffers().then((res) => {
       if (res !== undefined) {
+        console.log(res);
         setOffers(res);
       }
     });
-  }, [responseInfo]);
+  }, []);
 
   useEffect(() => {
     if (responseInfo.organization) {
@@ -52,78 +51,20 @@ const DetailPopup = ({ responseInfo, hide }) => {
     if (interactionTarget && state.userInformation.userType === "applicant") {
       createInteractionAO(interactionTarget).then((res) => {
         if (res !== undefined) {
-          if (res?.data?.status && res?.data?.status === "success") {
-            store.addNotification({
-              title: "Interacción creada correctamente!",
-              message: "Puedes confirmar la interacción en tu página de resumen",
-              type: "success",
-              insert: "top",
-              container: "top-right",
-              animationIn: ["animate__animated", "animate__fadeIn"],
-              animationOut: ["animate__animated", "animate__fadeOut"],
-              dismiss: {
-                duration: 10000,
-                onScreen: true
-              }
-            });
-          } else if (res?.status && res?.status === "fail") {
-            store.addNotification({
-              title: "Ha ocurrido un error",
-              message: res?.message,
-              type: "danger",
-              insert: "top",
-              container: "top-right",
-              animationIn: ["animate__animated", "animate__fadeIn"],
-              animationOut: ["animate__animated", "animate__fadeOut"],
-              dismiss: {
-                duration: 10000,
-                onScreen: true
-              }
-            });
-          }
+          console.log(res);
         }
       });
     } else {
+      console.log("es ofertante");
     }
   }, [interactionTarget, state.userInformation.userType]);
 
   useEffect(() => {
-    if (interactionTarget && selectedOffer) {
-      createInteractionOA(interactionTarget, selectedOffer).then((res) => {
-        if (res !== undefined) {
-          if (res?.data?.status && res?.data?.status === "success") {
-            store.addNotification({
-              title: "Interacción creada correctamente!",
-              message: "Puedes confirmar la interacción en tu página de resumen",
-              type: "success",
-              insert: "top",
-              container: "top-right",
-              animationIn: ["animate__animated", "animate__fadeIn"],
-              animationOut: ["animate__animated", "animate__fadeOut"],
-              dismiss: {
-                duration: 10000,
-                onScreen: true
-              }
-            });
-          } else if (res?.status && res?.status === "fail") {
-            store.addNotification({
-              title: "Ha ocurrido un error",
-              message: res?.message,
-              type: "danger",
-              insert: "top",
-              container: "top-right",
-              animationIn: ["animate__animated", "animate__fadeIn"],
-              animationOut: ["animate__animated", "animate__fadeOut"],
-              dismiss: {
-                duration: 10000,
-                onScreen: true
-              }
-            });
-          }
-        }
-      });
-    }
-
+    createInteractionOA(interactionTarget, selectedOffer).then((res) => {
+      if (res !== undefined) {
+        console.log(res);
+      }
+    });
   }, [interactionTarget, selectedOffer]);
 
   const onSubmit = (data) => {
@@ -144,11 +85,6 @@ const DetailPopup = ({ responseInfo, hide }) => {
               <div className="dp-wrapper__text">
                 <span className="dp-wrapper__title">
                   {responseInfo ? responseInfo.title : "Titulo no disponible"}
-                  {typeof responseInfo?.organization?.isVerified && responseInfo?.organization?.isVerified === true ? (
-                    <div className="profile__validated tooltip"><span className="tooltiptext">Esta organización está verificada</span><i class="fa fa-check profile__validatedicon"></i></div>
-                  ) : (
-                      ""
-                    )}
                 </span>
                 <div className="dp-wrapper__bullets">
                   <ul>
@@ -159,53 +95,62 @@ const DetailPopup = ({ responseInfo, hide }) => {
                       {/* {responseInfo?.organization?.location
                         ? responseInfo?.organization?.location
                         : " Info no disponible"} */}
-                    </b>
-                  </li>
-                  <li>
-                    {responseInfo
-                      ? MyDictionary[responseInfo?.offerType]
-                      : "Info no disponible"}
-                  </li>
-                  {responseInfo?.createdAt ? (
-                    <li>
-                      Fecha de creación: {responseInfo?.createdAt?.slice(0, 10)}
+                      </b>
                     </li>
-                  ) : null}
-                  {responseInfo?.closingDate ? (
                     <li>
-                      Fecha de cierre: {responseInfo?.closingDate?.slice(0, 10)}
+                      {responseInfo
+                        ? MyDictionary[responseInfo?.offerType]
+                        : "Info no disponible"}
                     </li>
-                  ) : null}
+                    {responseInfo?.createdAt ? (
+                      <li>
+                        Fecha de creación: {responseInfo?.createdAt?.slice(0, 10)}
+                      </li>
+                    ) : null}
+                    {responseInfo?.closingDate ? (
+                      <li>
+                        Fecha de cierre: {responseInfo?.closingDate?.slice(0, 10)}
+                      </li>
+                    ) : null}
+                  </ul>
+                </div>
+                <ul className="dp-wrapper__tags">
+                  {responseInfo?.tags?.map((tag) => (
+                    <Tag
+                      key={tag._id}
+                      text={tag.name}
+                      theme="tag tag--small tag__text tagtext--small tag__text--gray"
+                    ></Tag>
+                  ))}
                 </ul>
               </div>
             </div>
             <div className="dp-wrapper__down-content">
-              <span className="dp-wrapper__title dp-wrapper__title--v2">
+              <span className="dp-wrapper_title dp-wrapper_title--v2">
                 Detalles de la oferta
             </span>
-            <p className="dp-wrapper__downinfo dp-wrapper__downinfo--ap">
-              {responseInfo
-                ? responseInfo?.description
-                : "Descripcion no disponible"}
-            </p>
-            <p className="dp-wrapper__salary">
-              {responseInfo?.offer?.salaryRange ? (
-                <p>
-                  Rango salarial:<br></br>
-                  <b>
-                    RD$ {responseInfo?.salaryRange[0]} -{" "}
-                    {responseInfo?.salaryRange[1]}
-                  </b>
-                </p>
-              ) : null}
-            </p>
-            <p className="dp-wrapper__contact dp-wrapper__contact--ap">
-              Contacto:
-
-              <Link
+              <p className="dp-wrapper_downinfo dp-wrapper_downinfo--ap">
+                {responseInfo
+                  ? responseInfo?.description
+                  : "Descripcion no disponible"}
+              </p>
+              <p className="dp-wrapper__salary">
+                {responseInfo?.offer?.salaryRange ? (
+                  <p>
+                    Rango salarial:<br></br>
+                    <b>
+                      RD$ {responseInfo?.salaryRange[0]} -{" "}
+                      {responseInfo?.salaryRange[1]}
+                    </b>
+                  </p>
+                ) : null}
+              </p>
+              <p className="dp-wrapper_contact dp-wrapper_contact--ap">
+                Contacto:{" "}
+                <Link
                   to={profileRoute}
                   target="_blank"
-                  style={{ textDecoration: "none" }}
+                  style={{ textDecoration: "none", color: "#5BBA6F" }}
                 >
                   {offererTitleRoute}
                 </Link>
@@ -258,14 +203,14 @@ const DetailPopup = ({ responseInfo, hide }) => {
                     <Tag
                       key={tag._id}
                       text={tag.name}
-                      theme="tag tag--small tag__text tag__text--small tag__text--gray"
+                      theme="tag tag--small tag__text tagtext--small tag__text--gray"
                     ></Tag>
                   ))}
                 </ul>
               </div>
             </div>
             <div className="dp-wrapper__down-content">
-              <span className="dp-wrapper__title dp-wrapper__title--v2">
+              <span className="dp-wrapper_title dp-wrapper_title--v2">
                 Detalles del usuario
             </span>
               <p className="dp-wrapper__downinfo">
@@ -288,7 +233,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
               <form onSubmit={handleSubmit(onSubmit)}>
                 {typeof offers ? (
                   <select
-                    className="form__select form__select--dp"
+                    className="form_select form_select--dp"
                     name="offer"
                     ref={register}
                   >
