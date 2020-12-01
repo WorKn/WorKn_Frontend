@@ -3,9 +3,9 @@ import "./ForgotPassword-Style.css";
 import "../../App.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { sendEmail } from "../../utils/apiRequests";
+import { store } from 'react-notifications-component';
+
 
 const FPassword = () => {
   const { register, handleSubmit, errors } = useForm();
@@ -14,63 +14,94 @@ const FPassword = () => {
   const onSubmit = (data) => {
     sendEmail(data)
       .then((res) => {
-        if (res.data !== undefined) {
-          toast.success(`Porfavor, revise su correo`, {
-            className: "sendEmail_success",
-            position: toast.POSITION.TOP_LEFT,
-            closeButton: false,
+        if (res?.data?.status && res?.data?.status === 'success') {
+          store.addNotification({
+            title: "Mensaje Enviado",
+            message: "Hemos enviado un mensaje con las instrucciones para reestablecer su contrase­ña",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true
+            }
           });
-          console.log(res.data);
         } else {
-          toast.error(`Introduzca un correo existente`, {
-            className: "sendEmail_fail",
-            position: toast.POSITION.TOP_LEFT,
-            closeButton: false,
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: res?.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true
+            }
           });
         }
       })
       .catch((err) => {
-        toast.error(err, {
-          className: "sendEmail_fail",
-          position: toast.POSITION.TOP_LEFT,
-          closeButton: false,
+        store.addNotification({
+          title: "Ha ocurrido un error",
+          message: err,
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true
+          }
         });
       });
   };
 
   return (
-    <div className="login-wrapper">
-      <ToastContainer />
-      <form className="forgot-container" onSubmit={handleSubmit(onSubmit)}>
-        <h1 className="forgot-container__popup-title">
-          ¡Olvide mi contraseña!
+    <div className="forgot-wrapper">
+      <div className="green-line">
+        <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
+          <h1 className="forgot-container__popup-title">
+            Restauración de Contraseña
         </h1>
-        <span className="forgot-container__popup-text">Correo</span>
-        <input
-          className="forgot-container__form-input"
-          type="email"
-          name="email"
-          placeholder="Email"
-          ref={register({ required: "Por favor ingrese su correo" })}
-        />
-        <ErrorMessage
-          errors={errors}
-          name="email"
-          render={({ message }) => (
-            <div className="input__msg input__msg--error">
-              <i class="fa fa-asterisk"></i> {message}
-            </div>
-          )}
-        />
-        <div className="input__msg input__msg--error">{userObject.message}</div>
-        <input
-          className="forgot-container__custom-button bg-green"
-          type="submit"
-          value="Enviar"
-        />
-      </form>
+          <span className="forgot-container__popup-text">Correo</span>
+          <input
+            className="forgot-container__form-input"
+            type="email"
+            name="email"
+            placeholder="Email"
+            ref={register({ required: "Por favor ingrese su correo" })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="email"
+            render={({ message }) => (
+              <div className="input__msg input__msg--error">
+                <i class="fa fa-asterisk"></i> {message}
+              </div>
+            )}
+          />
+          <div className="input__msg input__msg--error">{userObject.message}</div>
+          <input
+            className="forgot-container__custom-button bg-green"
+            type="submit"
+            value="Enviar"
+          />
+        </form>
+      </div>
+
     </div>
   );
 };
 
 export default FPassword;
+
+
+
+
+
+

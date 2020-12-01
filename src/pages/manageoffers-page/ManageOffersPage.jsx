@@ -8,15 +8,18 @@ import CreateOfferPopup from "../../components/popup-components/CreateOfferPopup
 import { useModal } from "../../hooks/useModal";
 import CustomOfferStrip from "../../components/offer-components/CustomOfferStrip";
 import updateAction from "../../updateAction";
+import EmailNotValidated from "../../components/emailnotvalidated-components/EmailNotValidated";
 import { useStateMachine } from "little-state-machine";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import Banner from "../../components/banner-components/Banner";
 
 const ManageOffersPage = () => {
   const [myoffers, setMyOffers] = useState([]);
   const [organizationInfo, setMyOrganization] = useState();
   const [success, setSuccess] = useState(false);
+  const [isOfferActive, setIsOfferActive] = useState(true);
   const { state } = useStateMachine(updateAction);
+  const { register, handleSubmit } = useForm({});
   const {
     show: showAddOfferModal,
     RenderModal: AddOfferModal,
@@ -44,6 +47,7 @@ const ManageOffersPage = () => {
             key={offer._id}
             organizationInformation={organizationInfo}
             offerInfo={offer}
+            setMyOffers={setMyOffers}
           ></CustomOfferStrip>
         ) : null
       ),
@@ -65,6 +69,10 @@ const ManageOffersPage = () => {
     [myoffers, organizationInfo]
   );
 
+  const onSubmit = () => {
+    setIsOfferActive(!isOfferActive);
+  };
+
   useEffect(() => {
     //si fallo el get my offers y el usuario actual no es tipo ofertante entonces hay que rebotarlo. Por el otro lado, si fallo el getoffers y es ofertante dejarlo entrar
     if (state.userInformation.isEmailValidated) {
@@ -73,7 +81,7 @@ const ManageOffersPage = () => {
         if (!res.data && state.userInformation.userType === "offerer") {
           // history.push("/");
         } else if (!res.data && state.userInformation.userType !== "offerer") {
-          history.push("/loginpage");
+          history.push("/login");
         } else {
           const offers = res.data.data.offers;
           if (offers && Array.isArray(offers)) {
@@ -94,9 +102,9 @@ const ManageOffersPage = () => {
           };
           setMyOrganization(organization);
         } else if (!res.data && state.userInformation.userType !== "offerer") {
-          history.push("/loginpage");
+          history.push("/login");
         } else {
-          const organization = res.data.data.data;
+          const organization = res?.data?.data?.data;
           setMyOrganization(organization);
         }
       });
@@ -104,7 +112,7 @@ const ManageOffersPage = () => {
       !state.userInformation.isEmailValidated &&
       !state.userInformation._id
     ) {
-      history.push("/loginpage");
+      history.push("/login");
     } else {
       setSuccess(false);
     }
@@ -117,65 +125,63 @@ const ManageOffersPage = () => {
     state.userInformation.isEmailValidated,
   ]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return success ? (
     <div className="manageoffers-container">
       <Header></Header>
       <Banner image={"qiyrYvI.png"} />
-
       <AddOfferModal>
-        <CreateOfferPopup hide={hideAddOfferModal}></CreateOfferPopup>
+        <CreateOfferPopup
+          hide={hideAddOfferModal}
+          setMyOffers={setMyOffers}
+        ></CreateOfferPopup>
       </AddOfferModal>
-      <div className="manageoffers__container">
-        <span className="manageoffers__title--dark">Ofertas Activas</span>
-      </div>
-      <div className="manageoffers__activecontainer">
-        <div className="addoffer__newbutton" onClick={showAddOfferModal}>
-          <i className="fa fas fa-plus manageoffers__icon"></i>
+      <div className="manageoffers-inner">
+        <div className="manageoffers__container">
           <span className="manageoffers__title--dark">
-            Crea una nueva oferta
+            Seleccione el tipo de oferta a mostrar
           </span>
         </div>
-      </div>
-      {/* <button
-        type="button"
-        className="manageoffers__create-button"
-        onClick={showAddOfferModal}
-      >
-        <i className="fa fas fa-plus manageoffers__icon"></i>Crear oferta
-      </button> */}
+        <form
+          className="summarypage__form manageoffers__typeselector"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <select className="form__select" name="type" ref={register}>
+            <option value="active">Ofertas activas</option>
+            <option value="inactive">Ofertas inactivas</option>
+          </select>
+          <input className="custom-button bg-green" type="submit" value="Ir" />
+        </form>
 
-      <div className="manageoffers__inner">{activeOffers}</div>
-      <div className="manageoffers__container">
-        <span className="manageoffers__title--dark">Ofertas Inactivas</span>
-      </div>
-      <div className="manageoffers__inner">
-        {inactiveOffers
-          ? inactiveOffers
-          : "Usted no ha borrado ninguna oferta aún"}
+        <div className="manageoffers__activecontainer">
+          <div className="addoffer__newbutton" onClick={showAddOfferModal}>
+            <i className="fa fas fa-plus manageoffers__icon"></i>
+            <span className="manageoffers__title--dark">
+              Crea una nueva oferta
+            </span>
+          </div>
+        </div>
+        {isOfferActive ? (
+          <React.Fragment>
+            <div className="manageoffers__offers-list">{activeOffers}</div>
+          </React.Fragment>
+        ) : (
+            <React.Fragment>
+              <div className="manageoffers__offers-list">
+                {inactiveOffers
+                  ? inactiveOffers
+                  : "Usted no ha colocado ninguna oferta como inactiva aún"}
+              </div>
+            </React.Fragment>
+          )}
       </div>
     </div>
   ) : (
-    <div className="manageoffers-nv__container">
-      <div className="manageoffers-nv__body">
-        <img
-          src="https://i.imgur.com/cDCOxmU.png"
-          alt=""
-          className="manageoffers-nv__img"
-        />
-        <h1 className="manageoffers-nv__title">
-          Su correo no ha sido validado
-        </h1>
-        <span>
-          Lo sentimos, para acceder a este contenido requerimos que su cuenta de
-          correo esté validada; aparentemente su cuenta aun no ha sido validada,
-          por favor, diríjase a su correo para continuar con el proceso.
-        </span>
-        <Link to="/userprofilepage" className="manageoffers-nv__button">
-          <div>Volver a tu perfil</div>
-        </Link>
-      </div>
-    </div>
-  );
+      <EmailNotValidated />
+    );
 };
 
 export default ManageOffersPage;

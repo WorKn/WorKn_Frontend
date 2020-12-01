@@ -15,7 +15,7 @@ const CTAComponent = ({ params: { imageUrl } }) => {
         <p className="cta-container__description">
           Crea y encuentra ofertas de trabajo perfectas para tus necesidades.
         </p>
-        <a href="/loginpage">
+        <a href="/login">
           <div
             className={
               isHovered

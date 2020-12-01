@@ -25,6 +25,7 @@ const RegisterPageC2 = () => {
     state.userInformation.organizationRole = "owner";
     action(data);
     setGotResponse(true);
+    action({ hasCreatedAccount: true })
   };
 
   useEffect(() => {
@@ -44,14 +45,14 @@ const RegisterPageC2 = () => {
     const user = Cookies.get("jwt");
     if (user && state.userInformation.category && state.userInformation.tags) {
       auth.login();
-      push("/userprofilepage");
+      push("/userprofile");
     } else if (
       user &&
       !state.userInformation.category &&
       !state.userInformation.tags
     ) {
       auth.login();
-      push("/userprofilepage");
+      push("/userprofile");
       console.log("not completed!");
     }
   }, [
@@ -212,7 +213,7 @@ const RegisterPageC2 = () => {
           <div className="ctext-separator">
             <span className="remind-me">
               Ya tienes cuenta? {""}
-              <a className="popup-link " href="/loginpage">
+              <a className="popup-link " href="/login">
                 Inicia sesión
               </a>
             </span>

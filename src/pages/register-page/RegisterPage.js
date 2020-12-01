@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import "./RegisterPage-Style.css";
 import "../../App.css";
 import { useHistory } from "react-router-dom";
@@ -7,6 +7,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import { getAge } from "../../utils/ageCalculation";
+
 
 const RegisterPage = () => {
   const { state, action } = useStateMachine(updateAction);
@@ -17,11 +18,15 @@ const RegisterPage = () => {
   const { push } = useHistory();
   const onSubmit = (data) => {
     action(data);
-    push("/registerpagec1");
+    push("/registerc1");
   };
 
   const password = useRef({});
   password.current = watch("password", "");
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <div className="register-wrapper">
@@ -167,7 +172,7 @@ const RegisterPage = () => {
           <div className="ctext-separator">
             <span className="remind-me">
               Ya tienes cuenta? {""}
-              <a className="popup-link " href="/loginpage">
+              <a className="popup-link " href="/login">
                 Inicia sesión
               </a>
             </span>

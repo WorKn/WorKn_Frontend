@@ -8,6 +8,11 @@ import { updatePassword } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 import Auth from "../../utils/authHelper";
+import { useStateMachine } from "little-state-machine";
+import updateAction from "../../updateAction";
+import { store } from 'react-notifications-component';
+
+
 
 const PasswordPopup = (props) => {
   const [update, setUpdate] = useState();
@@ -15,19 +20,41 @@ const PasswordPopup = (props) => {
   const newPassword = useRef({});
   newPassword.current = watch("newPassword", "");
   const { push } = useHistory();
+  const { action } = useStateMachine(updateAction);
+
 
   const onSubmit = (data) => {
     updatePassword(data).then((res) => {
       if (res.data !== undefined) {
-        setUpdate(res);
-        Cookies.set("jwt", res.data.token, { expires: 7 });
+        if (res?.data?.status && res?.data?.status === "success") {
+          action({ hasPasswordUpdated: true })
+          setUpdate(res);
+          Cookies.remove("jwt");
+          Auth.logout(() => {
+            push("/");
+          });
+        } else if (res?.data?.status && res?.data?.status === "fail") {
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: res?.data?.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true
+            }
+          });
+        }
       }
     });
   };
 
   // const relogUser = () => {
   //   Auth.logout(() => {
-  //     push("/loginpage");
+  //     push("/login");
   //   });
   // };
 
@@ -129,8 +156,8 @@ const PasswordPopup = (props) => {
             </p>
           </div>
         ) : (
-          ""
-        )}
+            ""
+          )}
         <input
           className="custom-button bg-green"
           type="submit"
@@ -146,7 +173,7 @@ const PasswordPopup = (props) => {
           </p>
         </div>
         {/*
-        <NavLink to="/registerpage" style={{ textDecoration: "none" }}>
+        <NavLink to="/register" style={{ textDecoration: "none" }}>
           <span className="custom-button bg-green">
             <span>Persona</span>
           </span>
@@ -161,7 +188,7 @@ const PasswordPopup = (props) => {
           </p>
         </div> */}
       </form>
-    </div>
+    </div >
   );
 };
 
