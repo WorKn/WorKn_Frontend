@@ -166,31 +166,22 @@ const ManageOffersPage = () => {
         </div>
         {isOfferActive ? (
           <React.Fragment>
-            {" "}
-            <div className="manageoffers__container">
-              <span className="manageoffers__title--dark">Ofertas Activas</span>
-            </div>
             <div className="manageoffers__offers-list">{activeOffers}</div>
           </React.Fragment>
         ) : (
-          <React.Fragment>
-            <div className="manageoffers__container">
-              <span className="manageoffers__title--dark">
-                Ofertas Inactivas
-              </span>
-            </div>
-            <div className="manageoffers__offers-list">
-              {inactiveOffers
-                ? inactiveOffers
-                : "Usted no ha colocado ninguna oferta como inactiva aún"}
-            </div>
-          </React.Fragment>
-        )}
+            <React.Fragment>
+              <div className="manageoffers__offers-list">
+                {inactiveOffers
+                  ? inactiveOffers
+                  : "Usted no ha colocado ninguna oferta como inactiva aún"}
+              </div>
+            </React.Fragment>
+          )}
       </div>
     </div>
   ) : (
-    <EmailNotValidated />
-  );
+      <EmailNotValidated />
+    );
 };
 
 export default ManageOffersPage;

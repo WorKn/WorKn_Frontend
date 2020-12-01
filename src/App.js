@@ -71,7 +71,7 @@ function App() {
               path="/userprofile"
               component={UserProfilePage}
             />
-            <Route
+            <ProtectedRoute
               exact
               path="/organizationprofile"
               component={EmpresaProfilePage}
