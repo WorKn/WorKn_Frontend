@@ -233,7 +233,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
               <form onSubmit={handleSubmit(onSubmit)}>
                 {typeof offers ? (
                   <select
-                    className="form_select form_select--dp"
+                    className="sform__select"
                     name="offer"
                     ref={register}
                   >

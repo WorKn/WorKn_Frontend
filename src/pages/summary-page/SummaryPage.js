@@ -195,7 +195,7 @@ const SummaryPage = () => {
                   onSubmit={handleSubmit(onSubmit)}
                   className="summarypage__form"
                 >
-                  <select className="form__select" name="offer" ref={register}>
+                  <select className="sform__select" name="offer" ref={register}>
                     {offers?.data?.data?.offers.map((offer) => (
                       <option key={offer._id} value={offer._id}>
                         {offer.title}

@@ -26,11 +26,11 @@ const JumbotronComponent = ({
             <span className="tooltiptext">
               Organizaciones y negocios que deseen expandirse usando WorKn.
             </span>
-          </b> y
+          </b> y {" "}
           <b className="tooltip">
             <span className="tooltiptext">
               Un freelancer es un trabajador independiente de cualquier organización.
-            </span>freelancers
+            </span> freelancers
           </b> en nuestra plataforma mediante
           {" "}
           <b className="tooltip">ofertas
