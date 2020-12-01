@@ -3,10 +3,9 @@ import "./ForgotPassword-Style.css";
 import "../../App.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { sendEmail } from "../../utils/apiRequests";
 import { store } from 'react-notifications-component';
+
 
 const FPassword = () => {
   const { register, handleSubmit, errors } = useForm();
@@ -46,17 +45,24 @@ const FPassword = () => {
         }
       })
       .catch((err) => {
-        toast.error(err, {
-          className: "sendEmail_fail",
-          position: toast.POSITION.TOP_LEFT,
-          closeButton: false,
+        store.addNotification({
+          title: "Ha ocurrido un error",
+          message: err,
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true
+          }
         });
       });
   };
 
   return (
     <div className="forgot-wrapper">
-      <ToastContainer />
       <div className="green-line">
         <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
           <h1 className="forgot-container__popup-title">
@@ -93,3 +99,9 @@ const FPassword = () => {
 };
 
 export default FPassword;
+
+
+
+
+
+

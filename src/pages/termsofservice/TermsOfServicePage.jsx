@@ -22,10 +22,6 @@ const SECTIONS = [
 const TermsOfServicePage = () => {
   const [active, setIsActive] = useState(0);
 
-  const toggleActive = (idx) => {
-    setIsActive(idx);
-  };
-
   return (
     <React.Fragment>
       <Header />
