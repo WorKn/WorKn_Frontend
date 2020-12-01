@@ -73,7 +73,7 @@ const Navbar = () => {
               ? "navbar__link navbar__link--hidden navbar__hide-on-mobile"
               : "navbar__link navbar__link--hidden"
           }
-          to="/summary"
+          to="/chat"
         >
           Mensajeria
         </Link>

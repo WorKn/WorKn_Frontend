@@ -100,17 +100,17 @@ const SummaryPage = () => {
       <Header />
       <Banner image={"qSOKi8h.png"} />
       {typeof loadingVar && loadingVar === true ? (
-      <div className="sweet-loading">
-        <BeatLoader
-          css={override}
-          size={10}
-          color={"#00BA6B"}
-          loading={true}
-        />
-      </div>
-      ):(
-        ""
-      )}
+        <div className="sweet-loading">
+          <BeatLoader
+            css={override}
+            size={10}
+            color={"#00BA6B"}
+            loading={true}
+          />
+        </div>
+      ) : (
+          ""
+        )}
 
       {typeof state.userInformation.userType !== "undefined" &&
         state.userInformation.userType === "applicant" ? (
