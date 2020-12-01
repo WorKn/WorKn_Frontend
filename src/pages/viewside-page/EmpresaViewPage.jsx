@@ -58,20 +58,17 @@ const EmpresaViewPage = ({
     });
   }, [id, history]);
 
-  // let formatPhoneNumber = (str) => {
-  //   //Filter only numbers from the input
-  //   let cleaned = ("" + str).replace(/\D/g, "");
-  // eslint-disable-next-line
-  //Filter only numbers from the input
-  //   //Check if the input is of correct length
-  //   let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+  let formatPhoneNumber = (str) => {
+    //Filter only numbers from the input
+    let cleaned = ("" + str).replace(/\D/g, "");
+    //Check if the input is of correct length
+    let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
 
-  //   if (match) {
-  //     return "(" + match[1] + ")-" + match[2] + "-" + match[3];
-  //   }
-  //   return null;
-  // };
-  //kiwVnMm.png
+    if (match) {
+      return "(" + match[1] + ")-" + match[2] + "-" + match[3];
+    }
+    return null;
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0)

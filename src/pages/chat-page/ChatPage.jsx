@@ -100,6 +100,7 @@ const ChatPage = () => {
       }
       setChats(myChats);
     });
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
