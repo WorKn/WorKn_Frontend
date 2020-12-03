@@ -9,7 +9,7 @@ const CTAComponent = ({ params: { imageUrl } }) => {
     setHovered(!isHovered);
   };
 
-  const { state, action } = useStateMachine(updateAction);
+  const { state } = useStateMachine(updateAction);
 
   return (
     <div className="cta-container">
