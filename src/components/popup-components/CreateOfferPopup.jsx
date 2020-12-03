@@ -220,7 +220,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                   type="number"
                   step="any"
                   name="salaryRangeFrom"
-                  placeholder="Desde [opcional, en RD$]"
+                  placeholder="Desde [opcional]"
                   className="create-offer__salaryRangeFrom c-o__paired-input--money"
                   ref={register}
                   title="Por favor, ingrese el rango inicial sin comas [opcional]"
@@ -242,7 +242,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                   type="number"
                   step="any"
                   name="salaryRangeTo"
-                  placeholder="Hasta [opcional, en RD$]"
+                  placeholder="Hasta [opcional]"
                   className="create-offer__salaryRangeFrom c-o__paired-input--money"
                   ref={register}
                   title="Por favor, ingrese el rango final [opcional]"
