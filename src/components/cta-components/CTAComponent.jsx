@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import { useStateMachine } from "little-state-machine";
+import updateAction from "../../updateAction";
 import "./CTAComponent-Style.css";
 
 const CTAComponent = ({ params: { imageUrl } }) => {
@@ -8,6 +9,8 @@ const CTAComponent = ({ params: { imageUrl } }) => {
     setHovered(!isHovered);
   };
 
+  const { state, action } = useStateMachine(updateAction);
+
   return (
     <div className="cta-container">
       <div className="cta-container__jumbotron-text">
@@ -15,7 +18,42 @@ const CTAComponent = ({ params: { imageUrl } }) => {
         <p className="cta-container__description">
           Crea y encuentra ofertas de trabajo perfectas para tus necesidades.
         </p>
-        <a href="/login">
+        {state.userInformation._id ? (
+          <a href="/userprofile">
+            <div
+              className={
+                isHovered
+                  ? "cta-container__ctabutton"
+                  : "cta-container__ctabutton cta-container__ctabutton--highlighted"
+              }
+              onMouseEnter={toggleHover}
+              onMouseLeave={toggleHover}
+            >
+              <i class="fa fa-address-card cta-container__profile-icon"></i>
+              Ir a tu perfil
+            </div>
+          </a>
+        ) : (
+          <a href="/login">
+            <div
+              className={
+                isHovered
+                  ? "cta-container__ctabutton"
+                  : "cta-container__ctabutton cta-container__ctabutton--highlighted"
+              }
+              onMouseEnter={toggleHover}
+              onMouseLeave={toggleHover}
+            >
+              <img
+                src="https://i.imgur.com/SE2JiQf.png"
+                className="button-image"
+                alt="icon"
+              ></img>
+              Únete o inicia sesión
+            </div>
+          </a>
+        )}
+        {/* <a href="/login">
           <div
             className={
               isHovered
@@ -32,7 +70,7 @@ const CTAComponent = ({ params: { imageUrl } }) => {
             ></img>
             Únete o inicia sesión
           </div>
-        </a>
+        </a> */}
       </div>
 
       {imageUrl ? (
