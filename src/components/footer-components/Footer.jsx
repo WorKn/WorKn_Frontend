@@ -32,7 +32,7 @@ const Footer = () => {
             </Link>
           </div>
           <div className="left-foot__navbar">
-            <Link className="left-foot__nobj" target="_blank" to="/Ofertas">
+            <Link className="left-foot__nobj" target="_blank" to="/manageoffers">
               Ofertas
             </Link>
             <Link className="left-foot__nobj" target="_blank" to="/explore">
@@ -47,12 +47,12 @@ const Footer = () => {
           </div>
         </div>
         <div className="left-foot__middle-content">
-          <Icon path={"https://www.facebook.com/WorKn"} media={"XL6Cvrz.png"} />
+          <Icon path={"https://www.facebook.com"} media={"XL6Cvrz.png"} />
 
-          <Icon path={"https://twitter.com/WorKn"} media={"3mO0prt.png"} />
+          <Icon path={"https://twitter.com"} media={"3mO0prt.png"} />
 
           <Icon
-            path={"https://www.instagram.com/WorKn/"}
+            path={"https://www.instagram.com"}
             media={"uxM8asb.png"}
           />
         </div>
