@@ -101,7 +101,7 @@ function App() {
             <Route exact path="/manageoffers" component={ManageOffersPage} />
             <Route exact path="/summary" component={SummaryPage} />
             <Route exact path="/explore" component={ExplorePage} />
-            <Route exact path="/FAQ" component={FAQPage} />
+            <Route exact path="/faq" component={FAQPage} />
             <Route exact path="/addMember/:token" component={AddMember} />
             <Route exact path="/managemembers" component={ManagePopup} />
             {/* <Route exact path="/chat" component={ChatPage} /> */}
