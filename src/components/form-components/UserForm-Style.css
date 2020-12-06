@@ -39,7 +39,7 @@
 }
 
 .userform__placeholder{
-  background-color: #fff;
+  background-color: #ebebeb;
   border: none;
   border-radius: 5px;
   height: 45px;
@@ -102,4 +102,25 @@
 
 .userform__tagscontainer .tag {
   margin-bottom: 14px;
+}
+
+.userform__edit {
+  font-size: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  background-color: #5bba6f;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.form__mainhead{
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
 }

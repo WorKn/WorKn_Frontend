@@ -24,7 +24,6 @@ const normalizePhone = (value) => {
 
 const EmpresaForm = () => {
   const [updated, setUpdated] = useState("");
-  const [setDisabled] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, errors, watch } = useForm({});
@@ -56,7 +55,6 @@ const EmpresaForm = () => {
       editOrganization(data).then((res) => {
         if (res.data !== undefined) {
           if (res.data.status && res.data.status === "success") {
-            setDisabled(true);
             store.addNotification({
               title: "Organización editada correctamente!",
               message: "Ahora puedes proceder a Manejar  tu Organización",
@@ -324,6 +322,7 @@ const EmpresaForm = () => {
               type="submit"
               value="Guardar Perfil de Empresa"
             />
+            <button className="custom-button bg-red" onClick={() => { setIsEditMode(false) }}>Cancelar</button>
           </form>
         )}
 

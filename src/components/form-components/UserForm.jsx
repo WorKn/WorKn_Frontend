@@ -116,7 +116,7 @@ const UserForm = () => {
   return (
     <categoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
       <tagsContext.Provider value={{ selectedTags, setSelectedTags }}>
-        <div className="userform__LIP">
+        <div className="userform__LIP form__mainhead">
           <PicSelector isOrg={isOrg}></PicSelector>
         </div>
         {typeof isEditMode && isEditMode === false ? (
@@ -142,17 +142,23 @@ const UserForm = () => {
               </div>
             </div>
             <div className="userform__LIP">
-              <span className="userform__label">Biografia</span>
+              <span className="userform__label">Biografía</span>
               <div className="userform__placeholder userform__placeholder--bio">
                 <span>{updated.bio}</span>
               </div>
             </div>
             <div className="userform__2col">
               <div className="userform__LIP">
-                <span className="userform__label">Telefono</span>
+                <span className="userform__label">Teléfono</span>
                 <div className="userform__placeholder">
                   <span>{updated.phone}</span>
                 </div>
+              </div>
+            </div>
+            <div className="userform__LIP">
+              <span className="userform__label">Correo</span>
+              <div className="userform__placeholder userform__placeholder--bio">
+                <span>{updated.email}</span>
               </div>
             </div>
             <div>
@@ -488,6 +494,7 @@ const UserForm = () => {
                 type="submit"
                 value="Guardar Perfil"
               />
+              <button className="custom-button bg-red" onClick={() => { setIsEditMode(false) }}>Cancelar</button>
             </form>
           )}
 
