@@ -19,12 +19,12 @@ const RegisterPageC1 = () => {
   const { register, handleSubmit, errors } = useForm();
   const { push } = useHistory();
   const onSubmit = (data) => {
+    state.userInformation.userType = data.userType
     data.organizationRole = "";
     action(data);
     action({ hasCreatedAccount: true })
     setTimeout(() => {
       userSignup(state.userInformation).then((res) => {
-        console.log(res)
         setUserObject(res);
         if (res.status === "fail") {
           store.addNotification({
@@ -42,7 +42,7 @@ const RegisterPageC1 = () => {
           });
         }
       });
-    }, 1000);
+    }, 1500);
   };
 
   // useEffect(() => {
@@ -72,7 +72,6 @@ const RegisterPageC1 = () => {
     ) {
       auth.login();
       push("/userprofile");
-      console.log("not completed!");
     }
   }, [
     userObject,
@@ -136,6 +135,7 @@ const RegisterPageC1 = () => {
                 required: "Por favor ingrese el tipo de usuario que desea crear",
               })}
             >
+              <option value="">Seleccione el tipo de usuario</option>
               <option value="applicant">Aplicante</option>
               <option value="offerer">Ofertante</option>
             </select>
