@@ -98,10 +98,6 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
               <h1 className="create-offer__header-title">
                 Creación de ofertas
               </h1>
-              {/* <i
-                className="fa fa-times offerstrip__icon offerstrip__delete"
-                onClick={hide}
-              ></i> */}
             </div>
             <div className="create-offer__paired-input">
               <span>Título</span>
@@ -177,6 +173,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                 name="location"
                 ref={register}
               />
+
               <ErrorMessage
                 errors={errors}
                 name="location"
@@ -218,16 +215,18 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
 
             <div className="create-offer__paired-input">
               <span>Rango Salarial</span>
-
-              <input
-                type="number"
-                step="any"
-                name="salaryRangeFrom"
-                placeholder="Desde [opcional]"
-                className="create-offer__salaryRangeFrom"
-                ref={register}
-                title="Por favor, ingrese el rango inicial sin comas [opcional]"
-              />
+              <div className="create-offer__money-range">
+                <input
+                  type="number"
+                  step="any"
+                  name="salaryRangeFrom"
+                  placeholder="Desde [opcional]"
+                  className="create-offer__salaryRangeFrom c-o__paired-input--money"
+                  ref={register}
+                  title="Por favor, ingrese el rango inicial sin comas [opcional]"
+                />
+                <span>RD$</span>
+              </div>
 
               <ErrorMessage
                 errors={errors}
@@ -238,15 +237,18 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                   </div>
                 )}
               />
-              <input
-                type="number"
-                step="any"
-                name="salaryRangeTo"
-                placeholder="Hasta [opcional]"
-                className="create-offer__salaryRangeFrom"
-                ref={register}
-                title="Por favor, ingrese el rango final [opcional]"
-              />
+              <div className="create-offer__money-range">
+                <input
+                  type="number"
+                  step="any"
+                  name="salaryRangeTo"
+                  placeholder="Hasta [opcional]"
+                  className="create-offer__salaryRangeFrom c-o__paired-input--money"
+                  ref={register}
+                  title="Por favor, ingrese el rango final [opcional]"
+                />
+                <span>RD$</span>
+              </div>
 
               <ErrorMessage
                 errors={errors}

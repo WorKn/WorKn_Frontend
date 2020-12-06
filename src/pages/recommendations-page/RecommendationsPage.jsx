@@ -14,9 +14,15 @@ import "./RecommendationsPage-Style.css";
 import RecommendationBlock from "../../components/recommendation-components/RecommendationBlock";
 import ProfileNotCompleted from "../../components/profilenotcompleted-components/ProfileNotCompleted";
 import EmailNotValidated from "../../components/emailnotvalidated-components/EmailNotValidated";
+import { css } from "@emotion/core";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const RecommendationsPage = () => {
   const [userRecommendations, setUserRecommendations] = useState();
+  const [loadingVar, setLoadingVar] = useState(true);
+  const override = css`
+    display: block;
+  `;
 
   const [offerRecommendations, setOfferRecommendations] = useState();
   const { state } = useStateMachine(updateAction);
@@ -24,22 +30,28 @@ const RecommendationsPage = () => {
   let history = useHistory();
 
   useEffect(() => {
-    if (state.userInformation.userType === "offerer") {
-      getUserRecommendation().then((res) => {
-        if (res?.data?.data?.offers) {
-          setUserRecommendations(res?.data?.data?.offers);
-        }
-      });
-    } else if (state.userInformation.userType === "applicant") {
-      getOfferRecommendation().then((res) => {
-        console.log(res);
-        setOfferRecommendations(res?.data?.data?.offers);
-      });
+    if (!state.userInformation.userType) {
+      setLoadingVar(true);
     } else {
-      history.push("/login");
+      setTimeout(() => {
+        setLoadingVar(false);
+        if (state.userInformation.userType === "offerer") {
+          getUserRecommendation().then((res) => {
+            if (res?.data?.data?.offers) {
+              setUserRecommendations(res?.data?.data?.offers);
+            }
+          });
+        } else if (state.userInformation.userType === "applicant") {
+          getOfferRecommendation().then((res) => {
+            console.log(res);
+            setOfferRecommendations(res?.data?.data?.offers);
+          });
+        } else {
+          history.push("/login");
+        }
+      }, 1500);
     }
-    // eslint-disable-next-line
-  }, []);
+  }, [state.userInformation.userType, history]);
 
   const oRecommendations = useMemo(
     () =>
@@ -70,6 +82,18 @@ const RecommendationsPage = () => {
     <div className="recommendationspage">
       <Header />
       <Banner image={"ooyAGWN.png"} />
+
+      {loadingVar && (
+        <div className="sweet-loading">
+          <BeatLoader
+            css={override}
+            size={10}
+            color={"#00BA6B"}
+            loading={true}
+          />
+        </div>
+      )}
+
       {state.userInformation.isEmailValidated ? (
         state.userInformation.isSignupCompleted ? (
           <div className="recommendationspage__container">

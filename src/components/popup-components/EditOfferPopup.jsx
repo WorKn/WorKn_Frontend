@@ -217,17 +217,21 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
             <div className="create-offer__paired-input">
               <span>Rango Salarial</span>
 
-              <input
-                type="number"
-                step="any"
-                name="salaryRangeFrom"
-                defaultValue={
-                  offerInfo.salaryRange ? offerInfo.salaryRange[0] : ""
-                }
-                placeholder="Desde [opcional]"
-                ref={register}
-                title="Por favor, ingrese el rango inicial sin comas [opcional]"
-              />
+              <div className="create-offer__money-range">
+                <input
+                  type="number"
+                  step="any"
+                  name="salaryRangeFrom"
+                  defaultValue={
+                    offerInfo.salaryRange ? offerInfo.salaryRange[0] : ""
+                  }
+                  placeholder="Desde [opcional]"
+                  ref={register}
+                  title="Por favor, ingrese el rango inicial sin comas [opcional]"
+                  className="create-offer__salaryRangeFrom c-o__paired-input--money"
+                />
+                <span>RD$</span>
+              </div>
 
               <ErrorMessage
                 errors={errors}
@@ -238,17 +242,22 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
                   </div>
                 )}
               />
-              <input
-                type="number"
-                step="any"
-                name="salaryRangeTo"
-                defaultValue={
-                  offerInfo.salaryRange ? offerInfo.salaryRange[1] : ""
-                }
-                placeholder="Hasta [opcional]"
-                ref={register}
-                title="Por favor, ingrese el rango final [opcional]"
-              />
+
+              <div className="create-offer__money-range">
+                <input
+                  type="number"
+                  step="any"
+                  name="salaryRangeTo"
+                  defaultValue={
+                    offerInfo.salaryRange ? offerInfo.salaryRange[1] : ""
+                  }
+                  placeholder="Hasta [opcional]"
+                  ref={register}
+                  title="Por favor, ingrese el rango final [opcional]"
+                  className="create-offer__salaryRangeFrom c-o__paired-input--money"
+                />
+                <span>RD$</span>
+              </div>
 
               <ErrorMessage
                 errors={errors}

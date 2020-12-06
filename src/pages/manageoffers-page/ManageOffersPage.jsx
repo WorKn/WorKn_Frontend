@@ -17,7 +17,7 @@ const ManageOffersPage = () => {
   const [myoffers, setMyOffers] = useState([]);
   const [organizationInfo, setMyOrganization] = useState();
   const [success, setSuccess] = useState(false);
-  const [isOfferActive, setIsOfferActive] = useState(true);
+  const [offersToDisplay, setOffersToDisplay] = useState("active");
   const { state } = useStateMachine(updateAction);
   const { register, handleSubmit } = useForm({});
   const {
@@ -28,17 +28,6 @@ const ManageOffersPage = () => {
 
   let history = useHistory();
 
-  // if (state.userInformation.userType !== "offerer") {
-
-  // }
-
-  //State y props son los unicos que re-renderizan components. Para evitar que funciones innecesarias se ejecuten usamos hooks:
-
-  //Para que solo se ejecute una vez organizationInfo y no cada vez que se re renderice se usa useMemo.
-  //useMemo se usa cuando utilizo una variable directa de la que dependo , useEffect cuando quiero realizar un efecto secundario que no devuelve data,
-  //useCallback cuando quiero que mi funcion se guarde y no se redefina muchas veces. Ej: una funcion de evento
-
-  //funcion useMemo() para memoizar las ofertas activas e inactivas. Evita hacer api requests innecesarios si la data no cambia
   const activeOffers = useMemo(
     () =>
       myoffers.map((offer) =>
@@ -69,8 +58,9 @@ const ManageOffersPage = () => {
     [myoffers, organizationInfo]
   );
 
-  const onSubmit = () => {
-    setIsOfferActive(!isOfferActive);
+  const onSubmit = (e) => {
+    setOffersToDisplay(e.type);
+    console.log(e);
   };
 
   useEffect(() => {
@@ -91,7 +81,6 @@ const ManageOffersPage = () => {
       });
 
       getMyOrganization().then((res) => {
-        //si el usuario actual es un ofertante sin organizacion
         if (
           !res.data &&
           state.userInformation.organizationRole === "" &&
@@ -164,24 +153,25 @@ const ManageOffersPage = () => {
             </span>
           </div>
         </div>
-        {isOfferActive ? (
+
+        {offersToDisplay && offersToDisplay === "active" ? (
           <React.Fragment>
             <div className="manageoffers__offers-list">{activeOffers}</div>
           </React.Fragment>
         ) : (
-            <React.Fragment>
-              <div className="manageoffers__offers-list">
-                {inactiveOffers
-                  ? inactiveOffers
-                  : "Usted no ha colocado ninguna oferta como inactiva aún"}
-              </div>
-            </React.Fragment>
-          )}
+          <React.Fragment>
+            <div className="manageoffers__offers-list">
+              {inactiveOffers
+                ? inactiveOffers
+                : "Usted no ha colocado ninguna oferta como inactiva aún"}
+            </div>
+          </React.Fragment>
+        )}
       </div>
     </div>
   ) : (
-      <EmailNotValidated />
-    );
+    <EmailNotValidated />
+  );
 };
 
 export default ManageOffersPage;
