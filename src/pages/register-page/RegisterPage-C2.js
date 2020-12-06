@@ -10,10 +10,10 @@ import { getAge } from "../../utils/ageCalculation";
 import { orgUserSignup } from "../../utils/apiRequests";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
+import { store } from 'react-notifications-component';
 
 const RegisterPageC2 = () => {
   const [userObject, setUserObject] = useState("");
-  const [gotResponse, setGotResponse] = useState(false);
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, watch, errors } = useForm({
     defaultValues: state.userInformation,
@@ -21,22 +21,55 @@ const RegisterPageC2 = () => {
   const { push } = useHistory();
 
   const onSubmit = (data) => {
-    state.userInformation.userType = "offerer";
-    state.userInformation.organizationRole = "owner";
+    data.userType = "offerer";
+    data.organizationRole = "owner";
+    // state.userInformation.userType = "offerer";
+    // state.userInformation.organizationRole = "owner";
     action(data);
-    setGotResponse(true);
     action({ hasCreatedAccount: true })
+    orgUserSignup(data).then((res) => {
+      if (res.status === "fail") {
+        store.addNotification({
+          title: "Ha ocurrido un error",
+          message: res.message,
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true
+          }
+        });
+      }
+      setUserObject(res);
+    });
   };
 
-  useEffect(() => {
-    if (state.userInformation.userType !== "") {
-      orgUserSignup(state.userInformation).then((res) => {
-        setUserObject(res);
-      });
-    } else {
-      console.log("loading");
-    }
-  }, [gotResponse, push, state.userInformation]);
+  // useEffect(() => {
+  //   if (state.userInformation.userType !== "") {
+  //     orgUserSignup(state.userInformation).then((res) => {
+  //       if (res.status === "fail") {
+  //         store.addNotification({
+  //           title: "Ha ocurrido un error",
+  //           message: "Ya existe un perfil de WorKn con este correo.",
+  //           type: "danger",
+  //           insert: "top",
+  //           container: "top-right",
+  //           animationIn: ["animate__animated", "animate__fadeIn"],
+  //           animationOut: ["animate__animated", "animate__fadeOut"],
+  //           dismiss: {
+  //             duration: 10000,
+  //             onScreen: true
+  //           }
+  //         });
+  //       }
+  //       setUserObject(res);
+  //     });
+  //   } else {
+  //   }
+  // }, [gotResponse, push, state.userInformation]);
   useEffect(() => {
     if (userObject.data !== undefined && userObject.data.status === "success") {
       action(userObject.data.data.user);
@@ -53,7 +86,6 @@ const RegisterPageC2 = () => {
     ) {
       auth.login();
       push("/userprofile");
-      console.log("not completed!");
     }
   }, [
     userObject,

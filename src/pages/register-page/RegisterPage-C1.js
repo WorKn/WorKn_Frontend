@@ -9,29 +9,50 @@ import { useStateMachine } from "little-state-machine";
 import { userSignup } from "../../utils/apiRequests";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
+import { store } from 'react-notifications-component';
 
 const RegisterPageC1 = () => {
-  const [gotResponse, setGotResponse] = useState(false);
   const [userObject, setUserObject] = useState("");
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, errors } = useForm();
   const { push } = useHistory();
   const onSubmit = (data) => {
-    state.userInformation.organizationRole = "";
+    data.organizationRole = "";
     action(data);
     action({ hasCreatedAccount: true })
-    setGotResponse(true);
+    setTimeout(() => {
+      userSignup(state.userInformation).then((res) => {
+        console.log(res)
+        setUserObject(res);
+        if (res.status === "fail") {
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: res.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true
+            }
+          });
+        }
+      });
+    }, 1000);
   };
 
-  useEffect(() => {
-    if (state.userInformation.userType !== "") {
-      userSignup(state.userInformation).then((res) => {
-        setUserObject(res);
-      });
-    } else {
-      console.log("loading");
-    }
-  }, [gotResponse, push, state.userInformation]);
+  // useEffect(() => {
+  //   if (state.userInformation.userType !== "") {
+  //     userSignup(state.userInformation).then((res) => {
+  //       console.log(res)
+  //       setUserObject(res);
+  //     });
+  //   } else {
+  //     console.log("loading");
+  //   }
+  // }, [gotResponse, push, state.userInformation]);
 
   useEffect(() => {
     if (userObject.data !== undefined && userObject.data.status === "success") {
