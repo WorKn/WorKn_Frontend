@@ -178,7 +178,7 @@ const UserForm = () => {
                         ))}
                       </div>
                     </div>
-                    <div className="userform__LIP">
+                    <div className="userform__LIP userform__downspacer">
                       <span className="userform__label">Categoría</span>
                       <Tag
                         text={state.userInformation.tags[0].category.name}
@@ -192,44 +192,45 @@ const UserForm = () => {
               {typeof state.userInformation.organizationRole !== "undefined" &&
                 state.userInformation.organizationRole !== "owner" &&
                 state.userInformation.userType !== "offerer" ? (
-                  <div>
-                    <div className="userform__footer">
-                      <span className="userform__title">
-                        Selecciona tu categoría y tus etiquetas
-                  </span>
-                      <span className="userform__text">
-                        Las etiqueta sirven para emparejarte con ofertas de trabajo
-                        y personas en tus mismas áreas de conocimiento, la categoría
-                        sirve para filtrar dichas etiquetas de una manera más
-                        precisa.
-                  </span>
-                    </div>
-                    <div className="userform__LIP">
-                      <span className="userform__label">
-                        Categoría{" "}
-                        <i className="fa fa-info-circle tooltip">
-                          <span className="tooltiptext">
-                            Las categorías te permiten filtrar los tags.
-                      </span>
-                        </i>
-                      </span>
-                      <CategoryInput></CategoryInput>
-                    </div>
-                    <div className="userform__LIP">
-                      <span className="userform__label">
-                        Etiquetas{" "}
-                        <i className="fa fa-info-circle tooltip">
-                          <span className="tooltiptext">
-                            Son palabras clave que definen las habilidades que
-                            tienes para ofrecer.
-                      </span>
-                        </i>
-                      </span>
-                      <TagsInput
-                        query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
-                      ></TagsInput>
-                    </div>
-                  </div>
+                  ""
+                  // <div>
+                  //   <div className="userform__footer">
+                  //     <span className="userform__title">
+                  //       Selecciona tu categoría y tus etiquetas
+                  //     </span>
+                  //     <span className="userform__text">
+                  //       Las etiqueta sirven para emparejarte con ofertas de trabajo
+                  //       y personas en tus mismas áreas de conocimiento, la categoría
+                  //       sirve para filtrar dichas etiquetas de una manera más
+                  //       precisa.
+                  //       </span>
+                  //   </div>
+                  //   <div className="userform__LIP">
+                  //     <span className="userform__label">
+                  //       Categoría{" "}
+                  //       <i className="fa fa-info-circle tooltip">
+                  //         <span className="tooltiptext">
+                  //           Las categorías te permiten filtrar los tags.
+                  //     </span>
+                  //       </i>
+                  //     </span>
+                  //     <CategoryInput></CategoryInput>
+                  //   </div>
+                  //   <div className="userform__LIP">
+                  //     <span className="userform__label">
+                  //       Etiquetas{" "}
+                  //       <i className="fa fa-info-circle tooltip">
+                  //         <span className="tooltiptext">
+                  //           Son palabras clave que definen las habilidades que
+                  //           tienes para ofrecer.
+                  //     </span>
+                  //       </i>
+                  //     </span>
+                  //     <TagsInput
+                  //       query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
+                  //     ></TagsInput>
+                  //   </div>
+                  // </div>
                 ) : (
                   <div>
                     <div className="userform__footer">
@@ -252,7 +253,7 @@ const UserForm = () => {
             value="Viejo Guardar Perfil"
           /> */}
             <button className="custom-button bg-green" onClick={() => { setIsEditMode(true) }}>Editar Perfil</button>
-          </div>
+          </div >
         ) : (
             <form className="userform" onSubmit={handleSubmit(onSubmit)}>
               <div className="userform__2col">
@@ -499,8 +500,8 @@ const UserForm = () => {
           )}
 
 
-      </tagsContext.Provider>
-    </categoryContext.Provider>
+      </tagsContext.Provider >
+    </categoryContext.Provider >
   );
 };
 

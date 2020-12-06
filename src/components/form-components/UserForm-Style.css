@@ -124,3 +124,7 @@
   flex-flow: row;
   justify-content: flex-start;
 }
+
+.userform__downspacer{
+  margin-bottom: 16px;
+}
