@@ -28,7 +28,8 @@ const RecommendationCard = ({ personInfo, offerInfo }) => {
         setCategory(res.data?.data[0].name);
       });
     }
-  }, [offerInfo, personInfo.category, personInfo.profilePicture]);
+    // eslint-disable-next-line
+  }, [offerInfo, personInfo?.category, personInfo?.profilePicture]);
 
   return (
     <div>
@@ -72,44 +73,45 @@ const RecommendationCard = ({ personInfo, offerInfo }) => {
           </div>
         </div>
       ) : (
-        <div className="offercard__wrapper">
-          <div className="offercard__header">
-            <img
-              src={profilePictureRoute}
-              alt="Profile"
-              className="offercard__picture"
-            ></img>
-            <div className="offercard__text">
-              <span className="offercard__text--title">
-                {offerInfo?.createdBy?.name}
-              </span>
-              <span className="offercard__text--subtitle">
-                <span className="offercard__text--highlight">
-                  {offerInfo?.createdBy?.email}
-                </span>{" "}
+          <div className="offercard__wrapper">
+            <div className="offercard__header">
+              <img
+                src={profilePictureRoute}
+                alt="Profile"
+                className="offercard__picture"
+              ></img>
+              <div className="offercard__text">
+                <span className="offercard__text--title">
+                  {offerInfo?.title}
+                  {/* {offerInfo?.createdBy?.name} */}
+                </span>
+                <span className="offercard__text--subtitle">
+                  <span className="offercard__text--highlight">
+                    {offerInfo?.createdBy?.email}
+                  </span>{" "}
+                </span>
+              </div>
+            </div>
+            <div className="offercard__data">
+              {MyDictionary[offerInfo?.offerType]}
+              <div className="offercard__vl"></div>
+              <span>{offerInfo?.description.slice(0, 20)}...</span>
+              <div className="offercard__vl"></div>
+              <span className="offercard__category-name">
+                {offerInfo?.category?.name}
               </span>
             </div>
+            <div className="offercard__tags">
+              {offerInfo?.tags.map((tag) => (
+                <Tag
+                  key={tag.id}
+                  text={tag.name}
+                  theme="tag tag__text tag__text--gray"
+                ></Tag>
+              ))}
+            </div>
           </div>
-          <div className="offercard__data">
-            {MyDictionary[offerInfo?.offerType]}
-            <div className="offercard__vl"></div>
-            <span>{offerInfo?.description.slice(0, 20)}...</span>
-            <div className="offercard__vl"></div>
-            <span className="offercard__category-name">
-              {offerInfo?.category?.name}
-            </span>
-          </div>
-          <div className="offercard__tags">
-            {offerInfo?.tags.map((tag) => (
-              <Tag
-                key={tag.id}
-                text={tag.name}
-                theme="tag tag__text tag__text--gray"
-              ></Tag>
-            ))}
-          </div>
-        </div>
-      )}
+        )}
     </div>
   );
 };
