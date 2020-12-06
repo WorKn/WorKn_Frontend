@@ -6,6 +6,7 @@ import { getOffersByUserId } from "../../utils/apiRequests";
 import { getAllReviews } from "../../utils/apiRequests";
 import { getXReviews } from "../../utils/apiRequests";
 import { getReviewValidation } from "../../utils/apiRequests";
+import { ErrorMessage } from "@hookform/error-message";
 import { createReview } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import Header from "../../components/navbar-components/Navbar";
@@ -41,7 +42,7 @@ const EmpresaViewPage = ({
   const [canReview, setCanReview] = useState();
   const { state } = useStateMachine(updateAction);
   const [starValue, setStarValue] = useState();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const [couldComment, setCouldComment] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [canLoadMoreReviews, setCanLoadMoreReviews] = useState(true);
@@ -238,16 +239,29 @@ const EmpresaViewPage = ({
                       <StarRating
                         starValue={starValue}
                         setStarValue={setStarValue}
+                        ref={register({
+                          required: "Por favor ingrese la descripción",
+                        })}
                       />
                       <textarea
                         type="textarea"
                         name="review"
-                        placeholder="Description"
+                        placeholder="Descripción"
                         title="Por favor, ingrese los detalles de su review"
                         className="create-review__textarea"
                         ref={register({
                           required: "Por favor ingrese la descripción",
                         })}
+                      />
+
+                      <ErrorMessage
+                        errors={errors}
+                        name="review"
+                        render={({ message }) => (
+                          <div className="input__msg input__msg--error">
+                            <i class="fa fa-asterisk"></i> {message}
+                          </div>
+                        )}
                       />
                       <div className="create-rate__buttons">
                         <input

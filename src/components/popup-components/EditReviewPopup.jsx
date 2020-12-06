@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import StarRating from "../../components/starrating-components/StarRating";
 import { useStateMachine } from "little-state-machine";
+import { ErrorMessage } from "@hookform/error-message";
 import { updateReview } from "../../utils/apiRequests";
 import { deleteReview } from "../../utils/apiRequests";
 import { getAllReviews } from "../../utils/apiRequests";
@@ -9,7 +10,7 @@ import updateAction from "../../updateAction";
 import "./EditReviewPopup-Style.css";
 
 const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
   const { state } = useStateMachine(updateAction);
   const [starValue, setStarValue] = useState();
@@ -48,7 +49,7 @@ const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
           </div>
 
           <div className="edit-review__form">
-            <h3 className="ProfileView__rate-name">{`${state.userInformation.name} ${state.userInformation.lastname}`}</h3>
+            <h3 className="ProfileView__rate-name ">{`${state.userInformation.name} ${state.userInformation.lastname}`}</h3>
             <form
               onSubmit={handleSubmit((data) => {
                 onSubmit(data);
@@ -56,19 +57,32 @@ const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
                 hide();
               })}
             >
+              <div className="input__msg input__msg--error edit-review__required">
+                <i className="fa fa-asterisk"></i>
+                Campo requerido
+              </div>
               <StarRating starValue={starValue} setStarValue={setStarValue} />
               <textarea
                 type="textarea"
                 name="review"
                 placeholder="Description"
                 defaultValue={review.review}
-                title="Por favor, ingrese los detalles de su review"
+                title="Por favor, ingrese los detalles de su review a editar"
                 className="edit-review__textarea"
                 ref={register({
                   required: "Por favor ingrese la descripción",
                 })}
               />
-              <div className="create-rate__buttons">
+              <ErrorMessage
+                errors={errors}
+                name="review"
+                render={({ message }) => (
+                  <div className="input__msg input__msg--error">
+                    <i class="fa fa-asterisk"></i> {message}
+                  </div>
+                )}
+              />
+              <div className="create-rate__buttons--center">
                 <input
                   type="submit"
                   value="Confirmar"
