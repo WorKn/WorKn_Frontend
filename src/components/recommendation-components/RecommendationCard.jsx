@@ -28,6 +28,7 @@ const RecommendationCard = ({ personInfo, offerInfo }) => {
         setCategory(res.data?.data[0].name);
       });
     }
+    // eslint-disable-next-line
   }, [offerInfo, personInfo?.category, personInfo?.profilePicture]);
 
   return (
