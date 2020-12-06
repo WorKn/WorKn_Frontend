@@ -12,6 +12,7 @@ import EmailNotValidated from "../../components/emailnotvalidated-components/Ema
 import { useStateMachine } from "little-state-machine";
 import { useForm } from "react-hook-form";
 import Banner from "../../components/banner-components/Banner";
+import Footer from "../../components/footer-components/Footer";
 
 const ManageOffersPage = () => {
   const [myoffers, setMyOffers] = useState([]);
@@ -68,12 +69,14 @@ const ManageOffersPage = () => {
     if (state.userInformation.isEmailValidated) {
       setSuccess(true);
       getMyOffers().then((res) => {
+        console.log(res)
         if (!res.data && state.userInformation.userType === "offerer") {
           // history.push("/");
         } else if (!res.data && state.userInformation.userType !== "offerer") {
           history.push("/login");
         } else {
           const offers = res.data.data.offers;
+          console.log(offers)
           if (offers && Array.isArray(offers)) {
             setMyOffers(offers);
           }
@@ -119,59 +122,79 @@ const ManageOffersPage = () => {
   }, []);
 
   return success ? (
-    <div className="manageoffers-container">
-      <Header></Header>
-      <Banner image={"qiyrYvI.png"} />
-      <AddOfferModal>
-        <CreateOfferPopup
-          hide={hideAddOfferModal}
-          setMyOffers={setMyOffers}
-        ></CreateOfferPopup>
-      </AddOfferModal>
-      <div className="manageoffers-inner">
-        <div className="manageoffers__container">
-          <span className="manageoffers__title--dark">
-            Seleccione el tipo de oferta a mostrar
-          </span>
-        </div>
-        <form
-          className="summarypage__form manageoffers__typeselector"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <select className="form__select" name="type" ref={register}>
-            <option value="active">Ofertas activas</option>
-            <option value="inactive">Ofertas inactivas</option>
-          </select>
-          <input className="custom-button bg-green" type="submit" value="Ir" />
-        </form>
-
-        <div className="manageoffers__activecontainer">
-          <div className="addoffer__newbutton" onClick={showAddOfferModal}>
-            <i className="fa fas fa-plus manageoffers__icon"></i>
+    <div>
+      <div className="manageoffers-container">
+        <Header></Header>
+        <Banner image={"qiyrYvI.png"} />
+        <AddOfferModal>
+          <CreateOfferPopup
+            hide={hideAddOfferModal}
+            setMyOffers={setMyOffers}
+          ></CreateOfferPopup>
+        </AddOfferModal>
+        <div className="manageoffers-inner">
+          <div className="manageoffers__container">
             <span className="manageoffers__title--dark">
-              Crea una nueva oferta
-            </span>
+              Seleccione el tipo de oferta a mostrar
+          </span>
           </div>
-        </div>
+          <form
+            className="summarypage__form manageoffers__typeselector"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <select className="form__select" name="type" ref={register}>
+              <option value="active">Ofertas activas</option>
+              <option value="inactive">Ofertas inactivas</option>
+            </select>
+            <input className="custom-button bg-green" type="submit" value="Ir" />
+          </form>
 
-        {offersToDisplay && offersToDisplay === "active" ? (
-          <React.Fragment>
-            <div className="manageoffers__offers-list">{activeOffers}</div>
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            <div className="manageoffers__offers-list">
-              {inactiveOffers
-                ? inactiveOffers
-                : "Usted no ha colocado ninguna oferta como inactiva aún"}
+          <div className="manageoffers__activecontainer">
+            <div className="addoffer__newbutton" onClick={showAddOfferModal}>
+              <i className="fa fas fa-plus manageoffers__icon"></i>
+              <span className="manageoffers__title--dark">
+                Crea una nueva oferta
+            </span>
             </div>
-          </React.Fragment>
-        )}
+          </div>
+          <div>
+            {myoffers.length === 0 ? (
+              <div className="manageoffers__inner">
+                <div className="summary__announcement">
+                  <div className="summarypage__imgbg">
+                    <img src="https://i.imgur.com/CAtVIjs.png" alt="applied" className="summarypage_appliedimg"></img>
+                  </div>
+                  <div className="summary__announcementinner">
+                    <span className="summarypagea__title--dark">Aún no tienes ninguna oferta creada!</span>
+                    <span>Clickea en el botón de crear una nueva oferta para que puedas empezar a trabajar en ellas.</span>
+                  </div>
+                </div>
+              </div>
+            ) : (
+                ""
+              )}
+          </div>
+
+          {offersToDisplay && offersToDisplay === "active" ? (
+            <React.Fragment>
+              <div className="manageoffers__offers-list">{activeOffers}</div>
+            </React.Fragment>
+          ) : (
+              <React.Fragment>
+                <div className="manageoffers__offers-list">
+                  {inactiveOffers
+                    ? inactiveOffers
+                    : "Usted no ha colocado ninguna oferta como inactiva aún"}
+                </div>
+              </React.Fragment>
+            )}
+        </div>
       </div>
+      <Footer />
     </div>
   ) : (
-    <EmailNotValidated />
-  );
+      <EmailNotValidated />
+    );
 };
 
 export default ManageOffersPage;

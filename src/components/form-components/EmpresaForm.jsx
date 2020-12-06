@@ -47,6 +47,7 @@ const EmpresaForm = () => {
                 onScreen: true
               }
             });
+            setIsEditMode(false);
           }
         }
       });
