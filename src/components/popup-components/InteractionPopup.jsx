@@ -247,10 +247,13 @@ const InteractionPopup = ({ responseInfo }) => {
                   </span>
                   <div className="dp-wrapper__bullets">
                     <ul>
-                      <li>
-                        En
-                        <b> Santo Domingo</b>
-                      </li>
+                      {responseInfo?.applicant?.location ? (
+                        <li>
+                          <span>
+                            En <b> {responseInfo?.applicant?.location} </b>
+                          </span>
+                        </li>
+                      ) : null}
                       <li>
                         {responseInfo?.applicant?.userType
                           ? MyDictionary[responseInfo?.applicant?.userType]
@@ -281,7 +284,7 @@ const InteractionPopup = ({ responseInfo }) => {
                 <p className="dp-wrapper__downinfo">
                   {responseInfo?.applicant
                     ? responseInfo?.applicant?.bio
-                    : "Detalles del usuario no disponible"}
+                    : "Los detalles del usuario no estan disponibles"}
                 </p>
                 <p className="dp-wrapper__contact">
                   Contacto:
@@ -330,10 +333,13 @@ const InteractionPopup = ({ responseInfo }) => {
                   </span>
                   <div className="dp-wrapper__bullets">
                     <ul>
-                      <li>
-                        En
-                        <b> Santo Domingo</b>
-                      </li>
+                      {responseInfo?.applicant?.location ? (
+                        <li>
+                          <span>
+                            En <b> {responseInfo?.applicant?.location} </b>
+                          </span>
+                        </li>
+                      ) : null}
                       <li>
                         {responseInfo?.applicant?.userType
                           ? MyDictionary[responseInfo?.applicant?.userType]
@@ -364,7 +370,7 @@ const InteractionPopup = ({ responseInfo }) => {
                 <p className="dp-wrapper__downinfo">
                   {responseInfo?.applicant
                     ? responseInfo?.applicant?.bio
-                    : "Detalles del usuario no disponible"}
+                    : "Los detalles del usuario no estan disponibles"}
                 </p>
                 <p className="dp-wrapper__contact">
                   Contacto:
