@@ -134,6 +134,7 @@ form button {
 
 .chat__userwrapper{
   margin-left: 10px ;
+  cursor: pointer;
 }
 
 .chat__headertext{
@@ -254,6 +255,13 @@ form button {
   background-color: #5BBA6F;
   color: white;
 } */
+
+.chat__link{
+  color: #5BBA6F;
+  font-weight: 500 !important; 
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 
 

@@ -76,8 +76,19 @@ const ChatPage = () => {
     }, 1000);
   };
 
+  const redirectToOrg = () => {
+    const win = window.open(`/organizations/${currentChat?.user?.organization?._id}`, "_blank")
+    win.focus();
+  }
+
+  const redirectToUser = () => {
+    const win = window.open(`/users/${currentChat?.user?.id}`, "_blank")
+    win.focus();
+  }
+
   useEffect(() => {
     getMyChats().then((res) => {
+      console.log(res)
       let myChats = res.data.data.chats;
       if (state.userInformation.chatPivot) {
         const found = myChats.find(
@@ -166,7 +177,7 @@ const ChatPage = () => {
             </SimpleBar>
           </div>
           <div className="chat__boxright">
-            <div className="chat__boxrightheader">
+            <div className="chat__boxrightheader" onClick={redirectToUser}>
               <div className="chat__userwrapper">
                 <span className="chat__headertext">
                   {currentChat?.user?.name}
@@ -176,13 +187,13 @@ const ChatPage = () => {
                 </span>
               </div>
               {currentChat?.user?.organization &&
-              currentChat?.user?.organization !== "undefined" ? (
-                <span className="chat__headerlighttext">
-                  Miembro de {currentChat?.user?.organization?.name}
-                </span>
-              ) : (
-                <span className="chat__headerlighttext">Está usando WorKn</span>
-              )}
+                currentChat?.user?.organization !== "undefined" ? (
+                  <span className="chat__headerlighttext">
+                    Miembro de <span onClick={redirectToOrg} className="chat__link">{currentChat?.user?.organization?.name}</span>
+                  </span>
+                ) : (
+                  ""
+                )}
             </div>
             <ScrollToBottom mode="bottom" className="chat__messagecontainer">
               <ul className="chat__messagecontainer">
