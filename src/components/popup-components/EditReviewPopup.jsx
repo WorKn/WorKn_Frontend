@@ -7,20 +7,37 @@ import { updateReview } from "../../utils/apiRequests";
 import { deleteReview } from "../../utils/apiRequests";
 import { getAllReviews } from "../../utils/apiRequests";
 import updateAction from "../../updateAction";
+import { store } from 'react-notifications-component';
 import "./EditReviewPopup-Style.css";
 
 const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
   const { register, handleSubmit, errors } = useForm();
-
   const { state } = useStateMachine(updateAction);
   const [starValue, setStarValue] = useState();
-
   const onSubmit = (data) => {
     data.rating = starValue;
     updateReview(userId, review._id, data).then((res) => {
-      getAllReviews(userId).then((resp) => {
-        setReviews(resp.data?.data.data);
-      });
+      console.log(res)
+      if (res.data.status === "success") {
+        hide();
+        getAllReviews(userId).then((resp) => {
+          setReviews(resp.data?.data.data);
+        });
+        store.addNotification({
+          title: "Tu review ha sido actualizada",
+          message: "Nos aseguraremos de que sea recibida por el usuario.",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true
+          }
+        });
+      }
+
     });
     console.log(data);
   };
@@ -47,20 +64,17 @@ const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
               />
             </div>
           </div>
-
           <div className="edit-review__form">
             <h3 className="ProfileView__rate-name ">{`${state.userInformation.name} ${state.userInformation.lastname}`}</h3>
             <form
               onSubmit={handleSubmit((data) => {
                 onSubmit(data);
-
-                hide();
               })}
             >
-              <div className="input__msg input__msg--error edit-review__required">
+              {/* <div className="input__msg input__msg--error edit-review__required">
                 <i className="fa fa-asterisk"></i>
                 Campo requerido
-              </div>
+              </div> */}
               <StarRating starValue={starValue} setStarValue={setStarValue} />
               <textarea
                 type="textarea"
@@ -92,9 +106,9 @@ const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
                   type="reset"
                   value="Descartar"
                   className="create-review__submit create-review__submit--light create-review__submit--mini"
-                  onClick={() => {
-                    hide();
-                  }}
+                // onClick={() => {
+                //   hide();
+                // }}
                 ></input>
                 <input
                   type="reset"
@@ -102,6 +116,19 @@ const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
                   className="create-review__submit create-review__submit--red create-review__submit--mini"
                   onClick={() => {
                     removeReview();
+                    store.addNotification({
+                      title: "Tu review ha sido eliminada",
+                      message: "Ya no mostraremos tu review en el perfil de este usuario.",
+                      type: "success",
+                      insert: "top",
+                      container: "top-right",
+                      animationIn: ["animate__animated", "animate__fadeIn"],
+                      animationOut: ["animate__animated", "animate__fadeOut"],
+                      dismiss: {
+                        duration: 10000,
+                        onScreen: true
+                      }
+                    });
                     hide();
                   }}
                 ></input>

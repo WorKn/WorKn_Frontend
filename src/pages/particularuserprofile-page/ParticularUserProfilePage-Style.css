@@ -358,6 +358,12 @@
   color: #00ba6b;
 }
 
+.profilepage__reviewcontainer{
+  display: flex;
+  flex-flow: column-reverse;
+  
+}
+
 @media screen and (max-width: 750px) {
   .pprofilepage__up {
     flex-direction: column;
