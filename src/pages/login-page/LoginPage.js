@@ -178,22 +178,15 @@ const LoginPage = React.memo((props) => {
             <input
               className="custom-button bg-green"
               type="submit"
-              value="Acceder"
+              value="Iniciar sesión"
             />
-            <span onClick={showQuestionModal} className="custom-button bg-gray">
-              <span>Regístrate</span>
-            </span>
             <div className="line-separator">
               <span className="hl"></span>
               <span className="spacer">o</span>
               <span className="hl"></span>
             </div>
-            <span className="custom-button bg-blue">
-              <div className="inner-container">
-                <i className="fa fa-facebook-official"></i>
-                <span className="vl"></span>
-                <span>Accede con Facebook</span>
-              </div>
+            <span onClick={showQuestionModal} className="custom-button bg-jet">
+              <span>Regístrate ahora</span>
             </span>
             <span className="custom-button bg-red">
               <div className="inner-container">

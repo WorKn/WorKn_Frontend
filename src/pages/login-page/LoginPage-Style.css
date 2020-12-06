@@ -18,6 +18,11 @@
   color: #4d4e52;
 }
 
+.bg-jet {
+  background-color: #333234;
+  color: #fff;
+}
+
 .spacer {
   margin-bottom: 16px;
 }
