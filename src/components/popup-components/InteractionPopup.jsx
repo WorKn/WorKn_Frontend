@@ -61,10 +61,13 @@ const InteractionPopup = ({ responseInfo }) => {
                   </span>
                   <div className="dp-wrapper__bullets">
                     <ul>
-                      <li>
-                        Por <b>{offererTitleRoute} </b> en
-                        <b> Santo Domingo</b>
-                      </li>
+                      Por <b>{offererTitleRoute} </b>
+                      {responseInfo?.offer?.location ? (
+                        <span>
+                          {" "}
+                          en <b>{responseInfo?.offer?.location}</b>
+                        </span>
+                      ) : null}
                       <li>
                         {responseInfo
                           ? MyDictionary[responseInfo?.offer?.offerType]
@@ -102,19 +105,17 @@ const InteractionPopup = ({ responseInfo }) => {
                 <p className="dp-wrapper__downinfo dp-wrapper__downinfo--ap">
                   {responseInfo
                     ? responseInfo?.offer?.description
-                    : "Descripcion no disponible"}
+                    : "Los detalles de la oferta no estan disponibles"}
                 </p>
-                <p className="dp-wrapper__salary">
-                  {responseInfo?.offer?.salaryRange ? (
-                    <p>
-                      Rango salarial:<br></br>
-                      <b>
-                        RD$ {responseInfo?.offer?.salaryRange[0]} -{" "}
-                        {responseInfo?.offer?.salaryRange[1]}
-                      </b>
-                    </p>
-                  ) : null}
-                </p>
+                {responseInfo?.offer?.salaryRange ? (
+                  <p className="dp-wrapper__salary">
+                    Rango salarial:<br></br>
+                    <b>
+                      RD$ {responseInfo?.offer?.salaryRange[0]} -{" "}
+                      {responseInfo?.offer?.salaryRange[1]}
+                    </b>
+                  </p>
+                ) : null}
                 <p className="dp-wrapper__contact ">
                   Contacto:
                   <Link
@@ -157,10 +158,13 @@ const InteractionPopup = ({ responseInfo }) => {
                   </span>
                   <div className="dp-wrapper__bullets">
                     <ul>
-                      <li>
-                        Por <b>{offererTitleRoute} </b> en
-                        <b> Santo Domingo</b>
-                      </li>
+                      Por <b>{offererTitleRoute} </b>
+                      {responseInfo?.offer?.location ? (
+                        <span>
+                          {" "}
+                          en <b>{responseInfo?.offer?.location}</b>
+                        </span>
+                      ) : null}
                       <li>
                         {responseInfo
                           ? MyDictionary[responseInfo?.offer?.offerType]
@@ -198,21 +202,17 @@ const InteractionPopup = ({ responseInfo }) => {
                 <p className="dp-wrapper__downinfo">
                   {responseInfo
                     ? responseInfo?.offer?.description
-                    : "Descripcion no disponible"}
+                    : "Los detalles de la oferta no estan disponibles"}
                 </p>
-                <p className="dp-wrapper__salary">
-                  Rango salarial:
-                  <b>
-                    RD${" "}
-                    {responseInfo?.offer?.salaryRange
-                      ? responseInfo?.offer?.salaryRange[0]
-                      : "Descripcion no disponible"}{" "}
-                    -{" "}
-                    {responseInfo?.offer?.salaryRange
-                      ? responseInfo?.offer?.salaryRange[1]
-                      : "Descripcion no disponible"}
-                  </b>
-                </p>
+                {responseInfo?.offer?.salaryRange ? (
+                  <p className="dp-wrapper__salary">
+                    Rango salarial:<br></br>
+                    <b>
+                      RD$ {responseInfo?.offer?.salaryRange[0]} -{" "}
+                      {responseInfo?.offer?.salaryRange[1]}
+                    </b>
+                  </p>
+                ) : null}
                 <p className="dp-wrapper__contact">
                   Contacto:
                   <Link
