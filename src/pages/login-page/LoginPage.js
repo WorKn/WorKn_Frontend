@@ -12,6 +12,8 @@ import { useHistory } from "react-router-dom";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 import { store } from 'react-notifications-component';
+import Header from "../../components/navbar-components/Navbar";
+import Footer from "../../components/footer-components/Footer";
 
 
 const LoginPage = React.memo((props) => {
@@ -107,6 +109,7 @@ const LoginPage = React.memo((props) => {
       <QuestionModal>
         <QuestionPopup />
       </QuestionModal>
+      <Header />
       <div className="green-line">
         <div>
           <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
@@ -202,7 +205,9 @@ const LoginPage = React.memo((props) => {
           </form>
         </div>
       </div>
+      <Footer></Footer>
     </div>
+
   );
 });
 

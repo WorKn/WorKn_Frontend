@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./ExplorePage-Style.css";
 import Banner from "../../components/banner-components/Banner";
 import Header from "../../components/navbar-components/Navbar";
+import Footer from "../../components/footer-components/Footer";
 import { useForm } from "react-hook-form";
 import OfferCard from "../../components/offer-components/OfferCard";
 import { getAllUsers, getAllOffers } from "../../utils/apiRequests";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
-import Footer from "../../components/footer-components/Footer";
 
 const ExplorePage = () => {
   const [parameter, setParameter] = useState("");

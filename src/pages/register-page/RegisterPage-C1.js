@@ -10,6 +10,8 @@ import { userSignup } from "../../utils/apiRequests";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 import { store } from 'react-notifications-component';
+import Header from "../../components/navbar-components/Navbar";
+import Footer from "../../components/footer-components/Footer";
 
 const RegisterPageC1 = () => {
   const [userObject, setUserObject] = useState("");
@@ -81,76 +83,80 @@ const RegisterPageC1 = () => {
   ]);
 
   return (
-    <div className="register-wrapper">
-      <div className="green-line">
-        <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
-          <span>
-            <a href="/register" className="backtick">
-              <i class="fa fa-chevron-left"></i>Volver
+    <div>
+      <Header />
+      <div className="register-wrapper">
+        <div className="green-line">
+          <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
+            <span>
+              <a href="/register" className="backtick">
+                <i class="fa fa-chevron-left"></i>Volver
             </a>
-          </span>
-          <div className="logo-container">
-            <img
-              className="logo-header"
-              src="https://i.imgur.com/klMjRck.png"
-              alt="logo"
-            />
-          </div>
-          <span className="popup-title">Cuéntanos sobre ti </span>
-          <span className="popup-text">Cómo pretendes usar Workn?</span>
-          <div className="role-container">
-            <div className="role-inner">
-              <p className="role-title">Aplicante</p>
+            </span>
+            <div className="logo-container">
               <img
-                className="role-img"
-                src="https://i.imgur.com/C632Oku.png"
-                alt=""
+                className="logo-header"
+                src="https://i.imgur.com/klMjRck.png"
+                alt="logo"
               />
-              <p className="role-text">
-                Podrás encontrar ofertas de trabajo perfectas, ya sean de tiempo
-                completo, medio o freelancing.
-              </p>
             </div>
-            <div className="role-inner">
-              <p className="role-title">Ofertante</p>
-
-              <img
-                className="role-img"
-                src="https://i.imgur.com/nrXLDj0.png"
-                alt=""
-              />
-              <p className="role-text">
-                Si buscas una persona que te cubra un puesto de empleo o
-                necesidad, esta es tu categoría.{" "}
+            <span className="popup-title">Cuéntanos sobre ti </span>
+            <span className="popup-text">Cómo pretendes usar Workn?</span>
+            <div className="role-container">
+              <div className="role-inner">
+                <p className="role-title">Aplicante</p>
+                <img
+                  className="role-img"
+                  src="https://i.imgur.com/C632Oku.png"
+                  alt=""
+                />
+                <p className="role-text">
+                  Podrás encontrar ofertas de trabajo perfectas, ya sean de tiempo
+                  completo, medio o freelancing.
               </p>
-            </div>
-          </div>
-          <select
-            className="form__select"
-            name="userType"
-            ref={register({
-              required: "Por favor ingrese el tipo de usuario que desea crear",
-            })}
-          >
-            <option value="applicant">Aplicante</option>
-            <option value="offerer">Ofertante</option>
-          </select>
-          <ErrorMessage
-            errors={errors}
-            name="userType"
-            render={({ message }) => (
-              <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
               </div>
-            )}
-          />
-          <input
-            className="custom-button bg-green"
-            type="submit"
-            value="Regístrate"
-          />
-        </form>
+              <div className="role-inner">
+                <p className="role-title">Ofertante</p>
+
+                <img
+                  className="role-img"
+                  src="https://i.imgur.com/nrXLDj0.png"
+                  alt=""
+                />
+                <p className="role-text">
+                  Si buscas una persona que te cubra un puesto de empleo o
+                necesidad, esta es tu categoría.{" "}
+                </p>
+              </div>
+            </div>
+            <select
+              className="form__select"
+              name="userType"
+              ref={register({
+                required: "Por favor ingrese el tipo de usuario que desea crear",
+              })}
+            >
+              <option value="applicant">Aplicante</option>
+              <option value="offerer">Ofertante</option>
+            </select>
+            <ErrorMessage
+              errors={errors}
+              name="userType"
+              render={({ message }) => (
+                <div className="input__msg input__msg--error">
+                  <i class="fa fa-asterisk"></i> {message}
+                </div>
+              )}
+            />
+            <input
+              className="custom-button bg-green"
+              type="submit"
+              value="Regístrate"
+            />
+          </form>
+        </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };
