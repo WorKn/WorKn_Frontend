@@ -438,7 +438,8 @@ const UserForm = () => {
                           Selecciona tu categoría y tus etiquetas
                   </span>
                         <span className="userform__text">
-                          Las etiquetas son palabra clave que describen tus habilidades como profesional, y sirven para emparejarte con ofertas de trabajo
+                          Las etiquetas son palabra clave que describen tus habilidades como profesional
+                          y sirven para emparejarte con ofertas de trabajo
                           y personas en tus mismas áreas de conocimiento, la categoría
                           sirve para filtrar dichas etiquetas de una manera más
                           precisa.

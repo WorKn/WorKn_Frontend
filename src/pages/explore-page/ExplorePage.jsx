@@ -163,6 +163,19 @@ const ExplorePage = () => {
               ) : null
             )}
           </div>
+          {filteredResponse && filteredResponse.length === 0 ? (
+            <div className="summary__announcement">
+              <div className="summarypage__imgbg">
+                <img src="https://i.imgur.com/agtLnO2.png" alt="applied" className="summarypage_shortimg"></img>
+              </div>
+              <div className="summary__announcementinner">
+                <span className="summarypagea__title--dark">Parece que no hemos podido recuperar ninguna oferta o persona</span>
+                <span>Puedes volver a revisar en breve y probablemente seamos capaces de conseguir algo para tí</span>
+              </div>
+            </div>
+          ) : (
+              ""
+            )}
         </div>
       </div>
       <Footer></Footer>
