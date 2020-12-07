@@ -154,6 +154,9 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                   })}
                   className=""
                 >
+                  <option disabled selected value>
+                    --Seleccionar--
+                  </option>
                   <option value="free">Freelancer</option>
                   <option value="fixed">Fijo/Indefinido</option>
                 </select>
@@ -193,23 +196,12 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
 
             <div className="create-offer__paired-input">
               <span>Ubicación</span>
-
-              <input
-                type="text"
-                placeholder="Ubicación [opcional]"
-                title="Por favor, ingrese la Ubicacion de la oferta [opcional]"
+              <textarea
+                type="textarea"
                 name="location"
-                ref={register}
-              />
-
-              <ErrorMessage
-                errors={errors}
-                name="location"
-                render={({ message }) => (
-                  <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
-                  </div>
-                )}
+                placeholder="Localización [opcional]"
+                title="Por favor, ingrese la Localización de la oferta [opcional]"
+                className="create-offer__description-input"
               />
             </div>
             <div className="create-offer__paired-input">

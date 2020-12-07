@@ -57,7 +57,7 @@
 }
 
 .create-offer__description-input {
-  height: 80px;
+  min-height: 48px;
   margin-bottom: 3px;
   padding: 14px;
   background-color: white;
