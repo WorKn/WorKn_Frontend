@@ -321,7 +321,6 @@ const UserForm = () => {
                     },
                   })}
                   inputMode="numeric"
-                  autoComplete="cc-number"
                   onChange={(e) => {
                     const { value } = e.target;
                     e.target.value = normalizeId(value);
@@ -376,7 +375,6 @@ const UserForm = () => {
                     name="phone"
                     ref={register}
                     inputMode="numeric"
-                    autoComplete="cc-number"
                     value={updated.phone}
                     onChange={(e) => {
                       const { value } = e.target;
@@ -440,7 +438,7 @@ const UserForm = () => {
                           Selecciona tu categoría y tus etiquetas
                   </span>
                         <span className="userform__text">
-                          Las etiqueta sirven para emparejarte con ofertas de trabajo
+                          Las etiquetas son palabra clave que describen tus habilidades como profesional, y sirven para emparejarte con ofertas de trabajo
                           y personas en tus mismas áreas de conocimiento, la categoría
                           sirve para filtrar dichas etiquetas de una manera más
                           precisa.

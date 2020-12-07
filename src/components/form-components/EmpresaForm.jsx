@@ -208,7 +208,6 @@ const EmpresaForm = () => {
                     },
                   })}
                   inputMode="numeric"
-                  autoComplete="cc-number"
                   onChange={(e) => {
                     const { value } = e.target
                     e.target.value = normalizeId(value)
@@ -266,7 +265,6 @@ const EmpresaForm = () => {
                   value={updated.phone}
                   ref={register}
                   inputMode="numeric"
-                  autoComplete="cc-number"
                   onChange={(e) => {
                     const { value } = e.target
                     e.target.value = normalizePhone(value)
