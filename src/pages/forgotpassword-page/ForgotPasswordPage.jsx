@@ -5,7 +5,8 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { sendEmail } from "../../utils/apiRequests";
 import { store } from 'react-notifications-component';
-
+import Header from "../../components/navbar-components/Navbar";
+import Footer from "../../components/footer-components/Footer";
 
 const FPassword = () => {
   const { register, handleSubmit, errors } = useForm();
@@ -62,38 +63,42 @@ const FPassword = () => {
   };
 
   return (
-    <div className="forgot-wrapper">
-      <div className="green-line">
-        <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
-          <h1 className="forgot-container__popup-title">
-            Restauración de Contraseña
+    <div>
+      <Header />
+      <div className="forgot-wrapper">
+        <div className="green-line">
+          <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
+            <h1 className="forgot-container__popup-title">
+              Restauración de Contraseña
         </h1>
-          <span className="forgot-container__popup-text">Correo</span>
-          <input
-            className="forgot-container__form-input"
-            type="email"
-            name="email"
-            placeholder="Email"
-            ref={register({ required: "Por favor ingrese su correo" })}
-          />
-          <ErrorMessage
-            errors={errors}
-            name="email"
-            render={({ message }) => (
-              <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
-              </div>
-            )}
-          />
-          <div className="input__msg input__msg--error">{userObject.message}</div>
-          <input
-            className="forgot-container__custom-button bg-green"
-            type="submit"
-            value="Enviar"
-          />
-        </form>
-      </div>
+            <span className="forgot-container__popup-text">Correo</span>
+            <input
+              className="forgot-container__form-input"
+              type="email"
+              name="email"
+              placeholder="Email"
+              ref={register({ required: "Por favor ingrese su correo" })}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="email"
+              render={({ message }) => (
+                <div className="input__msg input__msg--error">
+                  <i class="fa fa-asterisk"></i> {message}
+                </div>
+              )}
+            />
+            <div className="input__msg input__msg--error">{userObject.message}</div>
+            <input
+              className="forgot-container__custom-button bg-green"
+              type="submit"
+              value="Enviar"
+            />
+          </form>
+        </div>
 
+      </div>
+      <Footer />
     </div>
   );
 };

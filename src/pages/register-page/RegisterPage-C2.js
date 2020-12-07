@@ -102,7 +102,7 @@ const RegisterPageC2 = () => {
   return (
     <div>
       <Header />
-      <div className="register-wrapper">
+      <div className="login-wrapper">
         <div className="green-line">
           <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
             <div className="logo-container">
