@@ -61,15 +61,17 @@ const InteractionPopup = ({ responseInfo }) => {
                   </span>
                   <div className="dp-wrapper__bullets">
                     <ul>
-                      Por <b>{offererTitleRoute} </b>
-                      {responseInfo?.offer?.location ? (
-                        <span>
-                          {" "}
-                          en <b>{responseInfo?.offer?.location}</b>
-                        </span>
-                      ) : null}
                       <li>
-                        {responseInfo
+                        Por <b>{offererTitleRoute} </b>
+                        {responseInfo?.offer?.location ? (
+                          <span>
+                            {" "}
+                            en <b>{responseInfo?.offer?.location}</b>
+                          </span>
+                        ) : null}
+                      </li>
+                      <li>
+                        {responseInfo.offer?.offerType
                           ? MyDictionary[responseInfo?.offer?.offerType]
                           : "Info no disponible"}
                       </li>
@@ -103,7 +105,7 @@ const InteractionPopup = ({ responseInfo }) => {
                   Detalles de la oferta
                 </span>
                 <p className="dp-wrapper__downinfo dp-wrapper__downinfo--ap">
-                  {responseInfo
+                  {responseInfo.offer?.description
                     ? responseInfo?.offer?.description
                     : "Los detalles de la oferta no estan disponibles"}
                 </p>
@@ -158,30 +160,32 @@ const InteractionPopup = ({ responseInfo }) => {
                   </span>
                   <div className="dp-wrapper__bullets">
                     <ul>
-                      Por <b>{offererTitleRoute} </b>
-                      {responseInfo?.offer?.location ? (
-                        <span>
-                          {" "}
-                          en <b>{responseInfo?.offer?.location}</b>
-                        </span>
-                      ) : null}
                       <li>
-                        {responseInfo
+                        Por <b>{offererTitleRoute} </b>
+                        {responseInfo?.offer?.location ? (
+                          <span>
+                            {" "}
+                            en <b>{responseInfo?.offer?.location}</b>
+                          </span>
+                        ) : null}
+                      </li>
+                      <li>
+                        {responseInfo.offer?.offerType
                           ? MyDictionary[responseInfo?.offer?.offerType]
                           : "Info no disponible"}
                       </li>
-                      <li>
-                        Fecha de creacion:{" "}
-                        {responseInfo?.offer?.createdAt
-                          ? `${responseInfo?.offer?.createdAt?.slice(0, 10)}`
-                          : "Info no disponible"}
-                      </li>
-                      <li>
-                        Fecha de cierre:{" "}
-                        {responseInfo?.offer?.closingDate
-                          ? `${responseInfo?.offer?.closingDate?.slice(0, 10)}`
-                          : "Info no disponible"}
-                      </li>
+                      {responseInfo?.offer?.createdAt ? (
+                        <li>
+                          Fecha de creación:{" "}
+                          {responseInfo?.offer?.createdAt?.slice(0, 10)}
+                        </li>
+                      ) : null}
+                      {responseInfo?.offer?.closingDate ? (
+                        <li>
+                          Fecha de cierre:{" "}
+                          {responseInfo?.offer?.closingDate?.slice(0, 10)}
+                        </li>
+                      ) : null}
                     </ul>
                   </div>
                   <ul className="dp-wrapper__tags">
@@ -200,7 +204,7 @@ const InteractionPopup = ({ responseInfo }) => {
                   Detalles de la oferta
                 </span>
                 <p className="dp-wrapper__downinfo">
-                  {responseInfo
+                  {responseInfo.offer?.description
                     ? responseInfo?.offer?.description
                     : "Los detalles de la oferta no estan disponibles"}
                 </p>
@@ -249,20 +253,19 @@ const InteractionPopup = ({ responseInfo }) => {
                     <ul>
                       {responseInfo?.applicant?.location ? (
                         <li>
-                          <span>
-                            En <b> {responseInfo?.applicant?.location} </b>
-                          </span>
+                          {" "}
+                          En <b>{responseInfo?.applicant?.location}</b>
                         </li>
                       ) : null}
                       <li>
                         {responseInfo?.applicant?.userType
                           ? MyDictionary[responseInfo?.applicant?.userType]
-                          : "Info no disponible"}
+                          : null}
                       </li>
                       <li>
                         {responseInfo?.applicant?.category?.name
                           ? responseInfo?.applicant?.category?.name
-                          : "Info no disponible"}
+                          : null}
                       </li>
                     </ul>
                   </div>
@@ -282,7 +285,7 @@ const InteractionPopup = ({ responseInfo }) => {
                   Detalles del usuario
                 </span>
                 <p className="dp-wrapper__downinfo">
-                  {responseInfo?.applicant
+                  {responseInfo?.applicant?.bio
                     ? responseInfo?.applicant?.bio
                     : "Los detalles del usuario no estan disponibles"}
                 </p>
@@ -335,20 +338,18 @@ const InteractionPopup = ({ responseInfo }) => {
                     <ul>
                       {responseInfo?.applicant?.location ? (
                         <li>
-                          <span>
-                            En <b> {responseInfo?.applicant?.location} </b>
-                          </span>
+                          En <b> {responseInfo?.applicant?.location} </b>
                         </li>
                       ) : null}
                       <li>
                         {responseInfo?.applicant?.userType
                           ? MyDictionary[responseInfo?.applicant?.userType]
-                          : "Info no disponible"}
+                          : null}
                       </li>
                       <li>
                         {responseInfo?.applicant?.category?.name
                           ? responseInfo?.applicant?.category?.name
-                          : "Info no disponible"}
+                          : null}
                       </li>
                     </ul>
                   </div>
@@ -368,7 +369,7 @@ const InteractionPopup = ({ responseInfo }) => {
                   Detalles del usuario
                 </span>
                 <p className="dp-wrapper__downinfo">
-                  {responseInfo?.applicant
+                  {responseInfo?.applicant.bio
                     ? responseInfo?.applicant?.bio
                     : "Los detalles del usuario no estan disponibles"}
                 </p>

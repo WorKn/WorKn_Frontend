@@ -39,13 +39,18 @@
   width: 150px;
   height: 50px;
   background-color: #00ba6b;
+  border: none;
   border-radius: 10px;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   font-weight: 600;
   margin-top: 20px;
+}
+.not_found-container__button:hover {
+  background-color: #259e6c;
 }
 
 @media screen and (max-width: 799px) {

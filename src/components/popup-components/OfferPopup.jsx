@@ -46,15 +46,16 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
             <ul>
               <li>
                 Por <b>{offererTitleRoute}</b>
-                {organizationInformation?.location ? " en " : " en "}
-                <b>
-                  {organizationInformation?.location
-                    ? organizationInformation.location
-                    : " Info no disponible"}
-                </b>
+                {organizationInformation?.location ? (
+                  <span>
+                    {" "}
+                    en
+                    <b>{organizationInformation.location}</b>
+                  </span>
+                ) : null}
               </li>
               <li>
-                {offerInfo
+                {offerInfo.offerType
                   ? MyDictionary[offerInfo.offerType]
                   : "Info no disponible"}
               </li>
@@ -82,18 +83,18 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
           Detalles de la oferta
         </span>
         <p className="op-wrapper__downinfo">
-          {offerInfo ? offerInfo.description : "Descripcion no disponible"}
+          {offerInfo.description
+            ? offerInfo.description
+            : "Los detalles de la oferta no estan disponibles"}
         </p>
-        <p className="op-wrapper__salary">
-          {offerInfo?.salaryRange ? (
-            <p>
-              Rango salarial:<br></br>
-              <b>
-                RD$ {offerInfo?.salaryRange[0]} - {offerInfo?.salaryRange[1]}
-              </b>
-            </p>
-          ) : null}
-        </p>
+        {offerInfo?.salaryRange ? (
+          <p className="op-wrapper__salary">
+            Rango salarial:<br></br>
+            <b>
+              RD$ {offerInfo?.salaryRange[0]} - {offerInfo?.salaryRange[1]}
+            </b>
+          </p>
+        ) : null}
         {offerInfo.organization ? (
           <p className="op-wrapper__contact">
             Contacto:

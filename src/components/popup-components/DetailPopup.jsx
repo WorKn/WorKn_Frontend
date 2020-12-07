@@ -100,7 +100,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
                     ) : null}
                   </li>
                   <li>
-                    {responseInfo
+                    {responseInfo.offerType
                       ? MyDictionary[responseInfo?.offerType]
                       : "Info no disponible"}
                   </li>
@@ -132,7 +132,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
               Detalles de la oferta
             </span>
             <p className="dp-wrapper__downinfo dp-wrapper__downinfo--ap">
-              {responseInfo
+              {responseInfo.description
                 ? responseInfo?.description
                 : "Los detalles de la oferta no estan disponibles"}
             </p>
@@ -186,9 +186,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
                 <ul>
                   {responseInfo?.location ? (
                     <li>
-                      <span>
-                        En <b> {responseInfo?.location} </b>
-                      </span>
+                      En <b> {responseInfo?.location} </b>
                     </li>
                   ) : null}
                   {responseInfo?.userType ? (
