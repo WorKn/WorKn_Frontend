@@ -64,6 +64,10 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
         getMyOffers().then((res) => {
           setMyOffers(res.data.data.offers);
         });
+
+        setTimeout(() => {
+          hide();
+        }, 1500);
       } else {
         store.addNotification({
           title: "Ha ocurrido un error",
@@ -90,7 +94,6 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
           <form
             onSubmit={handleSubmit((data) => {
               onSubmit(data);
-              hide();
             })}
             className="sizing-container"
           >
@@ -140,29 +143,54 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                 )}
               />
             </div>
-            <div className="create-offer__paired-input">
-              <span>Tipo de oferta</span>
+            <div className="create-offer__input-row">
+              <div className="create-offer__paired-input create-offer__paired-input--half">
+                <span>Tipo de oferta</span>
 
-              <select
-                name="offerType"
-                ref={register({
-                  required: "Por favor seleccione un tipo de oferta",
-                })}
-              >
-                <option value="free">Freelancer</option>
-                <option value="fixed">Fijo/Indefinido</option>
-              </select>
+                <select
+                  name="offerType"
+                  ref={register({
+                    required: "Por favor seleccione un tipo de oferta",
+                  })}
+                  className=""
+                >
+                  <option value="free">Freelancer</option>
+                  <option value="fixed">Fijo/Indefinido</option>
+                </select>
 
-              <ErrorMessage
-                errors={errors}
-                name="offerType"
-                render={({ message }) => (
-                  <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
-                  </div>
-                )}
-              />
+                <ErrorMessage
+                  errors={errors}
+                  name="offerType"
+                  render={({ message }) => (
+                    <div className="input__msg input__msg--error">
+                      <i class="fa fa-asterisk"></i> {message}
+                    </div>
+                  )}
+                />
+              </div>
+              <div className="create-offer__paired-input create-offer__paired-input--half">
+                <span>Fecha de cierre</span>
+
+                <input
+                  type="date"
+                  name="closingDate"
+                  placeholder="Fecha de cierre"
+                  className="create-offer__date"
+                  ref={register}
+                  title="Por favor, ingrese la fecha de cierre de la oferta"
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="closingDate"
+                  render={({ message }) => (
+                    <div className="input__msg input__msg--error">
+                      <i class="fa fa-asterisk"></i> {message}
+                    </div>
+                  )}
+                />
+              </div>
             </div>
+
             <div className="create-offer__paired-input">
               <span>Ubicación</span>
 
@@ -215,71 +243,54 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
 
             <div className="create-offer__paired-input">
               <span>Rango Salarial</span>
-              <div className="create-offer__money-range">
-                <input
-                  type="number"
-                  step="any"
+
+              <div className="create-offer__input-row">
+                <div className="create-offer__money-range">
+                  <input
+                    type="number"
+                    step="any"
+                    name="salaryRangeFrom"
+                    placeholder="Desde [opcional]"
+                    className="create-offer__salaryRangeFrom c-o__paired-input--money"
+                    ref={register}
+                    title="Por favor, ingrese el rango inicial sin comas [opcional]"
+                  />
+                  <span>RD$</span>
+                </div>
+
+                <ErrorMessage
+                  errors={errors}
                   name="salaryRangeFrom"
-                  placeholder="Desde [opcional]"
-                  className="create-offer__salaryRangeFrom c-o__paired-input--money"
-                  ref={register}
-                  title="Por favor, ingrese el rango inicial sin comas [opcional]"
+                  render={({ message }) => (
+                    <div className="input__msg input__msg--error">
+                      <i class="fa fa-asterisk"></i> {message}
+                    </div>
+                  )}
                 />
-                <span>RD$</span>
-              </div>
 
-              <ErrorMessage
-                errors={errors}
-                name="salaryRangeFrom"
-                render={({ message }) => (
-                  <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
-                  </div>
-                )}
-              />
-              <div className="create-offer__money-range">
-                <input
-                  type="number"
-                  step="any"
+                <div className="create-offer__money-range">
+                  <input
+                    type="number"
+                    step="any"
+                    name="salaryRangeTo"
+                    placeholder="Hasta [opcional]"
+                    className="create-offer__salaryRangeFrom c-o__paired-input--money"
+                    ref={register}
+                    title="Por favor, ingrese el rango final [opcional]"
+                  />
+                  <span>RD$</span>
+                </div>
+
+                <ErrorMessage
+                  errors={errors}
                   name="salaryRangeTo"
-                  placeholder="Hasta [opcional]"
-                  className="create-offer__salaryRangeFrom c-o__paired-input--money"
-                  ref={register}
-                  title="Por favor, ingrese el rango final [opcional]"
+                  render={({ message }) => (
+                    <div className="input__msg input__msg--error">
+                      <i class="fa fa-asterisk"></i> {message}
+                    </div>
+                  )}
                 />
-                <span>RD$</span>
               </div>
-
-              <ErrorMessage
-                errors={errors}
-                name="salaryRangeTo"
-                render={({ message }) => (
-                  <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
-                  </div>
-                )}
-              />
-            </div>
-            <div className="create-offer__paired-input">
-              <span>Fecha de cierre</span>
-
-              <input
-                type="date"
-                name="closingDate"
-                placeholder="Fecha de cierre"
-                className="create-offer__date"
-                ref={register}
-                title="Por favor, ingrese la fecha de cierre de la oferta"
-              />
-              <ErrorMessage
-                errors={errors}
-                name="closingDate"
-                render={({ message }) => (
-                  <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
-                  </div>
-                )}
-              />
             </div>
 
             <input
