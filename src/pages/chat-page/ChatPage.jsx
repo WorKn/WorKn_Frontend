@@ -77,13 +77,11 @@ const ChatPage = () => {
   };
 
   const redirectToOrg = () => {
-    const win = window.open(`/organizations/${currentChat?.user?.organization?._id}`, "_blank")
-    win.focus();
+    window.open(`/organizations/${currentChat?.user?.organization?._id}`, "_blank")
   }
 
   const redirectToUser = () => {
-    const win = window.open(`/users/${currentChat?.user?.id}`, "_blank")
-    win.focus();
+    window.open(`/users/${currentChat?.user?.id}`, "_blank")
   }
 
   useEffect(() => {

@@ -23,17 +23,14 @@ const SummaryPage = () => {
   const { register, handleSubmit } = useForm({});
   const [selectedOffer, setSelectedOffer] = useState();
   const redirectToOffers = () => {
-    const win = window.open(`/manageoffers`, "_blank")
-    win.focus();
+    window.open(`/manageoffers`, "_blank")
   }
   const redirectToRecommendations = () => {
-    const win = window.open(`/recommendations`, "_blank")
-    win.focus();
+    window.open(`/recommendations`, "_blank")
   }
 
   const redirectToExplore = () => {
-    const win = window.open(`/explore`, "_blank")
-    win.focus();
+    window.open(`/explore`, "_blank")
   }
 
 
