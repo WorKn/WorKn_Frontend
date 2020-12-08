@@ -20,6 +20,7 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
 
   console.log("OFER INFO IS:");
   console.log(offerInfo);
+  console.log(offerInfo.closingDate.substring(0, 10));
 
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
@@ -176,23 +177,10 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
                 <input
                   type="date"
                   name="closingDate"
-                  placeholder="Fecha de cierre"
+                  placeholder="Fecha de cierre [opcional]"
                   className="create-offer__date"
-                  defaultValue={offerInfo.closingDate}
-                  ref={register({
-                    required:
-                      "Por favor, ingrese la fecha de cierre de la oferta",
-                  })}
+                  defaultValue={offerInfo.closingDate.substring(0, 10)}
                   title="Por favor, ingrese la fecha de cierre de la oferta"
-                />
-                <ErrorMessage
-                  errors={errors}
-                  name="closingDate"
-                  render={({ message }) => (
-                    <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
-                    </div>
-                  )}
                 />
               </div>
             </div>

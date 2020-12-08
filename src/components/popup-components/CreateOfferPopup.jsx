@@ -173,22 +173,9 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                 <input
                   type="date"
                   name="closingDate"
-                  placeholder="Fecha de cierre"
+                  placeholder="Fecha de cierre [opcional]"
                   className="create-offer__date"
-                  ref={register({
-                    required:
-                      "Por favor, ingrese la fecha de cierre de la oferta",
-                  })}
                   title="Por favor, ingrese la fecha de cierre de la oferta"
-                />
-                <ErrorMessage
-                  errors={errors}
-                  name="closingDate"
-                  render={({ message }) => (
-                    <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
-                    </div>
-                  )}
                 />
               </div>
             </div>
