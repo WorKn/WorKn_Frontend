@@ -17,13 +17,9 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
   const { register, handleSubmit, errors } = useForm({
     // mode: "onBlur",
   });
-  const [selectedCategory, setSelectedCategory] = useState({ label: "health" });
+  const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [showSuccess, setSuccess] = useState(false);
-
-  // let MyDictionary = {};
-  // MyDictionary["offerer"] = "Ofertante";
-  // MyDictionary["applicant"] = "Aplicante";
 
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
@@ -215,7 +211,6 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
 
               <TagsInput
                 query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
-                defaultInputValue={"health"}
               ></TagsInput>
             </div>
 
