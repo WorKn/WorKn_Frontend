@@ -27,7 +27,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
 
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
-    console.log(data.category);
+
     let newArray = [];
     selectedTags.forEach((tag) => newArray.push(tag.value));
     data.tags = newArray;
@@ -44,7 +44,6 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
       delete data["salaryRange"];
     }
     createOffer(data).then((res) => {
-      console.log(res);
       if (res === "success") {
         setSuccess(true);
         store.addNotification({
@@ -84,7 +83,6 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
         });
       }
     });
-    console.log(data);
   };
 
   return (
@@ -150,13 +148,10 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                 <select
                   name="offerType"
                   ref={register({
-                    required: "Por favor seleccione un tipo de oferta",
+                    required: true,
                   })}
-                  className=""
                 >
-                  <option disabled selected value>
-                    --Seleccionar--
-                  </option>
+                  <option value="">--Seleccionar--</option>
                   <option value="free">Freelancer</option>
                   <option value="fixed">Fijo/Indefinido</option>
                 </select>
@@ -164,6 +159,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                 <ErrorMessage
                   errors={errors}
                   name="offerType"
+                  message="Por favor, seleccione un tipo de oferta"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
                       <i class="fa fa-asterisk"></i> {message}
@@ -179,7 +175,10 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                   name="closingDate"
                   placeholder="Fecha de cierre"
                   className="create-offer__date"
-                  ref={register}
+                  ref={register({
+                    required:
+                      "Por favor, ingrese la fecha de cierre de la oferta",
+                  })}
                   title="Por favor, ingrese la fecha de cierre de la oferta"
                 />
                 <ErrorMessage

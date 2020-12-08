@@ -18,11 +18,12 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [showSuccess, setSuccess] = useState(false);
 
-  //aniadir manualmente los atributos para asuntos de pruebas
+  console.log("OFER INFO IS:");
+  console.log(offerInfo);
 
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
-    console.log(data.category);
+
     let newArray = [];
     selectedTags.forEach((tag) => newArray.push(tag.value));
     data.tags = newArray;
@@ -150,9 +151,10 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
                   name="offerType"
                   defaultValue={offerInfo.offerType}
                   ref={register({
-                    required: "Por favor seleccione un tipo de oferta",
+                    required: true,
                   })}
                 >
+                  <option value="">--Seleccionar--</option>
                   <option value="free">Freelancer</option>
                   <option value="fixed">Fijo/Indefinido</option>
                 </select>
@@ -160,6 +162,7 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
                 <ErrorMessage
                   errors={errors}
                   name="offerType"
+                  message="Por favor, seleccione un tipo de oferta"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
                       <i class="fa fa-asterisk"></i> {message}
@@ -176,7 +179,10 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
                   placeholder="Fecha de cierre"
                   className="create-offer__date"
                   defaultValue={offerInfo.closingDate}
-                  ref={register}
+                  ref={register({
+                    required:
+                      "Por favor, ingrese la fecha de cierre de la oferta",
+                  })}
                   title="Por favor, ingrese la fecha de cierre de la oferta"
                 />
                 <ErrorMessage
