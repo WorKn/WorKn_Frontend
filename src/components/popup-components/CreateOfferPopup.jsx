@@ -261,8 +261,11 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
               />
             </div>
             <div className="create-offer__paired-input">
-              <span>Fecha de cierre</span>
-
+              <span>Fecha de cierre{" "}
+                <i className="fa fa-info-circle tooltip">
+                  <span className="tooltiptext">La fecha de cierra debe ser futura con respecto a la fecha actual.</span>
+                </i>
+              </span>
               <input
                 type="date"
                 name="closingDate"
