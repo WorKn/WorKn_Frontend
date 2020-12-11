@@ -44,7 +44,7 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
           </span>
           <div className="op-wrapper__bullets">
             <ul>
-              <li>
+              {/* <li>
                 Por <b>{offererTitleRoute}</b>
                 {organizationInformation?.location ? (
                   <span>
@@ -53,7 +53,7 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
                     <b>{organizationInformation.location}</b>
                   </span>
                 ) : null}
-              </li>
+              </li> */}
               <li>
                 {offerInfo.offerType
                   ? MyDictionary[offerInfo.offerType]

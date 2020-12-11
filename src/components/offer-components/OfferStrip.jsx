@@ -234,19 +234,19 @@ const OfferStrip = ({
             className="offerstrip__picture"
             alt="Offerpp"
           />
-          <span className="offerstrip__text offerstrip__org">
-            {responseInfo?.applicant?.category?.name}
+          <span
+            className="offerstrip__text offerstrip__offer"
+            onClick={showDetailModal}
+          >
+            {responseInfo?.applicant?.name} {responseInfo?.applicant?.lastname}
           </span>
           <span className="offerstrip__vl offerstrip__vl--1"></span>
           <span className="offerstrip__text offerstrip__type">
             {responseInfo?.applicant?.email}
           </span>
           <span className="offerstrip__vl offerstrip__vl--2"></span>
-          <span
-            className="offerstrip__text offerstrip__offer"
-            onClick={showDetailModal}
-          >
-            {responseInfo?.applicant?.name} {responseInfo?.applicant?.lastname}
+          <span className="offerstrip__text offerstrip__org">
+            {responseInfo?.applicant?.category?.name}
           </span>
           <span className="offerstrip__vl offerstrip__vl--3"></span>
           <div className="offerstrip__tagscontainer">
