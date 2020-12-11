@@ -71,15 +71,15 @@ const CustomOfferStrip = ({
         />
       )}
 
-      <span className="offerstrip__text offerstrip__org">
-        {offerInfo ? MyDictionary[offerInfo.offerType] : "Info no disponible"}
-      </span>
-      <span className="offerstrip__vl offerstrip__vl--1"></span>
       <span
         className="offerstrip__text offerstrip__type"
         onClick={showOfferModal}
       >
         {offerInfo ? shortOfferTitle : "Titulo no disponible"}
+      </span>
+      <span className="offerstrip__vl offerstrip__vl--1"></span>
+      <span className="offerstrip__text offerstrip__org">
+        {offerInfo ? MyDictionary[offerInfo.offerType] : "Info no disponible"}
       </span>
       <span className="offerstrip__vl offerstrip__vl--2"></span>
       <span className="offerstrip__text offerstrip__offer">
@@ -120,15 +120,15 @@ const CustomOfferStrip = ({
         />
       )}
 
-      <span className="offerstrip__text offerstrip__org">
-        {offerInfo ? MyDictionary[offerInfo.offerType] : "Info no disponible"}
-      </span>
-      <span className="offerstrip__vl offerstrip__vl--1"></span>
       <span
         className="offerstrip__text offerstrip__type"
         onClick={showOfferModal}
       >
         {offerInfo ? shortOfferTitle : "Titulo no disponible"}
+      </span>
+      <span className="offerstrip__vl offerstrip__vl--1"></span>
+      <span className="offerstrip__text offerstrip__org">
+        {offerInfo ? MyDictionary[offerInfo.offerType] : "Info no disponible"}
       </span>
       <span className="offerstrip__vl offerstrip__vl--2"></span>
       <span className="offerstrip__text offerstrip__offer">

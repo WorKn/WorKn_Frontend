@@ -1,76 +1,69 @@
 import React, { useEffect, useState } from "react";
-import {
-  createInteractionAO,
-  createInteractionOA,
-} from "../../utils/apiRequests";
+// import {
+//   createInteractionAO,
+//   createInteractionOA,
+// } from "../../utils/apiRequests";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
-import { getMyOffers } from "../../utils/apiRequests";
-import { useForm } from "react-hook-form";
+// import { getMyOffers } from "../../utils/apiRequests";
 import { Link } from "react-router-dom";
 import Tag from "../tag-components/Tag";
 import "./DetailPopup-Style.css";
 
-const DetailPopup = ({ responseInfo, hide }) => {
+const DetailPopup = ({ personInfo, offerInfo }) => {
   const { state } = useStateMachine(updateAction);
-  const [interactionTarget, setInteractionTarget] = useState();
-  const [offers, setOffers] = useState();
-  const [selectedOffer, setSelectedOffer] = useState();
-  const { register, handleSubmit } = useForm({});
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
   const [profileRoute, setProfileRoute] = useState("");
+  const [category, setCategory] = useState([]);
+  //   const { register, handleSubmit } = useForm({});
+  //   const [selectedOffer, setSelectedOffer] = useState();
+  //   const [offers, setOffers] = useState();
+  //   const [interactionTarget, setInteractionTarget] = useState();
 
   let MyDictionary = {};
   MyDictionary["free"] = "Freelancer";
   MyDictionary["fixed"] = "Fijo/Indefinido";
   MyDictionary["applicant"] = "Aplicante";
 
-  useEffect(() => {
-    getMyOffers().then((res) => {
-      if (res !== undefined) {
-        console.log(res);
-        setOffers(res);
-      }
-    });
-  }, []);
+  console.log(offerInfo);
 
   useEffect(() => {
-    if (responseInfo.organization) {
-      setProfilePictureRoute(responseInfo?.organization?.profilePicture);
-      setOffererTitleRoute(responseInfo?.organization?.name);
-      setProfileRoute(`/organizations/${responseInfo.organization?._id}`);
+    if (offerInfo) {
+      setProfilePictureRoute(offerInfo?.createdBy?.profilePicture);
+      setOffererTitleRoute(offerInfo.createdBy.name);
+      setProfileRoute(`/users/${offerInfo.createdBy?._id}`);
     } else {
-      setProfilePictureRoute(responseInfo?.createdBy?.profilePicture);
-      setOffererTitleRoute(responseInfo?.createdBy?.name);
-      setProfileRoute(`/users/${responseInfo.createdBy?._id}`);
+      setProfilePictureRoute(personInfo.profilePicture);
+      setCategory(personInfo.category.name);
+      setProfileRoute(`/users/${personInfo?._id}`);
     }
-  }, [responseInfo]);
+  }, [offerInfo, personInfo]);
 
-  useEffect(() => {
-    if (interactionTarget && state.userInformation.userType === "applicant") {
-      createInteractionAO(interactionTarget).then((res) => {
-        if (res !== undefined) {
-          console.log(res);
-        }
-      });
-    } else {
-      console.log("es ofertante");
-    }
-  }, [interactionTarget, state.userInformation.userType]);
+  //   useEffect(() => {
+  //     if (interactionTarget && state.userInformation.userType === "applicant") {
+  //       createInteractionAO(interactionTarget).then((res) => {
+  //         if (res !== undefined) {
+  //           console.log(res);
+  //         }
+  //       });
+  //     } else {
+  //       console.log("es ofertante");
+  //     }
+  //   }, [interactionTarget, state.userInformation.userType]);
 
-  useEffect(() => {
-    createInteractionOA(interactionTarget, selectedOffer).then((res) => {
-      if (res !== undefined) {
-        console.log(res);
-      }
-    });
-  }, [interactionTarget, selectedOffer]);
+  //   useEffect(() => {
+  //     createInteractionOA(interactionTarget, selectedOffer).then((res) => {
+  //       if (res !== undefined) {
+  //         console.log(res);
+  //       }
+  //     });
+  //   }, [interactionTarget, selectedOffer]);
 
-  const onSubmit = (data) => {
-    setSelectedOffer(data.offer);
-    setInteractionTarget(responseInfo?._id);
-  };
+  //   const onSubmit = (data) => {
+  //     setSelectedOffer(data.offer);
+  //     setInteractionTarget(responseInfo?._id);
+  //   };
 
   return (
     <div className="dp-wrapper">
@@ -84,40 +77,38 @@ const DetailPopup = ({ responseInfo, hide }) => {
             </div>
             <div className="dp-wrapper__text">
               <span className="dp-wrapper__title">
-                {responseInfo.title
-                  ? responseInfo.title
-                  : "Titulo no disponible"}
+                {offerInfo?.title ? offerInfo.title : "Titulo no disponible"}
               </span>
               <div className="dp-wrapper__bullets">
                 <ul>
                   <li>
-                    Por <b>{offererTitleRoute} </b>
-                    {responseInfo?.location ? (
+                    Por <b>{offererTitleRoute}</b>
+                    {offerInfo?.createdBy?.location ? (
                       <span>
                         {" "}
-                        en <b>{responseInfo?.location}</b>
+                        en <b>{offerInfo?.createdBy?.location}</b>
                       </span>
                     ) : null}
                   </li>
                   <li>
-                    {responseInfo.offerType
-                      ? MyDictionary[responseInfo?.offerType]
+                    {offerInfo.offerType
+                      ? MyDictionary[offerInfo?.offerType]
                       : "Info no disponible"}
                   </li>
-                  {responseInfo?.createdAt ? (
+                  {offerInfo?.createdAt ? (
                     <li>
-                      Fecha de creación: {responseInfo?.createdAt?.slice(0, 10)}
+                      Fecha de creación: {offerInfo?.createdAt?.slice(0, 10)}
                     </li>
                   ) : null}
-                  {responseInfo?.closingDate ? (
+                  {offerInfo?.closingDate ? (
                     <li>
-                      Fecha de cierre: {responseInfo?.closingDate?.slice(0, 10)}
+                      Fecha de cierre: {offerInfo?.closingDate?.slice(0, 10)}
                     </li>
                   ) : null}
                 </ul>
               </div>
               <ul className="dp-wrapper__tags">
-                {responseInfo?.tags?.map((tag) => (
+                {offerInfo?.tags?.map((tag) => (
                   <Tag
                     key={tag._id}
                     text={tag.name}
@@ -132,17 +123,17 @@ const DetailPopup = ({ responseInfo, hide }) => {
               Detalles de la oferta
             </span>
             <p className="dp-wrapper__downinfo dp-wrapper__downinfo--ap">
-              {responseInfo.description
-                ? responseInfo?.description
+              {offerInfo.description
+                ? offerInfo?.description
                 : "Los detalles de la oferta no estan disponibles"}
             </p>
             <p className="dp-wrapper__salary">
-              {responseInfo?.offer?.salaryRange ? (
+              {offerInfo?.salaryRange ? (
                 <p>
                   Rango salarial:<br></br>
                   <b>
-                    RD$ {responseInfo?.salaryRange[0]} -{" "}
-                    {responseInfo?.salaryRange[1]}
+                    RD$ {offerInfo?.salaryRange[0]} -{" "}
+                    {offerInfo?.salaryRange[1]}
                   </b>
                 </p>
               ) : null}
@@ -158,7 +149,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
               </Link>
             </p>
           </div>
-          <div className="dp-wrapper__button-content">
+          {/* <div className="dp-wrapper__button-content">
             <button
               className="custom-button custom-button--dpa bg-green "
               onClick={() => {
@@ -169,36 +160,34 @@ const DetailPopup = ({ responseInfo, hide }) => {
             >
               Aplicar
             </button>
-          </div>
+          </div> */}
         </div>
       ) : (
         <div className="dp-wrapper__child">
           <div className="dp-wrapper__up-content">
             <div className="dp-wrapper__img">
-              <img src={responseInfo?.profilePicture} alt="Profile" />
+              <img src={profilePictureRoute} alt="Profile" />
             </div>
             <div className="dp-wrapper__text">
               <span className="dp-wrapper__title">
                 {" "}
-                {responseInfo?.name} {responseInfo?.lastname}
+                {personInfo?.name} {personInfo?.lastname}
               </span>
               <div className="dp-wrapper__bullets">
                 <ul>
-                  {responseInfo?.location ? (
+                  {personInfo?.location ? (
                     <li>
-                      En <b> {responseInfo?.location} </b>
+                      En <b> {personInfo?.location} </b>
                     </li>
                   ) : null}
-                  {responseInfo?.userType ? (
-                    <li>{MyDictionary[responseInfo?.userType]}</li>
+                  {personInfo?.userType ? (
+                    <li>{MyDictionary[personInfo?.userType]}</li>
                   ) : null}
-                  {responseInfo?.category?.name ? (
-                    <li>{responseInfo?.category?.name}</li>
-                  ) : null}
+                  {category ? <li>{category}</li> : null}
                 </ul>
               </div>
               <ul className="dp-wrapper__tags">
-                {responseInfo?.tags?.map((tag) => (
+                {personInfo?.tags?.map((tag) => (
                   <Tag
                     key={tag._id}
                     text={tag.name}
@@ -213,22 +202,22 @@ const DetailPopup = ({ responseInfo, hide }) => {
               Detalles del usuario
             </span>
             <p className="dp-wrapper__downinfo">
-              {responseInfo?.bio
-                ? responseInfo?.bio
+              {personInfo?.bio
+                ? personInfo?.bio
                 : "Los detalles del usuario no estan disponibles"}
             </p>
             <div className="dp-wrapper__contact">
               Contacto:
               <Link
-                to={`/users/${responseInfo?._id}`}
+                to={profileRoute}
                 target="_blank"
                 style={{ textDecoration: "none" }}
               >
-                {responseInfo?.name} {responseInfo?.lastname}
+                {personInfo?.name} {personInfo?.lastname}
               </Link>
             </div>
           </div>
-          <div className="dp-wrapper__child--form">
+          {/* <div className="dp-wrapper__child--form">
             <form onSubmit={handleSubmit(onSubmit)}>
               {typeof offers ? (
                 <select className="sform__select" name="offer" ref={register}>
@@ -247,7 +236,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
                 value="Demostrar interés"
               />
             </form>
-          </div>
+          </div> */}
         </div>
       )}
     </div>
