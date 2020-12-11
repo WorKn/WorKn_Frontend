@@ -201,7 +201,7 @@ const SummaryPage = () => {
             <div className="summarypage__inner">
               <div className="summarypage__header">
 
-                {offers && offers.data.data.offers.length === 0 ? (
+                {offers && offers.data?.data?.offers?.length === 0 ? (
                   <div>
                     <div className="summary__announcement">
                       <div className="summarypage__imgbg">

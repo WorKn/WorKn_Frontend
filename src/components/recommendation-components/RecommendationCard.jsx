@@ -100,15 +100,6 @@ const RecommendationCard = ({ personInfo, offerInfo }) => {
                   </span>{" "}
                 </span>
               </div>
-              <div className="offercard__tags">
-                {offerInfo?.tags.map((tag) => (
-                  <Tag
-                    key={tag.id}
-                    text={tag.name}
-                    theme="tag tag__text tag__text--gray"
-                  ></Tag>
-                ))}
-              </div>
             </div>
             <div className="offercard__data">
               {MyDictionary[offerInfo?.offerType]}

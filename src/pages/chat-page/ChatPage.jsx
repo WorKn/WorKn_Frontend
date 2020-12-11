@@ -175,23 +175,40 @@ const ChatPage = () => {
             </SimpleBar>
           </div>
           <div className="chat__boxright">
-            <div className="chat__boxrightheader" onClick={redirectToUser}>
+            <div className="chat__boxrightheader" >
               <div className="chat__userwrapper">
-                <span className="chat__headertext">
-                  {currentChat?.user?.name}
-                </span>
-                <span className="chat__headertext">
+                <span className="chat__headertext" onClick={redirectToUser}>
+                  {currentChat?.user?.name}{' '}
                   {currentChat?.user?.lastname}
                 </span>
+                {currentChat?.user?.organization &&
+                  currentChat?.user?.organization !== "undefined" ? (
+                    <span className="chat__headerlighttext">
+                      Miembro de <span onClick={redirectToOrg} className="chat__link">{currentChat?.user?.organization?.name}</span>
+                    </span>
+                  ) : (
+                    ""
+                  )}
               </div>
-              {currentChat?.user?.organization &&
-                currentChat?.user?.organization !== "undefined" ? (
-                  <span className="chat__headerlighttext">
-                    Miembro de <span onClick={redirectToOrg} className="chat__link">{currentChat?.user?.organization?.name}</span>
-                  </span>
-                ) : (
-                  ""
+              {typeof currentChat ? (
+                <div className="chat__usercontrol">
+                  <i className="fa fa-cog config__dropdown">
+                    <div className="chat__dropdowncontent">
+                      <a href="https://www.google.com/" className="chat__action">
+                        Ir al perfil del usuario
+                        <i className="fa fa-user"></i>
+                      </a>
+                      <a href="https://www.google.com/" className="chat__action">
+                        Eliminar este chat
+                        <i className="fa fa-trash-o"></i>
+                      </a>
+                    </div>
+                  </i>
+                </div>
+              ) : (
+                  null
                 )}
+
             </div>
             <ScrollToBottom mode="bottom" className="chat__messagecontainer">
               <ul className="chat__messagecontainer">
