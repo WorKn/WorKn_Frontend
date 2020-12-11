@@ -1,8 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./not_found-Style.css";
 
 const NotFound = () => {
+  let history = useHistory();
+
   return (
     <div className="not_found-page">
       <div className="not_found-container">
@@ -13,9 +15,12 @@ const NotFound = () => {
         />
         <h2>Esta pagina no existe</h2>
         <p>Lo sentimos, la pagina solicitada no existe</p>
-        <Link to="/login" className="not_found-container__button">
-          <div>Atrás</div>
-        </Link>
+        <button
+          className="not_found-container__button"
+          onClick={() => history.goBack()}
+        >
+          Atrás
+        </button>
       </div>
     </div>
   );

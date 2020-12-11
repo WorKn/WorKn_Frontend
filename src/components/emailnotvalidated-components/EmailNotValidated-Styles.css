@@ -54,3 +54,7 @@
   padding: 25px;
   cursor: pointer;
 }
+
+.emailnotvalidated__button:hover {
+  background-color: #259e6c;
+}

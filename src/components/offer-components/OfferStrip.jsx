@@ -51,20 +51,19 @@ const OfferStrip = ({
       chatPivot = {
         chatPivot: {
           interactionId,
-          userInfo: responseInfo.applicant
-        }
-      }
+          userInfo: responseInfo.applicant,
+        },
+      };
     } else {
       chatPivot = {
         chatPivot: {
           interactionId,
           userInfo: {
             ...responseInfo.offer.createdBy,
-            organization: responseInfo.offer.organization
-          }
-
-        }
-      }
+            organization: responseInfo.offer.organization,
+          },
+        },
+      };
     }
     console.log(chatPivot);
     action(chatPivot);
@@ -77,7 +76,8 @@ const OfferStrip = ({
       if (res === "success") {
         store.addNotification({
           title: "Aplicación aceptada",
-          message: "El usuario será notificado de tu demostración de interés, puedes comunicarte a través de los Matches.",
+          message:
+            "El usuario será notificado de tu demostración de interés, puedes comunicarte a través de los Matches.",
           type: "success",
           insert: "top",
           container: "top-right",
@@ -104,7 +104,6 @@ const OfferStrip = ({
         });
       }
     });
-
   };
   const deleteInteraction = () => {
     updateInteractions();
@@ -131,7 +130,7 @@ const OfferStrip = ({
   MyDictionary["fixed"] = "Fijo/Indefinido";
 
   useEffect(() => {
-    console.log(responseInfo)
+    console.log(responseInfo);
     if (responseInfo.offer.organization) {
       setProfilePictureRoute(responseInfo?.offer?.organization?.profilePicture);
       setOffererTitleRoute(responseInfo?.offer?.organization?.name);
@@ -140,7 +139,6 @@ const OfferStrip = ({
       setOffererTitleRoute(responseInfo?.offer?.createdBy?.name);
     }
   }, [responseInfo]);
-
 
   return (
     <div>
@@ -155,156 +153,156 @@ const OfferStrip = ({
       </DeleteOfferModal> */}
       {(typeof state.userInformation.userType !== "undefined" &&
         state.userInformation.userType === "applicant") ||
-        state.userInformation.userType === "" ? (
-          <div className="offerstrip">
-            <img
-              src={profilePictureRoute}
-              className="offerstrip__picture"
-              alt="Offerpp"
-            />
-            <span
-              className="offerstrip__text offerstrip__org"
-              onClick={showDetailModal}
-            >
-              {offererTitleRoute}
-            </span>
-            <span className="offerstrip__vl offerstrip__vl--1"></span>
-            <span className="offerstrip__text offerstrip__type">
-              {MyDictionary[responseInfo?.offer?.offerType]}
-            </span>
-            <span className="offerstrip__vl offerstrip__vl--2"></span>
-            <span className="offerstrip__text offerstrip_offer">
-              {responseInfo?.offer?.title}
-            </span>
-            <span className="offerstrip__vl offerstrip__vl--3"></span>
-            <div className="offerstrip__tagscontainer">
-              {responseInfo?.offer?.tags?.map((tag) => (
-                <Tag
-                  key={tag.id}
-                  text={tag.name}
-                  theme="tag tag__text tag__text--gray"
-                ></Tag>
-              ))}
-            </div>
+      state.userInformation.userType === "" ? (
+        <div className="offerstrip">
+          <img
+            src={profilePictureRoute}
+            className="offerstrip__picture"
+            alt="Offerpp"
+          />
+          <span
+            className="offerstrip__text offerstrip__org"
+            onClick={showDetailModal}
+          >
+            {offererTitleRoute}
+          </span>
+          <span className="offerstrip__vl offerstrip__vl--1"></span>
+          <span className="offerstrip__text offerstrip__type">
+            {MyDictionary[responseInfo?.offer?.offerType]}
+          </span>
+          <span className="offerstrip__vl offerstrip__vl--2"></span>
+          <span className="offerstrip__text offerstrip_offer">
+            {responseInfo?.offer?.title}
+          </span>
+          <span className="offerstrip__vl offerstrip__vl--3"></span>
+          <div className="offerstrip__tagscontainer">
+            {responseInfo?.offer?.tags?.map((tag) => (
+              <Tag
+                key={tag.id}
+                text={tag.name}
+                theme="tag tag__text tag__text--gray"
+              ></Tag>
+            ))}
+          </div>
 
-            <span className="offerstrip__vl offerstrip__vl--4"></span>
-            {typeof isMatch !== "undefined" && isMatch === "true" ? (
-              <Link to="/chat" style={{ textDecoration: "none" }}>
-                <button
-                  onClick={sendInteractionId}
-                  className="offerstrip__action offerstrip__action--green"
-                >
-                  <i className="fa fa-comments userprofile__icon"></i>
+          <span className="offerstrip__vl offerstrip__vl--4"></span>
+          {typeof isMatch !== "undefined" && isMatch === "true" ? (
+            <Link to="/chat" style={{ textDecoration: "none" }}>
+              <button
+                onClick={sendInteractionId}
+                className="offerstrip__action offerstrip__action--green"
+              >
+                <i className="fa fa-comments userprofile__icon"></i>
                 Chat
               </button>
-              </Link>
-            ) : (
-                ""
-                // <span className="offerstrip_text offerstrip_edit">Editar</span>
-              )}
-            {typeof isInteraction !== "undefined" && isInteraction === "true" ? (
-              <React.Fragment>
-                <button
-                  onClick={catchInteraction}
-                  className="offerstrip__action offerstrip__action--green"
-                >
-                  <i className="fa fa-check userprofile__icon"></i>
+            </Link>
+          ) : (
+            ""
+            // <span className="offerstrip_text offerstrip_edit">Editar</span>
+          )}
+          {typeof isInteraction !== "undefined" && isInteraction === "true" ? (
+            <React.Fragment>
+              <button
+                onClick={catchInteraction}
+                className="offerstrip__action offerstrip__action--green"
+              >
+                <i className="fa fa-check userprofile__icon"></i>
                 Aceptar
               </button>
-                {/* <Link to="/chat" style={{ textDecoration: "none" }}> */}
-                <button
-                  onClick={deleteInteraction}
-                  className="offerstrip__action offerstrip__action--red"
-                >
-                  <i className="fa fa-times userprofile__icon"></i>
+              {/* <Link to="/chat" style={{ textDecoration: "none" }}> */}
+              <button
+                onClick={deleteInteraction}
+                className="offerstrip__action offerstrip__action--red"
+              >
+                <i className="fa fa-times userprofile__icon"></i>
                 Declinar
               </button>
-                {/* </Link> */}
-              </React.Fragment>
-            ) : (
-                ""
-              )}
-            {/* <i
+              {/* </Link> */}
+            </React.Fragment>
+          ) : (
+            ""
+          )}
+          {/* <i
             className="fa fa-times offerstrip_icon offerstrip_delete"
             onClick={showDeleteOfferModal}
           ></i> */}
+        </div>
+      ) : (
+        <div className="offerstrip">
+          <img
+            src={responseInfo?.applicant?.profilePicture}
+            className="offerstrip__picture"
+            alt="Offerpp"
+          />
+          <span
+            className="offerstrip__text offerstrip__offer"
+            onClick={showDetailModal}
+          >
+            {responseInfo?.applicant?.name} {responseInfo?.applicant?.lastname}
+          </span>
+          <span className="offerstrip__vl offerstrip__vl--1"></span>
+          <span className="offerstrip__text offerstrip__type">
+            {responseInfo?.applicant?.email}
+          </span>
+          <span className="offerstrip__vl offerstrip__vl--2"></span>
+          <span className="offerstrip__text offerstrip__org">
+            {responseInfo?.applicant?.category?.name}
+          </span>
+          <span className="offerstrip__vl offerstrip__vl--3"></span>
+          <div className="offerstrip__tagscontainer">
+            {responseInfo?.applicant?.tags?.map((tag) => (
+              <Tag
+                key={tag.id}
+                text={tag.name}
+                theme="tag tag__text tag__text--gray"
+              ></Tag>
+            ))}
           </div>
-        ) : (
-          <div className="offerstrip">
-            <img
-              src={responseInfo?.applicant?.profilePicture}
-              className="offerstrip__picture"
-              alt="Offerpp"
-            />
-            <span className="offerstrip__text offerstrip__org">
-              {responseInfo?.applicant?.category?.name}
-            </span>
-            <span className="offerstrip__vl offerstrip__vl--1"></span>
-            <span className="offerstrip__text offerstrip__type">
-              {responseInfo?.applicant?.email}
-            </span>
-            <span className="offerstrip__vl offerstrip__vl--2"></span>
-            <span
-              className="offerstrip__text offerstrip__offer"
-              onClick={showDetailModal}
-            >
-              {responseInfo?.applicant?.name} {responseInfo?.applicant?.lastname}
-            </span>
-            <span className="offerstrip__vl offerstrip__vl--3"></span>
-            <div className="offerstrip__tagscontainer">
-              {responseInfo?.applicant?.tags?.map((tag) => (
-                <Tag
-                  key={tag.id}
-                  text={tag.name}
-                  theme="tag tag__text tag__text--gray"
-                ></Tag>
-              ))}
-            </div>
 
-            <span className="offerstrip__vl offerstrip__vl--4"></span>
-            {typeof isMatch !== "undefined" && isMatch === "true" ? (
-              <Link to="/chat" style={{ textDecoration: "none" }}>
-                <button
-                  onClick={sendInteractionId}
-                  className="offerstrip__action offerstrip__action--green"
-                >
-                  <i className="fa fa-comments userprofile__icon"></i>
+          <span className="offerstrip__vl offerstrip__vl--4"></span>
+          {typeof isMatch !== "undefined" && isMatch === "true" ? (
+            <Link to="/chat" style={{ textDecoration: "none" }}>
+              <button
+                onClick={sendInteractionId}
+                className="offerstrip__action offerstrip__action--green"
+              >
+                <i className="fa fa-comments userprofile__icon"></i>
                 Chat
               </button>
-              </Link>
-            ) : (
-                ""
-                // <span className="offerstrip_text offerstrip_edit">Editar</span>
-              )}
-            {typeof isInteraction !== "undefined" && isInteraction === "true" ? (
-              <React.Fragment>
-                <button
-                  onClick={catchInteraction}
-                  className="offerstrip__action offerstrip__action--green"
-                >
-                  <i className="fa fa-check userprofile__icon"></i>
+            </Link>
+          ) : (
+            ""
+            // <span className="offerstrip_text offerstrip_edit">Editar</span>
+          )}
+          {typeof isInteraction !== "undefined" && isInteraction === "true" ? (
+            <React.Fragment>
+              <button
+                onClick={catchInteraction}
+                className="offerstrip__action offerstrip__action--green"
+              >
+                <i className="fa fa-check userprofile__icon"></i>
                 Aceptar
               </button>
-                {/* <Link to="/chat" style={{ textDecoration: "none" }}> */}
-                <button
-                  onClick={deleteInteraction}
-                  className="offerstrip__action offerstrip__action--red"
-                >
-                  <i className="fa fa-times userprofile__icon"></i>
+              {/* <Link to="/chat" style={{ textDecoration: "none" }}> */}
+              <button
+                onClick={deleteInteraction}
+                className="offerstrip__action offerstrip__action--red"
+              >
+                <i className="fa fa-times userprofile__icon"></i>
                 Declinar
               </button>
-                {/* </Link> */}
-              </React.Fragment>
-            ) : (
-                ""
-              )}
+              {/* </Link> */}
+            </React.Fragment>
+          ) : (
+            ""
+          )}
 
-            {/* <i
+          {/* <i
             className="fa fa-times offerstrip_icon offerstrip_delete"
             onClick={showDeleteOfferModal}
           ></i> */}
-          </div>
-        )}
+        </div>
+      )}
     </div>
   );
 };
