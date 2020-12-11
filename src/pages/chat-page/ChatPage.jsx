@@ -39,8 +39,6 @@ const ChatPage = () => {
       });
     } else {
       createChat(data.message_input, interactionId).then((res) => {
-        console.log(res);
-        console.log(interactionId);
         if (res.data !== undefined && res.data.status === "success") {
           setCurrentChat(res.data.data.chat);
           socket.emit(
@@ -56,7 +54,6 @@ const ChatPage = () => {
 
   const emmitTyping = () => {
     socket.emit("chat_typing", currentChat._id);
-    console.log(currentChat);
   };
 
   const showTyping = () => {
@@ -86,7 +83,6 @@ const ChatPage = () => {
 
   useEffect(() => {
     getMyChats().then((res) => {
-      console.log(res)
       let myChats = res.data.data.chats;
       if (state.userInformation.chatPivot) {
         const found = myChats.find(
@@ -190,7 +186,7 @@ const ChatPage = () => {
                     ""
                   )}
               </div>
-              {typeof currentChat ? (
+              {typeof currentChat._id && currentChat._id !== undefined ? (
                 <div className="chat__usercontrol">
                   <i className="fa fa-cog config__dropdown">
                     <div className="chat__dropdowncontent">

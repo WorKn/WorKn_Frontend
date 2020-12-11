@@ -9,6 +9,8 @@ import { getCategoryById } from "../../utils/apiRequests";
 import "./RecommendationCard-Style.css";
 import { useModal } from "../../hooks/useModal";
 import RecommendationPopup from "../../components/popup-components/RecommendationPopup";
+import SimpleBar from "simplebar-react";
+import "simplebar/dist/simplebar.min.css";
 
 const RecommendationCard = ({ personInfo, offerInfo }) => {
   const { state } = useStateMachine(updateAction);
@@ -71,15 +73,17 @@ const RecommendationCard = ({ personInfo, offerInfo }) => {
             <div className="offercard__vl"></div>
             <span className="offercard__category-name">{category}</span>
           </div>
-          <div className="offercard__tags">
-            {personInfo?.tags.map((tag) => (
-              <Tag
-                key={tag._id}
-                text={tag.name}
-                theme="tag tag__text tag__text--gray"
-              ></Tag>
-            ))}
-          </div>
+          <SimpleBar>
+            <div className="offercard__tags">
+              {personInfo?.tags.map((tag) => (
+                <Tag
+                  key={tag._id}
+                  text={tag.name}
+                  theme="tag tag__text tag__text--gray"
+                ></Tag>
+              ))}
+            </div>
+          </SimpleBar>
         </div>
       ) : (
           <div className="offercard__wrapper" onClick={showRecommendationModal}>
@@ -110,15 +114,17 @@ const RecommendationCard = ({ personInfo, offerInfo }) => {
                 {offerInfo?.category?.name}
               </span>
             </div>
-            <div className="offercard__tags">
-              {offerInfo?.tags.map((tag) => (
-                <Tag
-                  key={tag.id}
-                  text={tag.name}
-                  theme="tag tag__text tag__text--gray"
-                ></Tag>
-              ))}
-            </div>
+            <SimpleBar>
+              <div className="offercard__tags">
+                {offerInfo?.tags.map((tag) => (
+                  <Tag
+                    key={tag.id}
+                    text={tag.name}
+                    theme="tag tag__text tag__text--gray"
+                  ></Tag>
+                ))}
+              </div>
+            </SimpleBar>
           </div>
         )
       }
