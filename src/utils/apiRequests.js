@@ -65,6 +65,15 @@ export const getAllOffers = async () => {
   }
 };
 
+export const getAllFilteredOffers = async () => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/offers/?state=active`);
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
 export const userLogin = async (user) => {
   try {
     const response = await axios.post(`${HOST}/api/v1/users/login`, {
