@@ -47,6 +47,18 @@ const Navbar = () => {
         >
           Recomendaciones
         </Link>
+        {state.userInformation.userType === "offerer" ? (
+          <Link
+            className={
+              hideOnMobile
+                ? "navbar__link navbar__link--hidden navbar__hide-on-mobile"
+                : "navbar__link navbar__link--hidden"
+            }
+            to="/manageoffers"
+          >
+            Ofertas
+          </Link>
+        ) : null}
         <Link
           className={
             hideOnMobile
