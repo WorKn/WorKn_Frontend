@@ -80,7 +80,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
         if (res !== undefined && res?.data?.status === 'success') {
           store.addNotification({
             title: "Interacción creada",
-            message: "El usuario será notificado de tu demostración de interés",
+            message: "El usuario será notificado de tu demostración de interés, puedes visualizarla en tu página de Resumen",
             type: "success",
             insert: "top",
             container: "top-right",
@@ -113,7 +113,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
         if (res !== undefined && res?.data?.status === 'success') {
           store.addNotification({
             title: "Interacción creada",
-            message: "El usuario será notificado de tu demostración de interés",
+            message: "El usuario será notificado de tu demostración de interés, puedes visualizarla en tu página de Resumen",
             type: "success",
             insert: "top",
             container: "top-right",
