@@ -15,7 +15,6 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
   const [profileRoute, setProfileRoute] = useState("");
-  const [category, setCategory] = useState([]);
   //   const { register, handleSubmit } = useForm({});
   //   const [selectedOffer, setSelectedOffer] = useState();
   //   const [offers, setOffers] = useState();
@@ -29,16 +28,22 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
   console.log(offerInfo);
 
   useEffect(() => {
-    if (offerInfo) {
-      setProfilePictureRoute(offerInfo?.createdBy?.profilePicture);
-      setOffererTitleRoute(offerInfo.createdBy.name);
-      setProfileRoute(`/users/${offerInfo.createdBy?._id}`);
+    if (state.userInformation.userType === "applicant") {
+      if (offerInfo?.organization) {
+        setProfilePictureRoute(offerInfo.organization?.profilePicture);
+        setOffererTitleRoute(offerInfo.organization.name);
+        setProfileRoute(`/organizations/${offerInfo.organization?._id}`);
+      } else {
+        setProfilePictureRoute(offerInfo.createdBy?.profilePicture);
+        setOffererTitleRoute(offerInfo.createdBy?.name);
+        setProfileRoute(`/users/${offerInfo.createdBy?.id}`);
+      }
     } else {
       setProfilePictureRoute(personInfo.profilePicture);
-      setCategory(personInfo.category.name);
+      setOffererTitleRoute(personInfo.name + " " + personInfo.lastname);
       setProfileRoute(`/users/${personInfo?._id}`);
     }
-  }, [offerInfo, personInfo]);
+  }, [offerInfo, personInfo, state.userInformation.userType]);
 
   //   useEffect(() => {
   //     if (interactionTarget && state.userInformation.userType === "applicant") {
@@ -169,10 +174,7 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
               <img src={profilePictureRoute} alt="Profile" />
             </div>
             <div className="dp-wrapper__text">
-              <span className="dp-wrapper__title">
-                {" "}
-                {personInfo?.name} {personInfo?.lastname}
-              </span>
+              <span className="dp-wrapper__title">{offererTitleRoute}</span>
               <div className="dp-wrapper__bullets">
                 <ul>
                   {personInfo?.location ? (
@@ -183,7 +185,9 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
                   {personInfo?.userType ? (
                     <li>{MyDictionary[personInfo?.userType]}</li>
                   ) : null}
-                  {category ? <li>{category}</li> : null}
+                  {personInfo?.category?.name ? (
+                    <li>{personInfo?.category?.name}</li>
+                  ) : null}
                 </ul>
               </div>
               <ul className="dp-wrapper__tags">
@@ -213,7 +217,7 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
                 target="_blank"
                 style={{ textDecoration: "none" }}
               >
-                {personInfo?.name} {personInfo?.lastname}
+                {offererTitleRoute}
               </Link>
             </div>
           </div>
