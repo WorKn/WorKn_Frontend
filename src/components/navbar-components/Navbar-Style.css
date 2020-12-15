@@ -9,6 +9,14 @@
   flex: 1;
 }
 
+.navbar__sticky {
+	position: -webkit-sticky;
+	position: sticky;
+  top: 0;
+  z-index: 999;
+  
+}
+
 .navbar__logo {
   width: 207px;
   height: 48px;
