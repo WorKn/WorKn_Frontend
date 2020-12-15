@@ -37,6 +37,7 @@ const normalizePhone = (value) => {
   );
 };
 
+
 const UserForm = () => {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -47,6 +48,11 @@ const UserForm = () => {
   const { register, handleSubmit, errors, watch } = useForm({});
   let isOrg = false;
   password.current = watch("password", "");
+
+  const abortEdit = () => {
+    setIsEditMode(false)
+    setUpdated(state.userInformation)
+  }
 
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
@@ -494,7 +500,7 @@ const UserForm = () => {
                 type="submit"
                 value="Guardar Perfil"
               />
-              <button className="custom-button bg-red" onClick={() => { setIsEditMode(false) }}>Cancelar</button>
+              <button className="custom-button bg-red" onClick={abortEdit}>Cancelar</button>
             </form>
           )}
 
