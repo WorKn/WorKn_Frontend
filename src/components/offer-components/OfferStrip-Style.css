@@ -28,7 +28,8 @@
 .offerstrip__tagscontainer {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  white-space: nowrap;
 }
 
 .offerstrip__picture {
