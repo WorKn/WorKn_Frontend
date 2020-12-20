@@ -18,6 +18,7 @@ import Contact from "../../components/chat-components/Contact";
 import Message from "../../components/chat-components/Message";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
+import { getMe } from "../../utils/apiRequests";
 
 const HOST = process.env.REACT_APP_STAGING_HOST;
 const socket = socketIOClient(HOST);
@@ -135,6 +136,14 @@ const ChatPage = () => {
       });
     }
   }, [currentChat]);
+
+  useEffect(() => {
+    getMe().then((res) => {
+      if (res.data !== undefined) {
+        action(res.data.data.data);
+      }
+    });
+  }, [action]);
 
   return (
     <div className="chatpage">
