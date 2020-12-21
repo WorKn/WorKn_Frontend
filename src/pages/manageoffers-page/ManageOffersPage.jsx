@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import "./ManageOffersPage-Style.css";
 import Header from "../../components/navbar-components/Navbar.jsx";
 import { getMyOffers } from "../../utils/apiRequests";
-import { getMyOrganization } from "../../utils/apiRequests";
+import { getMyOrganization, getMe } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import CreateOfferPopup from "../../components/popup-components/CreateOfferPopup";
 import { useModal } from "../../hooks/useModal";
@@ -19,7 +19,7 @@ const ManageOffersPage = () => {
   const [organizationInfo, setMyOrganization] = useState();
   const [success, setSuccess] = useState(false);
   const [offersToDisplay, setOffersToDisplay] = useState("active");
-  const { state } = useStateMachine(updateAction);
+  const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit } = useForm({});
   const {
     show: showAddOfferModal,
@@ -65,15 +65,22 @@ const ManageOffersPage = () => {
   };
 
   useEffect(() => {
+    getMe().then((res) => {
+      if (res.data !== undefined) {
+        action(res.data.data.data);
+      }
+    });
+  }, [action]);
+
+  useEffect(() => {
     //si fallo el get my offers y el usuario actual no es tipo ofertante entonces hay que rebotarlo. Por el otro lado, si fallo el getoffers y es ofertante dejarlo entrar
     if (state.userInformation.isEmailValidated) {
       setSuccess(true);
       getMyOffers().then((res) => {
-        // console.log(res)
-        if (!res.data && state.userInformation.userType === "offerer") {
-          // history.push("/");
+        console.log(res);
+        if (state.userInformation.userType === "applicant") {
+          history.push("/userprofile");
         } else if (!res.data && state.userInformation.userType !== "offerer") {
-          history.push("/login");
         } else {
           const offers = res.data.data.offers;
           // console.log(offers)
@@ -93,8 +100,6 @@ const ManageOffersPage = () => {
             profilePicture: state.userInformation.profilePicture,
           };
           setMyOrganization(organization);
-        } else if (!res.data && state.userInformation.userType !== "offerer") {
-          history.push("/login");
         } else {
           const organization = res?.data?.data?.data;
           setMyOrganization(organization);
@@ -104,7 +109,6 @@ const ManageOffersPage = () => {
       !state.userInformation.isEmailValidated &&
       !state.userInformation._id
     ) {
-      history.push("/login");
     } else {
       setSuccess(false);
     }

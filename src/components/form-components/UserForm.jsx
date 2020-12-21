@@ -37,6 +37,7 @@ const normalizePhone = (value) => {
   );
 };
 
+
 const UserForm = () => {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -47,6 +48,11 @@ const UserForm = () => {
   const { register, handleSubmit, errors, watch } = useForm({});
   let isOrg = false;
   password.current = watch("password", "");
+
+  const abortEdit = () => {
+    setIsEditMode(false)
+    setUpdated(state.userInformation)
+  }
 
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
@@ -438,7 +444,8 @@ const UserForm = () => {
                           Selecciona tu categoría y tus etiquetas
                   </span>
                         <span className="userform__text">
-                          Las etiquetas son palabra clave que describen tus habilidades como profesional, y sirven para emparejarte con ofertas de trabajo
+                          Las etiquetas son palabra clave que describen tus habilidades como profesional
+                          y sirven para emparejarte con ofertas de trabajo
                           y personas en tus mismas áreas de conocimiento, la categoría
                           sirve para filtrar dichas etiquetas de una manera más
                           precisa.
@@ -493,7 +500,7 @@ const UserForm = () => {
                 type="submit"
                 value="Guardar Perfil"
               />
-              <button className="custom-button bg-red" onClick={() => { setIsEditMode(false) }}>Cancelar</button>
+              <button className="custom-button bg-red" onClick={abortEdit}>Cancelar</button>
             </form>
           )}
 

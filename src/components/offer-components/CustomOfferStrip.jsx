@@ -5,6 +5,7 @@ import { useModal } from "../../hooks/useModal";
 import OfferPopup from "../popup-components/OfferPopup";
 import EditOfferPopup from "../popup-components/EditOfferPopup";
 import DeleteOfferPopup from "../popup-components/DeleteOfferPopup";
+import { Scrollbars } from "react-custom-scrollbars";
 
 let MyDictionary = {};
 MyDictionary["free"] = "Freelancer";
@@ -71,30 +72,37 @@ const CustomOfferStrip = ({
         />
       )}
 
-      <span className="offerstrip__text offerstrip__org">
-        {offerInfo ? MyDictionary[offerInfo.offerType] : "Info no disponible"}
-      </span>
-      <span className="offerstrip__vl offerstrip__vl--1"></span>
       <span
         className="offerstrip__text offerstrip__type"
         onClick={showOfferModal}
       >
         {offerInfo ? shortOfferTitle : "Titulo no disponible"}
       </span>
+      <span className="offerstrip__vl offerstrip__vl--1"></span>
+      <span className="offerstrip__text offerstrip__org">
+        {offerInfo ? MyDictionary[offerInfo.offerType] : "Info no disponible"}
+      </span>
       <span className="offerstrip__vl offerstrip__vl--2"></span>
       <span className="offerstrip__text offerstrip__offer">
         {offerInfo ? shortOfferDescription : "Descripcion no disponible"}
       </span>
       <span className="offerstrip__vl offerstrip__vl--3"></span>
-      <div className="offerstrip__tagscontainer offerstrip__tagscontainer--inactive">
-        {offerInfo.tags.map((tag) => (
-          <Tag
-            key={tag._id}
-            text={tag.name}
-            theme="tag tag__text tag__text--gray"
-          ></Tag>
-        ))}
-      </div>
+      <Scrollbars
+        style={{ width: 350, height: 35 }}
+        autoHide
+        autoHideTimeout={1000}
+        autoHideDuration={200}
+      >
+        <div className="offerstrip__tagscontainer offerstrip__tagscontainer--inactive">
+          {offerInfo.tags.map((tag) => (
+            <Tag
+              key={tag._id}
+              text={tag.name}
+              theme="tag tag__text tag__text--gray"
+            ></Tag>
+          ))}
+        </div>
+      </Scrollbars>
     </div>
   ) : (
     <div className="offerstrip">
@@ -120,30 +128,37 @@ const CustomOfferStrip = ({
         />
       )}
 
-      <span className="offerstrip__text offerstrip__org">
-        {offerInfo ? MyDictionary[offerInfo.offerType] : "Info no disponible"}
-      </span>
-      <span className="offerstrip__vl offerstrip__vl--1"></span>
       <span
         className="offerstrip__text offerstrip__type"
         onClick={showOfferModal}
       >
         {offerInfo ? shortOfferTitle : "Titulo no disponible"}
       </span>
+      <span className="offerstrip__vl offerstrip__vl--1"></span>
+      <span className="offerstrip__text offerstrip__org">
+        {offerInfo ? MyDictionary[offerInfo.offerType] : "Info no disponible"}
+      </span>
       <span className="offerstrip__vl offerstrip__vl--2"></span>
       <span className="offerstrip__text offerstrip__offer">
         {offerInfo ? shortOfferDescription : "Descripcion no disponible"}
       </span>
       <span className="offerstrip__vl offerstrip__vl--3"></span>
-      <div className="offerstrip__tagscontainer">
-        {offerInfo.tags.map((tag) => (
-          <Tag
-            key={tag._id}
-            text={tag.name}
-            theme="tag tag__text tag__text--gray"
-          ></Tag>
-        ))}
-      </div>
+      <Scrollbars
+        style={{ width: 300, height: 35 }}
+        autoHide
+        autoHideTimeout={1000}
+        autoHideDuration={200}
+      >
+        <div className="offerstrip__tagscontainer">
+          {offerInfo.tags.map((tag) => (
+            <Tag
+              key={tag._id}
+              text={tag.name}
+              theme="tag tag__text tag__text--gray"
+            ></Tag>
+          ))}
+        </div>
+      </Scrollbars>
 
       <span className="offerstrip__vl offerstrip__vl--4"></span>
       <EditOfferModal>

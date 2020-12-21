@@ -7,12 +7,20 @@ import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import { getCategoryById } from "../../utils/apiRequests";
 import "./RecommendationCard-Style.css";
+import { useModal } from "../../hooks/useModal";
+import RecommendationPopup from "../../components/popup-components/RecommendationPopup";
+import SimpleBar from "simplebar-react";
+import "simplebar/dist/simplebar.min.css";
 
 const RecommendationCard = ({ personInfo, offerInfo }) => {
   const { state } = useStateMachine(updateAction);
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
-
   const [category, setCategory] = useState([]);
+
+  const {
+    show: showRecommendationModal,
+    RenderModal: RecommendationModal,
+  } = useModal();
 
   let MyDictionary = {};
   MyDictionary["free"] = "Freelancer";
@@ -33,11 +41,14 @@ const RecommendationCard = ({ personInfo, offerInfo }) => {
 
   return (
     <div>
-      {/* <DetailModal>
-        <DetailPopup responseInfo={responseInfo}></DetailPopup>
-      </DetailModal> */}
+      <RecommendationModal>
+        <RecommendationPopup
+          personInfo={personInfo}
+          offerInfo={offerInfo}
+        ></RecommendationPopup>
+      </RecommendationModal>
       {state.userInformation.userType === "offerer" ? (
-        <div className="offercard__wrapper">
+        <div className="offercard__wrapper" onClick={showRecommendationModal}>
           <div className="offercard__header">
             <img
               src={profilePictureRoute}
@@ -62,18 +73,20 @@ const RecommendationCard = ({ personInfo, offerInfo }) => {
             <div className="offercard__vl"></div>
             <span className="offercard__category-name">{category}</span>
           </div>
-          <div className="offercard__tags">
-            {personInfo?.tags.map((tag) => (
-              <Tag
-                key={tag._id}
-                text={tag.name}
-                theme="tag tag__text tag__text--gray"
-              ></Tag>
-            ))}
-          </div>
+          <SimpleBar>
+            <div className="offercard__tags">
+              {personInfo?.tags.map((tag) => (
+                <Tag
+                  key={tag._id}
+                  text={tag.name}
+                  theme="tag tag__text tag__text--gray"
+                ></Tag>
+              ))}
+            </div>
+          </SimpleBar>
         </div>
       ) : (
-          <div className="offercard__wrapper">
+          <div className="offercard__wrapper" onClick={showRecommendationModal}>
             <div className="offercard__header">
               <img
                 src={profilePictureRoute}
@@ -101,18 +114,21 @@ const RecommendationCard = ({ personInfo, offerInfo }) => {
                 {offerInfo?.category?.name}
               </span>
             </div>
-            <div className="offercard__tags">
-              {offerInfo?.tags.map((tag) => (
-                <Tag
-                  key={tag.id}
-                  text={tag.name}
-                  theme="tag tag__text tag__text--gray"
-                ></Tag>
-              ))}
-            </div>
+            <SimpleBar>
+              <div className="offercard__tags">
+                {offerInfo?.tags.map((tag) => (
+                  <Tag
+                    key={tag.id}
+                    text={tag.name}
+                    theme="tag tag__text tag__text--gray"
+                  ></Tag>
+                ))}
+              </div>
+            </SimpleBar>
           </div>
-        )}
-    </div>
+        )
+      }
+    </div >
   );
 };
 

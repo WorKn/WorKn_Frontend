@@ -5,6 +5,8 @@ import { useModal } from "../../hooks/useModal";
 import DetailPopup from "../../components/popup-components/DetailPopup";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
+import SimpleBar from "simplebar-react";
+import "simplebar/dist/simplebar.min.css";
 
 const OfferCard = ({
   responseInfo,
@@ -26,6 +28,7 @@ const OfferCard = ({
   MyDictionary["applicant"] = "Aplicante";
 
   useEffect(() => {
+    console.log(responseInfo)
     if (!offerInfo) {
       if (responseInfo.organization) {
         setProfilePictureRoute(responseInfo?.organization?.profilePicture);
@@ -82,15 +85,17 @@ const OfferCard = ({
                   <div className="offercard__vl"></div>
                   <span>{responseInfo?.category?.name}</span>
                 </div>
-                <div className="offercard__tags">
-                  {responseInfo?.tags.map((tag) => (
-                    <Tag
-                      key={tag.id}
-                      text={tag.name}
-                      theme="tag tag__text tag__text--gray"
-                    ></Tag>
-                  ))}
-                </div>
+                <SimpleBar>
+                  <div className="offercard__tags">
+                    {responseInfo?.tags.map((tag) => (
+                      <Tag
+                        key={tag._id}
+                        text={tag.name}
+                        theme="tag tag__text tag__text--gray"
+                      ></Tag>
+                    ))}
+                  </div>
+                </SimpleBar>
               </div>
             ) : (
               <div className="offercard__wrapper" onClick={showDetailModal}>
@@ -123,15 +128,17 @@ const OfferCard = ({
                   <div className="offercard__vl"></div>
                   <span>{responseInfo?.category?.name}</span>
                 </div>
-                <div className="offercard__tags">
-                  {responseInfo?.tags?.map((tag) => (
-                    <Tag
-                      key={tag.id}
-                      text={tag.name}
-                      theme="tag tag__text tag__text--gray"
-                    ></Tag>
-                  ))}
-                </div>
+                <SimpleBar>
+                  <div className="offercard__tags">
+                    {responseInfo?.tags?.map((tag) => (
+                      <Tag
+                        key={tag.id}
+                        text={tag.name}
+                        theme="tag tag__text tag__text--gray"
+                      ></Tag>
+                    ))}
+                  </div>
+                </SimpleBar>
               </div>
             )}
         </div>
@@ -168,15 +175,17 @@ const OfferCard = ({
                   <div className="offercard__vl"></div>
                   <span>{offerInfo?.category?.name}</span>
                 </div>
-                <div className="offercard__tags">
-                  {offerInfo.tags.map((tag) => (
-                    <Tag
-                      key={tag._id}
-                      text={tag.name}
-                      theme="tag tag__text tag__text--gray "
-                    ></Tag>
-                  ))}
-                </div>
+                <SimpleBar>
+                  <div className="offercard__tags">
+                    {offerInfo.tags.map((tag) => (
+                      <Tag
+                        key={tag._id}
+                        text={tag.name}
+                        theme="tag tag__text tag__text--gray "
+                      ></Tag>
+                    ))}
+                  </div>
+                </SimpleBar>
               </div>
             ) : (
                 <div className="offercard__wrapper">
@@ -211,15 +220,17 @@ const OfferCard = ({
                     <div className="offercard__vl"></div>
                     <span>{offerInfo?.category?.name}</span>
                   </div>
-                  <div className="offercard__tags">
-                    {offerInfo?.tags.map((tag) => (
-                      <Tag
-                        key={tag.id}
-                        text={tag.name}
-                        theme="tag tag__text tag__text--gray"
-                      ></Tag>
-                    ))}
-                  </div>
+                  <SimpleBar>
+                    <div className="offercard__tags">
+                      {offerInfo?.tags.map((tag) => (
+                        <Tag
+                          key={tag.id}
+                          text={tag.name}
+                          theme="tag tag__text tag__text--gray"
+                        ></Tag>
+                      ))}
+                    </div>
+                  </SimpleBar>
                 </div>
               )}
           </div>

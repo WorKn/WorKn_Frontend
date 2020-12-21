@@ -18,6 +18,7 @@ import Contact from "../../components/chat-components/Contact";
 import Message from "../../components/chat-components/Message";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
+import { getMe } from "../../utils/apiRequests";
 
 const HOST = process.env.REACT_APP_STAGING_HOST;
 const socket = socketIOClient(HOST);
@@ -39,8 +40,6 @@ const ChatPage = () => {
       });
     } else {
       createChat(data.message_input, interactionId).then((res) => {
-        console.log(res);
-        console.log(interactionId);
         if (res.data !== undefined && res.data.status === "success") {
           setCurrentChat(res.data.data.chat);
           socket.emit(
@@ -56,7 +55,6 @@ const ChatPage = () => {
 
   const emmitTyping = () => {
     socket.emit("chat_typing", currentChat._id);
-    console.log(currentChat);
   };
 
   const showTyping = () => {
@@ -77,18 +75,15 @@ const ChatPage = () => {
   };
 
   const redirectToOrg = () => {
-    const win = window.open(`/organizations/${currentChat?.user?.organization?._id}`, "_blank")
-    win.focus();
+    window.open(`/organizations/${currentChat?.user?.organization?._id}`, "_blank")
   }
 
   const redirectToUser = () => {
-    const win = window.open(`/users/${currentChat?.user?.id}`, "_blank")
-    win.focus();
+    window.open(`/users/${currentChat?.user?.id}`, "_blank")
   }
 
   useEffect(() => {
     getMyChats().then((res) => {
-      console.log(res)
       let myChats = res.data.data.chats;
       if (state.userInformation.chatPivot) {
         const found = myChats.find(
@@ -142,6 +137,14 @@ const ChatPage = () => {
     }
   }, [currentChat]);
 
+  useEffect(() => {
+    getMe().then((res) => {
+      if (res.data !== undefined) {
+        action(res.data.data.data);
+      }
+    });
+  }, [action]);
+
   return (
     <div className="chatpage">
       <Header />
@@ -177,23 +180,40 @@ const ChatPage = () => {
             </SimpleBar>
           </div>
           <div className="chat__boxright">
-            <div className="chat__boxrightheader" onClick={redirectToUser}>
+            <div className="chat__boxrightheader" >
               <div className="chat__userwrapper">
-                <span className="chat__headertext">
-                  {currentChat?.user?.name}
-                </span>
-                <span className="chat__headertext">
+                <span className="chat__headertext" onClick={redirectToUser}>
+                  {currentChat?.user?.name}{' '}
                   {currentChat?.user?.lastname}
                 </span>
+                {currentChat?.user?.organization &&
+                  currentChat?.user?.organization !== "undefined" ? (
+                    <span className="chat__headerlighttext">
+                      Miembro de <span onClick={redirectToOrg} className="chat__link">{currentChat?.user?.organization?.name}</span>
+                    </span>
+                  ) : (
+                    ""
+                  )}
               </div>
-              {currentChat?.user?.organization &&
-                currentChat?.user?.organization !== "undefined" ? (
-                  <span className="chat__headerlighttext">
-                    Miembro de <span onClick={redirectToOrg} className="chat__link">{currentChat?.user?.organization?.name}</span>
-                  </span>
-                ) : (
-                  ""
+              {typeof currentChat._id && currentChat._id !== undefined ? (
+                <div className="chat__usercontrol">
+                  <i className="fa fa-cog config__dropdown">
+                    <div className="chat__dropdowncontent">
+                      <a href="https://www.google.com/" className="chat__action">
+                        Ir al perfil del usuario
+                        <i className="fa fa-user"></i>
+                      </a>
+                      <a href="https://www.google.com/" className="chat__action">
+                        Eliminar este chat
+                        <i className="fa fa-trash-o"></i>
+                      </a>
+                    </div>
+                  </i>
+                </div>
+              ) : (
+                  null
                 )}
+
             </div>
             <ScrollToBottom mode="bottom" className="chat__messagecontainer">
               <ul className="chat__messagecontainer">

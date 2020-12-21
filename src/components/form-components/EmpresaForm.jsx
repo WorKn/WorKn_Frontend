@@ -22,6 +22,8 @@ const normalizePhone = (value) => {
   return value.replace(/\s/g, "").match(/.{1,4}/g)?.join("").substr(0, 10) || "";
 }
 
+
+
 const EmpresaForm = () => {
   const [updated, setUpdated] = useState("");
   const [isEditMode, setIsEditMode] = useState(false);
@@ -109,6 +111,11 @@ const EmpresaForm = () => {
   }, [state.userInformation.data]);
   const password = useRef({});
   password.current = watch("password", "");
+
+  const abortEdit = () => {
+    setIsEditMode(false)
+    setUpdated(state.userInformation.data)
+  }
 
   return (
     <div>
@@ -321,7 +328,7 @@ const EmpresaForm = () => {
               type="submit"
               value="Guardar Perfil de Empresa"
             />
-            <button className="custom-button bg-red" onClick={() => { setIsEditMode(false) }}>Cancelar</button>
+            <button className="custom-button bg-red" onClick={abortEdit}>Cancelar</button>
           </form>
         )}
 
