@@ -1,12 +1,17 @@
 import React from "react";
 import "./DeleteOfferPopup-Style.css";
-import { deleteOffer } from "../../utils/apiRequests";
+import { deleteOffer, getMyOffers } from "../../utils/apiRequests";
 
-const DeleteOfferPopup = ({ offerInfo, hide }) => {
+const DeleteOfferPopup = ({ offerInfo, hide, setMyOffers }) => {
   const handleDelete = () => {
     let id = offerInfo._id;
     deleteOffer(id).then((res) => {
-      hide();
+      getMyOffers().then((res) => {
+        setMyOffers(res.data.data.offers);
+      });
+      setTimeout(() => {
+        hide();
+      }, 1500);
     });
   };
   return (

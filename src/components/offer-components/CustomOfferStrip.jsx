@@ -164,7 +164,11 @@ const CustomOfferStrip = ({
         onClick={showDeleteOfferModal}
       ></i>
       <DeleteOfferModal>
-        <DeleteOfferPopup offerInfo={offerInfo} hide={hideDeleteOfferModal} />
+        <DeleteOfferPopup
+          offerInfo={offerInfo}
+          hide={hideDeleteOfferModal}
+          setMyOffers={setMyOffers}
+        />
       </DeleteOfferModal>
     </div>
   );
