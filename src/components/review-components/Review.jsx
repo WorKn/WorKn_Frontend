@@ -1,9 +1,11 @@
 import React from "react";
 import { useModal } from "../../hooks/useModal";
 import { useStateMachine } from "little-state-machine";
+import { useHistory } from "react-router-dom";
 import updateAction from "../../updateAction";
 import StarRating from "../../components/starrating-components/StarRating";
 import EditReviewPopup from "../../components/popup-components/EditReviewPopup";
+import { Link } from "react-router-dom";
 
 const ReviewBody = ({ review, userId, setReviews }) => {
   const {
@@ -13,6 +15,7 @@ const ReviewBody = ({ review, userId, setReviews }) => {
   } = useModal();
 
   const { state } = useStateMachine(updateAction);
+  let history = useHistory();
 
   return (
     <div className="pprofilepage__rating-body">
@@ -35,7 +38,12 @@ const ReviewBody = ({ review, userId, setReviews }) => {
 
       <div className="pprofilepage__rating--description">
         <div className="pprofilepage__rating-header">
-          <h2>{`${review.createdBy.name} ${review.createdBy.lastname}`}</h2>
+          {/* Prueba de enrutamiento por perfil de usuario */}
+          <h2
+            onClick={() => {
+              history.push(`users/${review.createdBy._id}`);
+            }}
+          >{`${review.createdBy.name} ${review.createdBy.lastname}`}</h2>
           {review.createdBy._id === state.userInformation._id ? (
             <i className="fa fa-edit" onClick={showEditReviewModal}></i>
           ) : null}

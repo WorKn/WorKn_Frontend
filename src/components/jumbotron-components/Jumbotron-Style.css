@@ -63,6 +63,7 @@
   .jumbotron-container__title {
     margin-bottom: 20px;
     font-size: 22px;
+    text-align: center;
   }
   .jumbotron-container__description {
     text-align: center;

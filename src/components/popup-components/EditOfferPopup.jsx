@@ -19,10 +19,6 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [showSuccess, setSuccess] = useState(false);
 
-  console.log("OFER INFO IS:");
-  console.log(offerInfo);
-  console.log(offerInfo.closingDate.substring(0, 10));
-
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
 
@@ -180,7 +176,11 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
                   name="closingDate"
                   placeholder="Fecha de cierre [opcional]"
                   className="create-offer__date"
-                  defaultValue={offerInfo.closingDate.substring(0, 10)}
+                  defaultValue={
+                    offerInfo.closingDate
+                      ? offerInfo.closingDate.substring(0, 10)
+                      : null
+                  }
                   title="Por favor, ingrese la fecha de cierre de la oferta"
                 />
               </div>

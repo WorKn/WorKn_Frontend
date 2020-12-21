@@ -19,7 +19,7 @@ import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
 import { useForm } from "react-hook-form";
 import OfferCard from "../../components/offer-components/OfferCard";
-import { store } from 'react-notifications-component';
+import { store } from "react-notifications-component";
 import "./ParticularUserProfilePage-Style.css";
 
 const EmpresaViewPage = ({
@@ -54,7 +54,7 @@ const EmpresaViewPage = ({
   const onSubmit = (data) => {
     data.starValue = starValue;
     createReview(id, data).then((res) => {
-      console.log(res)
+      console.log(res);
       if (res.data.status === "success") {
         getAllReviews(id).then((res) => {
           setReviews(res.data?.data.data);
@@ -69,13 +69,14 @@ const EmpresaViewPage = ({
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
             duration: 10000,
-            onScreen: true
-          }
+            onScreen: true,
+          },
         });
       } else {
         store.addNotification({
           title: "Ha ocurrido un error",
-          message: "No hemos podido crear tu review, asegurate de que hayas seleccionado una puntuación",
+          message:
+            "No hemos podido crear tu review, asegurate de que hayas seleccionado una puntuación",
           type: "danger",
           insert: "top",
           container: "top-right",
@@ -83,8 +84,8 @@ const EmpresaViewPage = ({
           animationOut: ["animate__animated", "animate__fadeOut"],
           dismiss: {
             duration: 10000,
-            onScreen: true
-          }
+            onScreen: true,
+          },
         });
       }
     });
@@ -96,7 +97,7 @@ const EmpresaViewPage = ({
         setCurrentPage(currentPage + 1);
         const newArray = reviews.concat(res.data?.data?.data);
         setReviews(newArray);
-        if (res?.data?.data?.data.length < 5) {
+        if (res?.data?.data?.data.length <= 5) {
           setCanLoadMoreReviews(false);
         }
       } else {
@@ -110,7 +111,7 @@ const EmpresaViewPage = ({
     getAllReviews(id).then((res) => {
       setReviews(res.data?.data.data);
     });
-  }, [id])
+  }, [id]);
 
   useEffect(() => {
     getUserById(id).then((res) => {
@@ -228,30 +229,30 @@ const EmpresaViewPage = ({
               Este usuario no tiene reviews públicas aun
             </p>
           ) : (
-              <div className="pprofilepage__rating-container">
-                <div className="profilepage__reviewcontainer">
-                  {reviews?.map((review) => (
-                    <Review
-                      key={review._id}
-                      review={review}
-                      userId={id}
-                      setReviews={setReviews}
-                    ></Review>
-                  ))}
-                </div>
-                {canLoadMoreReviews && (
-                  <div
-                    className="addoffer__newbutton load-reviews__submit"
-                    onClick={LoadMoreReviews}
-                  >
-                    <i className="fa fas fa-plus manageoffers__icon"></i>
-                    <span className="load-reviews__title">
-                      Cargar más reviews
-                  </span>
-                  </div>
-                )}
+            <div className="pprofilepage__rating-container">
+              <div className="profilepage__reviewcontainer">
+                {reviews?.map((review) => (
+                  <Review
+                    key={review._id}
+                    review={review}
+                    userId={id}
+                    setReviews={setReviews}
+                  ></Review>
+                ))}
               </div>
-            )}
+              {canLoadMoreReviews && (
+                <div
+                  className="addoffer__newbutton load-reviews__submit"
+                  onClick={LoadMoreReviews}
+                >
+                  <i className="fa fas fa-plus manageoffers__icon"></i>
+                  <span className="load-reviews__title">
+                    Cargar más reviews
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
           <div className="pprofilepage__rating-container">
             {canReview && (
               <div className="pprofilepage__rate-body">
