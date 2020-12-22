@@ -10,7 +10,7 @@ import {
   getMyChats,
   getChatMessages,
   createMessage,
-  closeChat
+
 } from "../../utils/apiRequests";
 import ScrollToBottom from "react-scroll-to-bottom";
 import "./ChatPage-Style.css";
@@ -21,6 +21,8 @@ import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 import { getMe } from "../../utils/apiRequests";
 import { store } from "react-notifications-component";
+import { useModal } from "../../hooks/useModal";
+import DeleteChatPopup from "../../components/popup-components/DeleteChatPopup";
 
 const HOST = process.env.REACT_APP_STAGING_HOST;
 const socket = socketIOClient(HOST);
@@ -34,6 +36,11 @@ const ChatPage = () => {
   const [typing, setTyping] = useState("escribiendo");
   const [currentChat, setCurrentChat] = useState({});
   const { register, handleSubmit, reset } = useForm({});
+  const {
+    show: showDeleteChatModal,
+    RenderModal: DeleteChatModal,
+    hide: hideDeleteChatModal,
+  } = useModal();
   const submit = (data) => {
     if (!data.message_input) return null;
     if (chatExists) {
@@ -116,11 +123,6 @@ const ChatPage = () => {
     window.open(`/users/${currentChat?.user?.id}`, "_blank")
   }
 
-  const triggerChatClose = () => {
-    closeChat(currentChat._id).then((res) => {
-    });
-  }
-
   useEffect(() => {
     getMyChats().then((res) => {
       let myChats = res.data.data.chats;
@@ -186,6 +188,12 @@ const ChatPage = () => {
 
   return (
     <div className="chatpage">
+      <DeleteChatModal>
+        <DeleteChatPopup
+          chatId={currentChat._id}
+          hide={hideDeleteChatModal}
+        />
+      </DeleteChatModal>
       <Header />
       <Banner image={"qSOKi8h.png"} />
       <div className="chatpage__inner">
@@ -242,7 +250,7 @@ const ChatPage = () => {
                         Ir al perfil del usuario
                         <i className="fa fa-user"></i>
                       </a>
-                      <span href="https://www.google.com/" className="chat__action" onClick={triggerChatClose}>
+                      <span href="https://www.google.com/" className="chat__action" onClick={showDeleteChatModal}>
                         Terminar chat
                         <i className="fa fa-trash-o"></i>
                       </span>
