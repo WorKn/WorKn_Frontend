@@ -15,10 +15,16 @@ const DeleteOfferPopup = ({ offerInfo, hide }) => {
         ¿Esta seguro/a que desea borrar esta oferta?
       </div>
       <div className="dop-wrapper__down-content">
-        <span className="dop-wrapper__accept" onClick={handleDelete}>
+        <span
+          className="dop-wrapper__button dop-wrapper__button--accept"
+          onClick={handleDelete}
+        >
           Si, estoy seguro/a
         </span>
-        <span className="dop-wrapper__cancel" onClick={hide}>
+        <span
+          className="dop-wrapper__button dop-wrapper__button--cancel"
+          onClick={hide}
+        >
           No, deseo cancelar
         </span>
       </div>

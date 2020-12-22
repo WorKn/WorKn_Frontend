@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 import Header from "../../components/navbar-components/Navbar";
@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import AnnouncementBanner from "../../components/announcemnet-components/Announcement-Banner";
 import ManagePopup from "../../components/popup-components/ManagePopup";
 
+
 const EmpresaProfilePage = (props) => {
   const { state } = useStateMachine(updateAction);
   const {
@@ -28,6 +29,10 @@ const EmpresaProfilePage = (props) => {
     RenderModal: ManageModal,
     // hide: hideQuestionModal,
   } = useModal();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="pagewrap">
@@ -45,11 +50,16 @@ const EmpresaProfilePage = (props) => {
           {typeof state.userInformation.data !== "undefined" ? (
             <span className="profile__header">
               {state.userInformation.data.name}
+              {typeof state.userInformation.data.isVerified && state.userInformation.data.isVerified === true ? (
+                <div className="profile__validated tooltip"><span className="tooltiptext">Esta organización está verificada</span><i class="fa fa-check profile__validatedicon"></i></div>
+              ) : (
+                  ""
+                )}
             </span>
           ) : (
-            <span className="profile__header">Nombres de la Empresa</span>
-          )}
-          <Link to="/userprofilepage" style={{ textDecoration: "none" }}>
+              <span className="profile__header">Nombres de la Empresa</span>
+            )}
+          <Link to="/userprofile" style={{ textDecoration: "none" }}>
             <div className="profile__backtick">
               <i className="fa fa-chevron-left icon"></i>
               <span>Volver al perfil de propietario</span>
@@ -71,16 +81,21 @@ const EmpresaProfilePage = (props) => {
               administradores nunca te la solicitarán.
             </span>
             {typeof state.userInformation.organizationRole !== "undefined" &&
-            (state.userInformation.organizationRole === "owner" ||
-              state.userInformation.organizationRole === "supervisor") ? (
-              <div>
+              (state.userInformation.organizationRole === "owner" ||
+                state.userInformation.organizationRole === "supervisor") ? (
                 <button
                   className="userprofile__action"
                   onClick={showMembersModal}
                 >
                   <i className="fa fa-cog userprofile__icon"></i>
-                  Manejar invitaciones de miembros
+                  Invitar miembros
                 </button>
+              ) : (
+                ""
+              )}
+            {typeof state.userInformation.organizationRole !== "undefined" &&
+              (state.userInformation.organizationRole === "owner" ||
+                state.userInformation.organizationRole === "supervisor") ? (
                 <button
                   className="userprofile__action"
                   onClick={ShowManageModal}
@@ -88,10 +103,9 @@ const EmpresaProfilePage = (props) => {
                   <i className="fa fa-cog userprofile__icon"></i>
                   Manejar miembros
                 </button>
-              </div>
-            ) : (
-              ""
-            )}
+              ) : (
+                ""
+              )}
             <Link to="/manageoffers">
               <button className="userprofile__action">
                 <i className="fa fa-cog userprofile__icon"></i>

@@ -9,13 +9,18 @@
 }
 
 .bg-red {
-  background-color: #ea4335;
+  background-color: #EE6055; 
   color: #fff;
 }
 
 .bg-gray {
   background-color: #e5e4e4;
   color: #4d4e52;
+}
+
+.bg-jet {
+  background-color: #333234;
+  color: #fff;
 }
 
 .spacer {
@@ -33,18 +38,25 @@
   flex-flow: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
-  background-image: url("https://i.imgur.com/FQ6eh0i.jpg");
+  width: 100%;
+  height: 100%;
+  background: url("https://i.imgur.com/FQ6eh0i.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .green-line {
   display: flex;
   flex-flow: column;
   width: 35%;
+  height: auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   background: linear-gradient(90deg, #fff 94%, #5bba6f 50%);
   border-radius: 10px;
+  margin-top: 80px;
+  margin-bottom: 80px;
 }
 
 .sizing-container {

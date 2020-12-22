@@ -1,0 +1,42 @@
+.edit-review__container {
+  width: 100%;
+}
+
+.edit-review__textarea {
+  padding: 10px;
+  margin-top: 15px;
+  min-width: 350px;
+  min-height: 60px;
+  max-height: 20vh;
+  max-width: 518px;
+}
+
+.edit-review__body {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 30px 20px;
+  border-radius: 15px;
+  background-color: white;
+  margin: 20px 10px;
+  width: 100%;
+}
+
+.edit-review__form {
+  margin-left: 30px;
+}
+
+.ProfileView__rating-pp {
+  display: flex;
+  justify-content: center;
+  margin: 2em 0;
+}
+
+.edit-review__required {
+  margin: 5px 0px;
+}
+
+.create-rate__buttons--center {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+}

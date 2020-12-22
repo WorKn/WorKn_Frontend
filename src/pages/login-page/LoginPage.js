@@ -11,6 +11,10 @@ import { userLogin } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
+import { store } from 'react-notifications-component';
+import Header from "../../components/navbar-components/Navbar";
+import Footer from "../../components/footer-components/Footer";
+
 
 import GoogleSignUpButton from "./../../components/button-components/GoogleSignUpButton"
 
@@ -34,21 +38,26 @@ const LoginPage = React.memo((props) => {
   };
 
   useEffect(() => {
+    action({ name: '', lastname: '', bio: "", identificationNumber: "", location: "", phone: "", email: "", birthday: "", password: "", passwordConfirm: "", userType: "", category: "", tags: '', organization: '', organizationRole: '', isEmailValidated: "", createdAt: '', profilePicture: "", _id: '', __v: "", passwordChangedAt: '', signUpMethod: "", isSignupCompleted: "", id: '', data: '', hasPasswordUpdated: false, hasCreatedAccount: false, updatedAt: "", isActive: false, tokens: "", chats: "", chatPivot: "", })
+  }, [action])
+
+  useEffect(() => {
     if (userObject.data !== undefined && userObject.data.status === "success") {
       action(userObject.data.data.user);
+      action({ hasPasswordUpdated: false })
       Cookies.set("jwt", userObject.data.token, { expires: 7 });
     }
     const user = Cookies.get("jwt");
     if (user && state.userInformation.category && state.userInformation.tags) {
       auth.login();
-      push("/userprofilepage");
+      push("/userprofile");
     } else if (
       user &&
       !state.userInformation.category &&
       !state.userInformation.tags
     ) {
       auth.login();
-      push("/userprofilepage");
+      push("/userprofile");
       console.log("not completed!");
     }
   }, [
@@ -59,11 +68,50 @@ const LoginPage = React.memo((props) => {
     state.userInformation.tags,
   ]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
+    if (state.userInformation.isUserFromNav && state.userInformation.isUserFromNav === true) {
+      setTimeout(() => {
+        showQuestionModal();
+      }, 1000)
+      setTimeout(() => {
+        action({ isUserFromNav: false })
+      }, 1500)
+    }
+  }, [action, showQuestionModal, state.userInformation.isUserFromNav])
+
+
+  useEffect(() => {
+    if (state.userInformation.hasPasswordUpdated !== "undefined" && state.userInformation.hasPasswordUpdated === true) {
+      setTimeout(() => {
+        store.addNotification({
+          title: "Contraseña cambiada exitosamente!",
+          message: "Accede utilizando tus nuevas credenciales",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true
+          }
+        });
+      }, 1500);
+    } else (
+      console.log("Loading...")
+    )
+  }, [state.userInformation.hasPasswordUpdated])
+
   return (
     <div className="login-wrapper">
       <QuestionModal>
         <QuestionPopup />
       </QuestionModal>
+      <Header />
       <div className="green-line">
         <div>
           <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
@@ -108,13 +156,13 @@ const LoginPage = React.memo((props) => {
               )}
             />
             {typeof userObject.data !== "undefined" &&
-            userObject.data.status === "success" ? (
-              <div className="input__msg input__msg--success">
-                Bienvenido, {userObject.data.data.user.name}
-              </div>
-            ) : (
-              ""
-            )}
+              userObject.data.status === "success" ? (
+                <div className="input__msg input__msg--success">
+                  Bienvenido, {userObject.data.data.user.name}
+                </div>
+              ) : (
+                ""
+              )}
             <div className="input__msg input__msg--error">
               {userObject.message}
             </div>
@@ -132,22 +180,15 @@ const LoginPage = React.memo((props) => {
             <input
               className="custom-button bg-green"
               type="submit"
-              value="Acceder"
+              value="Iniciar sesión"
             />
-            <span onClick={showQuestionModal} className="custom-button bg-gray">
-              <span>Regístrate</span>
-            </span>
             <div className="line-separator">
               <span className="hl"></span>
               <span className="spacer">o</span>
               <span className="hl"></span>
             </div>
-            <span className="custom-button bg-blue">
-              <div className="inner-container">
-                <i className="fa fa-facebook-official"></i>
-                <span className="vl"></span>
-                <span>Accede con Facebook</span>
-              </div>
+            <span onClick={showQuestionModal} className="custom-button bg-jet">
+              <span>Regístrate ahora</span>
             </span>
             {/* <span className="custom-button bg-red">
               <div className="inner-container">
@@ -160,7 +201,9 @@ const LoginPage = React.memo((props) => {
           </form>
         </div>
       </div>
+      <Footer></Footer>
     </div>
+
   );
 });
 

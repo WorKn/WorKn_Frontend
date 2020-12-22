@@ -1,19 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./OfferPopup-Style.css";
 import Tag from "../tag-components/Tag";
+import { Link } from "react-router-dom";
+import updateAction from "../../updateAction";
+import { useStateMachine } from "little-state-machine";
 
 let MyDictionary = {};
 MyDictionary["free"] = "Freelancer";
 MyDictionary["fixed"] = "Fijo/Indefinido";
 
 const OfferPopup = ({ offerInfo, organizationInformation }) => {
+  const [profileRoute, setProfileRoute] = useState("");
+  const [offererTitleRoute, setOffererTitleRoute] = useState("");
+  const { state } = useStateMachine(updateAction);
+
+  useEffect(() => {
+    if (offerInfo.organization) {
+      // setProfilePictureRoute(responseInfo?.organization?.profilePicture);
+      setOffererTitleRoute(organizationInformation?.name);
+      setProfileRoute(`/organizations/${organizationInformation?._id}`);
+    } else {
+      setOffererTitleRoute(
+        state.userInformation.name + state.userInformation.lastname
+      );
+    }
+  }, [offerInfo, organizationInformation, state.userInformation]);
+
   return (
-    <div className="popup-wrapper">
+    <div className="op-wrapper">
       <div className="op-wrapper__up-content">
         {organizationInformation?.profilePicture ? (
-          <img src={organizationInformation.profilePicture} alt="Offerpp" />
+          <div className="op-wrapper__img">
+            <img src={organizationInformation.profilePicture} alt="Offerpp" />
+          </div>
         ) : (
-          <img src="https://i.imgur.com/lcHQ2QP.jpg" alt="Offerpp" />
+          <div className="op-wrapper__img">
+            <img src="https://i.imgur.com/lcHQ2QP.jpg" alt="Offerpp" />
+          </div>
         )}
         <div className="op-wrapper__text">
           <span className="op-wrapper__title">
@@ -21,25 +44,27 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
           </span>
           <div className="op-wrapper__bullets">
             <ul>
+              {/* <li>
+                Por <b>{offererTitleRoute}</b>
+                {organizationInformation?.location ? (
+                  <span>
+                    {" "}
+                    en
+                    <b>{organizationInformation.location}</b>
+                  </span>
+                ) : null}
+              </li> */}
               <li>
-                Por <b>{organizationInformation.name}</b>
-                {organizationInformation.location ? " en " : null}
-                <b>
-                  {organizationInformation
-                    ? organizationInformation.location
-                    : " Info no disponible"}
-                </b>
-              </li>
-              <li>
-                {offerInfo
+                {offerInfo.offerType
                   ? MyDictionary[offerInfo.offerType]
                   : "Info no disponible"}
               </li>
-              <li>
-                {offerInfo
-                  ? `${offerInfo.closingDate.slice(0, 10)}`
-                  : "Info no disponible"}
-              </li>
+              {offerInfo.createdAt ? (
+                <li>Fecha de creación: {offerInfo.createdAt.slice(0, 10)}</li>
+              ) : null}
+              {offerInfo.closingDate ? (
+                <li>Fecha de cierre: {offerInfo.closingDate.slice(0, 10)}</li>
+              ) : null}
             </ul>
           </div>
           <ul className="op-wrapper_tags">
@@ -58,20 +83,31 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
           Detalles de la oferta
         </span>
         <p className="op-wrapper__downinfo">
-          {offerInfo ? offerInfo.description : "Descripcion no disponible"}
+          {offerInfo.description
+            ? offerInfo.description
+            : "Los detalles de la oferta no estan disponibles"}
         </p>
-        <p className="op-wrapper__contact">
-          Contacto:
-          <a href={`mailto:${organizationInformation.email}`}>
-            {organizationInformation.email}
-          </a>
-          <b>{organizationInformation.phone}</b>
-        </p>
+        {offerInfo?.salaryRange ? (
+          <p className="op-wrapper__salary">
+            Rango salarial:<br></br>
+            <b>
+              RD$ {offerInfo?.salaryRange[0]} - {offerInfo?.salaryRange[1]}
+            </b>
+          </p>
+        ) : null}
+        {offerInfo.organization ? (
+          <p className="op-wrapper__contact">
+            Contacto:
+            <Link
+              to={profileRoute}
+              target="_blank"
+              style={{ textDecoration: "none" }}
+            >
+              {offererTitleRoute}
+            </Link>
+          </p>
+        ) : null}
       </div>
-      {/* <div className="op-wrapper__button-content">
-        <span className="op-wrapper__accept">Contacar</span>
-        <span className="op-wrapper__cancel">Descartar</span>
-      </div> */}
     </div>
   );
 };

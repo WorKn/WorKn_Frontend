@@ -11,7 +11,6 @@ const PictureForm = ({ handleNewImage, isOrg }) => {
   const [preview, setPreview] = useState(false);
   const [newInfo, setNewInfo] = useState();
 
-
   const handleImageUpload = (e) => {
     setImage(e.target.files[0]);
     setPreview(true);
@@ -45,18 +44,28 @@ const PictureForm = ({ handleNewImage, isOrg }) => {
       {preview ? (
         <>
           <div className="PicForm">
-            <img
-              src={URL.createObjectURL(image)}
-              alt="preview"
-              className="Pic-selector__img"
-              style={{ display: "none" }}
-            />
-            <button onClick={handleSubmit} className="PicForm_cbutton">
-              Confirmar
-            </button>
-            <button onClick={clearImage} className="PicForm_xbutton">
-              Cancelar
-            </button>
+            <div className="Pic-selector Pic-selector--F">
+              <span>Preview</span>
+              <div className="Pic-selector__profile-container">
+                <div className="Pic-selector__img-holder">
+                  <img
+                    src={URL.createObjectURL(image)}
+                    alt="preview"
+                    id="img"
+                    className="Pic-selector__img"
+                    // style={{ display: "none" }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="PicForm_choice">
+              <button onClick={handleSubmit} className="PicForm_cbutton">
+                Confirmar
+              </button>
+              <button onClick={clearImage} className="PicForm_xbutton">
+                Cancelar
+              </button>
+            </div>
           </div>
         </>
       ) : (

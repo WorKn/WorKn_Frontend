@@ -7,7 +7,7 @@
   width: 100%;
   margin-bottom: 30px;
   background-color: white;
-  border-radius: 45px;
+  border-radius: 10px;
   cursor: pointer;
   transition: transform 0.5s ease;
   box-shadow: 1px 7px 10px -12px rgba(0, 0, 0, 0.75);
@@ -28,7 +28,8 @@
 .offerstrip__tagscontainer {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  white-space: nowrap;
 }
 
 .offerstrip__picture {
@@ -55,7 +56,7 @@
 }
 .offerstrip__action {
   display: flex;
-  margin: 10px 0px;
+  margin: 10px 10px;
   width: auto;
   justify-content: flex-start;
   /* color: #00ba6b; */
@@ -76,8 +77,12 @@
   color: #ee6055;
 }
 
+.offerstrip__control{
+  display: flex;
+}
+
 @media only screen and (max-width: 1490px) {
-  .offerstrip__edit,
+  /* .offerstrip__edit, */
   .offerstrip__type,
   .offerstrip__delete,
   .offerstrip__org,
@@ -96,7 +101,7 @@
     flex-flow: column;
     justify-items: center;
     align-items: center;
-    height: 200px;
+    height: auto;
     margin: 10px;
   }
   .offerstrip__picture {

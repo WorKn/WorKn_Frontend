@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: #f7f7f7;
-  width: 100vw;
+  width: 100%;
   padding: 60px 10%;
 }
 
@@ -95,4 +95,9 @@
   .cta-container__image {
     width: 80%;
   }
+}
+
+.fa.fa-address-card.cta-container__profile-icon {
+  font-size: 25px;
+  margin-right: 5px;
 }

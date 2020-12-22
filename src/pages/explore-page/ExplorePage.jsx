@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./ExplorePage-Style.css";
 import Banner from "../../components/banner-components/Banner";
 import Header from "../../components/navbar-components/Navbar";
+import Footer from "../../components/footer-components/Footer";
 import { useForm } from "react-hook-form";
 import OfferCard from "../../components/offer-components/OfferCard";
-import { getAllUsers, getAllOffers } from "../../utils/apiRequests";
+import { getAllUsers, getAllFilteredOffers } from "../../utils/apiRequests";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
-import Footer from "../../components/footer-components/Footer";
 
 const ExplorePage = () => {
   const [parameter, setParameter] = useState("");
@@ -81,8 +81,6 @@ const ExplorePage = () => {
     ) {
       setParameter("name");
       getAllUsers().then((res) => {
-        console.log(res);
-        console.log("ofertante detected");
         setResponses(res.data.data.data);
       });
     } else if (
@@ -90,16 +88,12 @@ const ExplorePage = () => {
       state.userInformation.userType === "applicant"
     ) {
       setParameter("title");
-      getAllOffers().then((res) => {
-        console.log("aplicante detected");
-        console.log(res.data.data.data);
+      getAllFilteredOffers().then((res) => {
         setResponses(res.data.data.data);
       });
     } else {
       setParameter("title");
-      getAllOffers().then((res) => {
-        console.log("no type detected");
-        console.log(res.data.data.data);
+      getAllFilteredOffers().then((res) => {
         setResponses(res.data.data.data);
       });
     }
@@ -123,34 +117,34 @@ const ExplorePage = () => {
               ></input>
 
               {typeof state.userInformation.userType !== "undefined" &&
-              state.userInformation.userType === "offerer" ? (
-                <select
-                  type="text"
-                  name="type"
-                  className="explorepage__select explorepage__searchbtn"
-                  ref={register()}
-                  onChange={(e) => setParameter(e.target.value)}
-                >
-                  <option value="name">Nombre</option>
-                  <option value="lastname">Apellido</option>
-                  <option value="category">Categoría</option>
-                  <option value="tag">Etiqueta</option>
-                </select>
-              ) : (
-                <select
-                  type="text"
-                  name="type"
-                  className="explorepage__select explorepage__searchbtn"
-                  ref={register()}
-                  onChange={(e) => setParameter(e.target.value)}
-                >
-                  <option value="title">Nombre</option>
-                  <option value="category">Categoría</option>
-                  <option value="tag">Etiqueta</option>
-                  <option value="orgname">Organización</option>
-                  <option value="offertype">Tipo de oferta</option>
-                </select>
-              )}
+                state.userInformation.userType === "offerer" ? (
+                  <select
+                    type="text"
+                    name="type"
+                    className="explorepage__select explorepage__searchbtn"
+                    ref={register()}
+                    onChange={(e) => setParameter(e.target.value)}
+                  >
+                    <option value="name">Nombre</option>
+                    <option value="lastname">Apellido</option>
+                    <option value="category">Categoría</option>
+                    <option value="tag">Etiqueta</option>
+                  </select>
+                ) : (
+                  <select
+                    type="text"
+                    name="type"
+                    className="explorepage__select explorepage__searchbtn"
+                    ref={register()}
+                    onChange={(e) => setParameter(e.target.value)}
+                  >
+                    <option value="title">Nombre</option>
+                    <option value="category">Categoría</option>
+                    <option value="tag">Etiqueta</option>
+                    <option value="orgname">Organización</option>
+                    <option value="offertype">Tipo de oferta</option>
+                  </select>
+                )}
               {/* <div
                 onClick={handleSubmit(onSubmit)}
                 className="explorepage__searchbtn"
@@ -169,6 +163,19 @@ const ExplorePage = () => {
               ) : null
             )}
           </div>
+          {filteredResponse && filteredResponse.length === 0 ? (
+            <div className="summary__announcement">
+              <div className="summarypage__imgbg">
+                <img src="https://i.imgur.com/agtLnO2.png" alt="applied" className="summarypage_shortimg"></img>
+              </div>
+              <div className="summary__announcementinner">
+                <span className="summarypagea__title--dark">Parece que no hemos podido recuperar ninguna oferta o persona</span>
+                <span>Puedes volver a revisar en breve y probablemente seamos capaces de conseguir algo para tí</span>
+              </div>
+            </div>
+          ) : (
+              ""
+            )}
         </div>
       </div>
       <Footer></Footer>
