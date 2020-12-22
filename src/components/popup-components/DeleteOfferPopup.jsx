@@ -1,11 +1,27 @@
 import React from "react";
 import "./DeleteOfferPopup-Style.css";
 import { deleteOffer } from "../../utils/apiRequests";
+import { store } from "react-notifications-component";
 
 const DeleteOfferPopup = ({ offerInfo, hide }) => {
   const handleDelete = () => {
     let id = offerInfo._id;
     deleteOffer(id).then((res) => {
+      if (res && res !== undefined) {
+        store.addNotification({
+          title: "Oferta eliminada correctamente",
+          message: "La oferta seleccionada fue elimininada de su organización.",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true,
+          },
+        });
+      }
       hide();
     });
   };

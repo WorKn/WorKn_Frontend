@@ -10,6 +10,7 @@ import {
   getMyChats,
   getChatMessages,
   createMessage,
+  closeChat
 } from "../../utils/apiRequests";
 import ScrollToBottom from "react-scroll-to-bottom";
 import "./ChatPage-Style.css";
@@ -19,6 +20,7 @@ import Message from "../../components/chat-components/Message";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 import { getMe } from "../../utils/apiRequests";
+import { store } from "react-notifications-component";
 
 const HOST = process.env.REACT_APP_STAGING_HOST;
 const socket = socketIOClient(HOST);
@@ -36,10 +38,28 @@ const ChatPage = () => {
     if (!data.message_input) return null;
     if (chatExists) {
       createMessage(data.message_input, currentChat._id).then((res) => {
-        socket.emit("chat_message", currentChat._id, res.data.data.message);
+        console.log(res)
+        if (res.data !== undefined && res.data.status === "success") {
+          socket.emit("chat_message", currentChat._id, res.data.data.message);
+        } else {
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: "Este chat ya no existe, por favor revise desde su pantalla de resumen.",
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true,
+            },
+          });
+        }
       });
     } else {
       createChat(data.message_input, interactionId).then((res) => {
+        console.log(res)
         if (res.data !== undefined && res.data.status === "success") {
           setCurrentChat(res.data.data.chat);
           socket.emit(
@@ -47,6 +67,20 @@ const ChatPage = () => {
             res.data.data.chat.id,
             res.data.data.lastMessage
           );
+        } else {
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: "Esta oferta ha sido eliminida. Por favor revise desde su pestaña de resumen.",
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true,
+            },
+          });
         }
       });
     }
@@ -80,6 +114,11 @@ const ChatPage = () => {
 
   const redirectToUser = () => {
     window.open(`/users/${currentChat?.user?.id}`, "_blank")
+  }
+
+  const triggerChatClose = () => {
+    closeChat(currentChat._id).then((res) => {
+    });
   }
 
   useEffect(() => {
@@ -203,10 +242,10 @@ const ChatPage = () => {
                         Ir al perfil del usuario
                         <i className="fa fa-user"></i>
                       </a>
-                      <a href="https://www.google.com/" className="chat__action">
-                        Eliminar este chat
+                      <span href="https://www.google.com/" className="chat__action" onClick={triggerChatClose}>
+                        Terminar chat
                         <i className="fa fa-trash-o"></i>
-                      </a>
+                      </span>
                     </div>
                   </i>
                 </div>
