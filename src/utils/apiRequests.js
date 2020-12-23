@@ -86,17 +86,17 @@ export const userLogin = async (user) => {
   }
 };
 
-export const googleAuth = async (code, redirectUri) => {
-  try {
-    const response = await axios.post(`${HOST}/api/v1/users/login/google`, {
-      code,
-      redirectUri,
-    });
-    return response;
-  } catch (e) {
-    return e.response.data;
-  }
-};
+// export const googleAuth = async (code, redirectUri) => {
+//   try {
+//     const response = await axios.post(`${HOST}/api/v1/users/login/google`, {
+//       code,
+//       redirectUri,
+//     });
+//     return response;
+//   } catch (e) {
+//     return e.response.data;
+//   }
+// };
 
 export const userSignup = async (user) => {
   try {
@@ -132,6 +132,27 @@ export const orgUserSignup = async (user) => {
     return e.response.data;
   }
 };
+
+export const validateUserGoogleAuthRegister = async (code, redirect_uri) => {
+  try {
+    const response = await axios.get(
+      `${HOST}/api/v1/users/googleAuth/validate?code=${code}&redirect_uri=${redirect_uri}`,
+    );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const googleAuth = async (user) => {
+  try {
+    const response = await axios.post(`${{ HOST }}/api/v1/users/googleAuth`, user);
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
 
 export const updateProfile = async (user) => {
   try {

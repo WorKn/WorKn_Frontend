@@ -29,6 +29,8 @@ import ReactNotification from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import ChatPage from "./pages/chat-page/ChatPage";
 import RecommendationsPage from "./pages/recommendations-page/RecommendationsPage";
+import GoogleOwnerRegister from "./pages/register-page/GoogleOwnerRegister";
+import GoogleMemberRegister from "./pages/register-page/GoogleMemberRegister";
 // import ChatPage from "./pages/chat-page/ChatPage";
 require("dotenv").config({ path: "./.env" });
 
@@ -52,6 +54,8 @@ function App() {
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/registerc1" component={RegisterPageC1} />
             <Route exact path="/registerc2" component={RegisterPageC2} />
+            <Route exact path="/googleOwnerRegister" component={GoogleOwnerRegister} />
+            <Route exact path="/googleMemberRegister" component={GoogleMemberRegister} />
             <Route exact path="/login" component={LoginPage} />
             <Route
               exact
@@ -110,7 +114,7 @@ function App() {
             <Route exact path="/summary" component={SummaryPage} />
             <Route exact path="/explore" component={ExplorePage} />
             <Route exact path="/managemembers" component={ManagePopup} />
-            <Route path="/authenticate/google" component={GoogleAuthPage} />
+            <Route path="/googleAuth" component={GoogleAuthPage} />
             {/* <Route exact path="/chat" component={ChatPage} /> */}
             <Route exact path="/chat" component={ChatPage} />
             <Route path="*" component={NotFound} />
