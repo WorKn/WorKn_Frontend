@@ -1,6 +1,8 @@
 import React from "react";
 import "./DeleteOfferPopup-Style.css";
 import { deleteOffer, getMyOffers } from "../../utils/apiRequests";
+import { deleteOffer } from "../../utils/apiRequests";
+import { store } from "react-notifications-component";
 
 const DeleteOfferPopup = ({ offerInfo, hide, setMyOffers }) => {
   const handleDelete = () => {
@@ -9,10 +11,26 @@ const DeleteOfferPopup = ({ offerInfo, hide, setMyOffers }) => {
       getMyOffers().then((res) => {
         setMyOffers(res.data.data.offers);
       });
-      setTimeout(() => {
-        hide();
-      }, 1500);
+      if (res && res !== undefined) {
+        store.addNotification({
+          title: "Oferta eliminada correctamente",
+          message: "La oferta seleccionada fue elimininada de su organización.",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true,
+          },
+        });
+      }
+      hide();
     });
+    setTimeout(() => {
+      hide();
+    }, 1500);
   };
   return (
     <div className="dop-wrapper">
