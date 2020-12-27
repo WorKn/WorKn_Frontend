@@ -16,6 +16,9 @@ const ReviewBody = ({ review, userId, setReviews }) => {
 
   const { state } = useStateMachine(updateAction);
   let history = useHistory();
+  const redirectToUser = () => {
+    window.open(`users/${review.createdBy._id}`);
+  };
 
   return (
     <div className="pprofilepage__rating-body">
@@ -40,9 +43,7 @@ const ReviewBody = ({ review, userId, setReviews }) => {
         <div className="pprofilepage__rating-header">
           {/* Prueba de enrutamiento por perfil de usuario */}
           <h2
-            onClick={() => {
-              history.push(`users/${review.createdBy._id}`);
-            }}
+            onClick={redirectToUser}
           >{`${review.createdBy.name} ${review.createdBy.lastname}`}</h2>
           {review.createdBy._id === state.userInformation._id ? (
             <i className="fa fa-edit" onClick={showEditReviewModal}></i>
