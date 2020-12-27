@@ -28,9 +28,6 @@ const DeleteOfferPopup = ({ offerInfo, hide, setMyOffers }) => {
       }
       hide();
     });
-    setTimeout(() => {
-      hide();
-    }, 1500);
   };
   return (
     <div className="dop-wrapper">
