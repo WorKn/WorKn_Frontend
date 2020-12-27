@@ -1,6 +1,6 @@
 import React from "react";
 import "./DeleteOfferPopup-Style.css";
-import { deleteOffer, getMyOffers } from "../../utils/apiRequests";
+import { getMyOffers } from "../../utils/apiRequests";
 import { deleteOffer } from "../../utils/apiRequests";
 import { store } from "react-notifications-component";
 
