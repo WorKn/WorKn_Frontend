@@ -30,9 +30,7 @@ const RecommendationsPage = () => {
   let history = useHistory();
 
   useEffect(() => {
-    if (!state.userInformation.userType) {
-      setLoadingVar(true);
-    } else {
+    
       setTimeout(() => {
         setLoadingVar(false);
         if (state.userInformation.userType === "offerer") {
@@ -43,31 +41,37 @@ const RecommendationsPage = () => {
           });
         } else if (state.userInformation.userType === "applicant") {
           getOfferRecommendation().then((res) => {
-            console.log(res);
+            console.log("las ofertas recomendadas pal aplicante son:")
+            console.log(res?.data?.data?.offers);
             setOfferRecommendations(res?.data?.data?.offers);
           });
         } else {
           history.push("/login");
         }
       }, 1500);
-    }
+    
   }, [state.userInformation.userType, history]);
 
   const oRecommendations = useMemo(
     () =>
-      offerRecommendations &&
-      offerRecommendations.map((rec) => {
+    typeof offerRecommendations !== "undefined" &&
+    offerRecommendations.filter(rec => rec !== null).map(
+      (rec) => {
         return (
-          <React.Fragment key={rec._id}>
+          <React.Fragment key={rec?._id}>
             <RecommendationCard
               offerInfo={rec}
-              key={rec._id}
+              key={rec?._id}
             ></RecommendationCard>
           </React.Fragment>
         );
-      }),
+      }
+    ),
     [offerRecommendations]
   );
+  
+
+
 
   const uRecommendations = useMemo(
     () =>

@@ -13,7 +13,7 @@ const EmailValidation = ({
     params: { token },
   },
 }) => {
-  const [validated, setValidated] = useState(false);
+  const [validated, setValidated] = useState(true);
 
   useEffect(() => {
     validateEmail(token).then((res) => {
