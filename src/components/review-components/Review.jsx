@@ -1,11 +1,9 @@
 import React from "react";
 import { useModal } from "../../hooks/useModal";
 import { useStateMachine } from "little-state-machine";
-import { useHistory } from "react-router-dom";
 import updateAction from "../../updateAction";
 import StarRating from "../../components/starrating-components/StarRating";
 import EditReviewPopup from "../../components/popup-components/EditReviewPopup";
-import { Link } from "react-router-dom";
 
 const ReviewBody = ({ review, userId, setReviews }) => {
   const {
@@ -15,7 +13,6 @@ const ReviewBody = ({ review, userId, setReviews }) => {
   } = useModal();
 
   const { state } = useStateMachine(updateAction);
-  let history = useHistory();
   const redirectToUser = () => {
     window.open(`users/${review.createdBy._id}`);
   };
