@@ -21,6 +21,7 @@ const DeleteChatPopup = ({ chatId, hide }) => {
                     },
                 });
                 hide();
+                // window.location.reload();
             } else {
                 store.addNotification({
                     title: "Ha ocurrido un error",

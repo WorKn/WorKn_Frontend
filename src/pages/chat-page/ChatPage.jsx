@@ -246,11 +246,7 @@ const ChatPage = () => {
                 <div className="chat__usercontrol">
                   <i className="fa fa-cog config__dropdown">
                     <div className="chat__dropdowncontent">
-                      <a href="https://www.google.com/" className="chat__action">
-                        Ir al perfil del usuario
-                        <i className="fa fa-user"></i>
-                      </a>
-                      <span href="https://www.google.com/" className="chat__action" onClick={showDeleteChatModal}>
+                      <span className="chat__action" onClick={showDeleteChatModal}>
                         Terminar chat
                         <i className="fa fa-trash-o"></i>
                       </span>
