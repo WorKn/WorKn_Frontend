@@ -193,7 +193,7 @@ const EmpresaViewPage = ({
             {!isOfferer && (
               <div className="pprofilepage__tags pprofilepage__tags--mob">
                 <h2>{category}</h2>
-                <div className="tags-container">
+                <div className="ppptags-container">
                   {userInfo?.tags &&
                     userInfo?.tags.map((tag) => (
                       <Tag
