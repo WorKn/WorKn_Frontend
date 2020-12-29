@@ -57,7 +57,7 @@
 }
 
 .create-offer__description-input {
-  height: 80px;
+  min-height: 48px;
   margin-bottom: 3px;
   padding: 14px;
   background-color: white;
@@ -122,8 +122,24 @@
   border: 1px solid #d9d9d9;
   border-radius: 5px;
   margin: 5px 0px;
+  width: 48%;
+  display: flex;
+  padding-right: 20px;
 }
 
 .create-offer__money-range span {
   color: #8f7f7f;
+  align-self: center;
+  margin-top: 7px;
+}
+
+.create-offer__input-row {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.create-offer__paired-input--half {
+  width: 48%;
 }

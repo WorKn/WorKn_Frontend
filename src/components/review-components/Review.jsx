@@ -13,6 +13,9 @@ const ReviewBody = ({ review, userId, setReviews }) => {
   } = useModal();
 
   const { state } = useStateMachine(updateAction);
+  const redirectToUser = () => {
+    window.open(`users/${review.createdBy._id}`);
+  };
 
   return (
     <div className="pprofilepage__rating-body">
@@ -35,7 +38,10 @@ const ReviewBody = ({ review, userId, setReviews }) => {
 
       <div className="pprofilepage__rating--description">
         <div className="pprofilepage__rating-header">
-          <h2>{`${review.createdBy.name} ${review.createdBy.lastname}`}</h2>
+          {/* Prueba de enrutamiento por perfil de usuario */}
+          <h2
+            onClick={redirectToUser}
+          >{`${review.createdBy.name} ${review.createdBy.lastname}`}</h2>
           {review.createdBy._id === state.userInformation._id ? (
             <i className="fa fa-edit" onClick={showEditReviewModal}></i>
           ) : null}
