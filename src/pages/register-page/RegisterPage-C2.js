@@ -246,6 +246,11 @@ const RegisterPageC2 = () => {
               type="submit"
               value="Siguiente"
             />
+            <div className="line-separator">
+              <span className="hl"></span>
+              <span className="spacer">o</span>
+              <span className="hl"></span>
+            </div>
             <div className="ctext-separator">
               <span className="remind-me">
                 Ya tienes cuenta? {""}
@@ -254,12 +259,8 @@ const RegisterPageC2 = () => {
               </a>
               </span>
             </div>
-            <div className="line-separator">
-              <span className="hl"></span>
-              <span className="spacer">o</span>
-              <span className="hl"></span>
-            </div>
-            <span className="custom-button bg-blue">
+
+            {/* <span className="custom-button bg-blue">
               <div className="inner-container">
                 <i class="fa fa-facebook-official"></i>
                 <span className="vl"></span>
@@ -272,7 +273,7 @@ const RegisterPageC2 = () => {
                 <span className="vl"></span>
                 <span>Regístrate con Google</span>
               </div>
-            </span>
+            </span> */}
           </form>
         </div>
       </div>

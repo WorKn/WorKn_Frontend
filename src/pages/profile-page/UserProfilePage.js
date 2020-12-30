@@ -71,10 +71,13 @@ const UserProfilePage = (props) => {
               dar tu constraseña a ningún usuario a través de WorKn, los
               administradores nunca te la solicitarán.
             </span>
-            <button className="userprofile__action" onClick={showPasswordModal}>
-              <i className="fa fa-cog userprofile__icon"></i>
-              Cambiar constraseña
-            </button>
+            {typeof state.userInformation.signUpMethod !== "undefined" && state.userInformation.signUpMethod !== "google" ? (
+              <button className="userprofile__action" onClick={showPasswordModal}>
+                <i className="fa fa-cog userprofile__icon"></i>
+            Cambiar constraseña
+              </button>
+            ) : null
+            }
             {(typeof (state.userInformation.organizationRole !== "undefined") &&
               state.userInformation.organizationRole === "owner") ||
               state.userInformation.organizationRole === "member" ||

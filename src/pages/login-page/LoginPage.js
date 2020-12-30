@@ -16,6 +16,8 @@ import Header from "../../components/navbar-components/Navbar";
 import Footer from "../../components/footer-components/Footer";
 
 
+import GoogleSignUpButton from "./../../components/button-components/GoogleSignUpButton"
+
 const LoginPage = React.memo((props) => {
   const [userObject, setUserObject] = useState("");
   const { register, handleSubmit, errors } = useForm();
@@ -188,13 +190,14 @@ const LoginPage = React.memo((props) => {
             <span onClick={showQuestionModal} className="custom-button bg-jet">
               <span>Regístrate ahora</span>
             </span>
-            <span className="custom-button bg-red">
+            {/* <span className="custom-button bg-red">
               <div className="inner-container">
                 <i className="fa fa-google"></i>
                 <span className="vl"></span>
                 <span>Accede con Google</span>
               </div>
-            </span>
+            </span> */}
+            <GoogleSignUpButton/>
           </form>
         </div>
       </div>
