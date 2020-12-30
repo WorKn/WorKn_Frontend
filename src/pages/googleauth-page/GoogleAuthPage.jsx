@@ -1,40 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useModal } from "../../hooks/useModal";
-import { googleAuth, validateUserGoogleAuthRegister } from "../../utils/apiRequests";
+import { googleAuth } from "../../utils/apiRequests";
 import queryString from "query-string";
 import LoginPage from "../login-page/LoginPage";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
 import GoogleQuestionPopup from "../../components/popup-components/GoogleQuestionPopup";
+import Cookies from "js-cookie";
+import auth from "../../utils/authHelper";
 
 const GoogleAuthPage = ({ location }) => {
-    const [userGoogleInfo, setUserGoogleInfo] = useState()
+    const { push } = useHistory();
     const { state, action } = useStateMachine(updateAction);
     const {
         show: showGoogleQuestionModal,
         RenderModal: GoogleQuestionModal,
-        // hide: hideQuestionModal,
     } = useModal();
 
-
     useEffect(() => {
+        console.log(state.userInformation.sub)
         console.log(location)
         const urlParams = queryString.parse(location.search);
         if (urlParams.error) {
             console.log("Error");
         } else {
             console.log(`The code is: ${urlParams.code}`);
-            const redirect_uri = "http://127.0.0.1:3001/googleAuth/";
-            validateUserGoogleAuthRegister(urlParams.code, redirect_uri).then((res) => {
-                if (res.data.data.isUserRegistered) {
-                    console.log("pasa")
-                } else {
-                    showGoogleQuestionModal()
-                }
+            googleAuth(urlParams.code).then((res) => {
                 console.log(res)
+                if (res) {
+                    if (res.data.data.isUserRegistered === false) {
+                        showGoogleQuestionModal()
+                        action(res.data.data)
+                    } else {
+                        console.log("pasa")
+                        Cookies.set("jwt", res.data.token, { expires: 7 });
+                        auth.login();
+                        push("/userprofile");
+                    }
+                }
             });
         }
-    }, []);
+        // eslint-disable-next-line
+    }, [state.userInformation.sub]);
 
 
 

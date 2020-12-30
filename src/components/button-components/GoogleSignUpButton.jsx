@@ -1,8 +1,6 @@
 import React from "react";
 import "./../../pages/login-page/LoginPage-Style.css";
 import "./GoogleSignUpButton-Style.css";
-import { useModal } from "../../hooks/useModal";
-import GoogleQuestionPopup from "../../components/popup-components/GoogleQuestionPopup";
 import queryString from "query-string";
 
 require("dotenv").config({ path: "./.env" });
@@ -24,17 +22,9 @@ const GoogleSignUpButton = () => {
   const stringifiedParams = queryString.stringify(params);
   const googleLoginUrl = `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`;
 
-  const {
-    show: showQuestionModal,
-    RenderModal: QuestionModal,
-    // hide: hideQuestionModal,
-  } = useModal();
-
-
 
   return (
     <div>
-
       <span className="custom-button bg-red">
         <div className="inner-container">
           <i className="fa fa-google"></i>

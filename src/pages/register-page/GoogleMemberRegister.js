@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./RegisterPage-Style.css";
 import "../../App.css";
 import { useHistory } from "react-router-dom";
@@ -7,62 +7,49 @@ import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import { ErrorMessage } from "@hookform/error-message";
 import { getAge } from "../../utils/ageCalculation";
-import { orgUserSignup } from "../../utils/apiRequests";
+import { userSignup } from "../../utils/apiRequests";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 import { store } from 'react-notifications-component';
 import Header from "../../components/navbar-components/Navbar";
 import Footer from "../../components/footer-components/Footer";
-import { validateUserGoogleAuthRegister, googleAuth } from "../../utils/apiRequests";
-import queryString from "query-string";
-
 
 const GoogleMemberRegister = ({ location }) => {
-    const [code, setCode] = useState("")
-    const [googleUserInfo, setGoogleUserInfo] = useState({})
     const [userObject, setUserObject] = useState("");
     const { state, action } = useStateMachine(updateAction);
-    const { register, handleSubmit, watch, errors } = useForm({
+    const { register, handleSubmit, errors } = useForm({
         defaultValues: state.userInformation,
     });
     const { push } = useHistory();
 
     const onSubmit = (data) => {
-        data.code = code
+        data.password = state.userInformation.sub
+        data.passwordConfirm = state.userInformation.sub
+        data.signUpMethod = "google";
+        data.profilePicture = state.userInformation.profilePicture;
+        data.isEmailValidated = state.userInformation.isEmailValidated;
         action(data);
         action({ hasCreatedAccount: true })
         console.log(data)
-        // orgUserSignup(data).then((res) => {
-        //     if (res.status === "fail") {
-        //         store.addNotification({
-        //             title: "Ha ocurrido un error",
-        //             message: res.message,
-        //             type: "danger",
-        //             insert: "top",
-        //             container: "top-right",
-        //             animationIn: ["animate__animated", "animate__fadeIn"],
-        //             animationOut: ["animate__animated", "animate__fadeOut"],
-        //             dismiss: {
-        //                 duration: 10000,
-        //                 onScreen: true
-        //             }
-        //         });
-        //     }
-        //     setUserObject(res);
-        // });
+        userSignup(data).then((res) => {
+            if (res.status === "fail") {
+                store.addNotification({
+                    title: "Ha ocurrido un error",
+                    message: res.message,
+                    type: "danger",
+                    insert: "top",
+                    container: "top-right",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                        duration: 10000,
+                        onScreen: true
+                    }
+                });
+            }
+            setUserObject(res);
+        });
     };
-
-    useEffect(() => {
-        const urlParams = queryString.parse(location.search);
-        setCode(urlParams.code)
-        if (urlParams.error) {
-            console.log("Error");
-        } else {
-            console.log(`The code is: ${urlParams.code}`);
-            const redirect_uri = "http://127.0.0.1:3001/googleMemberRegister/";
-            validateUserGoogleAuthRegister(urlParams.code, redirect_uri).then((res) => setGoogleUserInfo(res.data?.data));
-        }
-    }, [])
 
 
     useEffect(() => {
@@ -111,7 +98,7 @@ const GoogleMemberRegister = ({ location }) => {
                             <div className="Pic-selector__profile-container">
                                 <div className="Pic-selector__img-holder">
                                     <img
-                                        src={googleUserInfo.profilePicture}
+                                        src={state.userInformation.profilePicture}
                                         alt="preview"
                                         id="img"
                                         className="Pic-selector__img"
@@ -129,7 +116,7 @@ const GoogleMemberRegister = ({ location }) => {
                                     type="text"
                                     name="name"
                                     ref={register({ required: "Por favor ingrese su nombre" })}
-                                    value={googleUserInfo.name}
+                                    value={state.userInformation.name}
                                 />
                                 <ErrorMessage
                                     errors={errors}
@@ -149,7 +136,7 @@ const GoogleMemberRegister = ({ location }) => {
                                     type="text"
                                     name="lastname"
                                     ref={register({ required: "Por favor ingrese su apellido" })}
-                                    value={googleUserInfo.lastname}
+                                    value={state.userInformation.lastname}
 
                                 />
                                 <ErrorMessage
@@ -170,7 +157,7 @@ const GoogleMemberRegister = ({ location }) => {
                             type="email"
                             name="email"
                             ref={register({ required: "Por favor ingrese su correo" })}
-                            value={googleUserInfo.email}
+                            value={state.userInformation.email}
 
                         />
                         <ErrorMessage

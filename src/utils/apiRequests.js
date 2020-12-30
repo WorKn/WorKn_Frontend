@@ -108,6 +108,9 @@ export const userSignup = async (user) => {
       password: user.password,
       passwordConfirm: user.passwordConfirm,
       userType: user.userType,
+      signUpMethod: user.signUpMethod,
+      profilePicture: user.profilePicture,
+      isEmailValidated: user.isEmailValidated,
     });
     return response;
   } catch (e) {
@@ -126,6 +129,10 @@ export const orgUserSignup = async (user) => {
       passwordConfirm: user.passwordConfirm,
       userType: user.userType,
       organizationRole: user.organizationRole,
+      signUpMethod: user.signUpMethod,
+      profilePicture: user.profilePicture,
+      isEmailValidated: user.isEmailValidated,
+
     });
     return response;
   } catch (e) {
@@ -144,9 +151,12 @@ export const validateUserGoogleAuthRegister = async (code, redirect_uri) => {
   }
 };
 
-export const googleAuth = async (user) => {
+export const googleAuth = async (code) => {
   try {
-    const response = await axios.post(`${{ HOST }}/api/v1/users/googleAuth`, user);
+    const response = await axios.post(`${HOST}/api/v1/users/googleAuth`,
+      {
+        code: code
+      });
     return response;
   } catch (e) {
     return e.response.data;

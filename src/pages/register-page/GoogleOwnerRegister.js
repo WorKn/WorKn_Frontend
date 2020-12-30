@@ -7,22 +7,17 @@ import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import { ErrorMessage } from "@hookform/error-message";
 import { getAge } from "../../utils/ageCalculation";
-// import { orgUserSignup } from "../../utils/apiRequests";
+import { orgUserSignup } from "../../utils/apiRequests";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
-// import { store } from 'react-notifications-component';
+import { store } from 'react-notifications-component';
 import Header from "../../components/navbar-components/Navbar";
 import Footer from "../../components/footer-components/Footer";
-import { validateUserGoogleAuthRegister, googleAuth } from "../../utils/apiRequests";
-import queryString from "query-string";
-import { store } from "react-notifications-component";
 
 const GoogleOwnerRegister = ({ location }) => {
-    const [code, setCode] = useState("")
-    const [googleUserInfo, setGoogleUserInfo] = useState({})
     const [userObject, setUserObject] = useState("");
     const { state, action } = useStateMachine(updateAction);
-    const { register, handleSubmit, watch, errors } = useForm({
+    const { register, handleSubmit, errors } = useForm({
         defaultValues: state.userInformation,
     });
     const { push } = useHistory();
@@ -30,11 +25,16 @@ const GoogleOwnerRegister = ({ location }) => {
     const onSubmit = (data) => {
         data.userType = "offerer";
         data.organizationRole = "owner";
-        data.code = code
+        data.password = state.userInformation.sub
+        data.passwordConfirm = state.userInformation.sub
+        data.signUpMethod = "google";
+        data.profilePicture = state.userInformation.profilePicture;
+        data.isEmailValidated = state.userInformation.isEmailValidated;
+
         action(data);
         action({ hasCreatedAccount: true })
-        console.log(data)
-        googleAuth(data).then((res) => {
+        orgUserSignup(data).then((res) => {
+            console.log(res)
             if (res.status === "fail") {
                 store.addNotification({
                     title: "Ha ocurrido un error",
@@ -53,18 +53,6 @@ const GoogleOwnerRegister = ({ location }) => {
             setUserObject(res);
         });
     };
-
-    useEffect(() => {
-        const urlParams = queryString.parse(location.search);
-        setCode(urlParams.code)
-        if (urlParams.error) {
-            console.log("Error");
-        } else {
-            console.log(`The code is: ${urlParams.code}`);
-            const redirect_uri = "http://127.0.0.1:3001/googleAuth/";
-            validateUserGoogleAuthRegister(urlParams.code, redirect_uri).then((res) => setGoogleUserInfo(res.data?.data));
-        }
-    }, [])
 
 
     useEffect(() => {
@@ -113,7 +101,7 @@ const GoogleOwnerRegister = ({ location }) => {
                             <div className="Pic-selector__profile-container">
                                 <div className="Pic-selector__img-holder">
                                     <img
-                                        src={googleUserInfo?.profilePicture}
+                                        src={state.userInformation.profilePicture}
                                         alt="preview"
                                         id="img"
                                         className="Pic-selector__img"
@@ -131,7 +119,7 @@ const GoogleOwnerRegister = ({ location }) => {
                                     type="text"
                                     name="name"
                                     ref={register({ required: "Por favor ingrese su nombre" })}
-                                    value={googleUserInfo?.name}
+                                    value={state.userInformation.name}
 
                                 />
                                 <ErrorMessage
@@ -152,7 +140,7 @@ const GoogleOwnerRegister = ({ location }) => {
                                     type="text"
                                     name="lastname"
                                     ref={register({ required: "Por favor ingrese su apellido" })}
-                                    value={googleUserInfo?.lastname}
+                                    value={state.userInformation.lastname}
 
                                 />
                                 <ErrorMessage
@@ -173,7 +161,7 @@ const GoogleOwnerRegister = ({ location }) => {
                             type="email"
                             name="email"
                             ref={register({ required: "Por favor ingrese su correo" })}
-                            value={googleUserInfo?.email}
+                            value={state.userInformation.email}
 
                         />
                         <ErrorMessage

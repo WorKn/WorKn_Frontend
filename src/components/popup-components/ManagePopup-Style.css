@@ -131,3 +131,7 @@ color: white;
   border-radius: 0.2em;
   cursor: pointer;
 }
+
+.innergreen-link{
+  text-decoration: none;
+}
