@@ -77,13 +77,13 @@ const ManageOffersPage = () => {
     if (state.userInformation.isEmailValidated) {
       setSuccess(true);
       getMyOffers().then((res) => {
-        console.log(res)
+        console.log(res);
         if (state.userInformation.userType === "applicant") {
           history.push("/userprofile");
         } else if (!res.data && state.userInformation.userType !== "offerer") {
         } else {
           const offers = res.data.data.offers;
-          console.log(offers)
+          // console.log(offers)
           if (offers && Array.isArray(offers)) {
             setMyOffers(offers);
           }
@@ -140,7 +140,7 @@ const ManageOffersPage = () => {
           <div className="manageoffers__container">
             <span className="manageoffers__title--dark">
               Seleccione el tipo de oferta a mostrar
-          </span>
+            </span>
           </div>
           <form
             className="summarypage__form manageoffers__typeselector"
@@ -150,7 +150,11 @@ const ManageOffersPage = () => {
               <option value="active">Ofertas activas</option>
               <option value="inactive">Ofertas inactivas</option>
             </select>
-            <input className="custom-button bg-green" type="submit" value="Ir" />
+            <input
+              className="custom-button bg-green"
+              type="submit"
+              value="Ir"
+            />
           </form>
 
           <div className="manageoffers__activecontainer">
@@ -158,7 +162,7 @@ const ManageOffersPage = () => {
               <i className="fa fas fa-plus manageoffers__icon"></i>
               <span className="manageoffers__title--dark">
                 Crea una nueva oferta
-            </span>
+              </span>
             </div>
           </div>
           <div>
@@ -166,17 +170,26 @@ const ManageOffersPage = () => {
               <div className="manageoffers__inner">
                 <div className="summary__announcement">
                   <div className="summarypage__imgbg">
-                    <img src="https://i.imgur.com/CAtVIjs.png" alt="applied" className="summarypage_appliedimg"></img>
+                    <img
+                      src="https://i.imgur.com/CAtVIjs.png"
+                      alt="applied"
+                      className="summarypage_appliedimg"
+                    ></img>
                   </div>
                   <div className="summary__announcementinner">
-                    <span className="summarypagea__title--dark">Aún no tienes ninguna oferta creada!</span>
-                    <span>Clickea en el botón de crear una nueva oferta para que puedas empezar a trabajar en ellas.</span>
+                    <span className="summarypagea__title--dark">
+                      Aún no tienes ninguna oferta creada!
+                    </span>
+                    <span>
+                      Clickea en el botón de crear una nueva oferta para que
+                      puedas empezar a trabajar en ellas.
+                    </span>
                   </div>
                 </div>
               </div>
             ) : (
-                ""
-              )}
+              ""
+            )}
           </div>
 
           {offersToDisplay && offersToDisplay === "active" ? (
@@ -184,21 +197,21 @@ const ManageOffersPage = () => {
               <div className="manageoffers__offers-list">{activeOffers}</div>
             </React.Fragment>
           ) : (
-              <React.Fragment>
-                <div className="manageoffers__offers-list">
-                  {inactiveOffers
-                    ? inactiveOffers
-                    : "Usted no ha colocado ninguna oferta como inactiva aún"}
-                </div>
-              </React.Fragment>
-            )}
+            <React.Fragment>
+              <div className="manageoffers__offers-list">
+                {inactiveOffers
+                  ? inactiveOffers
+                  : "Usted no ha colocado ninguna oferta como inactiva aún"}
+              </div>
+            </React.Fragment>
+          )}
         </div>
       </div>
       <Footer />
     </div>
   ) : (
-      <EmailNotValidated />
-    );
+    <EmailNotValidated />
+  );
 };
 
 export default ManageOffersPage;

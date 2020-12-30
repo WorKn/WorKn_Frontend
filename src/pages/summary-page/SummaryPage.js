@@ -43,13 +43,16 @@ const SummaryPage = () => {
   };
 
   useEffect(() => {
-    getMyOffers().then((res) => {
-      if (res !== undefined) {
-        console.log(res);
-        setOffers(res);
-      }
-    });
-  }, []);
+    if (state.userInformation.userType === "offerer") {
+      getMyOffers().then((res) => {
+        if (res !== undefined) {
+          console.log(res);
+          const filteredOffers = res?.data?.data?.offers.filter(offer => offer.state === "active")
+          setOffers(filteredOffers);
+        }
+      });
+    }
+  }, [state.userInformation.userType]);
 
   useEffect(() => {
     getMe().then((res) => {
@@ -237,7 +240,7 @@ const SummaryPage = () => {
                       >
                         <select className="sform__select" name="offer" ref={register}>
                           <option>Clic aquí para visualizarlas</option>
-                          {offers?.data?.data?.offers.map((offer) => (
+                          {offers?.map((offer) => (
                             <option key={offer._id} value={offer._id}>
                               {offer.title}
                             </option>

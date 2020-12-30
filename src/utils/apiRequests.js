@@ -420,9 +420,18 @@ export const getMyOffers = async () => {
     const response = await axios.get(`${HOST}/api/v1/offers/me`);
     return response;
   } catch (e) {
-    return e.response.data;
+    return e?.response?.data;
   }
 };
+
+// export const getMyFilteredOffers = async () => {
+//   try {
+//     const response = await axios.get(`${HOST}/api/v1/offers/me`);
+//     return response;
+//   } catch (e) {
+//     return e.response.data;
+//   }
+// };
 
 export const editOffer = async (offer) => {
   try {
@@ -678,6 +687,16 @@ export const getChatMessages = async (chatId) => {
 export const getMyChats = async () => {
   try {
     const response = await axios.get(`${HOST}/api/v1/users/me/chats`);
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+
+export const closeChat = async (chatId) => {
+  try {
+    const response = await axios.patch(`${HOST}/api/v1/users/me/chats/${chatId}/close`);
     return response;
   } catch (e) {
     return e.response.data;

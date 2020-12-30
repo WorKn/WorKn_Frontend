@@ -82,7 +82,7 @@ function App() {
               path="/organizationprofile"
               component={EmpresaProfilePage}
             />
-            <Route
+            <ProtectedRoute
               exact
               path="/recommendations"
               component={RecommendationsPage}
@@ -111,12 +111,12 @@ function App() {
             <Route exact path="/manageoffers" component={ManageOffersPage} />
             <Route exact path="/tos" component={TermsOfServicePage} />
             <Route exact path="/addMember/:token" component={AddMember} />
-            <Route exact path="/summary" component={SummaryPage} />
+            <ProtectedRoute exact path="/summary" component={SummaryPage} />
             <Route exact path="/explore" component={ExplorePage} />
             <Route exact path="/managemembers" component={ManagePopup} />
             <Route path="/googleAuth" component={GoogleAuthPage} />
             {/* <Route exact path="/chat" component={ChatPage} /> */}
-            <Route exact path="/chat" component={ChatPage} />
+            <ProtectedRoute exact path="/chat" component={ChatPage} />
             <Route path="*" component={NotFound} />
           </Switch>
         </animated.div>

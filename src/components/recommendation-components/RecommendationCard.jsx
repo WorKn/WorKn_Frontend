@@ -31,8 +31,8 @@ const RecommendationCard = ({ personInfo, offerInfo }) => {
     if (offerInfo?.createdBy?.profilePicture) {
       setProfilePictureRoute(offerInfo?.createdBy?.profilePicture);
     } else {
-      setProfilePictureRoute(personInfo.profilePicture);
-      getCategoryById(personInfo.category).then((res) => {
+      setProfilePictureRoute(personInfo?.profilePicture);
+      getCategoryById(personInfo?.category).then((res) => {
         setCategory(res.data?.data[0].name);
       });
     }
