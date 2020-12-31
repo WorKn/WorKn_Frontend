@@ -9,6 +9,7 @@ import updateAction from "../../updateAction";
 import GoogleQuestionPopup from "../../components/popup-components/GoogleQuestionPopup";
 import Cookies from "js-cookie";
 import auth from "../../utils/authHelper";
+import { store } from 'react-notifications-component';
 
 const GoogleAuthPage = ({ location }) => {
     const { push } = useHistory();
@@ -28,7 +29,7 @@ const GoogleAuthPage = ({ location }) => {
             console.log(`The code is: ${urlParams.code}`);
             googleAuth(urlParams.code).then((res) => {
                 console.log(res)
-                if (res) {
+                if (res && res.data?.status === 'success') {
                     if (res.data.data.isUserRegistered === false) {
                         showGoogleQuestionModal()
                         action(res.data.data)
@@ -38,6 +39,22 @@ const GoogleAuthPage = ({ location }) => {
                         auth.login();
                         push("/userprofile");
                     }
+                } else if (res && res.status === 'error') {
+                    push("/login")
+                } else if (res && res.status === 'fail') {
+                    store.addNotification({
+                        title: "Ha ocurrido un error",
+                        message: res.message,
+                        type: "danger",
+                        insert: "top",
+                        container: "top-right",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                            duration: 15000,
+                            onScreen: true
+                        }
+                    });
                 }
             });
         }
