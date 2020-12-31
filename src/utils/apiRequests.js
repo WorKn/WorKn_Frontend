@@ -108,8 +108,6 @@ export const userSignup = async (user) => {
       password: user.password,
       passwordConfirm: user.passwordConfirm,
       userType: user.userType,
-      signUpMethod: user.signUpMethod,
-      profilePicture: user.profilePicture,
     });
     return response;
   } catch (e) {
