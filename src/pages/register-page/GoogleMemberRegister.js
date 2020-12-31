@@ -172,7 +172,7 @@ const GoogleMemberRegister = ({ location }) => {
 
                         <span className="popup-text">Fecha de nacimiento</span>
                         <input
-                            className="form-input"
+                            className="userform__input userform__input--outlined"
                             name="birthday"
                             id="birthday"
                             type="date"
@@ -201,7 +201,7 @@ const GoogleMemberRegister = ({ location }) => {
                             </i>
                         </span>
                         <select
-                            className="form__select"
+                            className="userform__select userform__input--outlined"
                             name="userType"
                             ref={register({
                                 required: "Por favor ingrese el tipo de usuario que desea crear",
