@@ -110,6 +110,25 @@ export const userSignup = async (user) => {
       userType: user.userType,
       signUpMethod: user.signUpMethod,
       profilePicture: user.profilePicture,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const googleUserSignup = async (user) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/users/signup`, {
+      name: user.name,
+      lastname: user.lastname,
+      email: user.email,
+      birthday: user.birthday,
+      password: user.password,
+      passwordConfirm: user.passwordConfirm,
+      userType: user.userType,
+      signUpMethod: user.signUpMethod,
+      profilePicture: user.profilePicture,
       isEmailValidated: user.isEmailValidated,
     });
     return response;

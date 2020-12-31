@@ -7,7 +7,7 @@ import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import { ErrorMessage } from "@hookform/error-message";
 import { getAge } from "../../utils/ageCalculation";
-import { userSignup } from "../../utils/apiRequests";
+import { googleUserSignup } from "../../utils/apiRequests";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 import { store } from 'react-notifications-component';
@@ -31,7 +31,7 @@ const GoogleMemberRegister = ({ location }) => {
         action(data);
         action({ hasCreatedAccount: true })
         console.log(data)
-        userSignup(data).then((res) => {
+        googleUserSignup(data).then((res) => {
             if (res.status === "fail") {
                 store.addNotification({
                     title: "Ha ocurrido un error",
