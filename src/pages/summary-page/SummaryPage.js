@@ -11,6 +11,7 @@ import { getMyInteractions, getMyOffers } from "../../utils/apiRequests";
 import { useForm } from "react-hook-form";
 import { css } from "@emotion/core";
 import BeatLoader from "react-spinners/BeatLoader";
+import { getMe } from "../../utils/apiRequests";
 
 const SummaryPage = () => {
   const [loadingVar, setLoadingVar] = useState(false);
@@ -19,7 +20,7 @@ const SummaryPage = () => {
   const [interested, setInterested] = useState();
   const [success, setSuccess] = useState(true);
   const [match, setMatches] = useState();
-  const { state } = useStateMachine(updateAction);
+  const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit } = useForm({});
   const [selectedOffer, setSelectedOffer] = useState();
   const redirectToOffers = () => {
@@ -42,13 +43,24 @@ const SummaryPage = () => {
   };
 
   useEffect(() => {
-    getMyOffers().then((res) => {
-      if (res !== undefined) {
-        console.log(res);
-        setOffers(res);
+    if (state.userInformation.userType === "offerer") {
+      getMyOffers().then((res) => {
+        if (res !== undefined) {
+          console.log(res);
+          const filteredOffers = res?.data?.data?.offers.filter(offer => offer.state === "active")
+          setOffers(filteredOffers);
+        }
+      });
+    }
+  }, [state.userInformation.userType]);
+
+  useEffect(() => {
+    getMe().then((res) => {
+      if (res.data !== undefined) {
+        action(res.data.data.data);
       }
     });
-  }, []);
+  }, [action]);
 
   useEffect(() => {
     if (!state.userInformation.isEmailValidated) {
@@ -75,9 +87,10 @@ const SummaryPage = () => {
 
   useEffect(() => {
     setLoadingVar(true);
-    if (!state.userInformation.isEmailValidated) {
+    if (state.userInformation.isEmailValidated && state.userInformation.isEmailValidated === false) {
       setSuccess(false);
     } else {
+      setSuccess(true);
       setTimeout(() => {
         setLoadingVar(false);
         if (
@@ -100,12 +113,15 @@ const SummaryPage = () => {
     selectedOffer,
     state.userInformation.userType,
     state.userInformation.isEmailValidated,
-    state.userInformation.updateFlag
+    state.userInformation.updateFlag,
+    state.userInformation
   ]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+
 
   return success ? (
     <div className="summarypage">
@@ -222,9 +238,9 @@ const SummaryPage = () => {
                         onSubmit={handleSubmit(onSubmit)}
                         className="summarypage__form"
                       >
-
                         <select className="sform__select" name="offer" ref={register}>
-                          {offers?.data?.data?.offers.map((offer) => (
+                          <option>Clic aquí para visualizarlas</option>
+                          {offers?.map((offer) => (
                             <option key={offer._id} value={offer._id}>
                               {offer.title}
                             </option>

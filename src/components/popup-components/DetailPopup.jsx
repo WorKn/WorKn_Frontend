@@ -11,12 +11,13 @@ import { Link } from "react-router-dom";
 import Tag from "../tag-components/Tag";
 import "./DetailPopup-Style.css";
 import "../tag-components/Tag-Style.css";
+import { store } from "react-notifications-component";
 
 const DetailPopup = ({ responseInfo, hide }) => {
   const { state } = useStateMachine(updateAction);
-  const [interactionTarget, setInteractionTarget] = useState();
+  // const [interactionTarget, setInteractionTarget] = useState();
   const [offers, setOffers] = useState();
-  const [selectedOffer, setSelectedOffer] = useState();
+  // const [selectedOffer, setSelectedOffer] = useState();
   const { register, handleSubmit } = useForm({});
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
@@ -50,29 +51,101 @@ const DetailPopup = ({ responseInfo, hide }) => {
     }
   }, [responseInfo]);
 
-  useEffect(() => {
-    if (interactionTarget && state.userInformation.userType === "applicant") {
-      createInteractionAO(interactionTarget).then((res) => {
-        if (res !== undefined) {
-          console.log(res);
+  // useEffect(() => {
+  //   if (interactionTarget && state.userInformation.userType === "applicant") {
+  //     createInteractionAO(interactionTarget).then((res) => {
+  //       if (res !== undefined) {
+  //         console.log(res);
+  //       }
+  //     });
+  //   } else {
+  //     console.log("es ofertante");
+  //   }
+  // }, [interactionTarget, state.userInformation.userType]);
+
+  // useEffect(() => {
+  //   createInteractionOA(interactionTarget, selectedOffer).then((res) => {
+  //     if (res !== undefined) {
+  //       console.log(res);
+  //     }
+  //   });
+  // }, [interactionTarget, selectedOffer]);
+
+  // const onSubmit = (data) => {
+  //   setSelectedOffer(data.offer);
+  //   setInteractionTarget(responseInfo?._id);
+  // };
+
+  const onSubmit = (data) => {
+    if (state.userInformation.userType === "offerer") {
+      createInteractionOA(responseInfo?._id, data.offer).then((res) => {
+        console.log(res);
+        if (res !== undefined && res?.data?.status === "success") {
+          store.addNotification({
+            title: "Interacción creada",
+            message:
+              "El usuario será notificado de tu demostración de interés, puedes visualizarla en tu página de Resumen",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true,
+            },
+          });
+        } else {
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: res.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true,
+            },
+          });
         }
       });
     } else {
-      console.log("es ofertante");
-    }
-  }, [interactionTarget, state.userInformation.userType]);
-
-  useEffect(() => {
-    createInteractionOA(interactionTarget, selectedOffer).then((res) => {
-      if (res !== undefined) {
+      createInteractionAO(responseInfo?._id).then((res) => {
         console.log(res);
-      }
-    });
-  }, [interactionTarget, selectedOffer]);
-
-  const onSubmit = (data) => {
-    setSelectedOffer(data.offer);
-    setInteractionTarget(responseInfo?._id);
+        if (res !== undefined && res?.data?.status === "success") {
+          store.addNotification({
+            title: "Interacción creada",
+            message:
+              "El usuario será notificado de tu demostración de interés, puedes visualizarla en tu página de Resumen",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true,
+            },
+          });
+        } else {
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: res.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true,
+            },
+          });
+        }
+      });
+    }
   };
 
   return (
@@ -164,11 +237,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
           <div className="dp-wrapper__button-content">
             <button
               className="custom-button custom-button--dpa bg-green "
-              onClick={() => {
-                console.log(responseInfo?._id);
-                setInteractionTarget(responseInfo?._id);
-                console.log(selectedOffer);
-              }}
+              onClick={onSubmit}
             >
               Aplicar
             </button>
@@ -205,7 +274,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
                   <Tag
                     key={tag._id}
                     text={tag.name}
-                    theme="tag tag--small tag__text tagtext--small tag__text--gray"
+                    theme="tag tag--small tag__text tag__text--small tag__text--gray"
                   ></Tag>
                 ))}
               </ul>

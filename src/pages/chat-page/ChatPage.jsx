@@ -10,6 +10,7 @@ import {
   getMyChats,
   getChatMessages,
   createMessage,
+
 } from "../../utils/apiRequests";
 import ScrollToBottom from "react-scroll-to-bottom";
 import "./ChatPage-Style.css";
@@ -18,6 +19,10 @@ import Contact from "../../components/chat-components/Contact";
 import Message from "../../components/chat-components/Message";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
+import { getMe } from "../../utils/apiRequests";
+import { store } from "react-notifications-component";
+import { useModal } from "../../hooks/useModal";
+import DeleteChatPopup from "../../components/popup-components/DeleteChatPopup";
 
 const HOST = process.env.REACT_APP_STAGING_HOST;
 const socket = socketIOClient(HOST);
@@ -31,14 +36,37 @@ const ChatPage = () => {
   const [typing, setTyping] = useState("escribiendo");
   const [currentChat, setCurrentChat] = useState({});
   const { register, handleSubmit, reset } = useForm({});
+  const {
+    show: showDeleteChatModal,
+    RenderModal: DeleteChatModal,
+    hide: hideDeleteChatModal,
+  } = useModal();
   const submit = (data) => {
     if (!data.message_input) return null;
     if (chatExists) {
       createMessage(data.message_input, currentChat._id).then((res) => {
-        socket.emit("chat_message", currentChat._id, res.data.data.message);
+        console.log(res)
+        if (res.data !== undefined && res.data.status === "success") {
+          socket.emit("chat_message", currentChat._id, res.data.data.message);
+        } else {
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: "Este chat ya no existe, por favor revise desde su pantalla de resumen.",
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true,
+            },
+          });
+        }
       });
     } else {
       createChat(data.message_input, interactionId).then((res) => {
+        console.log(res)
         if (res.data !== undefined && res.data.status === "success") {
           setCurrentChat(res.data.data.chat);
           socket.emit(
@@ -46,6 +74,20 @@ const ChatPage = () => {
             res.data.data.chat.id,
             res.data.data.lastMessage
           );
+        } else {
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: "Esta oferta ha sido eliminida. Por favor revise desde su pestaña de resumen.",
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true,
+            },
+          });
         }
       });
     }
@@ -136,8 +178,22 @@ const ChatPage = () => {
     }
   }, [currentChat]);
 
+  useEffect(() => {
+    getMe().then((res) => {
+      if (res.data !== undefined) {
+        action(res.data.data.data);
+      }
+    });
+  }, [action]);
+
   return (
     <div className="chatpage">
+      <DeleteChatModal>
+        <DeleteChatPopup
+          chatId={currentChat._id}
+          hide={hideDeleteChatModal}
+        />
+      </DeleteChatModal>
       <Header />
       <Banner image={"qSOKi8h.png"} />
       <div className="chatpage__inner">
@@ -190,14 +246,10 @@ const ChatPage = () => {
                 <div className="chat__usercontrol">
                   <i className="fa fa-cog config__dropdown">
                     <div className="chat__dropdowncontent">
-                      <a href="https://www.google.com/" className="chat__action">
-                        Ir al perfil del usuario
-                        <i className="fa fa-user"></i>
-                      </a>
-                      <a href="https://www.google.com/" className="chat__action">
-                        Eliminar este chat
+                      <span className="chat__action" onClick={showDeleteChatModal}>
+                        Terminar chat
                         <i className="fa fa-trash-o"></i>
-                      </a>
+                      </span>
                     </div>
                   </i>
                 </div>

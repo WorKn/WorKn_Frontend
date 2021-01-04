@@ -36,7 +36,9 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
         setProfileRoute(`/organizations/${offerInfo.organization?._id}`);
       } else {
         setProfilePictureRoute(offerInfo.createdBy?.profilePicture);
-        setOffererTitleRoute(offerInfo.createdBy?.name);
+        setOffererTitleRoute(
+          offerInfo.createdBy?.name + " " + offerInfo.createdBy?.lastname
+        );
         setProfileRoute(`/users/${offerInfo.createdBy?.id}`);
       }
     } else {
@@ -196,7 +198,7 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
                   <Tag
                     key={tag._id}
                     text={tag.name}
-                    theme="tag tag--small tag__text tagtext--small tag__text--gray"
+                    theme="tag tag--small tag__text tag__text--small tag__text--gray"
                   ></Tag>
                 ))}
               </ul>

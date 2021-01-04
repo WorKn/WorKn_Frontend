@@ -176,7 +176,7 @@ form button {
   color: black;
 }
 
-.config__dropdown a:hover {background-color: rgb(243, 243, 243); color: #5BBA6F;}
+.config__dropdown span:hover {background-color: rgb(243, 243, 243); color: #5BBA6F;}
 
 .config__dropdown:hover{
   color: #6d666a;

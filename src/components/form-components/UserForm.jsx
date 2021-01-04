@@ -37,6 +37,7 @@ const normalizePhone = (value) => {
   );
 };
 
+
 const UserForm = () => {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -48,13 +49,19 @@ const UserForm = () => {
   let isOrg = false;
   password.current = watch("password", "");
 
+  const abortEdit = () => {
+    setIsEditMode(false)
+    setUpdated(state.userInformation)
+  }
+
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
     let newArray = [];
     selectedTags.forEach((tag) => newArray.push(tag.value));
     data.tags = newArray;
     updateProfile(data).then((res) => {
-      // setUpdated(res);
+      // console.log(res)
+      // setUpdated(res.data.data.user);
       if (res?.data?.status && res?.data?.status === "success") {
         store.addNotification({
           title: "Perfil actualizado correctamente",
@@ -162,14 +169,14 @@ const UserForm = () => {
               </div>
             </div>
             <div>
-              {typeof state.userInformation !== "undefined" &&
-                state.userInformation.tags &&
-                state.userInformation.category ? (
+              {typeof updated !== "undefined" &&
+                updated.tags &&
+                updated.category ? (
                   <div>
                     <div className="userform__LIP">
                       <span className="userform__label">Etiquetas</span>
                       <div className="userform__tagscontainer">
-                        {state.userInformation.tags.map((tag) => (
+                        {updated.tags.map((tag) => (
                           <Tag
                             key={tag._id}
                             text={tag.name}
@@ -181,7 +188,7 @@ const UserForm = () => {
                     <div className="userform__LIP userform__downspacer">
                       <span className="userform__label">Categoría</span>
                       <Tag
-                        text={state.userInformation.tags[0].category.name}
+                        text={updated.tags[0].category.name}
                         theme="tag tag__text tag__text--white"
                       ></Tag>
                     </div>
@@ -494,7 +501,7 @@ const UserForm = () => {
                 type="submit"
                 value="Guardar Perfil"
               />
-              <button className="custom-button bg-red" onClick={() => { setIsEditMode(false) }}>Cancelar</button>
+              <button className="custom-button bg-red" onClick={abortEdit}>Cancelar</button>
             </form>
           )}
 
