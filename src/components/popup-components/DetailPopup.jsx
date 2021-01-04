@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import Tag from "../tag-components/Tag";
 import "./DetailPopup-Style.css";
+import "../tag-components/Tag-Style.css";
 
 const DetailPopup = ({ responseInfo, hide }) => {
   const { state } = useStateMachine(updateAction);
@@ -42,7 +43,9 @@ const DetailPopup = ({ responseInfo, hide }) => {
       setProfileRoute(`/organizations/${responseInfo.organization?._id}`);
     } else {
       setProfilePictureRoute(responseInfo?.createdBy?.profilePicture);
-      setOffererTitleRoute(responseInfo?.createdBy?.name);
+      setOffererTitleRoute(
+        responseInfo?.createdBy?.name + " " + responseInfo?.createdBy?.lastname
+      );
       setProfileRoute(`/users/${responseInfo.createdBy?._id}`);
     }
   }, [responseInfo]);
@@ -121,7 +124,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
                   <Tag
                     key={tag._id}
                     text={tag.name}
-                    theme="tag tag--small tag__text tagtext--small tag__text--gray"
+                    theme="tag tag--small tag__text tag__text--small tag__text--gray"
                   ></Tag>
                 ))}
               </ul>

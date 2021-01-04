@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./OfferPopup-Style.css";
+import "../tag-components/Tag-Style.css";
 import Tag from "../tag-components/Tag";
 import { Link } from "react-router-dom";
 import updateAction from "../../updateAction";

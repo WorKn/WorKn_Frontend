@@ -9,6 +9,7 @@ import { useStateMachine } from "little-state-machine";
 import { Link } from "react-router-dom";
 import Tag from "../tag-components/Tag";
 import "./DetailPopup-Style.css";
+import "../tag-components/Tag-Style.css";
 
 const DetailPopup = ({ personInfo, offerInfo }) => {
   const { state } = useStateMachine(updateAction);
@@ -117,7 +118,7 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
                   <Tag
                     key={tag._id}
                     text={tag.name}
-                    theme="tag tag--small tag__text tagtext--small tag__text--gray"
+                    theme="tag tag--small tag__text tag__text--small tag__text--gray"
                   ></Tag>
                 ))}
               </ul>

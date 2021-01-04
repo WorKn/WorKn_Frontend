@@ -136,7 +136,11 @@ const OfferStrip = ({
       setOffererTitleRoute(responseInfo?.offer?.organization?.name);
     } else {
       setProfilePictureRoute(responseInfo?.offer?.createdBy?.profilePicture);
-      setOffererTitleRoute(responseInfo?.offer?.createdBy?.name);
+      setOffererTitleRoute(
+        responseInfo?.offer?.createdBy?.name +
+          " " +
+          responseInfo?.offer?.createdBy?.lastname
+      );
     }
   }, [responseInfo]);
 
