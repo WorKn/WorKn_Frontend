@@ -60,6 +60,7 @@
   border-radius: 5px;
   height: 45px;
   padding-left: 20px;
+  margin-bottom: 15px;
 }
 
 .userform__input--lg {
@@ -72,6 +73,10 @@
   max-height: 400px;
   font-size: 14px;
   min-height: 100px;
+}
+
+.userform__input--outlined{
+  border: solid 1px #E5E4E4;
 }
 
 .userform__footer {

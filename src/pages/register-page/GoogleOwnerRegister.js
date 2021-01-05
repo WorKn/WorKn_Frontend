@@ -176,7 +176,7 @@ const GoogleOwnerRegister = ({ location }) => {
 
                         <span className="popup-text">Fecha de nacimiento</span>
                         <input
-                            className="form-input"
+                            className="userform__input userform__input--outlined"
                             name="birthday"
                             id="birthday"
                             type="date"
