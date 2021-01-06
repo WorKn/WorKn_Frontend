@@ -61,7 +61,7 @@ const UserForm = () => {
     data.tags = newArray;
     updateProfile(data).then((res) => {
       // console.log(res)
-      // setUpdated(res.data.data.user);
+      setUpdated(res.data.data.user);
       if (res?.data?.status && res?.data?.status === "success") {
         store.addNotification({
           title: "Perfil actualizado correctamente",
