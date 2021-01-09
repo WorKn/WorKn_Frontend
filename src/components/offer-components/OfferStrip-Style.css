@@ -81,11 +81,18 @@
   display: flex;
 }
 
+.text__clickable{
+  color: #00ba6b;
+  text-decoration: underline;
+  -webkit-text-decoration-color: #00ba6b; /* Safari */  
+  text-decoration-color: #00ba6b;
+}
+
 @media only screen and (max-width: 1490px) {
   /* .offerstrip__edit, */
   .offerstrip__type,
   .offerstrip__delete,
-  .offerstrip__org,
+  /* .offerstrip__offer, */
   .offerstrip__vl--1,
   .offerstrip__vl--2,
   .offerstrip__vl--3,
