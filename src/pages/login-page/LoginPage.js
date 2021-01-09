@@ -58,7 +58,6 @@ const LoginPage = React.memo((props) => {
     ) {
       auth.login();
       push("/userprofile");
-      console.log("not completed!");
     }
   }, [
     userObject,
@@ -101,9 +100,7 @@ const LoginPage = React.memo((props) => {
           }
         });
       }, 1500);
-    } else (
-      console.log("Loading...")
-    )
+    }
   }, [state.userInformation.hasPasswordUpdated])
 
   return (

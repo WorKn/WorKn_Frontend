@@ -78,7 +78,6 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
         });
       }
     });
-    console.log(data);
   };
 
   return (

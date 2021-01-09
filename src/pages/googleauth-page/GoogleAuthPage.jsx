@@ -20,23 +20,16 @@ const GoogleAuthPage = ({ location }) => {
   } = useModal();
 
   useEffect(() => {
-    console.log(state.userInformation.sub);
-    console.log(location);
     const urlParams = queryString.parse(location.search);
     if (urlParams.error) {
-      console.log("Error");
     } else {
-      console.log(`The code is: ${urlParams.code}`);
       const redirect_uri = `http://${window.location.host}/googleAuth/`;
-
       googleAuth(urlParams.code, redirect_uri).then((res) => {
-        console.log(res);
         if (res && res.data?.status === "success") {
           if (res.data.data.isUserRegistered === false) {
             showGoogleQuestionModal();
             action(res.data.data);
           } else {
-            console.log("pasa");
             Cookies.set("jwt", res.data.token, { expires: 7 });
             auth.login();
             push("/userprofile");

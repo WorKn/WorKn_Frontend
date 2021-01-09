@@ -26,7 +26,6 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
   MyDictionary["fixed"] = "Fijo/Indefinido";
   MyDictionary["applicant"] = "Aplicante";
 
-  console.log(offerInfo);
 
   useEffect(() => {
     if (offerInfo) {
@@ -40,184 +39,147 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
     }
   }, [offerInfo, personInfo]);
 
-  //   useEffect(() => {
-  //     if (interactionTarget && state.userInformation.userType === "applicant") {
-  //       createInteractionAO(interactionTarget).then((res) => {
-  //         if (res !== undefined) {
-  //           console.log(res);
-  //         }
-  //       });
-  //     } else {
-  //       console.log("es ofertante");
-  //     }
-  //   }, [interactionTarget, state.userInformation.userType]);
-
-  //   useEffect(() => {
-  //     createInteractionOA(interactionTarget, selectedOffer).then((res) => {
-  //       if (res !== undefined) {
-  //         console.log(res);
-  //       }
-  //     });
-  //   }, [interactionTarget, selectedOffer]);
-
-  //   const onSubmit = (data) => {
-  //     setSelectedOffer(data.offer);
-  //     setInteractionTarget(responseInfo?._id);
-  //   };
-
   return (
     <div className="dp-wrapper">
       {(typeof state.userInformation.userType !== "undefined" &&
         state.userInformation.userType === "applicant") ||
-      state.userInformation.userType === "" ? (
-        <div className="dp-wrapper__child">
-          <div className="dp-wrapper__up-content">
-            <div className="dp-wrapper__img">
-              <img src={profilePictureRoute} alt="Offerpp" />
-            </div>
-            <div className="dp-wrapper__text">
-              <span className="dp-wrapper__title">
-                {offerInfo?.title ? offerInfo.title : "Titulo no disponible"}
-              </span>
-              <div className="dp-wrapper__bullets">
-                <ul>
-                  <li>
-                    Por <b>{offererTitleRoute}</b>
-                    {offerInfo?.createdBy?.location ? (
-                      <span>
-                        {" "}
+        state.userInformation.userType === "" ? (
+          <div className="dp-wrapper__child">
+            <div className="dp-wrapper__up-content">
+              <div className="dp-wrapper__img">
+                <img src={profilePictureRoute} alt="Offerpp" />
+              </div>
+              <div className="dp-wrapper__text">
+                <span className="dp-wrapper__title">
+                  {offerInfo?.title ? offerInfo.title : "Titulo no disponible"}
+                </span>
+                <div className="dp-wrapper__bullets">
+                  <ul>
+                    <li>
+                      Por <b>{offererTitleRoute}</b>
+                      {offerInfo?.createdBy?.location ? (
+                        <span>
+                          {" "}
                         en <b>{offerInfo?.createdBy?.location}</b>
-                      </span>
+                        </span>
+                      ) : null}
+                    </li>
+                    <li>
+                      {offerInfo.offerType
+                        ? MyDictionary[offerInfo?.offerType]
+                        : "Info no disponible"}
+                    </li>
+                    {offerInfo?.createdAt ? (
+                      <li>
+                        Fecha de creación: {offerInfo?.createdAt?.slice(0, 10)}
+                      </li>
                     ) : null}
-                  </li>
-                  <li>
-                    {offerInfo.offerType
-                      ? MyDictionary[offerInfo?.offerType]
-                      : "Info no disponible"}
-                  </li>
-                  {offerInfo?.createdAt ? (
-                    <li>
-                      Fecha de creación: {offerInfo?.createdAt?.slice(0, 10)}
-                    </li>
-                  ) : null}
-                  {offerInfo?.closingDate ? (
-                    <li>
-                      Fecha de cierre: {offerInfo?.closingDate?.slice(0, 10)}
-                    </li>
-                  ) : null}
+                    {offerInfo?.closingDate ? (
+                      <li>
+                        Fecha de cierre: {offerInfo?.closingDate?.slice(0, 10)}
+                      </li>
+                    ) : null}
+                  </ul>
+                </div>
+                <ul className="dp-wrapper__tags">
+                  {offerInfo?.tags?.map((tag) => (
+                    <Tag
+                      key={tag._id}
+                      text={tag.name}
+                      theme="tag tag--small tag__text tagtext--small tag__text--gray"
+                    ></Tag>
+                  ))}
                 </ul>
               </div>
-              <ul className="dp-wrapper__tags">
-                {offerInfo?.tags?.map((tag) => (
-                  <Tag
-                    key={tag._id}
-                    text={tag.name}
-                    theme="tag tag--small tag__text tagtext--small tag__text--gray"
-                  ></Tag>
-                ))}
-              </ul>
             </div>
-          </div>
-          <div className="dp-wrapper__down-content">
-            <span className="dp-wrapper__title dp-wrapper__title--v2">
-              Detalles de la oferta
+            <div className="dp-wrapper__down-content">
+              <span className="dp-wrapper__title dp-wrapper__title--v2">
+                Detalles de la oferta
             </span>
-            <p className="dp-wrapper__downinfo dp-wrapper__downinfo--ap">
-              {offerInfo.description
-                ? offerInfo?.description
-                : "Los detalles de la oferta no estan disponibles"}
-            </p>
-            <p className="dp-wrapper__salary">
-              {offerInfo?.salaryRange ? (
-                <p>
-                  Rango salarial:<br></br>
-                  <b>
-                    RD$ {offerInfo?.salaryRange[0]} -{" "}
-                    {offerInfo?.salaryRange[1]}
-                  </b>
-                </p>
-              ) : null}
-            </p>
-            <p className="dp-wrapper_contact dp-wrapper_contact--ap">
-              Contacto:<br></br>
-              <Link
-                to={profileRoute}
-                target="_blank"
-                style={{ textDecoration: "none", color: "#00ba6b" }}
-              >
-                {offererTitleRoute}
-              </Link>
-            </p>
-          </div>
-          {/* <div className="dp-wrapper__button-content">
-            <button
-              className="custom-button custom-button--dpa bg-green "
-              onClick={() => {
-                console.log(responseInfo?._id);
-                setInteractionTarget(responseInfo?._id);
-                console.log(selectedOffer);
-              }}
-            >
-              Aplicar
-            </button>
-          </div> */}
-        </div>
-      ) : (
-        <div className="dp-wrapper__child">
-          <div className="dp-wrapper__up-content">
-            <div className="dp-wrapper__img">
-              <img src={profilePictureRoute} alt="Profile" />
+              <p className="dp-wrapper__downinfo dp-wrapper__downinfo--ap">
+                {offerInfo.description
+                  ? offerInfo?.description
+                  : "Los detalles de la oferta no estan disponibles"}
+              </p>
+              <p className="dp-wrapper__salary">
+                {offerInfo?.salaryRange ? (
+                  <p>
+                    Rango salarial:<br></br>
+                    <b>
+                      RD$ {offerInfo?.salaryRange[0]} -{" "}
+                      {offerInfo?.salaryRange[1]}
+                    </b>
+                  </p>
+                ) : null}
+              </p>
+              <p className="dp-wrapper_contact dp-wrapper_contact--ap">
+                Contacto:<br></br>
+                <Link
+                  to={profileRoute}
+                  target="_blank"
+                  style={{ textDecoration: "none", color: "#00ba6b" }}
+                >
+                  {offererTitleRoute}
+                </Link>
+              </p>
             </div>
-            <div className="dp-wrapper__text">
-              <span className="dp-wrapper__title">
-                {" "}
-                {personInfo?.name} {personInfo?.lastname}
-              </span>
-              <div className="dp-wrapper__bullets">
-                <ul>
-                  {personInfo?.location ? (
-                    <li>
-                      En <b> {personInfo?.location} </b>
-                    </li>
-                  ) : null}
-                  {personInfo?.userType ? (
-                    <li>{MyDictionary[personInfo?.userType]}</li>
-                  ) : null}
-                  {category ? <li>{category}</li> : null}
+          </div>
+        ) : (
+          <div className="dp-wrapper__child">
+            <div className="dp-wrapper__up-content">
+              <div className="dp-wrapper__img">
+                <img src={profilePictureRoute} alt="Profile" />
+              </div>
+              <div className="dp-wrapper__text">
+                <span className="dp-wrapper__title">
+                  {" "}
+                  {personInfo?.name} {personInfo?.lastname}
+                </span>
+                <div className="dp-wrapper__bullets">
+                  <ul>
+                    {personInfo?.location ? (
+                      <li>
+                        En <b> {personInfo?.location} </b>
+                      </li>
+                    ) : null}
+                    {personInfo?.userType ? (
+                      <li>{MyDictionary[personInfo?.userType]}</li>
+                    ) : null}
+                    {category ? <li>{category}</li> : null}
+                  </ul>
+                </div>
+                <ul className="dp-wrapper__tags">
+                  {personInfo?.tags?.map((tag) => (
+                    <Tag
+                      key={tag._id}
+                      text={tag.name}
+                      theme="tag tag--small tag__text tagtext--small tag__text--gray"
+                    ></Tag>
+                  ))}
                 </ul>
               </div>
-              <ul className="dp-wrapper__tags">
-                {personInfo?.tags?.map((tag) => (
-                  <Tag
-                    key={tag._id}
-                    text={tag.name}
-                    theme="tag tag--small tag__text tagtext--small tag__text--gray"
-                  ></Tag>
-                ))}
-              </ul>
             </div>
-          </div>
-          <div className="dp-wrapper__down-content">
-            <span className="dp-wrapper__title dp-wrapper__title--v2">
-              Detalles del usuario
+            <div className="dp-wrapper__down-content">
+              <span className="dp-wrapper__title dp-wrapper__title--v2">
+                Detalles del usuario
             </span>
-            <p className="dp-wrapper__downinfo">
-              {personInfo?.bio
-                ? personInfo?.bio
-                : "Los detalles del usuario no estan disponibles"}
-            </p>
-            <div className="dp-wrapper__contact">
-              Contacto:
+              <p className="dp-wrapper__downinfo">
+                {personInfo?.bio
+                  ? personInfo?.bio
+                  : "Los detalles del usuario no estan disponibles"}
+              </p>
+              <div className="dp-wrapper__contact">
+                Contacto:
               <Link
-                to={profileRoute}
-                target="_blank"
-                style={{ textDecoration: "none" }}
-              >
-                {personInfo?.name} {personInfo?.lastname}
-              </Link>
+                  to={profileRoute}
+                  target="_blank"
+                  style={{ textDecoration: "none" }}
+                >
+                  {personInfo?.name} {personInfo?.lastname}
+                </Link>
+              </div>
             </div>
-          </div>
-          {/* <div className="dp-wrapper__child--form">
+            {/* <div className="dp-wrapper__child--form">
             <form onSubmit={handleSubmit(onSubmit)}>
               {typeof offers ? (
                 <select className="sform__select" name="offer" ref={register}>
@@ -237,8 +199,8 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
               />
             </form>
           </div> */}
-        </div>
-      )}
+          </div>
+        )}
     </div>
   );
 };

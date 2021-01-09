@@ -52,19 +52,6 @@ const PasswordPopup = (props) => {
     });
   };
 
-  // const relogUser = () => {
-  //   Auth.logout(() => {
-  //     push("/login");
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   if (passwordUpdated == true) {
-  //     console.log("por favor vuelva a iniciar sesion");
-  //     // relogUser();
-  //   }
-  // }, [passwordUpdated, setPasswordUpdated]);
-
   return (
     <div className="popup-wrapper">
       <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>

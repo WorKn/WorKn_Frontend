@@ -22,21 +22,6 @@ const OfferStrip = ({
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
   const { show: showDetailModal, RenderModal: DetailModal } = useModal();
-  // const [updateFlag, setUpdateFlag] = useState(false);
-
-  // const {
-  //   show: showDeleteOfferModal,
-  //   RenderModal: DeleteOfferModal,
-  //   hide: hideDeleteOfferModal,
-  // } = useModal();
-
-  // const updateInteractions = () => {
-  //   // if (state.userInformation.updateFlag !== "undefined" && state.userInformation.updateFlag === false){
-  //     window.location.reload()
-  //     action({updateFlag: true});
-  //     setTimeout(() => {  console.log("World!"); }, 2000);
-  // };
-
   const updateInteractions = () => {
     // setUpdateFlag(!updateFlag);
     if (state.userInformation.updateFlag === true) {
@@ -66,14 +51,12 @@ const OfferStrip = ({
         },
       };
     }
-    console.log(chatPivot);
     action(chatPivot);
   };
 
   const catchInteraction = () => {
     updateInteractions();
     acceptInteraction(responseInfo._id).then((res) => {
-      console.log(res);
       if (res === "success") {
         store.addNotification({
           title: "Aplicación aceptada",
@@ -122,7 +105,6 @@ const OfferStrip = ({
           onScreen: true,
         },
       });
-      console.log(res);
     });
   };
 
@@ -131,7 +113,6 @@ const OfferStrip = ({
   MyDictionary["fixed"] = "Fijo/Indefinido";
 
   useEffect(() => {
-    console.log(responseInfo);
     if (responseInfo.offer.organization) {
       setProfilePictureRoute(responseInfo?.offer?.organization?.profilePicture);
       setOffererTitleRoute(responseInfo?.offer?.organization?.name);

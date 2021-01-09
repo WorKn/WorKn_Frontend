@@ -17,7 +17,6 @@ const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
   const onSubmit = (data) => {
     data.rating = starValue;
     updateReview(userId, review._id, data).then((res) => {
-      console.log(res)
       if (res.data.status === "success") {
         hide();
         getAllReviews(userId).then((resp) => {
@@ -39,7 +38,6 @@ const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
       }
 
     });
-    console.log(data);
   };
 
   const removeReview = (data) => {

@@ -30,7 +30,6 @@ const GoogleMemberRegister = ({ location }) => {
         data.isEmailValidated = state.userInformation.isEmailValidated;
         action(data);
         action({ hasCreatedAccount: true })
-        console.log(data)
         googleUserSignup(data).then((res) => {
             if (res.status === "fail") {
                 store.addNotification({

@@ -17,7 +17,6 @@ const CategoryInput = (props) => {
         `http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories`
       )
       .then((res) => {
-        console.log(inputValue);
         const json = res.data.data.data;
         const categories = [];
         json.forEach((i) => {
@@ -37,7 +36,6 @@ const CategoryInput = (props) => {
   const onChange = (newValue) => {
     const inputValue = newValue.replace(/\W/g, "");
     setInputValue(inputValue);
-    // console.log(selectedCategories);
     return inputValue;
   };
 

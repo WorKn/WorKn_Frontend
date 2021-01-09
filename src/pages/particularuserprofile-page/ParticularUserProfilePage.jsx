@@ -54,7 +54,6 @@ const EmpresaViewPage = ({
   const onSubmit = (data) => {
     data.starValue = starValue;
     createReview(id, data).then((res) => {
-      console.log(res);
       if (res.data.status === "success") {
         getAllReviews(id).then((res) => {
           setReviews(res.data?.data.data);
@@ -102,7 +101,6 @@ const EmpresaViewPage = ({
         }
       } else {
         setCanLoadMoreReviews(false);
-        console.log(canLoadMoreReviews);
       }
     });
   };

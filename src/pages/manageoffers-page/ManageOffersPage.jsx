@@ -61,7 +61,6 @@ const ManageOffersPage = () => {
 
   const onSubmit = (e) => {
     setOffersToDisplay(e.type);
-    console.log(e);
   };
 
   useEffect(() => {
@@ -77,13 +76,11 @@ const ManageOffersPage = () => {
     if (state.userInformation.isEmailValidated) {
       setSuccess(true);
       getMyOffers().then((res) => {
-        console.log(res);
         if (state.userInformation.userType === "applicant") {
           history.push("/userprofile");
         } else if (!res.data && state.userInformation.userType !== "offerer") {
         } else {
           const offers = res.data.data.offers;
-          // console.log(offers)
           if (offers && Array.isArray(offers)) {
             setMyOffers(offers);
           }
@@ -188,8 +185,8 @@ const ManageOffersPage = () => {
                 </div>
               </div>
             ) : (
-              ""
-            )}
+                ""
+              )}
           </div>
 
           {offersToDisplay && offersToDisplay === "active" ? (
@@ -197,21 +194,21 @@ const ManageOffersPage = () => {
               <div className="manageoffers__offers-list">{activeOffers}</div>
             </React.Fragment>
           ) : (
-            <React.Fragment>
-              <div className="manageoffers__offers-list">
-                {inactiveOffers
-                  ? inactiveOffers
-                  : "Usted no ha colocado ninguna oferta como inactiva aún"}
-              </div>
-            </React.Fragment>
-          )}
+              <React.Fragment>
+                <div className="manageoffers__offers-list">
+                  {inactiveOffers
+                    ? inactiveOffers
+                    : "Usted no ha colocado ninguna oferta como inactiva aún"}
+                </div>
+              </React.Fragment>
+            )}
         </div>
       </div>
       <Footer />
     </div>
   ) : (
-    <EmailNotValidated />
-  );
+      <EmailNotValidated />
+    );
 };
 
 export default ManageOffersPage;

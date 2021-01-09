@@ -30,11 +30,9 @@ const GoogleOwnerRegister = ({ location }) => {
         data.signUpMethod = "google";
         data.profilePicture = state.userInformation.profilePicture;
         data.isEmailValidated = state.userInformation.isEmailValidated;
-
         action(data);
         action({ hasCreatedAccount: true })
         orgUserSignup(data).then((res) => {
-            console.log(res)
             if (res.status === "fail") {
                 store.addNotification({
                     title: "Ha ocurrido un error",

@@ -28,7 +28,6 @@ const OfferCard = ({
   MyDictionary["applicant"] = "Aplicante";
 
   useEffect(() => {
-    console.log(responseInfo)
     if (!offerInfo) {
       if (responseInfo.organization) {
         setProfilePictureRoute(responseInfo?.organization?.profilePicture);

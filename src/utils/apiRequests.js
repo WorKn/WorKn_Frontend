@@ -226,7 +226,6 @@ export const createOffer = async (offer) => {
     });
     return response.data.status;
   } catch (e) {
-    console.log("Hubo un error al crear");
     return e.response.data;
   }
 };

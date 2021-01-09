@@ -46,7 +46,6 @@ const SummaryPage = () => {
     if (state.userInformation.userType === "offerer") {
       getMyOffers().then((res) => {
         if (res !== undefined) {
-          console.log(res);
           const filteredOffers = res?.data?.data?.offers.filter(offer => offer.state === "active")
           setOffers(filteredOffers);
         }
@@ -78,7 +77,6 @@ const SummaryPage = () => {
             );
             setInterested(filteredInterested);
             setMatches(res.data.data.interactions.match);
-            console.log(res);
           });
         }
       }, 1500);
@@ -100,7 +98,6 @@ const SummaryPage = () => {
         ) {
           getMyInteractions(selectedOffer).then((res) => {
             if (res !== undefined) {
-              console.log(res);
               setApplied(res?.data?.data?.interactions?.applied);
               setInterested(res?.data?.data?.interactions?.interested);
               setMatches(res?.data?.data?.interactions?.match);

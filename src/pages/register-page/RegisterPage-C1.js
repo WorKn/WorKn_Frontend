@@ -45,17 +45,6 @@ const RegisterPageC1 = () => {
     }, 1500);
   };
 
-  // useEffect(() => {
-  //   if (state.userInformation.userType !== "") {
-  //     userSignup(state.userInformation).then((res) => {
-  //       console.log(res)
-  //       setUserObject(res);
-  //     });
-  //   } else {
-  //     console.log("loading");
-  //   }
-  // }, [gotResponse, push, state.userInformation]);
-
   useEffect(() => {
     if (userObject.data !== undefined && userObject.data.status === "success") {
       action(userObject.data.data.user);

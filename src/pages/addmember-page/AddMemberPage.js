@@ -36,11 +36,9 @@ const AddMember = ({
   useEffect(() => {
     if (state.userInformation) {
       signUpOrganizationMember(state.userInformation).then((res) => {
-        console.log(res);
         setUserObject(res);
       });
     } else {
-      console.log("loading");
     }
   }, [state.userInformation]);
 
@@ -58,7 +56,6 @@ const AddMember = ({
 
   useEffect(() => {
     getInvitationInfo(token).then((res) => {
-      console.log(res);
       setOrgInfo(res);
     });
   }, [token]);

@@ -11,7 +11,6 @@ function CounterBanner() {
 
   useEffect(() => {
     getLandingPageStats().then((res) => {
-      console.log(res.data.data);
       setUsers(res.data.data.users);
       setOrgs(res.data.data.organizations);
       setMatches(res.data.data.matches);

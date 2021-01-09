@@ -37,7 +37,6 @@ const DeleteChatPopup = ({ chatId, hide }) => {
                     },
                 });
             }
-            console.log(res)
         });
     }
     return (

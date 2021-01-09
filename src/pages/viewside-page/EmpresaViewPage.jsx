@@ -38,7 +38,6 @@ const EmpresaViewPage = ({
   useEffect(() => {
     getOrgById(id).then((res) => {
       if (res.status === "success") {
-        console.log(res);
         setOrgInfo(res.data.data);
       } else {
         history.push("/404");
@@ -52,7 +51,6 @@ const EmpresaViewPage = ({
         const offers = res.data.data.data;
         if (offers && Array.isArray(offers)) {
           setOrgOffer(offers);
-          console.log(offers);
         }
       }
     });
