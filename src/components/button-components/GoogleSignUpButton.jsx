@@ -6,10 +6,11 @@ import queryString from "query-string";
 require("dotenv").config({ path: "./.env" });
 
 const GoogleSignUpButton = () => {
+  const redirect_uri = `http://${window.location.host}/googleAuth/`;
 
   const params = {
     client_id: process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID,
-    redirect_uri: "http://127.0.0.1:3001/googleAuth/",
+    redirect_uri,
     scope: [
       "https://www.googleapis.com/auth/userinfo.email",
       "https://www.googleapis.com/auth/userinfo.profile",
@@ -17,11 +18,10 @@ const GoogleSignUpButton = () => {
     response_type: "code",
     access_type: "offline",
     prompt: "consent",
-  }
+  };
 
   const stringifiedParams = queryString.stringify(params);
   const googleLoginUrl = `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`;
-
 
   return (
     <div>
@@ -37,7 +37,6 @@ const GoogleSignUpButton = () => {
         </div>
       </span>
     </div>
-
   );
 };
 

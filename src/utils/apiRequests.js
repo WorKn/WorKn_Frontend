@@ -137,7 +137,6 @@ export const orgUserSignup = async (user) => {
       signUpMethod: user.signUpMethod,
       profilePicture: user.profilePicture,
       isEmailValidated: user.isEmailValidated,
-
     });
     return response;
   } catch (e) {
@@ -148,7 +147,7 @@ export const orgUserSignup = async (user) => {
 export const validateUserGoogleAuthRegister = async (code, redirect_uri) => {
   try {
     const response = await axios.get(
-      `${HOST}/api/v1/users/googleAuth/validate?code=${code}&redirect_uri=${redirect_uri}`,
+      `${HOST}/api/v1/users/googleAuth/validate?code=${code}&redirect_uri=${redirect_uri}`
     );
     return response;
   } catch (e) {
@@ -156,18 +155,17 @@ export const validateUserGoogleAuthRegister = async (code, redirect_uri) => {
   }
 };
 
-export const googleAuth = async (code) => {
+export const googleAuth = async (code, redirect_uri) => {
   try {
-    const response = await axios.post(`${HOST}/api/v1/users/googleAuth`,
-      {
-        code: code
-      });
+    const response = await axios.post(`${HOST}/api/v1/users/googleAuth`, {
+      code,
+      redirect_uri,
+    });
     return response;
   } catch (e) {
     return e.response.data;
   }
 };
-
 
 export const updateProfile = async (user) => {
   try {
@@ -650,7 +648,7 @@ export const getOfferRecommendation = async () => {
   }
 };
 
-// CHAT	
+// CHAT
 
 export const createChat = async (message, interaction) => {
   try {
@@ -698,10 +696,11 @@ export const getMyChats = async () => {
   }
 };
 
-
 export const closeChat = async (chatId) => {
   try {
-    const response = await axios.patch(`${HOST}/api/v1/users/me/chats/${chatId}/close`);
+    const response = await axios.patch(
+      `${HOST}/api/v1/users/me/chats/${chatId}/close`
+    );
     return response;
   } catch (e) {
     return e.response.data;
