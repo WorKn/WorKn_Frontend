@@ -123,7 +123,7 @@ const GoogleMemberRegister = ({ location }) => {
                                     name="name"
                                     render={({ message }) => (
                                         <div className="input__msg input__msg--error">
-                                            <i class="fa fa-asterisk"></i> {message}
+                                            <i className="fa fa-asterisk"></i> {message}
                                         </div>
                                     )}
                                 />
@@ -144,7 +144,7 @@ const GoogleMemberRegister = ({ location }) => {
                                     name="lastname"
                                     render={({ message }) => (
                                         <div className="input__msg input__msg--error">
-                                            <i class="fa fa-asterisk"></i> {message}
+                                            <i className="fa fa-asterisk"></i> {message}
                                         </div>
                                     )}
                                 />
@@ -165,7 +165,7 @@ const GoogleMemberRegister = ({ location }) => {
                             name="email"
                             render={({ message }) => (
                                 <div className="input__msg input__msg--error">
-                                    <i class="fa fa-asterisk"></i> {message}
+                                    <i className="fa fa-asterisk"></i> {message}
                                 </div>
                             )}
                         />
@@ -189,7 +189,7 @@ const GoogleMemberRegister = ({ location }) => {
                             name="birthday"
                             render={({ message }) => (
                                 <div className="input__msg input__msg--error">
-                                    <i class="fa fa-asterisk"></i> {message}
+                                    <i className="fa fa-asterisk"></i> {message}
                                 </div>
                             )}
                         />

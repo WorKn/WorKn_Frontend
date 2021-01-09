@@ -194,7 +194,7 @@ const EmpresaForm = () => {
                   name="name"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -227,7 +227,7 @@ const EmpresaForm = () => {
                   name="RNC"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -257,7 +257,7 @@ const EmpresaForm = () => {
                 name="bio"
                 render={({ message }) => (
                   <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
+                    <i className="fa fa-asterisk"></i> {message}
                   </div>
                 )}
               />
@@ -283,7 +283,7 @@ const EmpresaForm = () => {
                   name="phone"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -308,7 +308,7 @@ const EmpresaForm = () => {
                 name="email"
                 render={({ message }) => (
                   <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
+                    <i className="fa fa-asterisk"></i> {message}
                   </div>
                 )}
               />

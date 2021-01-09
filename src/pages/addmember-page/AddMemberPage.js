@@ -106,7 +106,7 @@ const AddMember = ({
                   name="name"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -126,7 +126,7 @@ const AddMember = ({
                   name="lastname"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -144,12 +144,12 @@ const AddMember = ({
             name="email"
             render={({ message }) => (
               <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
+                <i className="fa fa-asterisk"></i> {message}
               </div>
             )}
           /> */}
-            <div class="paired-container">
-              <div class="paired-input">
+            <div className="paired-container">
+              <div className="paired-input">
                 <span className="popup-text">Contraseña</span>
                 <input
                   className="form-input"
@@ -168,7 +168,7 @@ const AddMember = ({
                   name="password"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -190,7 +190,7 @@ const AddMember = ({
                   name="passwordConfirm"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -215,7 +215,7 @@ const AddMember = ({
               name="birthday"
               render={({ message }) => (
                 <div className="input__msg input__msg--error">
-                  <i class="fa fa-asterisk"></i> {message}
+                  <i className="fa fa-asterisk"></i> {message}
                 </div>
               )}
             />
@@ -239,14 +239,14 @@ const AddMember = ({
             </div>
             <span className="custom-button bg-blue">
               <div className="inner-container">
-                <i class="fa fa-facebook-official"></i>
+                <i className="fa fa-facebook-official"></i>
                 <span className="vl"></span>
                 <span>Regístrate con Facebook</span>
               </div>
             </span>
             <span className="custom-button bg-red">
               <div className="inner-container">
-                <i class="fa fa-google"></i>
+                <i className="fa fa-google"></i>
                 <span className="vl"></span>
                 <span>Regístrate con Google</span>
               </div>

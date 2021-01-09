@@ -111,7 +111,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                 name="title"
                 render={({ message }) => (
                   <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
+                    <i className="fa fa-asterisk"></i> {message}
                   </div>
                 )}
               />
@@ -132,7 +132,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                 name="description"
                 render={({ message }) => (
                   <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
+                    <i className="fa fa-asterisk"></i> {message}
                   </div>
                 )}
               />
@@ -158,7 +158,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                   message="Por favor, seleccione un tipo de oferta"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -236,7 +236,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                   name="salaryRangeFrom"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -259,7 +259,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                   name="salaryRangeTo"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />

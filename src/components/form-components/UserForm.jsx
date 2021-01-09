@@ -60,7 +60,6 @@ const UserForm = () => {
     selectedTags.forEach((tag) => newArray.push(tag.value));
     data.tags = newArray;
     updateProfile(data).then((res) => {
-      // console.log(res)
       setUpdated(res.data.data.user);
       if (res?.data?.status && res?.data?.status === "success") {
         store.addNotification({
@@ -283,7 +282,7 @@ const UserForm = () => {
                     name="name"
                     render={({ message }) => (
                       <div className="input__msg input__msg--error">
-                        <i class="fa fa-asterisk"></i> {message}
+                        <i className="fa fa-asterisk"></i> {message}
                       </div>
                     )}
                   />
@@ -308,7 +307,7 @@ const UserForm = () => {
                     name="lastname"
                     render={({ message }) => (
                       <div className="input__msg input__msg--error">
-                        <i class="fa fa-asterisk"></i> {message}
+                        <i className="fa fa-asterisk"></i> {message}
                       </div>
                     )}
                   />
@@ -339,7 +338,7 @@ const UserForm = () => {
                   name="identificationNumber"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -368,7 +367,7 @@ const UserForm = () => {
                   name="bio"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />

@@ -92,7 +92,7 @@ const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
                 name="review"
                 render={({ message }) => (
                   <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
+                    <i className="fa fa-asterisk"></i> {message}
                   </div>
                 )}
               />

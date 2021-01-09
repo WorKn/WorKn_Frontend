@@ -135,7 +135,7 @@ const LoginPage = React.memo((props) => {
               name="email"
               render={({ message }) => (
                 <div className="input__msg input__msg--error">
-                  <i class="fa fa-asterisk"></i> {message}
+                  <i className="fa fa-asterisk"></i> {message}
                 </div>
               )}
             />
@@ -151,7 +151,7 @@ const LoginPage = React.memo((props) => {
               name="password"
               render={({ message }) => (
                 <div className="input__msg input__msg--error">
-                  <i class="fa fa-asterisk"></i> {message}
+                  <i className="fa fa-asterisk"></i> {message}
                 </div>
               )}
             />
@@ -197,7 +197,7 @@ const LoginPage = React.memo((props) => {
                 <span>Accede con Google</span>
               </div>
             </span> */}
-            <GoogleSignUpButton/>
+            <GoogleSignUpButton />
           </form>
         </div>
       </div>

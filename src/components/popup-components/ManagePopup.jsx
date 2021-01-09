@@ -205,7 +205,7 @@ const ManagePopup = () => {
           {typeof current.data !== "undefined" &&
             current.data.status === "successs" ? (
               <div className="input__msg input__msg--success">
-                <i class="fa fa-check"></i> Usuario actualizado correctamente
+                <i className="fa fa-check"></i> Usuario actualizado correctamente
               </div>
             ) : (
               ""

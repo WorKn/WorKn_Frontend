@@ -83,7 +83,7 @@ const PasswordPopup = (props) => {
             name="currentPassword"
             render={({ message }) => (
               <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
+                <i className="fa fa-asterisk"></i> {message}
               </div>
             )}
           />
@@ -109,7 +109,7 @@ const PasswordPopup = (props) => {
             name="newPassword"
             render={({ message }) => (
               <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
+                <i className="fa fa-asterisk"></i> {message}
               </div>
             )}
           />
@@ -132,7 +132,7 @@ const PasswordPopup = (props) => {
             name="newPasswordConfirm"
             render={({ message }) => (
               <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
+                <i className="fa fa-asterisk"></i> {message}
               </div>
             )}
           />
