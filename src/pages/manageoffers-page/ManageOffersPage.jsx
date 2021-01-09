@@ -72,7 +72,6 @@ const ManageOffersPage = () => {
   }, [action]);
 
   useEffect(() => {
-    //si fallo el get my offers y el usuario actual no es tipo ofertante entonces hay que rebotarlo. Por el otro lado, si fallo el getoffers y es ofertante dejarlo entrar
     if (state.userInformation.isEmailValidated) {
       setSuccess(true);
       getMyOffers().then((res) => {

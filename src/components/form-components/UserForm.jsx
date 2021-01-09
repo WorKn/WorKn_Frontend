@@ -60,8 +60,8 @@ const UserForm = () => {
     selectedTags.forEach((tag) => newArray.push(tag.value));
     data.tags = newArray;
     updateProfile(data).then((res) => {
-      setUpdated(res.data.data.user);
       if (res?.data?.status && res?.data?.status === "success") {
+        setUpdated(res.data.data.user);
         store.addNotification({
           title: "Perfil actualizado correctamente",
           message: "Ya puedes seguir navegando con tu nueva información",
@@ -102,12 +102,13 @@ const UserForm = () => {
           setUpdated(res.data.data.data)
         }
       });
-      getMyOrganization().then((res) => {
-        if (res.data !== undefined) {
-          action(res.data.data);
-        }
-      });
-    } else {
+      if (state.userInformation.userType === "offerer") {
+        getMyOrganization().then((res) => {
+          if (res.data !== undefined) {
+            action(res.data.data);
+          }
+        });
+      }
     }
   }, [action, state.userInformation.userType]);
 

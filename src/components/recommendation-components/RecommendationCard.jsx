@@ -118,7 +118,7 @@ const RecommendationCard = ({ personInfo, offerInfo }) => {
               <div className="offercard__tags">
                 {offerInfo?.tags.map((tag) => (
                   <Tag
-                    key={tag.id}
+                    key={tag._id}
                     text={tag.name}
                     theme="tag tag__text tag__text--gray"
                   ></Tag>
