@@ -67,7 +67,7 @@ function CounterBanner() {
           Matches Realizados
         </span>
         <span className="Counter-obj-container__down-text">
-          encontramos la{" "}
+          Encontramos la{" "}
           <b className="tooltip">
             <span className="tooltiptext">
               Una oferta especifica el trabajo a realizar y su naturaleza.

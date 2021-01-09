@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useStateMachine } from "little-state-machine";
 import "./Footer-Style.css";
 import Icon from "./Icon.jsx";
 
 const Footer = () => {
+  const { state } = useStateMachine();
+
   return (
     <div className="Footer">
       <div className="right-foot">
@@ -31,10 +34,19 @@ const Footer = () => {
             <Link
               className="left-foot__nobj"
               target="_blank"
-              to="/manageoffers"
+              to="/recommendations"
             >
-              Ofertas
+              Recomendaciones
             </Link>
+            {state.userInformation.userType === "offerer" ? (
+              <Link
+                className="left-foot__nobj"
+                target="_blank"
+                to="/manageoffers"
+              >
+                Ofertas
+              </Link>
+            ) : null}
             <Link className="left-foot__nobj" target="_blank" to="/explore">
               Exploración
             </Link>
