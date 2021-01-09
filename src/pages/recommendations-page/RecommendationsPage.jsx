@@ -83,7 +83,7 @@ const RecommendationsPage = () => {
   return (
     <div className="recommendationspage">
       <Header />
-      <Banner image={"ooyAGWN.png"} />
+      <Banner image={"zl3rsYj.png"} />
 
       {loadingVar && (
         <div className="sweet-loading">

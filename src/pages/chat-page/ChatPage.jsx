@@ -193,7 +193,7 @@ const ChatPage = () => {
         />
       </DeleteChatModal>
       <Header />
-      <Banner image={"qSOKi8h.png"} />
+      <Banner image={"gDvgkjz.png"} />
       <div className="chatpage__inner">
         <div className="chat__box">
           <div className="chat__boxleft">

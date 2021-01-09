@@ -123,7 +123,7 @@ const SummaryPage = () => {
   return success ? (
     <div className="summarypage">
       <Header />
-      <Banner image={"qSOKi8h.png"} />
+      <Banner image={"nbVXLba.png"} />
       {typeof loadingVar && loadingVar === true ? (
         <div className="sweet-loading">
           <BeatLoader
