@@ -237,12 +237,11 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
                   <Tag
                     key={tag._id}
                     text={tag.name}
-                    theme="tag tag__text tag__text--white"
+                    theme="tag tag__text tag__text--gray"
                   ></Tag>
                 ))}
               </div>
             </div>
-
             <div className="create-offer__paired-input">
               <span>Rango Salarial</span>
               <div className="create-offer__input-row">
