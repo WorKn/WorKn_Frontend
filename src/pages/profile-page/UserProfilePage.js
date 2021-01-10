@@ -44,9 +44,7 @@ const UserProfilePage = (props) => {
       setTimeout(() => {
         action({ hasCreatedAccount: false })
       }, 5000);
-    } else (
-      console.log("Loading...")
-    )
+    }
   }, [state.userInformation.hasCreatedAccount, action, state.userInformation.name])
 
   return (

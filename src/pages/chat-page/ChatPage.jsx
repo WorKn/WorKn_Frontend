@@ -45,7 +45,6 @@ const ChatPage = () => {
     if (!data.message_input) return null;
     if (chatExists) {
       createMessage(data.message_input, currentChat._id).then((res) => {
-        console.log(res)
         if (res.data !== undefined && res.data.status === "success") {
           socket.emit("chat_message", currentChat._id, res.data.data.message);
         } else {
@@ -66,7 +65,6 @@ const ChatPage = () => {
       });
     } else {
       createChat(data.message_input, interactionId).then((res) => {
-        console.log(res)
         if (res.data !== undefined && res.data.status === "success") {
           setCurrentChat(res.data.data.chat);
           socket.emit(
@@ -195,7 +193,7 @@ const ChatPage = () => {
         />
       </DeleteChatModal>
       <Header />
-      <Banner image={"qSOKi8h.png"} />
+      <Banner image={"gDvgkjz.png"} />
       <div className="chatpage__inner">
         <div className="chat__box">
           <div className="chat__boxleft">

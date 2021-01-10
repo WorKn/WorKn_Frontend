@@ -45,17 +45,6 @@ const RegisterPageC1 = () => {
     }, 1500);
   };
 
-  // useEffect(() => {
-  //   if (state.userInformation.userType !== "") {
-  //     userSignup(state.userInformation).then((res) => {
-  //       console.log(res)
-  //       setUserObject(res);
-  //     });
-  //   } else {
-  //     console.log("loading");
-  //   }
-  // }, [gotResponse, push, state.userInformation]);
-
   useEffect(() => {
     if (userObject.data !== undefined && userObject.data.status === "success") {
       action(userObject.data.data.user);
@@ -89,7 +78,7 @@ const RegisterPageC1 = () => {
           <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
             <span>
               <a href="/register" className="backtick">
-                <i class="fa fa-chevron-left"></i>Volver
+                <i className="fa fa-chevron-left"></i>Volver
             </a>
             </span>
             <div className="logo-container">
@@ -144,7 +133,7 @@ const RegisterPageC1 = () => {
               name="userType"
               render={({ message }) => (
                 <div className="input__msg input__msg--error">
-                  <i class="fa fa-asterisk"></i> {message}
+                  <i className="fa fa-asterisk"></i> {message}
                 </div>
               )}
             />

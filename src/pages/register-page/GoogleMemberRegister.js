@@ -7,7 +7,7 @@ import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import { ErrorMessage } from "@hookform/error-message";
 import { getAge } from "../../utils/ageCalculation";
-import { userSignup } from "../../utils/apiRequests";
+import { googleUserSignup } from "../../utils/apiRequests";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 import { store } from 'react-notifications-component';
@@ -30,8 +30,7 @@ const GoogleMemberRegister = ({ location }) => {
         data.isEmailValidated = state.userInformation.isEmailValidated;
         action(data);
         action({ hasCreatedAccount: true })
-        console.log(data)
-        userSignup(data).then((res) => {
+        googleUserSignup(data).then((res) => {
             if (res.status === "fail") {
                 store.addNotification({
                     title: "Ha ocurrido un error",
@@ -123,7 +122,7 @@ const GoogleMemberRegister = ({ location }) => {
                                     name="name"
                                     render={({ message }) => (
                                         <div className="input__msg input__msg--error">
-                                            <i class="fa fa-asterisk"></i> {message}
+                                            <i className="fa fa-asterisk"></i> {message}
                                         </div>
                                     )}
                                 />
@@ -144,7 +143,7 @@ const GoogleMemberRegister = ({ location }) => {
                                     name="lastname"
                                     render={({ message }) => (
                                         <div className="input__msg input__msg--error">
-                                            <i class="fa fa-asterisk"></i> {message}
+                                            <i className="fa fa-asterisk"></i> {message}
                                         </div>
                                     )}
                                 />
@@ -165,14 +164,14 @@ const GoogleMemberRegister = ({ location }) => {
                             name="email"
                             render={({ message }) => (
                                 <div className="input__msg input__msg--error">
-                                    <i class="fa fa-asterisk"></i> {message}
+                                    <i className="fa fa-asterisk"></i> {message}
                                 </div>
                             )}
                         />
 
                         <span className="popup-text">Fecha de nacimiento</span>
                         <input
-                            className="form-input"
+                            className="userform__input userform__input--outlined"
                             name="birthday"
                             id="birthday"
                             type="date"
@@ -189,7 +188,7 @@ const GoogleMemberRegister = ({ location }) => {
                             name="birthday"
                             render={({ message }) => (
                                 <div className="input__msg input__msg--error">
-                                    <i class="fa fa-asterisk"></i> {message}
+                                    <i className="fa fa-asterisk"></i> {message}
                                 </div>
                             )}
                         />
@@ -201,7 +200,7 @@ const GoogleMemberRegister = ({ location }) => {
                             </i>
                         </span>
                         <select
-                            className="form__select"
+                            className="userform__select userform__input--outlined"
                             name="userType"
                             ref={register({
                                 required: "Por favor ingrese el tipo de usuario que desea crear",

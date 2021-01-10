@@ -17,7 +17,6 @@ const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
   const onSubmit = (data) => {
     data.rating = starValue;
     updateReview(userId, review._id, data).then((res) => {
-      console.log(res)
       if (res.data.status === "success") {
         hide();
         getAllReviews(userId).then((resp) => {
@@ -39,7 +38,6 @@ const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
       }
 
     });
-    console.log(data);
   };
 
   const removeReview = (data) => {
@@ -92,7 +90,7 @@ const EditReviewPopup = ({ hide, review, userId, setReviews }) => {
                 name="review"
                 render={({ message }) => (
                   <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
+                    <i className="fa fa-asterisk"></i> {message}
                   </div>
                 )}
               />

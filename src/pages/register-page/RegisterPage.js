@@ -57,7 +57,7 @@ const RegisterPage = () => {
                   name="name"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -75,7 +75,7 @@ const RegisterPage = () => {
                   name="lastname"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -93,12 +93,12 @@ const RegisterPage = () => {
               name="email"
               render={({ message }) => (
                 <div className="input__msg input__msg--error">
-                  <i class="fa fa-asterisk"></i> {message}
+                  <i className="fa fa-asterisk"></i> {message}
                 </div>
               )}
             />
-            <div class="paired-container">
-              <div class="paired-input">
+            <div className="paired-container">
+              <div className="paired-input">
                 <span className="popup-text">Contraseña</span>
                 <input
                   className="form-input"
@@ -117,7 +117,7 @@ const RegisterPage = () => {
                   name="password"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -139,7 +139,7 @@ const RegisterPage = () => {
                   name="passwordConfirm"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -162,7 +162,7 @@ const RegisterPage = () => {
               name="birthday"
               render={({ message }) => (
                 <div className="input__msg input__msg--error">
-                  <i class="fa fa-asterisk"></i> {message}
+                  <i className="fa fa-asterisk"></i> {message}
                 </div>
               )}
             />

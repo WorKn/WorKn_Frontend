@@ -78,7 +78,6 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
         });
       }
     });
-    console.log(data);
   };
 
   return (
@@ -114,7 +113,7 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
                 name="title"
                 render={({ message }) => (
                   <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
+                    <i className="fa fa-asterisk"></i> {message}
                   </div>
                 )}
               />
@@ -136,7 +135,7 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
                 name="description"
                 render={({ message }) => (
                   <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
+                    <i className="fa fa-asterisk"></i> {message}
                   </div>
                 )}
               />
@@ -163,7 +162,7 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
                   message="Por favor, seleccione un tipo de oferta"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -202,7 +201,7 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
                 name="location"
                 render={({ message }) => (
                   <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
+                    <i className="fa fa-asterisk"></i> {message}
                   </div>
                 )}
               />
@@ -268,7 +267,7 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
                   name="salaryRangeFrom"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -294,7 +293,7 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
                   name="salaryRangeTo"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />

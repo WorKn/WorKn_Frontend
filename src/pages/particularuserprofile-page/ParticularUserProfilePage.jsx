@@ -54,7 +54,6 @@ const EmpresaViewPage = ({
   const onSubmit = (data) => {
     data.starValue = starValue;
     createReview(id, data).then((res) => {
-      console.log(res);
       if (res.data.status === "success") {
         getAllReviews(id).then((res) => {
           setReviews(res.data?.data.data);
@@ -102,7 +101,6 @@ const EmpresaViewPage = ({
         }
       } else {
         setCanLoadMoreReviews(false);
-        console.log(canLoadMoreReviews);
       }
     });
   };
@@ -229,30 +227,30 @@ const EmpresaViewPage = ({
               Este usuario no tiene reviews públicas aun
             </p>
           ) : (
-            <div className="pprofilepage__rating-container">
-              <div className="profilepage__reviewcontainer">
-                {reviews?.map((review) => (
-                  <Review
-                    key={review._id}
-                    review={review}
-                    userId={id}
-                    setReviews={setReviews}
-                  ></Review>
-                ))}
-              </div>
-              {canLoadMoreReviews && (
-                <div
-                  className="addoffer__newbutton load-reviews__submit"
-                  onClick={LoadMoreReviews}
-                >
-                  <i className="fa fas fa-plus manageoffers__icon"></i>
-                  <span className="load-reviews__title">
-                    Cargar más reviews
-                  </span>
+              <div className="pprofilepage__rating-container">
+                <div className="profilepage__reviewcontainer">
+                  {reviews?.map((review) => (
+                    <Review
+                      key={review._id}
+                      review={review}
+                      userId={id}
+                      setReviews={setReviews}
+                    ></Review>
+                  ))}
                 </div>
-              )}
-            </div>
-          )}
+                {canLoadMoreReviews && (
+                  <div
+                    className="addoffer__newbutton load-reviews__submit"
+                    onClick={LoadMoreReviews}
+                  >
+                    <i className="fa fas fa-plus manageoffers__icon"></i>
+                    <span className="load-reviews__title">
+                      Cargar más reviews
+                  </span>
+                  </div>
+                )}
+              </div>
+            )}
           <div className="pprofilepage__rating-container">
             {canReview && (
               <div className="pprofilepage__rate-body">
@@ -291,7 +289,7 @@ const EmpresaViewPage = ({
                         name="review"
                         render={({ message }) => (
                           <div className="input__msg input__msg--error">
-                            <i class="fa fa-asterisk"></i> {message}
+                            <i className="fa fa-asterisk"></i> {message}
                           </div>
                         )}
                       />

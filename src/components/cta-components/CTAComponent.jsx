@@ -29,30 +29,30 @@ const CTAComponent = ({ params: { imageUrl } }) => {
               onMouseEnter={toggleHover}
               onMouseLeave={toggleHover}
             >
-              <i class="fa fa-address-card cta-container__profile-icon"></i>
+              <i className="fa fa-address-card cta-container__profile-icon"></i>
               Ir a tu perfil
             </div>
           </a>
         ) : (
-          <a href="/login">
-            <div
-              className={
-                isHovered
-                  ? "cta-container__ctabutton"
-                  : "cta-container__ctabutton cta-container__ctabutton--highlighted"
-              }
-              onMouseEnter={toggleHover}
-              onMouseLeave={toggleHover}
-            >
-              <img
-                src="https://i.imgur.com/SE2JiQf.png"
-                className="button-image"
-                alt="icon"
-              ></img>
+            <a href="/login">
+              <div
+                className={
+                  isHovered
+                    ? "cta-container__ctabutton"
+                    : "cta-container__ctabutton cta-container__ctabutton--highlighted"
+                }
+                onMouseEnter={toggleHover}
+                onMouseLeave={toggleHover}
+              >
+                <img
+                  src="https://i.imgur.com/SE2JiQf.png"
+                  className="button-image"
+                  alt="icon"
+                ></img>
               Únete o inicia sesión
             </div>
-          </a>
-        )}
+            </a>
+          )}
         {/* <a href="/login">
           <div
             className={

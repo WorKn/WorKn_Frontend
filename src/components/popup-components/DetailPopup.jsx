@@ -31,7 +31,6 @@ const DetailPopup = ({ responseInfo, hide }) => {
   useEffect(() => {
     getMyOffers().then((res) => {
       if (res !== undefined) {
-        console.log(res);
         setOffers(res);
       }
     });
@@ -51,36 +50,10 @@ const DetailPopup = ({ responseInfo, hide }) => {
     }
   }, [responseInfo]);
 
-  // useEffect(() => {
-  //   if (interactionTarget && state.userInformation.userType === "applicant") {
-  //     createInteractionAO(interactionTarget).then((res) => {
-  //       if (res !== undefined) {
-  //         console.log(res);
-  //       }
-  //     });
-  //   } else {
-  //     console.log("es ofertante");
-  //   }
-  // }, [interactionTarget, state.userInformation.userType]);
-
-  // useEffect(() => {
-  //   createInteractionOA(interactionTarget, selectedOffer).then((res) => {
-  //     if (res !== undefined) {
-  //       console.log(res);
-  //     }
-  //   });
-  // }, [interactionTarget, selectedOffer]);
-
-  // const onSubmit = (data) => {
-  //   setSelectedOffer(data.offer);
-  //   setInteractionTarget(responseInfo?._id);
-  // };
-
   const onSubmit = (data) => {
     if (state.userInformation.userType === "offerer") {
       createInteractionOA(responseInfo?._id, data.offer).then((res) => {
-        console.log(res);
-        if (res !== undefined && res?.data?.status === "success") {
+        if (res !== undefined && res?.data?.status === 'success') {
           store.addNotification({
             title: "Interacción creada",
             message:
@@ -113,8 +86,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
       });
     } else {
       createInteractionAO(responseInfo?._id).then((res) => {
-        console.log(res);
-        if (res !== undefined && res?.data?.status === "success") {
+        if (res !== undefined && res?.data?.status === 'success') {
           store.addNotification({
             title: "Interacción creada",
             message:

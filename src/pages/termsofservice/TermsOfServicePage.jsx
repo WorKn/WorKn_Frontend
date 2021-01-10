@@ -25,7 +25,7 @@ const TermsOfServicePage = () => {
   return (
     <React.Fragment>
       <Header />
-      <Banner image={"VfeSojP.png"}></Banner>
+      <Banner image={"8hvEhO2.png"}></Banner>
       <div className="tos-wrapper">
         <div className="tos-container__left-items">
           <ol>

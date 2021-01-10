@@ -26,7 +26,6 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
   MyDictionary["fixed"] = "Fijo/Indefinido";
   MyDictionary["applicant"] = "Aplicante";
 
-  console.log(offerInfo);
 
   useEffect(() => {
     if (state.userInformation.userType === "applicant") {
