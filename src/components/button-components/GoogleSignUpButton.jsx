@@ -25,17 +25,17 @@ const GoogleSignUpButton = () => {
 
   return (
     <div>
-      <span className="custom-button bg-red">
+      <a className="custom-button bg-red google" href={googleLoginUrl}>
         <div className="inner-container">
           <i className="fa fa-google"></i>
           <span className="vl"></span>
           <span>
-            <a className="google" href={googleLoginUrl}>
+            <span className="google" >
               Accede con Google
-            </a>
+            </span>
           </span>
         </div>
-      </span>
+      </a>
     </div>
   );
 };
