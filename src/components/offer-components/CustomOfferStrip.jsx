@@ -72,7 +72,7 @@ const CustomOfferStrip = ({
         )}
 
       <span
-        className="offerstrip__text offerstrip__type"
+        className="offerstrip__text offerstrip__offer text__clickable"
         onClick={showOfferModal}
       >
         {offerInfo ? shortOfferTitle : "Titulo no disponible"}
@@ -128,13 +128,13 @@ const CustomOfferStrip = ({
           )}
 
         <span
-          className="offerstrip__text offerstrip__type"
+          className="offerstrip__text offerstrip__offer text__clickable"
           onClick={showOfferModal}
         >
           {offerInfo ? shortOfferTitle : "Titulo no disponible"}
         </span>
         <span className="offerstrip__vl offerstrip__vl--1"></span>
-        <span className="offerstrip__text offerstrip__org">
+        <span className="offerstrip__text offerstrip__type">
           {offerInfo ? MyDictionary[offerInfo.offerType] : "Info no disponible"}
         </span>
         <span className="offerstrip__vl offerstrip__vl--2"></span>
