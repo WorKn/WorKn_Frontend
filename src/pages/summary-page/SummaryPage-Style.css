@@ -10,6 +10,14 @@
   padding: 2% 5%;
 }
 
+.summarypage__formholder{
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  width: 100%;
+  padding: 2% 5%;
+}
+
 .summarypage__title {
   color: #5bba6f;
   font-size: 16px;
@@ -78,6 +86,9 @@
   padding: 10px 10px;
 }
 
+
+
+
 .summary__announcementinner{
   display: flex;
   flex-direction: column;
@@ -86,6 +97,11 @@
 .summarypage_appliedimg{
   height: 130px;
 }
+
+.summarypage_shortimg{
+  height: 60px;
+}
+
 
 .summarypage__imgbg{
   background-color: #F7F7F7;

@@ -22,9 +22,10 @@ const normalizePhone = (value) => {
   return value.replace(/\s/g, "").match(/.{1,4}/g)?.join("").substr(0, 10) || "";
 }
 
+
+
 const EmpresaForm = () => {
   const [updated, setUpdated] = useState("");
-  const [setDisabled] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit, errors, watch } = useForm({});
@@ -33,8 +34,8 @@ const EmpresaForm = () => {
     if (!state.userInformation.organization) {
       createOrganization(data).then((res) => {
         if (res.data !== undefined) {
-          setUpdated(res);
           if (res?.data?.status && res?.data?.status === "success") {
+            setUpdated(res);
             store.addNotification({
               title: "Organización creada correctamente!",
               message: "Ahora puedes proceder a Manejar  tu Organización",
@@ -48,6 +49,7 @@ const EmpresaForm = () => {
                 onScreen: true
               }
             });
+            setIsEditMode(false);
           }
         }
       });
@@ -56,7 +58,6 @@ const EmpresaForm = () => {
       editOrganization(data).then((res) => {
         if (res.data !== undefined) {
           if (res.data.status && res.data.status === "success") {
-            setDisabled(true);
             store.addNotification({
               title: "Organización editada correctamente!",
               message: "Ahora puedes proceder a Manejar  tu Organización",
@@ -70,7 +71,6 @@ const EmpresaForm = () => {
                 onScreen: true
               }
             });
-            // setUpdated(res);
           } else if (res.data.status && res.data.status === "fail") {
             store.addNotification({
               title: "Ha ocurrido un error",
@@ -110,6 +110,11 @@ const EmpresaForm = () => {
   }, [state.userInformation.data]);
   const password = useRef({});
   password.current = watch("password", "");
+
+  const abortEdit = () => {
+    setIsEditMode(false)
+    setUpdated(state.userInformation.data)
+  }
 
   return (
     <div>
@@ -188,7 +193,7 @@ const EmpresaForm = () => {
                   name="name"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -209,7 +214,6 @@ const EmpresaForm = () => {
                     },
                   })}
                   inputMode="numeric"
-                  autoComplete="cc-number"
                   onChange={(e) => {
                     const { value } = e.target
                     e.target.value = normalizeId(value)
@@ -222,7 +226,7 @@ const EmpresaForm = () => {
                   name="RNC"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -252,7 +256,7 @@ const EmpresaForm = () => {
                 name="bio"
                 render={({ message }) => (
                   <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
+                    <i className="fa fa-asterisk"></i> {message}
                   </div>
                 )}
               />
@@ -267,7 +271,6 @@ const EmpresaForm = () => {
                   value={updated.phone}
                   ref={register}
                   inputMode="numeric"
-                  autoComplete="cc-number"
                   onChange={(e) => {
                     const { value } = e.target
                     e.target.value = normalizePhone(value)
@@ -279,7 +282,7 @@ const EmpresaForm = () => {
                   name="phone"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -304,7 +307,7 @@ const EmpresaForm = () => {
                 name="email"
                 render={({ message }) => (
                   <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
+                    <i className="fa fa-asterisk"></i> {message}
                   </div>
                 )}
               />
@@ -324,6 +327,7 @@ const EmpresaForm = () => {
               type="submit"
               value="Guardar Perfil de Empresa"
             />
+            <button className="custom-button bg-red" onClick={abortEdit}>Cancelar</button>
           </form>
         )}
 

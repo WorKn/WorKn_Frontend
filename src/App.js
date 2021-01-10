@@ -24,10 +24,13 @@ import ExplorePage from "./pages/explore-page/ExplorePage";
 import TermsOfServicePage from "./pages/termsofservice/TermsOfServicePage";
 import ParticularUserProfilePage from "./pages/particularuserprofile-page/ParticularUserProfilePage";
 import EmpresaViewPage from "./pages/viewside-page/EmpresaViewPage";
-import ReactNotification from 'react-notifications-component'
-import 'react-notifications-component/dist/theme.css'
+import GoogleAuthPage from "./pages/googleauth-page/GoogleAuthPage";
+import ReactNotification from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
 import ChatPage from "./pages/chat-page/ChatPage";
 import RecommendationsPage from "./pages/recommendations-page/RecommendationsPage";
+import GoogleOwnerRegister from "./pages/register-page/GoogleOwnerRegister";
+import GoogleMemberRegister from "./pages/register-page/GoogleMemberRegister";
 // import ChatPage from "./pages/chat-page/ChatPage";
 require("dotenv").config({ path: "./.env" });
 
@@ -51,6 +54,8 @@ function App() {
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/registerc1" component={RegisterPageC1} />
             <Route exact path="/registerc2" component={RegisterPageC2} />
+            <Route exact path="/googleOwnerRegister" component={GoogleOwnerRegister} />
+            <Route exact path="/googleMemberRegister" component={GoogleMemberRegister} />
             <Route exact path="/login" component={LoginPage} />
             <Route
               exact
@@ -77,7 +82,7 @@ function App() {
               path="/organizationprofile"
               component={EmpresaProfilePage}
             />
-            <Route
+            <ProtectedRoute
               exact
               path="/recommendations"
               component={RecommendationsPage}
@@ -106,10 +111,12 @@ function App() {
             <Route exact path="/manageoffers" component={ManageOffersPage} />
             <Route exact path="/tos" component={TermsOfServicePage} />
             <Route exact path="/addMember/:token" component={AddMember} />
-            <Route exact path="/summary" component={SummaryPage} />
+            <ProtectedRoute exact path="/summary" component={SummaryPage} />
             <Route exact path="/explore" component={ExplorePage} />
             <Route exact path="/managemembers" component={ManagePopup} />
-            <Route exact path="/chat" component={ChatPage} />
+            <Route path="/googleAuth" component={GoogleAuthPage} />
+            {/* <Route exact path="/chat" component={ChatPage} /> */}
+            <ProtectedRoute exact path="/chat" component={ChatPage} />
             <Route path="*" component={NotFound} />
           </Switch>
         </animated.div>

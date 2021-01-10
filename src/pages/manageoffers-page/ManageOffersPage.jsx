@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import "./ManageOffersPage-Style.css";
 import Header from "../../components/navbar-components/Navbar.jsx";
 import { getMyOffers } from "../../utils/apiRequests";
-import { getMyOrganization } from "../../utils/apiRequests";
+import { getMyOrganization, getMe } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import CreateOfferPopup from "../../components/popup-components/CreateOfferPopup";
 import { useModal } from "../../hooks/useModal";
@@ -12,13 +12,14 @@ import EmailNotValidated from "../../components/emailnotvalidated-components/Ema
 import { useStateMachine } from "little-state-machine";
 import { useForm } from "react-hook-form";
 import Banner from "../../components/banner-components/Banner";
+import Footer from "../../components/footer-components/Footer";
 
 const ManageOffersPage = () => {
   const [myoffers, setMyOffers] = useState([]);
   const [organizationInfo, setMyOrganization] = useState();
   const [success, setSuccess] = useState(false);
-  const [isOfferActive, setIsOfferActive] = useState(true);
-  const { state } = useStateMachine(updateAction);
+  const [offersToDisplay, setOffersToDisplay] = useState("active");
+  const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit } = useForm({});
   const {
     show: showAddOfferModal,
@@ -28,17 +29,6 @@ const ManageOffersPage = () => {
 
   let history = useHistory();
 
-  // if (state.userInformation.userType !== "offerer") {
-
-  // }
-
-  //State y props son los unicos que re-renderizan components. Para evitar que funciones innecesarias se ejecuten usamos hooks:
-
-  //Para que solo se ejecute una vez organizationInfo y no cada vez que se re renderice se usa useMemo.
-  //useMemo se usa cuando utilizo una variable directa de la que dependo , useEffect cuando quiero realizar un efecto secundario que no devuelve data,
-  //useCallback cuando quiero que mi funcion se guarde y no se redefina muchas veces. Ej: una funcion de evento
-
-  //funcion useMemo() para memoizar las ofertas activas e inactivas. Evita hacer api requests innecesarios si la data no cambia
   const activeOffers = useMemo(
     () =>
       myoffers.map((offer) =>
@@ -69,19 +59,25 @@ const ManageOffersPage = () => {
     [myoffers, organizationInfo]
   );
 
-  const onSubmit = () => {
-    setIsOfferActive(!isOfferActive);
+  const onSubmit = (e) => {
+    setOffersToDisplay(e.type);
   };
 
   useEffect(() => {
-    //si fallo el get my offers y el usuario actual no es tipo ofertante entonces hay que rebotarlo. Por el otro lado, si fallo el getoffers y es ofertante dejarlo entrar
+    getMe().then((res) => {
+      if (res.data !== undefined) {
+        action(res.data.data.data);
+      }
+    });
+  }, [action]);
+
+  useEffect(() => {
     if (state.userInformation.isEmailValidated) {
       setSuccess(true);
       getMyOffers().then((res) => {
-        if (!res.data && state.userInformation.userType === "offerer") {
-          // history.push("/");
+        if (state.userInformation.userType === "applicant") {
+          history.push("/userprofile");
         } else if (!res.data && state.userInformation.userType !== "offerer") {
-          history.push("/login");
         } else {
           const offers = res.data.data.offers;
           if (offers && Array.isArray(offers)) {
@@ -91,7 +87,6 @@ const ManageOffersPage = () => {
       });
 
       getMyOrganization().then((res) => {
-        //si el usuario actual es un ofertante sin organizacion
         if (
           !res.data &&
           state.userInformation.organizationRole === "" &&
@@ -101,8 +96,6 @@ const ManageOffersPage = () => {
             profilePicture: state.userInformation.profilePicture,
           };
           setMyOrganization(organization);
-        } else if (!res.data && state.userInformation.userType !== "offerer") {
-          history.push("/login");
         } else {
           const organization = res?.data?.data?.data;
           setMyOrganization(organization);
@@ -112,7 +105,6 @@ const ManageOffersPage = () => {
       !state.userInformation.isEmailValidated &&
       !state.userInformation._id
     ) {
-      history.push("/login");
     } else {
       setSuccess(false);
     }
@@ -130,54 +122,88 @@ const ManageOffersPage = () => {
   }, []);
 
   return success ? (
-    <div className="manageoffers-container">
-      <Header></Header>
-      <Banner image={"qiyrYvI.png"} />
-      <AddOfferModal>
-        <CreateOfferPopup
-          hide={hideAddOfferModal}
-          setMyOffers={setMyOffers}
-        ></CreateOfferPopup>
-      </AddOfferModal>
-      <div className="manageoffers-inner">
-        <div className="manageoffers__container">
-          <span className="manageoffers__title--dark">
-            Seleccione el tipo de oferta a mostrar
-          </span>
-        </div>
-        <form
-          className="summarypage__form manageoffers__typeselector"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <select className="form__select" name="type" ref={register}>
-            <option value="active">Ofertas activas</option>
-            <option value="inactive">Ofertas inactivas</option>
-          </select>
-          <input className="custom-button bg-green" type="submit" value="Ir" />
-        </form>
-
-        <div className="manageoffers__activecontainer">
-          <div className="addoffer__newbutton" onClick={showAddOfferModal}>
-            <i className="fa fas fa-plus manageoffers__icon"></i>
+    <div>
+      <div className="manageoffers-container">
+        <Header></Header>
+        <Banner image={"qiyrYvI.png"} />
+        <AddOfferModal>
+          <CreateOfferPopup
+            hide={hideAddOfferModal}
+            setMyOffers={setMyOffers}
+          ></CreateOfferPopup>
+        </AddOfferModal>
+        <div className="manageoffers-inner">
+          <div className="manageoffers__container">
             <span className="manageoffers__title--dark">
-              Crea una nueva oferta
+              Seleccione el tipo de oferta a mostrar
             </span>
           </div>
-        </div>
-        {isOfferActive ? (
-          <React.Fragment>
-            <div className="manageoffers__offers-list">{activeOffers}</div>
-          </React.Fragment>
-        ) : (
-            <React.Fragment>
-              <div className="manageoffers__offers-list">
-                {inactiveOffers
-                  ? inactiveOffers
-                  : "Usted no ha colocado ninguna oferta como inactiva aún"}
+          <form
+            className="summarypage__form manageoffers__typeselector"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <select className="form__select" name="type" ref={register}>
+              <option value="active">Ofertas activas</option>
+              <option value="inactive">Ofertas inactivas</option>
+            </select>
+            <input
+              className="custom-button bg-green"
+              type="submit"
+              value="Ir"
+            />
+          </form>
+
+          <div className="manageoffers__activecontainer">
+            <div className="addoffer__newbutton" onClick={showAddOfferModal}>
+              <i className="fa fas fa-plus manageoffers__icon"></i>
+              <span className="manageoffers__title--dark">
+                Crea una nueva oferta
+              </span>
+            </div>
+          </div>
+          <div>
+            {myoffers.length === 0 ? (
+              <div className="manageoffers__inner">
+                <div className="summary__announcement">
+                  <div className="summarypage__imgbg">
+                    <img
+                      src="https://i.imgur.com/CAtVIjs.png"
+                      alt="applied"
+                      className="summarypage_appliedimg"
+                    ></img>
+                  </div>
+                  <div className="summary__announcementinner">
+                    <span className="summarypagea__title--dark">
+                      Aún no tienes ninguna oferta creada!
+                    </span>
+                    <span>
+                      Clickea en el botón de crear una nueva oferta para que
+                      puedas empezar a trabajar en ellas.
+                    </span>
+                  </div>
+                </div>
               </div>
+            ) : (
+                ""
+              )}
+          </div>
+
+          {offersToDisplay && offersToDisplay === "active" ? (
+            <React.Fragment>
+              <div className="manageoffers__offers-list">{activeOffers}</div>
             </React.Fragment>
-          )}
+          ) : (
+              <React.Fragment>
+                <div className="manageoffers__offers-list">
+                  {inactiveOffers
+                    ? inactiveOffers
+                    : "Usted no ha colocado ninguna oferta como inactiva aún"}
+                </div>
+              </React.Fragment>
+            )}
+        </div>
       </div>
+      <Footer />
     </div>
   ) : (
       <EmailNotValidated />

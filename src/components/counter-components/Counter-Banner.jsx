@@ -11,7 +11,6 @@ function CounterBanner() {
 
   useEffect(() => {
     getLandingPageStats().then((res) => {
-      console.log(res.data.data);
       setUsers(res.data.data.users);
       setOrgs(res.data.data.organizations);
       setMatches(res.data.data.matches);
@@ -67,7 +66,7 @@ function CounterBanner() {
           Matches Realizados
         </span>
         <span className="Counter-obj-container__down-text">
-          encontramos la{" "}
+          Encontramos la{" "}
           <b className="tooltip">
             <span className="tooltiptext">
               Una oferta especifica el trabajo a realizar y su naturaleza.

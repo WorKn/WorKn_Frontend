@@ -12,7 +12,11 @@ import { useHistory } from "react-router-dom";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 import { store } from 'react-notifications-component';
+import Header from "../../components/navbar-components/Navbar";
+import Footer from "../../components/footer-components/Footer";
 
+
+import GoogleSignUpButton from "./../../components/button-components/GoogleSignUpButton"
 
 const LoginPage = React.memo((props) => {
   const [userObject, setUserObject] = useState("");
@@ -54,7 +58,6 @@ const LoginPage = React.memo((props) => {
     ) {
       auth.login();
       push("/userprofile");
-      console.log("not completed!");
     }
   }, [
     userObject,
@@ -97,9 +100,7 @@ const LoginPage = React.memo((props) => {
           }
         });
       }, 1500);
-    } else (
-      console.log("Loading...")
-    )
+    }
   }, [state.userInformation.hasPasswordUpdated])
 
   return (
@@ -107,6 +108,7 @@ const LoginPage = React.memo((props) => {
       <QuestionModal>
         <QuestionPopup />
       </QuestionModal>
+      <Header />
       <div className="green-line">
         <div>
           <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
@@ -130,7 +132,7 @@ const LoginPage = React.memo((props) => {
               name="email"
               render={({ message }) => (
                 <div className="input__msg input__msg--error">
-                  <i class="fa fa-asterisk"></i> {message}
+                  <i className="fa fa-asterisk"></i> {message}
                 </div>
               )}
             />
@@ -146,7 +148,7 @@ const LoginPage = React.memo((props) => {
               name="password"
               render={({ message }) => (
                 <div className="input__msg input__msg--error">
-                  <i class="fa fa-asterisk"></i> {message}
+                  <i className="fa fa-asterisk"></i> {message}
                 </div>
               )}
             />
@@ -175,34 +177,30 @@ const LoginPage = React.memo((props) => {
             <input
               className="custom-button bg-green"
               type="submit"
-              value="Acceder"
+              value="Iniciar sesión"
             />
-            <span onClick={showQuestionModal} className="custom-button bg-gray">
-              <span>Regístrate</span>
-            </span>
             <div className="line-separator">
               <span className="hl"></span>
               <span className="spacer">o</span>
               <span className="hl"></span>
             </div>
-            <span className="custom-button bg-blue">
-              <div className="inner-container">
-                <i className="fa fa-facebook-official"></i>
-                <span className="vl"></span>
-                <span>Accede con Facebook</span>
-              </div>
+            <span onClick={showQuestionModal} className="custom-button bg-jet">
+              <span>Regístrate ahora</span>
             </span>
-            <span className="custom-button bg-red">
+            {/* <span className="custom-button bg-red">
               <div className="inner-container">
                 <i className="fa fa-google"></i>
                 <span className="vl"></span>
                 <span>Accede con Google</span>
               </div>
-            </span>
+            </span> */}
+            <GoogleSignUpButton />
           </form>
         </div>
       </div>
+      <Footer></Footer>
     </div>
+
   );
 });
 

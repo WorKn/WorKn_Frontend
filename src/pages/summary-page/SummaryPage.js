@@ -11,6 +11,7 @@ import { getMyInteractions, getMyOffers } from "../../utils/apiRequests";
 import { useForm } from "react-hook-form";
 import { css } from "@emotion/core";
 import BeatLoader from "react-spinners/BeatLoader";
+import { getMe } from "../../utils/apiRequests";
 
 const SummaryPage = () => {
   const [loadingVar, setLoadingVar] = useState(false);
@@ -19,9 +20,21 @@ const SummaryPage = () => {
   const [interested, setInterested] = useState();
   const [success, setSuccess] = useState(true);
   const [match, setMatches] = useState();
-  const { state } = useStateMachine(updateAction);
+  const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit } = useForm({});
   const [selectedOffer, setSelectedOffer] = useState();
+  const redirectToOffers = () => {
+    window.open(`/manageoffers`, "_blank")
+  }
+  const redirectToRecommendations = () => {
+    window.open(`/recommendations`, "_blank")
+  }
+
+  const redirectToExplore = () => {
+    window.open(`/explore`, "_blank")
+  }
+
+
   const override = css`
   display: block;
 `;
@@ -30,13 +43,23 @@ const SummaryPage = () => {
   };
 
   useEffect(() => {
-    getMyOffers().then((res) => {
-      if (res !== undefined) {
-        console.log(res);
-        setOffers(res);
+    if (state.userInformation.userType === "offerer") {
+      getMyOffers().then((res) => {
+        if (res !== undefined) {
+          const filteredOffers = res?.data?.data?.offers.filter(offer => offer.state === "active")
+          setOffers(filteredOffers);
+        }
+      });
+    }
+  }, [state.userInformation.userType]);
+
+  useEffect(() => {
+    getMe().then((res) => {
+      if (res.data !== undefined) {
+        action(res.data.data.data);
       }
     });
-  }, []);
+  }, [action]);
 
   useEffect(() => {
     if (!state.userInformation.isEmailValidated) {
@@ -54,7 +77,6 @@ const SummaryPage = () => {
             );
             setInterested(filteredInterested);
             setMatches(res.data.data.interactions.match);
-            console.log(res);
           });
         }
       }, 1500);
@@ -63,9 +85,10 @@ const SummaryPage = () => {
 
   useEffect(() => {
     setLoadingVar(true);
-    if (!state.userInformation.isEmailValidated) {
+    if (state.userInformation.isEmailValidated && state.userInformation.isEmailValidated === false) {
       setSuccess(false);
     } else {
+      setSuccess(true);
       setTimeout(() => {
         setLoadingVar(false);
         if (
@@ -75,7 +98,6 @@ const SummaryPage = () => {
         ) {
           getMyInteractions(selectedOffer).then((res) => {
             if (res !== undefined) {
-              console.log(res);
               setApplied(res?.data?.data?.interactions?.applied);
               setInterested(res?.data?.data?.interactions?.interested);
               setMatches(res?.data?.data?.interactions?.match);
@@ -88,17 +110,20 @@ const SummaryPage = () => {
     selectedOffer,
     state.userInformation.userType,
     state.userInformation.isEmailValidated,
-    state.userInformation.updateFlag
+    state.userInformation.updateFlag,
+    state.userInformation
   ]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+
+
   return success ? (
     <div className="summarypage">
       <Header />
-      <Banner image={"qSOKi8h.png"} />
+      <Banner image={"nbVXLba.png"} />
       {typeof loadingVar && loadingVar === true ? (
         <div className="sweet-loading">
           <BeatLoader
@@ -147,7 +172,7 @@ const SummaryPage = () => {
                 </div>
                 <div className="summary__announcementinner">
                   <span className="summarypagea__title--dark">No has demostrado interés por ninguna oferta.</span>
-                  <span>Accede a nuestra página de Recomendaciones o de Exploración para encontrar ofertas perfectas para ti.</span>
+                  <span>Accede a nuestra página de <span className="chat__link" onClick={redirectToRecommendations}>Recomendaciones</span> o de <span className="chat__link" onClick={redirectToExplore}>Exploración</span> para encontrar ofertas perfectas para ti.</span>
                 </div>
               </div>
             ) : (
@@ -188,28 +213,45 @@ const SummaryPage = () => {
           <div className="summarypage__inner">
             <div className="summarypage__inner">
               <div className="summarypage__header">
-                <span className="summarypage__title--dark">
-                  Selecciona la oferta que quieres revisar
-              </span>
-                <form
-                  onSubmit={handleSubmit(onSubmit)}
-                  className="summarypage__form"
-                >
-                  <select className="sform__select" name="offer" ref={register}>
-                    {offers?.data?.data?.offers.map((offer) => (
-                      <option key={offer._id} value={offer._id}>
-                        {offer.title}
-                      </option>
-                    ))}
-                  </select>
-                  <input
-                    className="custom-button bg-green"
-                    type="submit"
-                    value="Ir"
-                  />
-                </form>
-              </div>
 
+                {offers && offers.data?.data?.offers?.length === 0 ? (
+                  <div>
+                    <div className="summary__announcement">
+                      <div className="summarypage__imgbg">
+                        <img src="https://i.imgur.com/agtLnO2.png" alt="applied" className="summarypage_shortimg"></img>
+                      </div>
+                      <div className="summary__announcementinner">
+                        <span className="summarypagea__title--dark">Parece que aún no has creado ninguna oferta</span>
+                        <span>Como ofertante las necesitas para sostener interacciones, haz click aquí para ir a tu <span onClick={redirectToOffers} className="chat__link"> manejo de ofertas.</span></span>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                    <div className="summarypage__formholder">
+                      <span className="summarypage__title--dark">
+                        Selecciona la oferta que quieres revisar
+                      </span>
+                      <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className="summarypage__form"
+                      >
+                        <select className="sform__select" name="offer" ref={register}>
+                          <option>Clic aquí para visualizarlas</option>
+                          {offers?.map((offer) => (
+                            <option key={offer._id} value={offer._id}>
+                              {offer.title}
+                            </option>
+                          ))}
+                        </select>
+                        <input
+                          className="custom-button bg-green"
+                          type="submit"
+                          value="Ir"
+                        />
+                      </form>
+                    </div>
+                  )}
+              </div>
               <span className="summarypage__title">
                 Estas personas están interesadas
             </span>
@@ -244,7 +286,7 @@ const SummaryPage = () => {
                   </div>
                   <div className="summary__announcementinner">
                     <span className="summarypagea__title--dark">No has demostrado interés por nadie en esta oferta.</span>
-                    <span>Accede a nuestra página de Recomendaciones o de Exploración para encontrar aplicantes perfectos para ti.</span>
+                    <span>Accede a nuestra página de <span className="chat__link" onClick={redirectToRecommendations}>Recomendaciones</span> o de <span className="chat__link" onClick={redirectToExplore}>Exploración</span> para encontrar aplicantes perfectos para ti.</span>
                   </div>
                 </div>
               ) : (

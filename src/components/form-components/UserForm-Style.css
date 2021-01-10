@@ -39,7 +39,7 @@
 }
 
 .userform__placeholder{
-  background-color: #fff;
+  background-color: #ebebeb;
   border: none;
   border-radius: 5px;
   height: 45px;
@@ -60,6 +60,7 @@
   border-radius: 5px;
   height: 45px;
   padding-left: 20px;
+  margin-bottom: 15px;
 }
 
 .userform__input--lg {
@@ -72,6 +73,10 @@
   max-height: 400px;
   font-size: 14px;
   min-height: 100px;
+}
+
+.userform__input--outlined{
+  border: solid 1px #E5E4E4;
 }
 
 .userform__footer {
@@ -102,4 +107,29 @@
 
 .userform__tagscontainer .tag {
   margin-bottom: 14px;
+}
+
+.userform__edit {
+  font-size: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  background-color: #5bba6f;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.form__mainhead{
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+}
+
+.userform__downspacer{
+  margin-bottom: 16px;
 }

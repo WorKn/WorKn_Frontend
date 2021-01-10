@@ -21,7 +21,6 @@ const TagsInput = ({ defaultInputValue }) => {
           `http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${defaultInputValue}/tags`
         )
         .then((res) => {
-          console.log(defaultInputValue);
           const json = res.data.data.tags;
           const tags = [];
           json.forEach((i) => {
@@ -36,7 +35,6 @@ const TagsInput = ({ defaultInputValue }) => {
           `http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.label}/tags`
         )
         .then((res) => {
-          console.log(inputValue);
           const json = res.data.data.tags;
           const tags = [];
           json.forEach((i) => {

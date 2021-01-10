@@ -65,6 +65,15 @@ export const getAllOffers = async () => {
   }
 };
 
+export const getAllFilteredOffers = async () => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/offers/?state=active`);
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
 export const userLogin = async (user) => {
   try {
     const response = await axios.post(`${HOST}/api/v1/users/login`, {
@@ -94,6 +103,26 @@ export const userSignup = async (user) => {
   }
 };
 
+export const googleUserSignup = async (user) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/users/signup`, {
+      name: user.name,
+      lastname: user.lastname,
+      email: user.email,
+      birthday: user.birthday,
+      password: user.password,
+      passwordConfirm: user.passwordConfirm,
+      userType: user.userType,
+      signUpMethod: user.signUpMethod,
+      profilePicture: user.profilePicture,
+      isEmailValidated: user.isEmailValidated,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
 export const orgUserSignup = async (user) => {
   try {
     const response = await axios.post(`${HOST}/api/v1/users/signup`, {
@@ -105,6 +134,32 @@ export const orgUserSignup = async (user) => {
       passwordConfirm: user.passwordConfirm,
       userType: user.userType,
       organizationRole: user.organizationRole,
+      signUpMethod: user.signUpMethod,
+      profilePicture: user.profilePicture,
+      isEmailValidated: user.isEmailValidated,
+    });
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const validateUserGoogleAuthRegister = async (code, redirect_uri) => {
+  try {
+    const response = await axios.get(
+      `${HOST}/api/v1/users/googleAuth/validate?code=${code}&redirect_uri=${redirect_uri}`
+    );
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const googleAuth = async (code, redirect_uri) => {
+  try {
+    const response = await axios.post(`${HOST}/api/v1/users/googleAuth`, {
+      code,
+      redirect_uri,
     });
     return response;
   } catch (e) {
@@ -171,7 +226,6 @@ export const createOffer = async (offer) => {
     });
     return response.data.status;
   } catch (e) {
-    console.log("Hubo un error al crear");
     return e.response.data;
   }
 };
@@ -368,9 +422,18 @@ export const getMyOffers = async () => {
     const response = await axios.get(`${HOST}/api/v1/offers/me`);
     return response;
   } catch (e) {
-    return e.response.data;
+    return e?.response?.data;
   }
 };
+
+// export const getMyFilteredOffers = async () => {
+//   try {
+//     const response = await axios.get(`${HOST}/api/v1/offers/me`);
+//     return response;
+//   } catch (e) {
+//     return e.response.data;
+//   }
+// };
 
 export const editOffer = async (offer) => {
   try {
@@ -584,7 +647,7 @@ export const getOfferRecommendation = async () => {
   }
 };
 
-// CHAT	
+// CHAT
 
 export const createChat = async (message, interaction) => {
   try {
@@ -626,6 +689,17 @@ export const getChatMessages = async (chatId) => {
 export const getMyChats = async () => {
   try {
     const response = await axios.get(`${HOST}/api/v1/users/me/chats`);
+    return response;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const closeChat = async (chatId) => {
+  try {
+    const response = await axios.patch(
+      `${HOST}/api/v1/users/me/chats/${chatId}/close`
+    );
     return response;
   } catch (e) {
     return e.response.data;

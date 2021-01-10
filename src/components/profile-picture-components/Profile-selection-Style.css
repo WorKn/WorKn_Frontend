@@ -126,3 +126,11 @@
 .PicForm button:hover {
   background-color: #259e6c;
 }
+
+.picture__previewcont{
+display: flex;
+width: 100%;
+justify-content: center;
+align-items: center;
+margin-bottom: 10px;
+}

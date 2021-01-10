@@ -10,6 +10,7 @@ import {
   getMyChats,
   getChatMessages,
   createMessage,
+
 } from "../../utils/apiRequests";
 import ScrollToBottom from "react-scroll-to-bottom";
 import "./ChatPage-Style.css";
@@ -18,6 +19,10 @@ import Contact from "../../components/chat-components/Contact";
 import Message from "../../components/chat-components/Message";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
+import { getMe } from "../../utils/apiRequests";
+import { store } from "react-notifications-component";
+import { useModal } from "../../hooks/useModal";
+import DeleteChatPopup from "../../components/popup-components/DeleteChatPopup";
 
 const HOST = process.env.REACT_APP_STAGING_HOST;
 const socket = socketIOClient(HOST);
@@ -31,16 +36,35 @@ const ChatPage = () => {
   const [typing, setTyping] = useState("escribiendo");
   const [currentChat, setCurrentChat] = useState({});
   const { register, handleSubmit, reset } = useForm({});
+  const {
+    show: showDeleteChatModal,
+    RenderModal: DeleteChatModal,
+    hide: hideDeleteChatModal,
+  } = useModal();
   const submit = (data) => {
     if (!data.message_input) return null;
     if (chatExists) {
       createMessage(data.message_input, currentChat._id).then((res) => {
-        socket.emit("chat_message", currentChat._id, res.data.data.message);
+        if (res.data !== undefined && res.data.status === "success") {
+          socket.emit("chat_message", currentChat._id, res.data.data.message);
+        } else {
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: "Este chat ya no existe, por favor revise desde su pantalla de resumen.",
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true,
+            },
+          });
+        }
       });
     } else {
       createChat(data.message_input, interactionId).then((res) => {
-        console.log(res);
-        console.log(interactionId);
         if (res.data !== undefined && res.data.status === "success") {
           setCurrentChat(res.data.data.chat);
           socket.emit(
@@ -48,6 +72,20 @@ const ChatPage = () => {
             res.data.data.chat.id,
             res.data.data.lastMessage
           );
+        } else {
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: "Esta oferta ha sido eliminida. Por favor revise desde su pestaña de resumen.",
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true,
+            },
+          });
         }
       });
     }
@@ -56,7 +94,6 @@ const ChatPage = () => {
 
   const emmitTyping = () => {
     socket.emit("chat_typing", currentChat._id);
-    console.log(currentChat);
   };
 
   const showTyping = () => {
@@ -76,32 +113,45 @@ const ChatPage = () => {
     }, 1000);
   };
 
+  const redirectToOrg = () => {
+    window.open(`/organizations/${currentChat?.user?.organization?._id}`, "_blank")
+  }
+
+  const redirectToUser = () => {
+    window.open(`/users/${currentChat?.user?.id}`, "_blank")
+  }
+
   useEffect(() => {
-    getMyChats().then((res) => {
-      let myChats = res.data.data.chats;
-      if (state.userInformation.chatPivot) {
-        const found = myChats.find(
-          (chat) => chat.user.id === state.userInformation.chatPivot.userInfo.id
-        );
-        if (found) {
-          setChatExists(true);
-          setCurrentChat(found);
-          getChatMessages(found._id).then((res) => {
-            setMessages(res.data.data.chat.messages);
-          });
-        } else {
-          setInteractionId(state.userInformation.chatPivot.interactionId);
-          const chatPreview = {
-            user: state.userInformation.chatPivot.userInfo,
-          };
-          myChats.push(chatPreview);
+    setMessages([]);
+    setCurrentChat('');
+    setTimeout(() => {
+      getMyChats().then((res) => {
+        let myChats = res.data.data.chats;
+        if (state.userInformation.chatPivot) {
+          const found = myChats.find(
+            (chat) => chat.user.id === state.userInformation.chatPivot.userInfo.id
+          );
+          if (found) {
+            setChatExists(true);
+            setCurrentChat(found);
+            getChatMessages(found._id).then((res) => {
+              setMessages(res.data.data.chat.messages);
+            });
+          } else {
+            setInteractionId(state.userInformation.chatPivot.interactionId);
+            const chatPreview = {
+              user: state.userInformation.chatPivot.userInfo,
+            };
+            myChats.push(chatPreview);
+          }
+          action({ chatPivot: undefined });
         }
-        action({ chatPivot: undefined });
-      }
-      setChats(myChats);
-    });
+        setChats(myChats);
+      });
+    }, 1000);
+
     // eslint-disable-next-line
-  }, []);
+  }, [state.userInformation.chatDeleted]);
 
   useEffect(() => {
     socket.on("chat_message", (message) => {
@@ -131,10 +181,24 @@ const ChatPage = () => {
     }
   }, [currentChat]);
 
+  useEffect(() => {
+    getMe().then((res) => {
+      if (res.data !== undefined) {
+        action(res.data.data.data);
+      }
+    });
+  }, [action]);
+
   return (
     <div className="chatpage">
+      <DeleteChatModal>
+        <DeleteChatPopup
+          chatId={currentChat._id}
+          hide={hideDeleteChatModal}
+        />
+      </DeleteChatModal>
       <Header />
-      <Banner image={"qSOKi8h.png"} />
+      <Banner image={"gDvgkjz.png"} />
       <div className="chatpage__inner">
         <div className="chat__box">
           <div className="chat__boxleft">
@@ -166,23 +230,36 @@ const ChatPage = () => {
             </SimpleBar>
           </div>
           <div className="chat__boxright">
-            <div className="chat__boxrightheader">
+            <div className="chat__boxrightheader" >
               <div className="chat__userwrapper">
-                <span className="chat__headertext">
-                  {currentChat?.user?.name}
-                </span>
-                <span className="chat__headertext">
+                <span className="chat__headertext" onClick={redirectToUser}>
+                  {currentChat?.user?.name}{' '}
                   {currentChat?.user?.lastname}
                 </span>
+                {currentChat?.user?.organization &&
+                  currentChat?.user?.organization !== "undefined" ? (
+                    <span className="chat__headerlighttext">
+                      Miembro de <span onClick={redirectToOrg} className="chat__link">{currentChat?.user?.organization?.name}</span>
+                    </span>
+                  ) : (
+                    ""
+                  )}
               </div>
-              {currentChat?.user?.organization &&
-              currentChat?.user?.organization !== "undefined" ? (
-                <span className="chat__headerlighttext">
-                  Miembro de {currentChat?.user?.organization?.name}
-                </span>
+              {typeof currentChat._id && currentChat._id !== undefined ? (
+                <div className="chat__usercontrol">
+                  <i className="fa fa-cog config__dropdown">
+                    <div className="chat__dropdowncontent">
+                      <span className="chat__action" onClick={showDeleteChatModal}>
+                        Terminar chat
+                        <i className="fa fa-trash-o"></i>
+                      </span>
+                    </div>
+                  </i>
+                </div>
               ) : (
-                <span className="chat__headerlighttext">Está usando WorKn</span>
-              )}
+                  null
+                )}
+
             </div>
             <ScrollToBottom mode="bottom" className="chat__messagecontainer">
               <ul className="chat__messagecontainer">

@@ -38,7 +38,6 @@ const EmpresaViewPage = ({
   useEffect(() => {
     getOrgById(id).then((res) => {
       if (res.status === "success") {
-        console.log(res);
         setOrgInfo(res.data.data);
       } else {
         history.push("/404");
@@ -52,7 +51,6 @@ const EmpresaViewPage = ({
         const offers = res.data.data.data;
         if (offers && Array.isArray(offers)) {
           setOrgOffer(offers);
-          console.log(offers);
         }
       }
     });
@@ -93,7 +91,7 @@ const EmpresaViewPage = ({
               <span className="profile__header">
                 <span>{`${orgInfo?.name}`}</span>
                 {typeof orgInfo?.isVerified && orgInfo?.isVerified === true ? (
-                  <div className="profile__validated tooltip"><span className="tooltiptext">Esta organización está verificada</span><i class="fa fa-check profile__validatedicon"></i></div>
+                  <div className="profile__validated tooltip"><span className="tooltiptext">Esta organización está verificada</span><i className="fa fa-check profile__validatedicon"></i></div>
                 ) : (
                     ""
                   )}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./OfferPopup-Style.css";
+import "../tag-components/Tag-Style.css";
 import Tag from "../tag-components/Tag";
 import { Link } from "react-router-dom";
 import updateAction from "../../updateAction";
@@ -11,18 +12,34 @@ MyDictionary["fixed"] = "Fijo/Indefinido";
 
 const OfferPopup = ({ offerInfo, organizationInformation }) => {
   const [profileRoute, setProfileRoute] = useState("");
+  const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
   const { state } = useStateMachine(updateAction);
 
+  console.log(offerInfo);
+  console.log(organizationInformation);
+
   useEffect(() => {
     if (offerInfo.organization) {
-      // setProfilePictureRoute(responseInfo?.organization?.profilePicture);
-      setOffererTitleRoute(organizationInformation?.name);
-      setProfileRoute(`/organizations/${organizationInformation?._id}`);
+      for (
+        let index = 0;
+        index < organizationInformation.members.length;
+        index++
+      ) {
+        if (offerInfo.createdBy === organizationInformation.members[index].id) {
+          setProfilePictureRoute(organizationInformation.profilePicture);
+          setOffererTitleRoute(
+            organizationInformation.members[index].name +
+              " " +
+              organizationInformation.members[index].lastname
+          );
+          setProfileRoute(
+            `/users/${organizationInformation.members[index].id}`
+          );
+        }
+      }
     } else {
-      setOffererTitleRoute(
-        state.userInformation.name + state.userInformation.lastname
-      );
+      setProfilePictureRoute(state.userInformation.profilePicture);
     }
   }, [offerInfo, organizationInformation, state.userInformation]);
 
@@ -31,7 +48,7 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
       <div className="op-wrapper__up-content">
         {organizationInformation?.profilePicture ? (
           <div className="op-wrapper__img">
-            <img src={organizationInformation.profilePicture} alt="Offerpp" />
+            <img src={profilePictureRoute} alt="Offerpp" />
           </div>
         ) : (
           <div className="op-wrapper__img">
@@ -44,17 +61,22 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
           </span>
           <div className="op-wrapper__bullets">
             <ul>
+              {offerInfo.organization ? (
+                <li>
+                  <span>
+                    Por <b>{offererTitleRoute}</b>
+                    {organizationInformation?.location ? (
+                      <span>
+                        {" "}
+                        en
+                        <b>{organizationInformation.location}</b>
+                      </span>
+                    ) : null}
+                  </span>
+                </li>
+              ) : null}
               <li>
-                Por <b>{offererTitleRoute}</b>
-                {organizationInformation?.location ? " en " : " en "}
-                <b>
-                  {organizationInformation?.location
-                    ? organizationInformation.location
-                    : " Info no disponible"}
-                </b>
-              </li>
-              <li>
-                {offerInfo
+                {offerInfo.offerType
                   ? MyDictionary[offerInfo.offerType]
                   : "Info no disponible"}
               </li>
@@ -82,18 +104,18 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
           Detalles de la oferta
         </span>
         <p className="op-wrapper__downinfo">
-          {offerInfo ? offerInfo.description : "Descripcion no disponible"}
+          {offerInfo.description
+            ? offerInfo.description
+            : "Los detalles de la oferta no estan disponibles"}
         </p>
-        <p className="op-wrapper__salary">
-          {offerInfo?.salaryRange ? (
-            <p>
-              Rango salarial:<br></br>
-              <b>
-                RD$ {offerInfo?.salaryRange[0]} - {offerInfo?.salaryRange[1]}
-              </b>
-            </p>
-          ) : null}
-        </p>
+        {offerInfo?.salaryRange ? (
+          <p className="op-wrapper__salary">
+            Rango salarial:<br></br>
+            <b>
+              RD$ {offerInfo?.salaryRange[0]} - {offerInfo?.salaryRange[1]}
+            </b>
+          </p>
+        ) : null}
         {offerInfo.organization ? (
           <p className="op-wrapper__contact">
             Contacto:

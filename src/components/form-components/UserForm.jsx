@@ -37,6 +37,7 @@ const normalizePhone = (value) => {
   );
 };
 
+
 const UserForm = () => {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -48,14 +49,19 @@ const UserForm = () => {
   let isOrg = false;
   password.current = watch("password", "");
 
+  const abortEdit = () => {
+    setIsEditMode(false)
+    setUpdated(state.userInformation)
+  }
+
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
     let newArray = [];
     selectedTags.forEach((tag) => newArray.push(tag.value));
     data.tags = newArray;
     updateProfile(data).then((res) => {
-      // setUpdated(res);
       if (res?.data?.status && res?.data?.status === "success") {
+        setUpdated(res.data.data.user);
         store.addNotification({
           title: "Perfil actualizado correctamente",
           message: "Ya puedes seguir navegando con tu nueva información",
@@ -96,12 +102,13 @@ const UserForm = () => {
           setUpdated(res.data.data.data)
         }
       });
-      getMyOrganization().then((res) => {
-        if (res.data !== undefined) {
-          action(res.data.data);
-        }
-      });
-    } else {
+      if (state.userInformation.userType === "offerer") {
+        getMyOrganization().then((res) => {
+          if (res.data !== undefined) {
+            action(res.data.data);
+          }
+        });
+      }
     }
   }, [action, state.userInformation.userType]);
 
@@ -116,7 +123,7 @@ const UserForm = () => {
   return (
     <categoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
       <tagsContext.Provider value={{ selectedTags, setSelectedTags }}>
-        <div className="userform__LIP">
+        <div className="userform__LIP form__mainhead">
           <PicSelector isOrg={isOrg}></PicSelector>
         </div>
         {typeof isEditMode && isEditMode === false ? (
@@ -142,28 +149,34 @@ const UserForm = () => {
               </div>
             </div>
             <div className="userform__LIP">
-              <span className="userform__label">Biografia</span>
+              <span className="userform__label">Biografía</span>
               <div className="userform__placeholder userform__placeholder--bio">
                 <span>{updated.bio}</span>
               </div>
             </div>
             <div className="userform__2col">
               <div className="userform__LIP">
-                <span className="userform__label">Telefono</span>
+                <span className="userform__label">Teléfono</span>
                 <div className="userform__placeholder">
                   <span>{updated.phone}</span>
                 </div>
               </div>
             </div>
+            <div className="userform__LIP">
+              <span className="userform__label">Correo</span>
+              <div className="userform__placeholder userform__placeholder--bio">
+                <span>{updated.email}</span>
+              </div>
+            </div>
             <div>
-              {typeof state.userInformation !== "undefined" &&
-                state.userInformation.tags &&
-                state.userInformation.category ? (
+              {typeof updated !== "undefined" &&
+                updated.tags &&
+                updated.category ? (
                   <div>
                     <div className="userform__LIP">
                       <span className="userform__label">Etiquetas</span>
                       <div className="userform__tagscontainer">
-                        {state.userInformation.tags.map((tag) => (
+                        {updated.tags.map((tag) => (
                           <Tag
                             key={tag._id}
                             text={tag.name}
@@ -172,10 +185,10 @@ const UserForm = () => {
                         ))}
                       </div>
                     </div>
-                    <div className="userform__LIP">
+                    <div className="userform__LIP userform__downspacer">
                       <span className="userform__label">Categoría</span>
                       <Tag
-                        text={state.userInformation.tags[0].category.name}
+                        text={updated.tags[0].category.name}
                         theme="tag tag__text tag__text--white"
                       ></Tag>
                     </div>
@@ -186,44 +199,45 @@ const UserForm = () => {
               {typeof state.userInformation.organizationRole !== "undefined" &&
                 state.userInformation.organizationRole !== "owner" &&
                 state.userInformation.userType !== "offerer" ? (
-                  <div>
-                    <div className="userform__footer">
-                      <span className="userform__title">
-                        Selecciona tu categoría y tus etiquetas
-                  </span>
-                      <span className="userform__text">
-                        Las etiqueta sirven para emparejarte con ofertas de trabajo
-                        y personas en tus mismas áreas de conocimiento, la categoría
-                        sirve para filtrar dichas etiquetas de una manera más
-                        precisa.
-                  </span>
-                    </div>
-                    <div className="userform__LIP">
-                      <span className="userform__label">
-                        Categoría{" "}
-                        <i className="fa fa-info-circle tooltip">
-                          <span className="tooltiptext">
-                            Las categorías te permiten filtrar los tags.
-                      </span>
-                        </i>
-                      </span>
-                      <CategoryInput></CategoryInput>
-                    </div>
-                    <div className="userform__LIP">
-                      <span className="userform__label">
-                        Etiquetas{" "}
-                        <i className="fa fa-info-circle tooltip">
-                          <span className="tooltiptext">
-                            Son palabras clave que definen las habilidades que
-                            tienes para ofrecer.
-                      </span>
-                        </i>
-                      </span>
-                      <TagsInput
-                        query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
-                      ></TagsInput>
-                    </div>
-                  </div>
+                  ""
+                  // <div>
+                  //   <div className="userform__footer">
+                  //     <span className="userform__title">
+                  //       Selecciona tu categoría y tus etiquetas
+                  //     </span>
+                  //     <span className="userform__text">
+                  //       Las etiqueta sirven para emparejarte con ofertas de trabajo
+                  //       y personas en tus mismas áreas de conocimiento, la categoría
+                  //       sirve para filtrar dichas etiquetas de una manera más
+                  //       precisa.
+                  //       </span>
+                  //   </div>
+                  //   <div className="userform__LIP">
+                  //     <span className="userform__label">
+                  //       Categoría{" "}
+                  //       <i className="fa fa-info-circle tooltip">
+                  //         <span className="tooltiptext">
+                  //           Las categorías te permiten filtrar los tags.
+                  //     </span>
+                  //       </i>
+                  //     </span>
+                  //     <CategoryInput></CategoryInput>
+                  //   </div>
+                  //   <div className="userform__LIP">
+                  //     <span className="userform__label">
+                  //       Etiquetas{" "}
+                  //       <i className="fa fa-info-circle tooltip">
+                  //         <span className="tooltiptext">
+                  //           Son palabras clave que definen las habilidades que
+                  //           tienes para ofrecer.
+                  //     </span>
+                  //       </i>
+                  //     </span>
+                  //     <TagsInput
+                  //       query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
+                  //     ></TagsInput>
+                  //   </div>
+                  // </div>
                 ) : (
                   <div>
                     <div className="userform__footer">
@@ -246,7 +260,7 @@ const UserForm = () => {
             value="Viejo Guardar Perfil"
           /> */}
             <button className="custom-button bg-green" onClick={() => { setIsEditMode(true) }}>Editar Perfil</button>
-          </div>
+          </div >
         ) : (
             <form className="userform" onSubmit={handleSubmit(onSubmit)}>
               <div className="userform__2col">
@@ -269,7 +283,7 @@ const UserForm = () => {
                     name="name"
                     render={({ message }) => (
                       <div className="input__msg input__msg--error">
-                        <i class="fa fa-asterisk"></i> {message}
+                        <i className="fa fa-asterisk"></i> {message}
                       </div>
                     )}
                   />
@@ -294,7 +308,7 @@ const UserForm = () => {
                     name="lastname"
                     render={({ message }) => (
                       <div className="input__msg input__msg--error">
-                        <i class="fa fa-asterisk"></i> {message}
+                        <i className="fa fa-asterisk"></i> {message}
                       </div>
                     )}
                   />
@@ -314,7 +328,6 @@ const UserForm = () => {
                     },
                   })}
                   inputMode="numeric"
-                  autoComplete="cc-number"
                   onChange={(e) => {
                     const { value } = e.target;
                     e.target.value = normalizeId(value);
@@ -326,7 +339,7 @@ const UserForm = () => {
                   name="identificationNumber"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -355,7 +368,7 @@ const UserForm = () => {
                   name="bio"
                   render={({ message }) => (
                     <div className="input__msg input__msg--error">
-                      <i class="fa fa-asterisk"></i> {message}
+                      <i className="fa fa-asterisk"></i> {message}
                     </div>
                   )}
                 />
@@ -369,7 +382,6 @@ const UserForm = () => {
                     name="phone"
                     ref={register}
                     inputMode="numeric"
-                    autoComplete="cc-number"
                     value={updated.phone}
                     onChange={(e) => {
                       const { value } = e.target;
@@ -433,7 +445,8 @@ const UserForm = () => {
                           Selecciona tu categoría y tus etiquetas
                   </span>
                         <span className="userform__text">
-                          Las etiqueta sirven para emparejarte con ofertas de trabajo
+                          Las etiquetas son palabra clave que describen tus habilidades como profesional
+                          y sirven para emparejarte con ofertas de trabajo
                           y personas en tus mismas áreas de conocimiento, la categoría
                           sirve para filtrar dichas etiquetas de una manera más
                           precisa.
@@ -488,12 +501,13 @@ const UserForm = () => {
                 type="submit"
                 value="Guardar Perfil"
               />
+              <button className="custom-button bg-red" onClick={abortEdit}>Cancelar</button>
             </form>
           )}
 
 
-      </tagsContext.Provider>
-    </categoryContext.Provider>
+      </tagsContext.Provider >
+    </categoryContext.Provider >
   );
 };
 
