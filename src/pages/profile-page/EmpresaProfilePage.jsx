@@ -30,6 +30,10 @@ const EmpresaProfilePage = (props) => {
     // hide: hideQuestionModal,
   } = useModal();
 
+  const redirectToManageOffers = () => {
+    props.history.push("/manageoffers")
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -106,12 +110,10 @@ const EmpresaProfilePage = (props) => {
               ) : (
                 ""
               )}
-            <Link to="/manageoffers">
-              <button className="userprofile__action">
-                <i className="fa fa-cog userprofile__icon"></i>
+            <button className="userprofile__action" onClick={redirectToManageOffers}>
+              <i className="fa fa-cog userprofile__icon"></i>
                 Manejar ofertas
               </button>
-            </Link>
             <button
               className="userprofile__action"
               onClick={() => {

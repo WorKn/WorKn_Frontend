@@ -11,7 +11,6 @@ import updateAction from "../../updateAction";
 import { useModal } from "../../hooks/useModal";
 import PasswordPopup from "../../components/popup-components/PasswordPopup";
 import AnnouncementBanner from "../../components/announcemnet-components/Announcement-Banner";
-import { Link } from "react-router-dom";
 import { store } from 'react-notifications-component';
 
 
@@ -23,6 +22,14 @@ const UserProfilePage = (props) => {
     RenderModal: PasswordModal,
     // hide: hideQuestionModal,
   } = useModal();
+
+  const redirectToManageOrg = () => {
+    props.history.push("/organizationprofile")
+  }
+
+  const redirectToManageOffers = () => {
+    props.history.push("/manageoffers")
+  }
 
   useEffect(() => {
     if (state.userInformation.hasCreatedAccount !== "undefined" && state.userInformation.hasCreatedAccount === true) {
@@ -80,24 +87,20 @@ const UserProfilePage = (props) => {
               state.userInformation.organizationRole === "owner") ||
               state.userInformation.organizationRole === "member" ||
               state.userInformation.organizationRole === "supervisor" ? (
-                <Link to="/organizationprofile" style={{ textDecoration: "none" }}>
-                  <button className="userprofile__action">
-                    <i className="fa fa-cog userprofile__icon"></i>
+                <button className="userprofile__action" onClick={redirectToManageOrg}>
+                  <i className="fa fa-cog userprofile__icon"></i>
                   Manejar organización
                 </button>
-                </Link>
               ) : (
                 ""
               )}
             {typeof state.userInformation !== "undefined" &&
               state.userInformation.organizationRole === "" &&
               state.userInformation.userType === "offerer" ? (
-                <Link to="/manageoffers" style={{ textDecoration: "none" }}>
-                  <button className="userprofile__action">
-                    <i className="fa fa-cog userprofile__icon"></i>
+                <button className="userprofile__action" onClick={redirectToManageOffers}>
+                  <i className="fa fa-cog userprofile__icon"></i>
                   Manejar ofertas
                 </button>
-                </Link>
               ) : (
                 ""
               )}
