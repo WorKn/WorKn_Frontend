@@ -2,11 +2,21 @@ import React from "react";
 import "./DeleteOfferPopup-Style.css";
 import { closeChat } from "../../utils/apiRequests";
 import { store } from "react-notifications-component";
-
+import updateAction from "../../updateAction";
+import { useStateMachine } from "little-state-machine";
 const DeleteChatPopup = ({ chatId, hide }) => {
+    const updateChats = () => {
+        if (state.userInformation.chatDeleted === true) {
+            action({ chatDeleted: false });
+        } else {
+            action({ chatDeleted: true });
+        }
+    };
+    const { state, action } = useStateMachine(updateAction);
     const triggerChatClose = () => {
         closeChat(chatId).then((res) => {
             if (res && res.data?.status === "success") {
+                updateChats()
                 store.addNotification({
                     title: "Chat eliminado correctamente",
                     message: "El chat fue removido de su bandeja de entrada.",
@@ -21,7 +31,6 @@ const DeleteChatPopup = ({ chatId, hide }) => {
                     },
                 });
                 hide();
-                // window.location.reload();
             } else {
                 store.addNotification({
                     title: "Ha ocurrido un error",

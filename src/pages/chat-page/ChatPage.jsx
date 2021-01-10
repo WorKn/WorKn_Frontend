@@ -122,31 +122,36 @@ const ChatPage = () => {
   }
 
   useEffect(() => {
-    getMyChats().then((res) => {
-      let myChats = res.data.data.chats;
-      if (state.userInformation.chatPivot) {
-        const found = myChats.find(
-          (chat) => chat.user.id === state.userInformation.chatPivot.userInfo.id
-        );
-        if (found) {
-          setChatExists(true);
-          setCurrentChat(found);
-          getChatMessages(found._id).then((res) => {
-            setMessages(res.data.data.chat.messages);
-          });
-        } else {
-          setInteractionId(state.userInformation.chatPivot.interactionId);
-          const chatPreview = {
-            user: state.userInformation.chatPivot.userInfo,
-          };
-          myChats.push(chatPreview);
+    setMessages([]);
+    setCurrentChat('');
+    setTimeout(() => {
+      getMyChats().then((res) => {
+        let myChats = res.data.data.chats;
+        if (state.userInformation.chatPivot) {
+          const found = myChats.find(
+            (chat) => chat.user.id === state.userInformation.chatPivot.userInfo.id
+          );
+          if (found) {
+            setChatExists(true);
+            setCurrentChat(found);
+            getChatMessages(found._id).then((res) => {
+              setMessages(res.data.data.chat.messages);
+            });
+          } else {
+            setInteractionId(state.userInformation.chatPivot.interactionId);
+            const chatPreview = {
+              user: state.userInformation.chatPivot.userInfo,
+            };
+            myChats.push(chatPreview);
+          }
+          action({ chatPivot: undefined });
         }
-        action({ chatPivot: undefined });
-      }
-      setChats(myChats);
-    });
+        setChats(myChats);
+      });
+    }, 1000);
+
     // eslint-disable-next-line
-  }, []);
+  }, [state.userInformation.chatDeleted]);
 
   useEffect(() => {
     socket.on("chat_message", (message) => {
