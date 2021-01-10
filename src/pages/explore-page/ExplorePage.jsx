@@ -16,10 +16,6 @@ const ExplorePage = () => {
   const { register } = useForm({});
   const { state } = useStateMachine(updateAction);
 
-  // const onSubmit = (data) => {
-  //   setParameter(data.type);
-  // };
-
   let filteredResponse = responses.filter((person) => {
     return person;
   });
@@ -114,6 +110,7 @@ const ExplorePage = () => {
                 placeholder="Busca nombres, empresas, organizaciones o etiquetas"
                 onChange={(e) => setQuery(e.target.value)}
                 ref={register()}
+                onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
               ></input>
 
               {typeof state.userInformation.userType !== "undefined" &&
