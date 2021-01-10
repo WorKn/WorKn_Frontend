@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
-// import {
-//   createInteractionAO,
-//   createInteractionOA,
-// } from "../../utils/apiRequests";
+import {
+  createInteractionAO,
+  createInteractionOA,
+} from "../../utils/apiRequests";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
-// import { getMyOffers } from "../../utils/apiRequests";
+import { getMyOffers } from "../../utils/apiRequests";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import Tag from "../tag-components/Tag";
 import "./DetailPopup-Style.css";
+import "../tag-components/Tag-Style.css";
+import { store } from "react-notifications-component";
 
 const DetailPopup = ({ personInfo, offerInfo }) => {
   const { state } = useStateMachine(updateAction);
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
   const [profileRoute, setProfileRoute] = useState("");
-  const [category, setCategory] = useState([]);
-  //   const { register, handleSubmit } = useForm({});
-  //   const [selectedOffer, setSelectedOffer] = useState();
-  //   const [offers, setOffers] = useState();
-  //   const [interactionTarget, setInteractionTarget] = useState();
+  const { register, handleSubmit } = useForm({});
+  const [offers, setOffers] = useState();
 
   let MyDictionary = {};
   MyDictionary["free"] = "Freelancer";
@@ -28,16 +28,107 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
 
 
   useEffect(() => {
-    if (offerInfo) {
-      setProfilePictureRoute(offerInfo?.createdBy?.profilePicture);
-      setOffererTitleRoute(offerInfo.createdBy.name);
-      setProfileRoute(`/users/${offerInfo.createdBy?._id}`);
+    if (state.userInformation.userType === "applicant") {
+      if (offerInfo?.organization) {
+        setProfilePictureRoute(offerInfo.organization?.profilePicture);
+        setOffererTitleRoute(offerInfo.organization.name);
+        setProfileRoute(`/organizations/${offerInfo.organization?._id}`);
+      } else {
+        setProfilePictureRoute(offerInfo.createdBy?.profilePicture);
+        setOffererTitleRoute(
+          offerInfo.createdBy?.name + " " + offerInfo.createdBy?.lastname
+        );
+        setProfileRoute(`/users/${offerInfo.createdBy?.id}`);
+      }
     } else {
       setProfilePictureRoute(personInfo.profilePicture);
-      setCategory(personInfo.category.name);
+      setOffererTitleRoute(personInfo.name + " " + personInfo.lastname);
       setProfileRoute(`/users/${personInfo?._id}`);
     }
-  }, [offerInfo, personInfo]);
+  }, [offerInfo, personInfo, state.userInformation.userType]);
+
+
+  useEffect(() => {
+    if (state.userInformation.userType === "offerer") {
+      getMyOffers().then((res) => {
+        if (res !== undefined) {
+          console.log(res);
+          setOffers(res);
+        }
+      });
+    }
+  }, [state.userInformation.userType]);
+
+
+  const onSubmit = (data) => {
+    if (state.userInformation.userType === "offerer") {
+      createInteractionOA(personInfo._id, data.offer).then((res) => {
+        console.log(res);
+        if (res !== undefined && res?.data?.status === 'success') {
+          store.addNotification({
+            title: "Interacción creada",
+            message: "El usuario será notificado de tu demostración de interés, puedes visualizarla en tu página de Resumen",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true,
+            },
+          });
+        } else {
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: res.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true,
+            },
+          });
+        }
+      });
+    } else {
+      createInteractionAO(offerInfo._id).then((res) => {
+        console.log(res);
+        if (res !== undefined && res?.data?.status === 'success') {
+          store.addNotification({
+            title: "Interacción creada",
+            message: "El usuario será notificado de tu demostración de interés, puedes visualizarla en tu página de Resumen",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true,
+            },
+          });
+        } else {
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: res.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true,
+            },
+          });
+        }
+      });
+    }
+  }
 
   return (
     <div className="dp-wrapper">
@@ -86,7 +177,7 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
                     <Tag
                       key={tag._id}
                       text={tag.name}
-                      theme="tag tag--small tag__text tagtext--small tag__text--gray"
+                      theme="tag tag--small tag__text tag__text--small tag__text--gray"
                     ></Tag>
                   ))}
                 </ul>
@@ -123,6 +214,14 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
                 </Link>
               </p>
             </div>
+            <div className="dp-wrapper__button-content">
+              <button
+                className="custom-button custom-button--dpa bg-green "
+                onClick={onSubmit}
+              >
+                Aplicar
+            </button>
+            </div>
           </div>
         ) : (
           <div className="dp-wrapper__child">
@@ -131,10 +230,7 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
                 <img src={profilePictureRoute} alt="Profile" />
               </div>
               <div className="dp-wrapper__text">
-                <span className="dp-wrapper__title">
-                  {" "}
-                  {personInfo?.name} {personInfo?.lastname}
-                </span>
+                <span className="dp-wrapper__title">{offererTitleRoute}</span>
                 <div className="dp-wrapper__bullets">
                   <ul>
                     {personInfo?.location ? (
@@ -145,7 +241,9 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
                     {personInfo?.userType ? (
                       <li>{MyDictionary[personInfo?.userType]}</li>
                     ) : null}
-                    {category ? <li>{category}</li> : null}
+                    {personInfo?.category?.name ? (
+                      <li>{personInfo?.category?.name}</li>
+                    ) : null}
                   </ul>
                 </div>
                 <ul className="dp-wrapper__tags">
@@ -153,7 +251,7 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
                     <Tag
                       key={tag._id}
                       text={tag.name}
-                      theme="tag tag--small tag__text tagtext--small tag__text--gray"
+                      theme="tag tag--small tag__text tag__text--small tag__text--gray"
                     ></Tag>
                   ))}
                 </ul>
@@ -175,30 +273,30 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
                   target="_blank"
                   style={{ textDecoration: "none" }}
                 >
-                  {personInfo?.name} {personInfo?.lastname}
+                  {offererTitleRoute}
                 </Link>
               </div>
             </div>
-            {/* <div className="dp-wrapper__child--form">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              {typeof offers ? (
-                <select className="sform__select" name="offer" ref={register}>
-                  {offers?.data?.data?.offers.map((offer) => (
-                    <option key={offer._id} value={offer._id}>
-                      {offer.title}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                "No hay ofertas"
-              )}
-              <input
-                className="custom-button bg-green"
-                type="submit"
-                value="Demostrar interés"
-              />
-            </form>
-          </div> */}
+            <div className="dp-wrapper__child--form">
+              <form onSubmit={handleSubmit(onSubmit)}>
+                {typeof offers ? (
+                  <select className="sform__select" name="offer" ref={register}>
+                    {offers?.data?.data?.offers.map((offer) => (
+                      <option key={offer._id} value={offer._id}>
+                        {offer.title}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                    "No hay ofertas"
+                  )}
+                <input
+                  className="custom-button bg-green"
+                  type="submit"
+                  value="Demostrar interés"
+                />
+              </form>
+            </div>
           </div>
         )}
     </div>

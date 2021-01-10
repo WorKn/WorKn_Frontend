@@ -35,7 +35,11 @@ const InteractionPopup = ({ responseInfo }) => {
       );
     } else {
       setProfilePictureRoute(responseInfo?.offer?.createdBy?.profilePicture);
-      setOffererTitleRoute(responseInfo?.offer?.createdBy?.name);
+      setOffererTitleRoute(
+        responseInfo?.offer?.createdBy?.name +
+          " " +
+          responseInfo?.offer?.createdBy?.lastname
+      );
       setProfileRoute(`/users/${responseInfo?.offer?.createdBy?._id}`);
     }
   }, [responseInfo]);
