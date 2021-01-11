@@ -184,6 +184,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                 placeholder="Localización [opcional]"
                 title="Por favor, ingrese la Localización de la oferta [opcional]"
                 className="create-offer__description-input"
+                ref={register}
               />
             </div>
             <div className="create-offer__paired-input">
