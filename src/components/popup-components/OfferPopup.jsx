@@ -30,8 +30,8 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
           setProfilePictureRoute(organizationInformation.profilePicture);
           setOffererTitleRoute(
             organizationInformation.members[index].name +
-              " " +
-              organizationInformation.members[index].lastname
+            " " +
+            organizationInformation.members[index].lastname
           );
           setProfileRoute(
             `/users/${organizationInformation.members[index].id}`
@@ -51,10 +51,10 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
             <img src={profilePictureRoute} alt="Offerpp" />
           </div>
         ) : (
-          <div className="op-wrapper__img">
-            <img src="https://i.imgur.com/lcHQ2QP.jpg" alt="Offerpp" />
-          </div>
-        )}
+            <div className="op-wrapper__img">
+              <img src="https://i.imgur.com/lcHQ2QP.jpg" alt="Offerpp" />
+            </div>
+          )}
         <div className="op-wrapper__text">
           <span className="op-wrapper__title">
             {offerInfo ? offerInfo.title : "Titulo no disponible"}

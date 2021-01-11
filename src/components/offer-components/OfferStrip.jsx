@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./OfferStrip-Style.css";
 import Tag from "../tag-components/Tag";
-import { useModal } from "../../hooks/useModal";
+import { useScrollableModal } from "../../hooks/useScrollableModal";
 import InteractionPopup from "../../components/popup-components/InteractionPopup";
 import { useStateMachine } from "little-state-machine";
 import { Link } from "react-router-dom";
@@ -21,7 +21,7 @@ const OfferStrip = ({
   const { state, action } = useStateMachine(updateAction);
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
-  const { show: showDetailModal, RenderModal: DetailModal } = useModal();
+  const { show: showDetailModal, RenderModal: DetailModal } = useScrollableModal();
   const updateInteractions = () => {
     // setUpdateFlag(!updateFlag);
     if (state.userInformation.updateFlag === true) {
@@ -120,8 +120,8 @@ const OfferStrip = ({
       setProfilePictureRoute(responseInfo?.offer?.createdBy?.profilePicture);
       setOffererTitleRoute(
         responseInfo?.offer?.createdBy?.name +
-          " " +
-          responseInfo?.offer?.createdBy?.lastname
+        " " +
+        responseInfo?.offer?.createdBy?.lastname
       );
     }
   }, [responseInfo]);
