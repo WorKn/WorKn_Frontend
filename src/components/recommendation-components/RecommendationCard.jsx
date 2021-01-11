@@ -7,7 +7,7 @@ import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 import { getCategoryById } from "../../utils/apiRequests";
 import "./RecommendationCard-Style.css";
-import { useModal } from "../../hooks/useModal";
+import { useScrollableModal } from "../../hooks/useScrollableModal";
 import RecommendationPopup from "../../components/popup-components/RecommendationPopup";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
@@ -20,7 +20,7 @@ const RecommendationCard = ({ personInfo, offerInfo }) => {
   const {
     show: showRecommendationModal,
     RenderModal: RecommendationModal,
-  } = useModal();
+  } = useScrollableModal();
 
   let MyDictionary = {};
   MyDictionary["free"] = "Freelancer";
