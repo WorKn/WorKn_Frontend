@@ -69,7 +69,7 @@ const RecommendationCard = ({ personInfo, offerInfo }) => {
           <div className="offercard__data">
             {MyDictionary[personInfo.userType]}
             <div className="offercard__vl"></div>
-            <span>{personInfo.bio.slice(0, 20)}...</span>
+            <span>{personInfo?.bio?.slice(0, 20)}...</span>
             <div className="offercard__vl"></div>
             <span className="offercard__category-name">{category}</span>
           </div>
@@ -86,49 +86,48 @@ const RecommendationCard = ({ personInfo, offerInfo }) => {
           </SimpleBar>
         </div>
       ) : (
-          <div className="offercard__wrapper" onClick={showRecommendationModal}>
-            <div className="offercard__header">
-              <img
-                src={profilePictureRoute}
-                alt="Profile"
-                className="offercard__picture"
-              ></img>
-              <div className="offercard__text">
-                <span className="offercard__text--title">
-                  {offerInfo?.title}
-                  {/* {offerInfo?.createdBy?.name} */}
-                </span>
-                <span className="offercard__text--subtitle">
-                  <span className="offercard__text--highlight">
-                    {offerInfo?.createdBy?.email}
-                  </span>{" "}
-                </span>
-              </div>
-            </div>
-            <div className="offercard__data">
-              {MyDictionary[offerInfo?.offerType]}
-              <div className="offercard__vl"></div>
-              <span>{offerInfo?.description.slice(0, 20)}...</span>
-              <div className="offercard__vl"></div>
-              <span className="offercard__category-name">
-                {offerInfo?.category?.name}
+        <div className="offercard__wrapper" onClick={showRecommendationModal}>
+          <div className="offercard__header">
+            <img
+              src={profilePictureRoute}
+              alt="Profile"
+              className="offercard__picture"
+            ></img>
+            <div className="offercard__text">
+              <span className="offercard__text--title">
+                {offerInfo?.title}
+                {/* {offerInfo?.createdBy?.name} */}
+              </span>
+              <span className="offercard__text--subtitle">
+                <span className="offercard__text--highlight">
+                  {offerInfo?.createdBy?.email}
+                </span>{" "}
               </span>
             </div>
-            <SimpleBar>
-              <div className="offercard__tags">
-                {offerInfo?.tags.map((tag) => (
-                  <Tag
-                    key={tag._id}
-                    text={tag.name}
-                    theme="tag tag__text tag__text--gray"
-                  ></Tag>
-                ))}
-              </div>
-            </SimpleBar>
           </div>
-        )
-      }
-    </div >
+          <div className="offercard__data">
+            {MyDictionary[offerInfo?.offerType]}
+            <div className="offercard__vl"></div>
+            <span>{offerInfo?.description.slice(0, 20)}...</span>
+            <div className="offercard__vl"></div>
+            <span className="offercard__category-name">
+              {offerInfo?.category?.name}
+            </span>
+          </div>
+          <SimpleBar>
+            <div className="offercard__tags">
+              {offerInfo?.tags.map((tag) => (
+                <Tag
+                  key={tag._id}
+                  text={tag.name}
+                  theme="tag tag__text tag__text--gray"
+                ></Tag>
+              ))}
+            </div>
+          </SimpleBar>
+        </div>
+      )}
+    </div>
   );
 };
 
