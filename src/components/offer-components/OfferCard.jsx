@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Tag from "../tag-components/Tag";
 import "./OfferCard-Style.css";
-import { useModal } from "../../hooks/useModal";
+import { useScrollableModal } from "../../hooks/useScrollableModal";
+
 import DetailPopup from "../../components/popup-components/DetailPopup";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
@@ -19,7 +20,7 @@ const OfferCard = ({
     show: showDetailModal,
     RenderModal: DetailModal,
     hide: hideDetailModal,
-  } = useModal();
+  } = useScrollableModal();
   const [profilePictureRoute, setProfilePictureRoute] = useState("");
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
   let MyDictionary = {};

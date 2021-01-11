@@ -5,7 +5,7 @@ import { getMyOffers } from "../../utils/apiRequests";
 import { getMyOrganization, getMe } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import CreateOfferPopup from "../../components/popup-components/CreateOfferPopup";
-import { useModal } from "../../hooks/useModal";
+import { useScrollableModal } from "../../hooks/useScrollableModal";
 import CustomOfferStrip from "../../components/offer-components/CustomOfferStrip";
 import updateAction from "../../updateAction";
 import EmailNotValidated from "../../components/emailnotvalidated-components/EmailNotValidated";
@@ -25,7 +25,7 @@ const ManageOffersPage = () => {
     show: showAddOfferModal,
     RenderModal: AddOfferModal,
     hide: hideAddOfferModal,
-  } = useModal();
+  } = useScrollableModal();
 
   let history = useHistory();
 

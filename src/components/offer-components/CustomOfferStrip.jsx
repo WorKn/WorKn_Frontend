@@ -2,6 +2,7 @@ import React from "react";
 import "./CustomOfferStrip-Style.css";
 import Tag from "../tag-components/Tag";
 import { useModal } from "../../hooks/useModal";
+import { useScrollableModal } from "../../hooks/useScrollableModal";
 import OfferPopup from "../popup-components/OfferPopup";
 import EditOfferPopup from "../popup-components/EditOfferPopup";
 import DeleteOfferPopup from "../popup-components/DeleteOfferPopup";
@@ -21,12 +22,12 @@ const CustomOfferStrip = ({
     show: showOfferModal,
     RenderModal: OfferModal,
     hide: hideOfferModal,
-  } = useModal();
+  } = useScrollableModal();
   const {
     show: showEditOfferModal,
     RenderModal: EditOfferModal,
     hide: hideEditOfferModal,
-  } = useModal();
+  } = useScrollableModal();
   const {
     show: showDeleteOfferModal,
     RenderModal: DeleteOfferModal,
