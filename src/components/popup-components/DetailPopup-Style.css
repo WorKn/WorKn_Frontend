@@ -108,6 +108,7 @@
   width: 100%;
   min-height: 80px;
   margin-bottom: 10px;
+  white-space: pre-wrap;
 }
 
 .dp-wrapper__downinfo--ap {

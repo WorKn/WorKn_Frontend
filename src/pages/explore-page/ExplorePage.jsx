@@ -5,7 +5,7 @@ import Header from "../../components/navbar-components/Navbar";
 import Footer from "../../components/footer-components/Footer";
 import { useForm } from "react-hook-form";
 import OfferCard from "../../components/offer-components/OfferCard";
-import { getAllUsers, getAllFilteredOffers } from "../../utils/apiRequests";
+import { getAllUsers, getAllPublicOffers } from "../../utils/apiRequests";
 import updateAction from "../../updateAction";
 import { useStateMachine } from "little-state-machine";
 
@@ -84,12 +84,12 @@ const ExplorePage = () => {
       state.userInformation.userType === "applicant"
     ) {
       setParameter("title");
-      getAllFilteredOffers().then((res) => {
+      getAllPublicOffers().then((res) => {
         setResponses(res.data.data.data);
       });
     } else {
       setParameter("title");
-      getAllFilteredOffers().then((res) => {
+      getAllPublicOffers().then((res) => {
         setResponses(res.data.data.data);
       });
     }

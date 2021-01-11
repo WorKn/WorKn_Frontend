@@ -99,6 +99,7 @@
   height: 60%;
   min-height: 100px;
   margin-bottom: 10px;
+  white-space: pre-wrap;
 }
 
 .op-wrapper__down-content b {
