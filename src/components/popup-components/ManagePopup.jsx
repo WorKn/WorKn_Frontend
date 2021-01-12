@@ -28,6 +28,7 @@ const ManagePopup = () => {
   UsersTypeDictionary["member"] = "Miembro";
   UsersTypeDictionary["supervisor"] = "Supervisor";
 
+
   const onSubmit = (data, e) => {
     updateMemberRole(memberToUpdate, data.role).then((res) => {
       if (res.data !== undefined) {

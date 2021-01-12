@@ -103,7 +103,7 @@ const EmpresaForm = () => {
     getMyOrganization().then((res) => {
       if (res.data !== undefined) {
         console.log(res)
-        action(res.data.data.data);
+        action({ data: res.data.data.data });
         setUpdated(res.data.data.data)
       }
     });
@@ -112,7 +112,7 @@ const EmpresaForm = () => {
         action(res.data.data.data);
       }
     });
-  }, [action, state.userInformation.data]);
+  }, [action, state.userInformation.hasMemberBeenDeleted]);
 
   useEffect(() => {
     setUpdated(state.userInformation.data)

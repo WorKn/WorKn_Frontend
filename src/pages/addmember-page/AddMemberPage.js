@@ -221,6 +221,11 @@ const AddMember = ({
               type="submit"
               value="Siguiente"
             />
+            <div className="line-separator">
+              <span className="hl"></span>
+              <span className="spacer">o</span>
+              <span className="hl"></span>
+            </div>
             <div className="ctext-separator">
               <span className="remind-me">
                 Ya tienes cuenta? {""}
@@ -229,25 +234,6 @@ const AddMember = ({
               </a>
               </span>
             </div>
-            <div className="line-separator">
-              <span className="hl"></span>
-              <span className="spacer">o</span>
-              <span className="hl"></span>
-            </div>
-            <span className="custom-button bg-blue">
-              <div className="inner-container">
-                <i className="fa fa-facebook-official"></i>
-                <span className="vl"></span>
-                <span>Regístrate con Facebook</span>
-              </div>
-            </span>
-            <span className="custom-button bg-red">
-              <div className="inner-container">
-                <i className="fa fa-google"></i>
-                <span className="vl"></span>
-                <span>Regístrate con Google</span>
-              </div>
-            </span>
           </form>
         </div>
       </div>
