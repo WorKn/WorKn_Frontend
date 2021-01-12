@@ -31,11 +31,16 @@ const EmpresaForm = () => {
   const { register, handleSubmit, errors, watch } = useForm({});
   let isOrg = true;
   const onSubmit = (data) => {
-    if (!state.userInformation.organization) {
+    Object.keys(data).forEach((key) => {
+      if ((key === "phone" || key === "RNC") && data[key] === "") delete data[key]
+    })
+    if (state.userInformation.organization === "" && state.userInformation.data === "") {
       createOrganization(data).then((res) => {
+        console.log(res)
         if (res.data !== undefined) {
           if (res?.data?.status && res?.data?.status === "success") {
-            setUpdated(res);
+            action({ data: res.data.data.organization })
+            setUpdated(res.data.data.organization);
             store.addNotification({
               title: "Organización creada correctamente!",
               message: "Ahora puedes proceder a Manejar  tu Organización",
@@ -57,7 +62,9 @@ const EmpresaForm = () => {
       data.id = state.userInformation.organization;
       editOrganization(data).then((res) => {
         if (res.data !== undefined) {
+          console.log(res)
           if (res.data.status && res.data.status === "success") {
+            setUpdated(res.data.data.organization);
             store.addNotification({
               title: "Organización editada correctamente!",
               message: "Ahora puedes proceder a Manejar  tu Organización",
@@ -71,7 +78,9 @@ const EmpresaForm = () => {
                 onScreen: true
               }
             });
+            setIsEditMode(false);
           } else if (res.data.status && res.data.status === "fail") {
+            setUpdated(state.userInformation.data);
             store.addNotification({
               title: "Ha ocurrido un error",
               message: res.data.message,
@@ -86,16 +95,16 @@ const EmpresaForm = () => {
               }
             });
           }
-
         }
-        setIsEditMode(false);
       });
     }
   };
   useEffect(() => {
     getMyOrganization().then((res) => {
       if (res.data !== undefined) {
-        action(res.data.data);
+        console.log(res)
+        action(res.data.data.data);
+        setUpdated(res.data.data.data)
       }
     });
     getMe().then((res) => {
@@ -103,7 +112,7 @@ const EmpresaForm = () => {
         action(res.data.data.data);
       }
     });
-  }, [action]);
+  }, [action, state.userInformation.data]);
 
   useEffect(() => {
     setUpdated(state.userInformation.data)
@@ -218,7 +227,6 @@ const EmpresaForm = () => {
                     const { value } = e.target
                     e.target.value = normalizeId(value)
                     setUpdated({ ...updated, RNC: e.target.value })
-
                   }}
                 />
                 <ErrorMessage
@@ -268,7 +276,7 @@ const EmpresaForm = () => {
                   className="userform__input"
                   type="number"
                   name="phone"
-                  value={updated.phone}
+                  defaultValue={updated.phone}
                   ref={register}
                   inputMode="numeric"
                   onChange={(e) => {

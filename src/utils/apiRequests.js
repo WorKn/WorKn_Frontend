@@ -3,6 +3,13 @@ import Cookies from "js-cookie";
 
 require("dotenv").config({ path: "./.env" });
 
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0');
+var yyyy = today.getFullYear();
+
+today = yyyy + '-' + dd + '-' + mm;
+
 let HOST = "";
 
 if (process.env.REACT_APP_ENV === "staging") {
@@ -68,6 +75,15 @@ export const getAllOffers = async () => {
 export const getAllFilteredOffers = async () => {
   try {
     const response = await axios.get(`${HOST}/api/v1/offers/?state=active`);
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
+
+export const getAllPublicOffers = async () => {
+  try {
+    const response = await axios.get(`${HOST}/api/v1/offers/?closingDate[gt]=2021-10-01T00:00:00.000Z&state=active`);
     return response;
   } catch (e) {
     return e;
