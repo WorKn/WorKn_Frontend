@@ -33,7 +33,6 @@ const Footer = () => {
           <div className="left-foot__navbar">
             <Link
               className="left-foot__nobj"
-              target="_blank"
               to="/recommendations"
             >
               Recomendaciones
@@ -41,19 +40,18 @@ const Footer = () => {
             {state.userInformation.userType === "offerer" ? (
               <Link
                 className="left-foot__nobj"
-                target="_blank"
                 to="/manageoffers"
               >
                 Ofertas
               </Link>
             ) : null}
-            <Link className="left-foot__nobj" target="_blank" to="/explore">
+            <Link className="left-foot__nobj" to="/explore">
               Exploración
             </Link>
-            <Link className="left-foot__nobj" target="_blank" to="/summary">
+            <Link className="left-foot__nobj" to="/summary">
               Resumen
             </Link>
-            <Link className="left-foot__nobj" target="_blank" to="/chat">
+            <Link className="left-foot__nobj" to="/chat">
               Mensajería
             </Link>
           </div>
