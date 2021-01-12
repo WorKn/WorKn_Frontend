@@ -109,7 +109,7 @@ const EmpresaForm = () => {
         action(res.data.data.data);
       }
     });
-  }, [action, state.userInformation.hasMemberBeenDeleted]);
+  }, [action, state.userInformation.hasMemberBeenDeleted, state.userInformation.hasMemberBeenUpdated]);
 
   useEffect(() => {
     setUpdated(state.userInformation.data)
