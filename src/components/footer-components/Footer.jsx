@@ -20,6 +20,7 @@ const Footer = () => {
         <div className="right-foot__right-down">
           <Link to="/tos">Términos de servicio.</Link>
           <Link to="/faq">Preguntas frecuentes.</Link>
+          <a target="_blank" href="https://github.com/WorKn/WorKn_Frontend/wiki" rel="noopener noreferrer">Nuestra Wiki.</a>
         </div>
         &copy;{new Date().getFullYear()} WorKn Todos los derechos reservados.
       </div>
