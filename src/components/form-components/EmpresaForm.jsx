@@ -36,7 +36,6 @@ const EmpresaForm = () => {
     })
     if (state.userInformation.organization === "" && state.userInformation.data === "") {
       createOrganization(data).then((res) => {
-        console.log(res)
         if (res.data !== undefined) {
           if (res?.data?.status && res?.data?.status === "success") {
             action({ data: res.data.data.organization })
@@ -62,7 +61,6 @@ const EmpresaForm = () => {
       data.id = state.userInformation.organization;
       editOrganization(data).then((res) => {
         if (res.data !== undefined) {
-          console.log(res)
           if (res.data.status && res.data.status === "success") {
             setUpdated(res.data.data.organization);
             store.addNotification({
@@ -102,7 +100,6 @@ const EmpresaForm = () => {
   useEffect(() => {
     getMyOrganization().then((res) => {
       if (res.data !== undefined) {
-        console.log(res)
         action({ data: res.data.data.data });
         setUpdated(res.data.data.data)
       }
