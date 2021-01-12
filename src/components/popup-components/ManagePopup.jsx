@@ -16,13 +16,20 @@ const ManagePopup = () => {
   const [current, setCurrent] = useState("");
   const [memberToUpdate, setMemberToUpdate] = useState({});
   const [isVisible, setIsVisible] = useState(false);
-  const { state } = useStateMachine(updateAction);
+  const { state, action } = useStateMachine(updateAction);
   const { register, handleSubmit } = useForm();
   const {
     show: showDeleteMemberModal,
     RenderModal: DeleteMemberModal,
     hide: hideDeleteMemberModal,
   } = useModal();
+  const updateMembers = () => {
+    if (state.userInformation.hasMemberBeenUpdated === true) {
+      action({ hasMemberBeenUpdated: false });
+    } else {
+      action({ hasMemberBeenUpdated: true });
+    }
+  };
   let UsersTypeDictionary = {};
   UsersTypeDictionary["owner"] = "Propietario";
   UsersTypeDictionary["member"] = "Miembro";
@@ -33,6 +40,7 @@ const ManagePopup = () => {
     updateMemberRole(memberToUpdate, data.role).then((res) => {
       if (res.data !== undefined) {
         if (res?.data?.status && res?.data?.status === "success") {
+          updateMembers()
           store.addNotification({
             title: "Rol actualizado correctamente",
             message:
