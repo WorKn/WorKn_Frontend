@@ -23,7 +23,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
 
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
-
+    console.log("LOL", data);
     let newArray = [];
     selectedTags.forEach((tag) => newArray.push(tag.value));
     data.tags = newArray;
@@ -39,6 +39,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
     if (!data.salaryRange[0] || !data.salaryRange[1]) {
       delete data["salaryRange"];
     }
+    console.log("After deletion", data);
     createOffer(data).then((res) => {
       if (res === "success") {
         setSuccess(true);
@@ -172,6 +173,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                   placeholder="Fecha de cierre [opcional]"
                   className="create-offer__date"
                   title="Por favor, ingrese la fecha de cierre de la oferta"
+                  ref={register}
                 />
               </div>
             </div>

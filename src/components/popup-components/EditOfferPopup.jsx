@@ -181,6 +181,7 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
                       : null
                   }
                   title="Por favor, ingrese la fecha de cierre de la oferta"
+                  ref={register}
                 />
               </div>
             </div>

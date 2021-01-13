@@ -222,35 +222,35 @@ const EmpresaViewPage = ({
 
         <div className="pprofilepage__rating">
           <h2 className="pprofilepage__rating-title">Reviews</h2>
-          {!reviews ? (
+          {!reviews || reviews.length === 0 ? (
             <p style={{ marginLeft: "30px" }}>
               Este usuario no tiene reviews públicas aun
             </p>
           ) : (
-              <div className="pprofilepage__rating-container">
-                <div className="profilepage__reviewcontainer">
-                  {reviews?.map((review) => (
-                    <Review
-                      key={review._id}
-                      review={review}
-                      userId={id}
-                      setReviews={setReviews}
-                    ></Review>
-                  ))}
-                </div>
-                {canLoadMoreReviews && (
-                  <div
-                    className="addoffer__newbutton load-reviews__submit"
-                    onClick={LoadMoreReviews}
-                  >
-                    <i className="fa fas fa-plus manageoffers__icon"></i>
-                    <span className="load-reviews__title">
-                      Cargar más reviews
-                  </span>
-                  </div>
-                )}
+            <div className="pprofilepage__rating-container">
+              <div className="profilepage__reviewcontainer">
+                {reviews?.map((review) => (
+                  <Review
+                    key={review._id}
+                    review={review}
+                    userId={id}
+                    setReviews={setReviews}
+                  ></Review>
+                ))}
               </div>
-            )}
+              {canLoadMoreReviews && (
+                <div
+                  className="addoffer__newbutton load-reviews__submit"
+                  onClick={LoadMoreReviews}
+                >
+                  <i className="fa fas fa-plus manageoffers__icon"></i>
+                  <span className="load-reviews__title">
+                    Cargar más reviews
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
           <div className="pprofilepage__rating-container">
             {canReview && (
               <div className="pprofilepage__rate-body">

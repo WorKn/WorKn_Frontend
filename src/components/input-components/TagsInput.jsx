@@ -41,7 +41,8 @@ const TagsInput = ({ defaultInputValue }) => {
             tags.push({ label: i.name, value: i._id });
           });
           setTags(tags);
-        });
+        })
+        .catch((error) => {});
     }
   }, [selectedCategory, inputValue, defaultInputValue, isDefaultInput]);
 
