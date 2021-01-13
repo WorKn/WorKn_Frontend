@@ -12,7 +12,7 @@ import categoryContext from "../../utils/categoryContext";
 import CategoryInput from "../input-components/CategoryInput";
 import tagsContext from "../../utils/tagsContext";
 import TagsInput from "../input-components/TagsInput";
-
+const HOST = process.env.REACT_APP_STAGING_HOST;
 const CreateOfferPage = ({ hide, setMyOffers }) => {
   const { register, handleSubmit, errors } = useForm({
     // mode: "onBlur",
@@ -210,7 +210,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
               </span>
 
               <TagsInput
-                query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
+                query={`${HOST}/api/v1/categories/${selectedCategory.value}/tags`}
               ></TagsInput>
             </div>
 

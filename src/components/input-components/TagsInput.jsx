@@ -5,7 +5,7 @@ import makeAnimated from "react-select/animated";
 import axios from "axios";
 import tagsContext from "../../utils/tagsContext";
 import categoryContext from "../../utils/categoryContext";
-
+const HOST = process.env.REACT_APP_STAGING_HOST;
 const TagsInput = ({ defaultInputValue }) => {
   const [inputValue, setInputValue] = useState("");
   const [tags, setTags] = useState([]);
@@ -18,7 +18,7 @@ const TagsInput = ({ defaultInputValue }) => {
     if (defaultInputValue && isDefaultInput) {
       axios
         .get(
-          `http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${defaultInputValue}/tags`
+          `${HOST}/api/v1/categories/${defaultInputValue}/tags`
         )
         .then((res) => {
           const json = res.data.data.tags;
@@ -32,7 +32,7 @@ const TagsInput = ({ defaultInputValue }) => {
     } else {
       axios
         .get(
-          `http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.label}/tags`
+          `${HOST}/api/v1/categories/${selectedCategory.label}/tags`
         )
         .then((res) => {
           const json = res.data.data.tags;
