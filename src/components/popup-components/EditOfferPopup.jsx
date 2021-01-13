@@ -10,7 +10,7 @@ import TagsInput from "../input-components/TagsInput";
 import Tag from "../tag-components/Tag";
 import { store } from "react-notifications-component";
 import "./CreateOfferPopup-Style.css";
-
+const HOST = process.env.REACT_APP_STAGING_HOST;
 const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
   const { register, handleSubmit, errors } = useForm({
     // mode: "onBlur",
@@ -231,7 +231,8 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
               </span>
 
               <TagsInput
-                query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
+              
+                query={`${HOST}/api/v1/categories/${selectedCategory.value}/tags`}
               ></TagsInput>
               <div className="userform__tagscontainer">
                 {offerInfo.tags.map((tag) => (

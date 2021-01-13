@@ -16,9 +16,6 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
   const { state } = useStateMachine(updateAction);
 
-  console.log(offerInfo);
-  console.log(organizationInformation);
-
   useEffect(() => {
     if (offerInfo.organization) {
       for (

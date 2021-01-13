@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./UserForm-Style.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -16,7 +16,7 @@ import TagsInput from "../input-components/TagsInput";
 import tagsContext from "../../utils/tagsContext";
 import Tag from "../tag-components/Tag";
 import { store } from "react-notifications-component";
-
+const HOST = process.env.REACT_APP_STAGING_HOST;
 const normalizeId = (value) => {
   return (
     value
@@ -44,21 +44,32 @@ const UserForm = () => {
   const [updated, setUpdated] = useState("");
   const [isEditMode, setIsEditMode] = useState(false);
   const { state, action } = useStateMachine(updateAction);
-  const password = useRef({});
-  const { register, handleSubmit, errors, watch } = useForm({});
-  let isOrg = false;
-  password.current = watch("password", "");
-
+  const { register, handleSubmit, errors } = useForm({});
   const abortEdit = () => {
     setIsEditMode(false)
     setUpdated(state.userInformation)
   }
+  let isOrg = false;
+
 
   const onSubmit = (data) => {
-    data.category = selectedCategory.value;
-    let newArray = [];
-    selectedTags.forEach((tag) => newArray.push(tag.value));
-    data.tags = newArray;
+    Object.keys(data).forEach((key) => {
+      if ((key === "phone" || key === "identificationNumber") && data[key] === "") delete data[key]
+    })
+    if (state.userInformation.userType === "applicant") {
+      if (selectedCategory === undefined || selectedCategory.length === 0) {
+        delete data.category
+      } else {
+        data.category = selectedCategory.value;
+      }
+      if (selectedTags === undefined || selectedTags.length === 0) {
+        delete data.tags
+      } else {
+        let newArray = [];
+        selectedTags.forEach((tag) => newArray.push(tag.value));
+        data.tags = newArray;
+      }
+    }
     updateProfile(data).then((res) => {
       if (res?.data?.status && res?.data?.status === "success") {
         setUpdated(res.data.data.user);
@@ -75,6 +86,7 @@ const UserForm = () => {
             onScreen: true,
           },
         });
+        setIsEditMode(false);
       } else {
         store.addNotification({
           title: "Ha ocurrido un error",
@@ -91,7 +103,6 @@ const UserForm = () => {
         });
       }
     });
-    setIsEditMode(false);
   };
 
   useEffect(() => {
@@ -200,44 +211,6 @@ const UserForm = () => {
                 state.userInformation.organizationRole !== "owner" &&
                 state.userInformation.userType !== "offerer" ? (
                   ""
-                  // <div>
-                  //   <div className="userform__footer">
-                  //     <span className="userform__title">
-                  //       Selecciona tu categoría y tus etiquetas
-                  //     </span>
-                  //     <span className="userform__text">
-                  //       Las etiqueta sirven para emparejarte con ofertas de trabajo
-                  //       y personas en tus mismas áreas de conocimiento, la categoría
-                  //       sirve para filtrar dichas etiquetas de una manera más
-                  //       precisa.
-                  //       </span>
-                  //   </div>
-                  //   <div className="userform__LIP">
-                  //     <span className="userform__label">
-                  //       Categoría{" "}
-                  //       <i className="fa fa-info-circle tooltip">
-                  //         <span className="tooltiptext">
-                  //           Las categorías te permiten filtrar los tags.
-                  //     </span>
-                  //       </i>
-                  //     </span>
-                  //     <CategoryInput></CategoryInput>
-                  //   </div>
-                  //   <div className="userform__LIP">
-                  //     <span className="userform__label">
-                  //       Etiquetas{" "}
-                  //       <i className="fa fa-info-circle tooltip">
-                  //         <span className="tooltiptext">
-                  //           Son palabras clave que definen las habilidades que
-                  //           tienes para ofrecer.
-                  //     </span>
-                  //       </i>
-                  //     </span>
-                  //     <TagsInput
-                  //       query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
-                  //     ></TagsInput>
-                  //   </div>
-                  // </div>
                 ) : (
                   <div>
                     <div className="userform__footer">
@@ -382,10 +355,10 @@ const UserForm = () => {
                     name="phone"
                     ref={register}
                     inputMode="numeric"
-                    value={updated.phone}
+                    defaultValue={updated.phone}
                     onChange={(e) => {
-                      const { value } = e.target;
-                      e.target.value = normalizePhone(value);
+                      const { value } = e.target
+                      e.target.value = normalizePhone(value)
                       setUpdated({ ...updated, phone: e.target.value })
                     }}
                   />
@@ -472,11 +445,10 @@ const UserForm = () => {
                               Son palabras clave que definen las habilidades que
                               tienes para ofrecer.
                       </span>
-                          </i>
+                          </i>a
                         </span>
-
                         <TagsInput
-                          query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
+                          query={`${HOST}/api/v1/categories/${selectedCategory.value}/tags`}
                         ></TagsInput>
                       </div>
                     </div>

@@ -10,6 +10,7 @@ import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
 import Header from "../../components/navbar-components/Navbar";
 import Footer from "../../components/footer-components/Footer";
+import { store } from 'react-notifications-component';
 import {
   signUpOrganizationMember,
   getInvitationInfo,
@@ -28,19 +29,53 @@ const AddMember = ({
   });
   const { push } = useHistory();
   const onSubmit = (data) => {
-    // action(data);
     data.token = token;
     action(data);
+    action({ hasCreatedAccount: true })
+    signUpOrganizationMember(data).then((res) => {
+      if (res.status === "fail") {
+        store.addNotification({
+          title: "Ha ocurrido un error",
+          message: res.message + ", probablemente ya se ha registrado este correo.",
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true
+          }
+        });
+      }
+      setUserObject(res);
+    });
   };
 
-  useEffect(() => {
-    if (state.userInformation) {
-      signUpOrganizationMember(state.userInformation).then((res) => {
-        setUserObject(res);
-      });
-    } else {
-    }
-  }, [state.userInformation]);
+
+  // useEffect(() => {
+  //   if (state.userInformation) {
+  //     signUpOrganizationMember(state.userInformation).then((res) => {
+  //       if (res.status === "fail") {
+  //         store.addNotification({
+  //           title: "Ha ocurrido un error",
+  //           message: res.message,
+  //           type: "danger",
+  //           insert: "top",
+  //           container: "top-right",
+  //           animationIn: ["animate__animated", "animate__fadeIn"],
+  //           animationOut: ["animate__animated", "animate__fadeOut"],
+  //           dismiss: {
+  //             duration: 10000,
+  //             onScreen: true
+  //           }
+  //         });
+  //       } else {
+  //         setUserObject(res);
+  //       }
+  //     });
+  //   }
+  // }, [state.userInformation]);
 
   useEffect(() => {
     if (userObject.data !== undefined && userObject.data.status === "success") {
@@ -221,6 +256,11 @@ const AddMember = ({
               type="submit"
               value="Siguiente"
             />
+            <div className="line-separator">
+              <span className="hl"></span>
+              <span className="spacer">o</span>
+              <span className="hl"></span>
+            </div>
             <div className="ctext-separator">
               <span className="remind-me">
                 Ya tienes cuenta? {""}
@@ -229,25 +269,6 @@ const AddMember = ({
               </a>
               </span>
             </div>
-            <div className="line-separator">
-              <span className="hl"></span>
-              <span className="spacer">o</span>
-              <span className="hl"></span>
-            </div>
-            <span className="custom-button bg-blue">
-              <div className="inner-container">
-                <i className="fa fa-facebook-official"></i>
-                <span className="vl"></span>
-                <span>Regístrate con Facebook</span>
-              </div>
-            </span>
-            <span className="custom-button bg-red">
-              <div className="inner-container">
-                <i className="fa fa-google"></i>
-                <span className="vl"></span>
-                <span>Regístrate con Google</span>
-              </div>
-            </span>
           </form>
         </div>
       </div>

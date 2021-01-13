@@ -52,7 +52,6 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
     if (state.userInformation.userType === "offerer") {
       getMyOffers().then((res) => {
         if (res !== undefined) {
-          console.log(res);
           setOffers(res);
         }
       });
@@ -63,7 +62,6 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
   const onSubmit = (data) => {
     if (state.userInformation.userType === "offerer") {
       createInteractionOA(personInfo._id, data.offer).then((res) => {
-        console.log(res);
         if (res !== undefined && res?.data?.status === 'success') {
           store.addNotification({
             title: "Interacción creada",
@@ -96,7 +94,6 @@ const DetailPopup = ({ personInfo, offerInfo }) => {
       });
     } else {
       createInteractionAO(offerInfo._id).then((res) => {
-        console.log(res);
         if (res !== undefined && res?.data?.status === 'success') {
           store.addNotification({
             title: "Interacción creada",

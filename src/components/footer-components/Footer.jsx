@@ -20,6 +20,7 @@ const Footer = () => {
         <div className="right-foot__right-down">
           <Link to="/tos">Términos de servicio.</Link>
           <Link to="/faq">Preguntas frecuentes.</Link>
+          <a target="_blank" href="https://github.com/WorKn/WorKn_Frontend/wiki/Inicio" rel="noopener noreferrer">Manual de usuario.</a>
         </div>
         &copy;{new Date().getFullYear()} WorKn Todos los derechos reservados.
       </div>
@@ -33,7 +34,6 @@ const Footer = () => {
           <div className="left-foot__navbar">
             <Link
               className="left-foot__nobj"
-              target="_blank"
               to="/recommendations"
             >
               Recomendaciones
@@ -41,19 +41,18 @@ const Footer = () => {
             {state.userInformation.userType === "offerer" ? (
               <Link
                 className="left-foot__nobj"
-                target="_blank"
                 to="/manageoffers"
               >
                 Ofertas
               </Link>
             ) : null}
-            <Link className="left-foot__nobj" target="_blank" to="/explore">
+            <Link className="left-foot__nobj" to="/explore">
               Exploración
             </Link>
-            <Link className="left-foot__nobj" target="_blank" to="/summary">
+            <Link className="left-foot__nobj" to="/summary">
               Resumen
             </Link>
-            <Link className="left-foot__nobj" target="_blank" to="/chat">
+            <Link className="left-foot__nobj" to="/chat">
               Mensajería
             </Link>
           </div>
