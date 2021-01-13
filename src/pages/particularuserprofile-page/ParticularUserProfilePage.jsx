@@ -42,7 +42,7 @@ const EmpresaViewPage = ({
   const { state } = useStateMachine(updateAction);
   const [starValue, setStarValue] = useState();
   const { register, handleSubmit, errors } = useForm();
-  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsToShow, setItemsToShow] = useState(5);
   const [canLoadMoreReviews, setCanLoadMoreReviews] = useState(true);
 
   let MyDictionary = {};
@@ -91,18 +91,10 @@ const EmpresaViewPage = ({
   };
 
   const LoadMoreReviews = () => {
-    getXReviews(id, currentPage + 1, 5).then((res) => {
-      if (res?.data?.data?.data.length > 0) {
-        setCurrentPage(currentPage + 1);
-        const newArray = reviews.concat(res.data?.data?.data);
-        setReviews(newArray);
-        if (res?.data?.data?.data.length <= 5) {
-          setCanLoadMoreReviews(false);
-        }
-      } else {
-        setCanLoadMoreReviews(false);
-      }
-    });
+    // if (itemsToShow + 5 <= reviews.length) {
+    //   setCanLoadMoreReviews(false);
+    // }
+    setItemsToShow(itemsToShow + 5);
   };
 
   useEffect(() => {
@@ -133,8 +125,9 @@ const EmpresaViewPage = ({
           getCategoryById(res.data.data.category).then((resp) => {
             setCategory(resp.data.data[0].name);
           });
-          getXReviews(res.data?.data?._id, currentPage, 5).then((resp) => {
-            setReviews(resp.data?.data.data);
+
+          getAllReviews(id).then((res) => {
+            setReviews(res?.data.data.data);
           });
         }
       } else {
@@ -229,7 +222,7 @@ const EmpresaViewPage = ({
           ) : (
             <div className="pprofilepage__rating-container">
               <div className="profilepage__reviewcontainer">
-                {reviews?.map((review) => (
+                {reviews?.slice(0, itemsToShow).map((review) => (
                   <Review
                     key={review._id}
                     review={review}
@@ -238,7 +231,7 @@ const EmpresaViewPage = ({
                   ></Review>
                 ))}
               </div>
-              {canLoadMoreReviews && (
+              {itemsToShow < reviews?.length && (
                 <div
                   className="addoffer__newbutton load-reviews__submit"
                   onClick={LoadMoreReviews}
