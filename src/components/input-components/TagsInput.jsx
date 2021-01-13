@@ -12,27 +12,12 @@ const TagsInput = ({ defaultInputValue }) => {
   const { selectedTags, setSelectedTags } = useContext(tagsContext);
   const { selectedCategory } = useContext(categoryContext);
   const animatedComponent = makeAnimated();
-  const [isDefaultInput, setIsDefaultInput] = useState(true);
+  const [isDefaultInput] = useState(true);
 
   useEffect(() => {
-    if (defaultInputValue && isDefaultInput) {
-      axios
+    axios
         .get(
-          `${HOST}/api/v1/categories/${defaultInputValue}/tags`
-        )
-        .then((res) => {
-          const json = res.data.data.tags;
-          const tags = [];
-          json.forEach((i) => {
-            tags.push({ label: i.name, value: i._id });
-          });
-          setTags(tags);
-          setIsDefaultInput(false);
-        });
-    } else {
-      axios
-        .get(
-          `${HOST}/api/v1/categories/${selectedCategory.label}/tags`
+          `${HOST}/api/v1/categories/${selectedCategory.value}/tags`
         )
         .then((res) => {
           const json = res.data.data.tags;
@@ -42,7 +27,6 @@ const TagsInput = ({ defaultInputValue }) => {
           });
           setTags(tags);
         });
-    }
   }, [selectedCategory, inputValue, defaultInputValue, isDefaultInput]);
 
   const filterCategories = (inputValue) => {
