@@ -4,7 +4,7 @@ import { getUserById } from "../../utils/apiRequests";
 import { getCategoryById } from "../../utils/apiRequests";
 import { getOffersByUserId } from "../../utils/apiRequests";
 import { getAllReviews } from "../../utils/apiRequests";
-import { getXReviews } from "../../utils/apiRequests";
+
 import { getReviewValidation } from "../../utils/apiRequests";
 import { ErrorMessage } from "@hookform/error-message";
 import { createReview } from "../../utils/apiRequests";
@@ -43,7 +43,6 @@ const EmpresaViewPage = ({
   const [starValue, setStarValue] = useState();
   const { register, handleSubmit, errors } = useForm();
   const [itemsToShow, setItemsToShow] = useState(5);
-  const [canLoadMoreReviews, setCanLoadMoreReviews] = useState(true);
 
   let MyDictionary = {};
   MyDictionary["offerer"] = "Ofertante";
