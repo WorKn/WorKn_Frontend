@@ -582,17 +582,6 @@ export const getAllReviews = async (id) => {
   }
 };
 
-export const getXReviews = async (id, quantity, limit) => {
-  try {
-    const response = await axios.get(
-      `${HOST}/api/v1/users/${id}/reviews?page=${quantity}&limit=${limit}`
-    );
-    return response;
-  } catch (e) {
-    return e;
-  }
-};
-
 export const getReviewValidation = async (id) => {
   try {
     const response = await axios.get(

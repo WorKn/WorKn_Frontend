@@ -12,7 +12,7 @@ import categoryContext from "../../utils/categoryContext";
 import CategoryInput from "../input-components/CategoryInput";
 import tagsContext from "../../utils/tagsContext";
 import TagsInput from "../input-components/TagsInput";
-
+const HOST = process.env.REACT_APP_STAGING_HOST;
 const CreateOfferPage = ({ hide, setMyOffers }) => {
   const { register, handleSubmit, errors } = useForm({
     // mode: "onBlur",
@@ -23,7 +23,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
 
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
-
+    console.log("LOL", data);
     let newArray = [];
     selectedTags.forEach((tag) => newArray.push(tag.value));
     data.tags = newArray;
@@ -39,6 +39,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
     if (!data.salaryRange[0] || !data.salaryRange[1]) {
       delete data["salaryRange"];
     }
+    console.log("After deletion", data);
     createOffer(data).then((res) => {
       if (res === "success") {
         setSuccess(true);
@@ -172,6 +173,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                   placeholder="Fecha de cierre [opcional]"
                   className="create-offer__date"
                   title="Por favor, ingrese la fecha de cierre de la oferta"
+                  ref={register}
                 />
               </div>
             </div>
@@ -184,6 +186,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                 placeholder="Localización [opcional]"
                 title="Por favor, ingrese la Localización de la oferta [opcional]"
                 className="create-offer__description-input"
+                ref={register}
               />
             </div>
             <div className="create-offer__paired-input">
@@ -210,7 +213,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
               </span>
 
               <TagsInput
-                query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
+                query={`${HOST}/api/v1/categories/${selectedCategory.value}/tags`}
               ></TagsInput>
             </div>
 

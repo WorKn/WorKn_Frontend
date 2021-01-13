@@ -16,7 +16,7 @@ import TagsInput from "../input-components/TagsInput";
 import tagsContext from "../../utils/tagsContext";
 import Tag from "../tag-components/Tag";
 import { store } from "react-notifications-component";
-
+const HOST = process.env.REACT_APP_STAGING_HOST;
 const normalizeId = (value) => {
   return (
     value
@@ -445,11 +445,10 @@ const UserForm = () => {
                               Son palabras clave que definen las habilidades que
                               tienes para ofrecer.
                       </span>
-                          </i>
+                          </i>a
                         </span>
-
                         <TagsInput
-                          query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
+                          query={`${HOST}/api/v1/categories/${selectedCategory.value}/tags`}
                         ></TagsInput>
                       </div>
                     </div>

@@ -4,7 +4,7 @@ import AsyncSelect from "react-select/async";
 import makeAnimated from "react-select/animated";
 import axios from "axios";
 import categoryContext from "../../utils/categoryContext";
-
+const HOST = process.env.REACT_APP_STAGING_HOST;
 const CategoryInput = (props) => {
   const [inputValue, setInputValue] = useState("");
   const [categories, setCategories] = useState([]);
@@ -14,7 +14,7 @@ const CategoryInput = (props) => {
   useEffect(() => {
     axios
       .get(
-        `http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories`
+        `${HOST}/api/v1/categories`
       )
       .then((res) => {
         const json = res.data.data.data;

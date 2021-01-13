@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { getOrgById, getAllOffers } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import Header from "../../components/navbar-components/Navbar";
-import Banner from "../../components/banner-components/Banner";
 import Footer from "../../components/footer-components/Footer";
 import OfferCard from "../../components/offer-components/OfferCard";
 import "./EmpresaViewPage-Style.css";
@@ -75,7 +74,6 @@ const EmpresaViewPage = ({
   return (
     <div className="pagewrap">
       <Header />
-      <Banner image={"VfeSojP.png"}></Banner>
       <div className="EmpresaView">
         <div className="EmpresaView__up">
           <div className="EmpresaView__pp EmpresaView__pp--mob">
