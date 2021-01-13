@@ -181,6 +181,7 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
                       : null
                   }
                   title="Por favor, ingrese la fecha de cierre de la oferta"
+                  ref={register}
                 />
               </div>
             </div>
@@ -191,7 +192,7 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
               <input
                 type="text"
                 placeholder="Ubicacion [opcional]"
-                // defaultValue={offerInfo.location ? offerInfo.location : ""}
+                defaultValue={offerInfo.location ? offerInfo.location : ""}
                 title="Por favor, ingrese la Ubicacion de la oferta [opcional]"
                 name="location"
                 ref={register}

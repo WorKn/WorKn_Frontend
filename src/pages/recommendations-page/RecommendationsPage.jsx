@@ -30,31 +30,29 @@ const RecommendationsPage = () => {
   let history = useHistory();
 
   useEffect(() => {
-
-    setTimeout(() => {
-      setLoadingVar(false);
-      if (state.userInformation.userType === "offerer") {
-        getUserRecommendation().then((res) => {
-          if (res?.data?.data?.offers) {
-            setUserRecommendations(res?.data?.data?.offers);
-          }
-        });
-      } else if (state.userInformation.userType === "applicant") {
-        getOfferRecommendation().then((res) => {
-          setOfferRecommendations(res?.data?.data?.offers);
-        });
-      } else {
-        history.push("/login");
-      }
-    }, 1500);
-
+    if (state.userInformation.userType === "offerer") {
+      getUserRecommendation().then((res) => {
+        if (res?.data?.data?.offers) {
+          setUserRecommendations(res?.data?.data?.offers);
+          setLoadingVar(false);
+        }
+      });
+    } else if (state.userInformation.userType === "applicant") {
+      getOfferRecommendation().then((res) => {
+        setOfferRecommendations(res?.data?.data?.offers);
+        setLoadingVar(false);
+      });
+    } else {
+      history.push("/login");
+    }
   }, [state.userInformation.userType, history]);
 
   const oRecommendations = useMemo(
     () =>
       typeof offerRecommendations !== "undefined" &&
-      offerRecommendations.filter(rec => rec !== null).map(
-        (rec) => {
+      offerRecommendations
+        .filter((rec) => rec !== null)
+        .map((rec) => {
           return (
             <React.Fragment key={rec?._id}>
               <RecommendationCard
@@ -63,13 +61,9 @@ const RecommendationsPage = () => {
               ></RecommendationCard>
             </React.Fragment>
           );
-        }
-      ),
+        }),
     [offerRecommendations]
   );
-
-
-
 
   const uRecommendations = useMemo(
     () =>
@@ -103,32 +97,32 @@ const RecommendationsPage = () => {
               <div className="recommendationspage__body">
                 {uRecommendations}
                 {typeof userRecommendations &&
-                  (userRecommendations?.length < 1 ||
-                    userRecommendations === undefined) ? (
-                    <div className="summary__announcement">
-                      <div className="summarypage__imgbg">
-                        <img
-                          src="https://i.imgur.com/VhPGUOU.png"
-                          alt="applied"
-                          className="summarypage_appliedimg"
-                        ></img>
-                      </div>
-                      <div className="summary__announcementinner">
-                        <span className="summarypagea__title--dark">
-                          No hemos podido recomendar ningún usuario basado en sus
-                          ofertas.
-                      </span>
-                        <span>
-                          Asegurate de crear un perfil llamativo que atrape a los
-                          usuarios que se encuentren contigo en la plataforma.
-                          También puedes utilizar la página de Exploración para
-                          encontrar usuarios de manera manual.
-                      </span>
-                      </div>
+                (userRecommendations?.length < 1 ||
+                  userRecommendations === undefined) ? (
+                  <div className="summary__announcement">
+                    <div className="summarypage__imgbg">
+                      <img
+                        src="https://i.imgur.com/VhPGUOU.png"
+                        alt="applied"
+                        className="summarypage_appliedimg"
+                      ></img>
                     </div>
-                  ) : (
-                    ""
-                  )}
+                    <div className="summary__announcementinner">
+                      <span className="summarypagea__title--dark">
+                        No hemos podido recomendar ningún usuario basado en sus
+                        ofertas.
+                      </span>
+                      <span>
+                        Asegurate de crear un perfil llamativo que atrape a los
+                        usuarios que se encuentren contigo en la plataforma.
+                        También puedes utilizar la página de Exploración para
+                        encontrar usuarios de manera manual.
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             )}
             {offerRecommendations && (
@@ -137,31 +131,31 @@ const RecommendationsPage = () => {
                   Ofertas de trabajo <span>recomendadas para ti</span>
                 </span>
                 {typeof offerRecommendations &&
-                  (offerRecommendations?.length < 1 ||
-                    offerRecommendations === undefined) ? (
-                    <div className="summary__announcement">
-                      <div className="summarypage__imgbg">
-                        <img
-                          src="https://i.imgur.com/ESdjiH3.png"
-                          alt="applied"
-                          className="summarypage_appliedimg"
-                        ></img>
-                      </div>
-                      <div className="summary__announcementinner">
-                        <span className="summarypagea__title--dark">
-                          No hemos podido generar ninguna recomendación.
-                      </span>
-                        <span>
-                          Asegurate de crear un perfil llamativo que atrape a los
-                          usuarios que se encuentren contigo en la plataforma.
-                          También puedes utilizar la página de Exploración para
-                          aplicar manualmente a ofertas de trabajo.
-                      </span>
-                      </div>
+                (offerRecommendations?.length < 1 ||
+                  offerRecommendations === undefined) ? (
+                  <div className="summary__announcement">
+                    <div className="summarypage__imgbg">
+                      <img
+                        src="https://i.imgur.com/ESdjiH3.png"
+                        alt="applied"
+                        className="summarypage_appliedimg"
+                      ></img>
                     </div>
-                  ) : (
-                    ""
-                  )}
+                    <div className="summary__announcementinner">
+                      <span className="summarypagea__title--dark">
+                        No hemos podido generar ninguna recomendación.
+                      </span>
+                      <span>
+                        Asegurate de crear un perfil llamativo que atrape a los
+                        usuarios que se encuentren contigo en la plataforma.
+                        También puedes utilizar la página de Exploración para
+                        aplicar manualmente a ofertas de trabajo.
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
                 <div className="recommendationspage__offerlist">
                   {oRecommendations}
                 </div>
@@ -169,11 +163,11 @@ const RecommendationsPage = () => {
             )}
           </div>
         ) : (
-            <ProfileNotCompleted></ProfileNotCompleted>
-          )
+          <ProfileNotCompleted></ProfileNotCompleted>
+        )
       ) : (
-          <EmailNotValidated></EmailNotValidated>
-        )}
+        <EmailNotValidated></EmailNotValidated>
+      )}
 
       <Footer></Footer>
     </div>

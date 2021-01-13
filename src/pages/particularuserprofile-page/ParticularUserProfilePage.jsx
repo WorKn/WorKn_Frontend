@@ -4,7 +4,7 @@ import { getUserById } from "../../utils/apiRequests";
 import { getCategoryById } from "../../utils/apiRequests";
 import { getOffersByUserId } from "../../utils/apiRequests";
 import { getAllReviews } from "../../utils/apiRequests";
-import { getXReviews } from "../../utils/apiRequests";
+
 import { getReviewValidation } from "../../utils/apiRequests";
 import { ErrorMessage } from "@hookform/error-message";
 import { createReview } from "../../utils/apiRequests";
@@ -42,8 +42,7 @@ const EmpresaViewPage = ({
   const { state } = useStateMachine(updateAction);
   const [starValue, setStarValue] = useState();
   const { register, handleSubmit, errors } = useForm();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [canLoadMoreReviews, setCanLoadMoreReviews] = useState(true);
+  const [itemsToShow, setItemsToShow] = useState(5);
 
   let MyDictionary = {};
   MyDictionary["offerer"] = "Ofertante";
@@ -91,18 +90,10 @@ const EmpresaViewPage = ({
   };
 
   const LoadMoreReviews = () => {
-    getXReviews(id, currentPage + 1, 5).then((res) => {
-      if (res?.data?.data?.data.length > 0) {
-        setCurrentPage(currentPage + 1);
-        const newArray = reviews.concat(res.data?.data?.data);
-        setReviews(newArray);
-        if (res?.data?.data?.data.length <= 5) {
-          setCanLoadMoreReviews(false);
-        }
-      } else {
-        setCanLoadMoreReviews(false);
-      }
-    });
+    // if (itemsToShow + 5 <= reviews.length) {
+    //   setCanLoadMoreReviews(false);
+    // }
+    setItemsToShow(itemsToShow + 5);
   };
 
   useEffect(() => {
@@ -133,8 +124,9 @@ const EmpresaViewPage = ({
           getCategoryById(res.data.data.category).then((resp) => {
             setCategory(resp.data.data[0].name);
           });
-          getXReviews(res.data?.data?._id, currentPage, 5).then((resp) => {
-            setReviews(resp.data?.data.data);
+
+          getAllReviews(id).then((res) => {
+            setReviews(res?.data.data.data);
           });
         }
       } else {
@@ -222,35 +214,35 @@ const EmpresaViewPage = ({
 
         <div className="pprofilepage__rating">
           <h2 className="pprofilepage__rating-title">Reviews</h2>
-          {!reviews ? (
+          {!reviews || reviews.length === 0 ? (
             <p style={{ marginLeft: "30px" }}>
               Este usuario no tiene reviews públicas aun
             </p>
           ) : (
-              <div className="pprofilepage__rating-container">
-                <div className="profilepage__reviewcontainer">
-                  {reviews?.map((review) => (
-                    <Review
-                      key={review._id}
-                      review={review}
-                      userId={id}
-                      setReviews={setReviews}
-                    ></Review>
-                  ))}
-                </div>
-                {canLoadMoreReviews && (
-                  <div
-                    className="addoffer__newbutton load-reviews__submit"
-                    onClick={LoadMoreReviews}
-                  >
-                    <i className="fa fas fa-plus manageoffers__icon"></i>
-                    <span className="load-reviews__title">
-                      Cargar más reviews
-                  </span>
-                  </div>
-                )}
+            <div className="pprofilepage__rating-container">
+              <div className="profilepage__reviewcontainer">
+                {reviews?.slice(0, itemsToShow).map((review) => (
+                  <Review
+                    key={review._id}
+                    review={review}
+                    userId={id}
+                    setReviews={setReviews}
+                  ></Review>
+                ))}
               </div>
-            )}
+              {itemsToShow < reviews?.length && (
+                <div
+                  className="addoffer__newbutton load-reviews__submit"
+                  onClick={LoadMoreReviews}
+                >
+                  <i className="fa fas fa-plus manageoffers__icon"></i>
+                  <span className="load-reviews__title">
+                    Cargar más reviews
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
           <div className="pprofilepage__rating-container">
             {canReview && (
               <div className="pprofilepage__rate-body">

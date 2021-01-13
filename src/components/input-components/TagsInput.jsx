@@ -16,17 +16,16 @@ const TagsInput = ({ defaultInputValue }) => {
 
   useEffect(() => {
     axios
-        .get(
-          `${HOST}/api/v1/categories/${selectedCategory.value}/tags`
-        )
-        .then((res) => {
-          const json = res.data.data.tags;
-          const tags = [];
-          json.forEach((i) => {
-            tags.push({ label: i.name, value: i._id });
-          });
-          setTags(tags);
+      .get(`${HOST}/api/v1/categories/${selectedCategory.value}/tags`)
+      .then((res) => {
+        const json = res.data.data.tags;
+        const tags = [];
+        json.forEach((i) => {
+          tags.push({ label: i.name, value: i._id });
         });
+        setTags(tags);
+      })
+      .catch((error) => {});
   }, [selectedCategory, inputValue, defaultInputValue, isDefaultInput]);
 
   const filterCategories = (inputValue) => {
