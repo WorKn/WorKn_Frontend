@@ -10,7 +10,6 @@ import { ErrorMessage } from "@hookform/error-message";
 import { createReview } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import Header from "../../components/navbar-components/Navbar";
-import Banner from "../../components/banner-components/Banner";
 import Footer from "../../components/footer-components/Footer";
 import Tag from "../../components/tag-components/Tag";
 import StarRating from "../../components/starrating-components/StarRating";
@@ -156,7 +155,6 @@ const EmpresaViewPage = ({
   return (
     <div className="pagewrap">
       <Header />
-      <Banner image={"VfeSojP.png"}></Banner>
       <div className="pprofilepage">
         <div className="pprofilepage__up">
           <div className="pprofilepage__pp pprofilepage__pp--mob">
@@ -219,30 +217,30 @@ const EmpresaViewPage = ({
               Este usuario no tiene reviews públicas aun
             </p>
           ) : (
-            <div className="pprofilepage__rating-container">
-              <div className="profilepage__reviewcontainer">
-                {reviews?.slice(0, itemsToShow).map((review) => (
-                  <Review
-                    key={review._id}
-                    review={review}
-                    userId={id}
-                    setReviews={setReviews}
-                  ></Review>
-                ))}
-              </div>
-              {itemsToShow < reviews?.length && (
-                <div
-                  className="addoffer__newbutton load-reviews__submit"
-                  onClick={LoadMoreReviews}
-                >
-                  <i className="fa fas fa-plus manageoffers__icon"></i>
-                  <span className="load-reviews__title">
-                    Cargar más reviews
-                  </span>
+              <div className="pprofilepage__rating-container">
+                <div className="profilepage__reviewcontainer">
+                  {reviews?.slice(0, itemsToShow).map((review) => (
+                    <Review
+                      key={review._id}
+                      review={review}
+                      userId={id}
+                      setReviews={setReviews}
+                    ></Review>
+                  ))}
                 </div>
-              )}
-            </div>
-          )}
+                {itemsToShow < reviews?.length && (
+                  <div
+                    className="addoffer__newbutton load-reviews__submit"
+                    onClick={LoadMoreReviews}
+                  >
+                    <i className="fa fas fa-plus manageoffers__icon"></i>
+                    <span className="load-reviews__title">
+                      Cargar más reviews
+                  </span>
+                  </div>
+                )}
+              </div>
+            )}
           <div className="pprofilepage__rating-container">
             {canReview && (
               <div className="pprofilepage__rate-body">
