@@ -14,7 +14,7 @@ const ReviewBody = ({ review, userId, setReviews }) => {
 
   const { state } = useStateMachine(updateAction);
   const redirectToUser = () => {
-    window.open(`users/${review.createdBy._id}`);
+    window.open(`/users/${review.createdBy._id}`);
   };
 
   return (
