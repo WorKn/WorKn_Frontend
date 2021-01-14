@@ -2,12 +2,25 @@ import React from "react";
 import "./DeleteOfferPopup-Style.css";
 import { removeMember } from "../../utils/apiRequests";
 import { store } from "react-notifications-component";
+import updateAction from "../../updateAction";
+import { useStateMachine } from "little-state-machine";
 
 const DeleteOfferPopup = ({ memberId, hide }) => {
+
+  const updateMembers = () => {
+    if (state.userInformation.hasMemberBeenDeleted === true) {
+      action({ hasMemberBeenDeleted: false });
+    } else {
+      action({ hasMemberBeenDeleted: true });
+    }
+  };
+
+  const { state, action } = useStateMachine(updateAction);
   const handleDelete = () => {
     removeMember(memberId).then((res) => {
       if (res.data !== undefined) {
         if (res?.data?.status && res?.data?.status === "success") {
+          updateMembers()
           store.addNotification({
             title: "Usuario eliminado correctamente",
             message:

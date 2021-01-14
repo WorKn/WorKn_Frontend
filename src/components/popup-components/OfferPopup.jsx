@@ -16,9 +16,6 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
   const [offererTitleRoute, setOffererTitleRoute] = useState("");
   const { state } = useStateMachine(updateAction);
 
-  console.log(offerInfo);
-  console.log(organizationInformation);
-
   useEffect(() => {
     if (offerInfo.organization) {
       for (
@@ -68,8 +65,7 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
                     {offerInfo?.location ? (
                       <span>
                         {" "}
-                        en
-                        <b>{offerInfo.location}</b>
+                        en <b> {offerInfo.location}</b>
                       </span>
                     ) : null}
                   </span>
@@ -80,7 +76,7 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
                     <li>
                       <span>
                         En
-                        <b>{offerInfo?.location}</b>
+                        <b> {offerInfo?.location}</b>
                       </span>
                     </li>
                   ) : null}

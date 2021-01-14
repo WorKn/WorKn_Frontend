@@ -157,6 +157,10 @@
   padding: 10px 40px;
 }
 
+.custom-button--dpar {
+  padding: 10px 40px;
+}
+
 .custom-button--dpa:hover {
   background-color: #259e6c;
 }
@@ -165,3 +169,20 @@
   background-color: #d3453b;
 }
 
+@media screen and (min-width: 1400px) {
+  .dp-wrapper__up-content {
+    font-size: 15px;
+  }
+
+  .dp-wrapper__down-content {
+    font-size: 15px;
+  }
+
+  .dp-wrapper__title {
+    font-size: 20px;
+  }
+
+  .tag__text--small {
+    font-size: 12px;
+  }
+}
