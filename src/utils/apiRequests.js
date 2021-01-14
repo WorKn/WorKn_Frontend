@@ -8,7 +8,7 @@ var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
 
-today = yyyy + '-' + dd + '-' + mm;
+today = yyyy + '-' + mm + '-' + dd;
 
 let HOST = "";
 
@@ -83,7 +83,7 @@ export const getAllFilteredOffers = async () => {
 
 export const getAllPublicOffers = async () => {
   try {
-    const response = await axios.get(`${HOST}/api/v1/offers/?closingDate[gt]=2021-10-01T00:00:00.000Z&state=active`);
+    const response = await axios.get(`${HOST}/api/v1/offers/?closingDate[gt]=${today}&state=active`);
     return response;
   } catch (e) {
     return e;
