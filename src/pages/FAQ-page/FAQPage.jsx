@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Footer from "../../components/footer-components/Footer.jsx";
 import Header from "../../components/navbar-components/Navbar.jsx";
 import Banner from "../../components/banner-components/Banner.jsx";
-import "../termsofservice/TermsOfService-Style.css";
+import "../termsofservice/TermsOfServicePage-Style.css";
 import "../../App.css";
 
 const SECTIONS = [
