@@ -10,6 +10,8 @@ import TagsInput from "../input-components/TagsInput";
 import Tag from "../tag-components/Tag";
 import { store } from "react-notifications-component";
 import "./CreateOfferPopup-Style.css";
+import updateAction from "../../updateAction";
+import { useStateMachine } from "little-state-machine";
 const HOST = process.env.REACT_APP_STAGING_HOST;
 const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
   const { register, handleSubmit, errors } = useForm({
@@ -18,13 +20,23 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [showSuccess, setSuccess] = useState(false);
+  const { state, action } = useStateMachine(updateAction);
 
   const onSubmit = (data) => {
-    data.category = selectedCategory.value;
-
-    let newArray = [];
-    selectedTags.forEach((tag) => newArray.push(tag.value));
-    data.tags = newArray;
+    if (state.userInformation.userType === "applicant") {
+      if (selectedCategory === undefined || selectedCategory.length === 0) {
+        delete data.category
+      } else {
+        data.category = selectedCategory.value;
+      }
+      if (selectedTags === undefined || selectedTags.length === 0) {
+        delete data.tags
+      } else {
+        let newArray = [];
+        selectedTags.forEach((tag) => newArray.push(tag.value));
+        data.tags = newArray;
+      }
+    }
 
     data._id = offerInfo._id;
     //eliminar aquellos atributos que sean iguales a ""
@@ -231,7 +243,7 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
               </span>
 
               <TagsInput
-              
+
                 query={`${HOST}/api/v1/categories/${selectedCategory.value}/tags`}
               ></TagsInput>
               <div className="userform__tagscontainer">
