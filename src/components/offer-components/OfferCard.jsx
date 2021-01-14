@@ -83,7 +83,7 @@ const OfferCard = ({
                   <div className="offercard__vl"></div>
                   <span>{responseInfo?.closingDate?.slice(0, 10)}</span>
                   <div className="offercard__vl"></div>
-                  <span>{responseInfo?.category?.name}</span>
+                  <span>{responseInfo?.category?.name.slice(0, 10)}...</span>
                 </div>
                 <SimpleBar>
                   <div className="offercard__tags">
@@ -126,7 +126,7 @@ const OfferCard = ({
                   <div className="offercard__vl"></div>
                   <span>{responseInfo?.bio?.slice(0, 20)}...</span>
                   <div className="offercard__vl"></div>
-                  <span>{responseInfo?.category?.name}</span>
+                  <span>{responseInfo?.category?.name.slice(0, 10)}...</span>
                 </div>
                 <SimpleBar>
                   <div className="offercard__tags">
