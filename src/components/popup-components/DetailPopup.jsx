@@ -53,7 +53,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
   const onSubmit = (data) => {
     if (state.userInformation.userType === "offerer") {
       createInteractionOA(responseInfo?._id, data.offer).then((res) => {
-        if (res !== undefined && res?.data?.status === 'success') {
+        if (res !== undefined && res?.data?.status === "success") {
           store.addNotification({
             title: "Interacción creada",
             message:
@@ -86,7 +86,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
       });
     } else {
       createInteractionAO(responseInfo?._id).then((res) => {
-        if (res !== undefined && res?.data?.status === 'success') {
+        if (res !== undefined && res?.data?.status === "success") {
           store.addNotification({
             title: "Interacción creada",
             message:
@@ -185,7 +185,7 @@ const DetailPopup = ({ responseInfo, hide }) => {
                 : "Los detalles de la oferta no estan disponibles"}
             </p>
             <p className="dp-wrapper__salary">
-              {responseInfo?.offer?.salaryRange ? (
+              {responseInfo?.salaryRange ? (
                 <p>
                   Rango salarial:<br></br>
                   <b>
