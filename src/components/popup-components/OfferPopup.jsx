@@ -27,8 +27,8 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
           setProfilePictureRoute(organizationInformation.profilePicture);
           setOffererTitleRoute(
             organizationInformation.members[index].name +
-            " " +
-            organizationInformation.members[index].lastname
+              " " +
+              organizationInformation.members[index].lastname
           );
           setProfileRoute(
             `/users/${organizationInformation.members[index].id}`
@@ -48,10 +48,10 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
             <img src={profilePictureRoute} alt="Offerpp" />
           </div>
         ) : (
-            <div className="op-wrapper__img">
-              <img src="https://i.imgur.com/lcHQ2QP.jpg" alt="Offerpp" />
-            </div>
-          )}
+          <div className="op-wrapper__img">
+            <img src="https://i.imgur.com/lcHQ2QP.jpg" alt="Offerpp" />
+          </div>
+        )}
         <div className="op-wrapper__text">
           <span className="op-wrapper__title">
             {offerInfo ? offerInfo.title : "Titulo no disponible"}
@@ -62,16 +62,26 @@ const OfferPopup = ({ offerInfo, organizationInformation }) => {
                 <li>
                   <span>
                     Por <b>{offererTitleRoute}</b>
-                    {organizationInformation?.location ? (
+                    {offerInfo?.location ? (
                       <span>
                         {" "}
-                        en
-                        <b>{organizationInformation.location}</b>
+                        en <b> {offerInfo.location}</b>
                       </span>
                     ) : null}
                   </span>
                 </li>
-              ) : null}
+              ) : (
+                <span>
+                  {offerInfo?.location ? (
+                    <li>
+                      <span>
+                        En
+                        <b> {offerInfo?.location}</b>
+                      </span>
+                    </li>
+                  ) : null}
+                </span>
+              )}
               <li>
                 {offerInfo.offerType
                   ? MyDictionary[offerInfo.offerType]
