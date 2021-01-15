@@ -2,10 +2,10 @@ import React, { useState, useEffect, useMemo } from "react";
 import { getOrgById, getAllOffers } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import Header from "../../components/navbar-components/Navbar";
-import Banner from "../../components/banner-components/Banner";
 import Footer from "../../components/footer-components/Footer";
 import OfferCard from "../../components/offer-components/OfferCard";
 import "./EmpresaViewPage-Style.css";
+
 
 const EmpresaViewPage = ({
   match: {
@@ -22,14 +22,14 @@ const EmpresaViewPage = ({
     () =>
       orgOffer.map((offer) =>
         offer &&
-        offer.organization?._id === orgInfo?._id &&
-        offer.state !== "deleted" ? (
-          <OfferCard
-            key={offer._id}
-            organizationInformation={orgInfo}
-            offerInfo={offer}
-          ></OfferCard>
-        ) : null
+          offer.organization?._id === orgInfo?._id &&
+          offer.state !== "deleted" ? (
+            <OfferCard
+              key={offer._id}
+              organizationInformation={orgInfo}
+              offerInfo={offer}
+            ></OfferCard>
+          ) : null
       ),
     [orgOffer, orgInfo]
   );
@@ -37,7 +37,6 @@ const EmpresaViewPage = ({
   useEffect(() => {
     getOrgById(id).then((res) => {
       if (res.status === "success") {
-        console.log(res);
         setOrgInfo(res.data.data);
       } else {
         history.push("/404");
@@ -51,34 +50,30 @@ const EmpresaViewPage = ({
         const offers = res.data.data.data;
         if (offers && Array.isArray(offers)) {
           setOrgOffer(offers);
-          console.log(offers);
         }
       }
     });
   }, [id, history]);
 
-  // let formatPhoneNumber = (str) => {
-  //   //Filter only numbers from the input
-  //   let cleaned = ("" + str).replace(/\D/g, "");
+  let formatPhoneNumber = (str) => {
+    //Filter only numbers from the input
+    let cleaned = ("" + str).replace(/\D/g, "");
+    //Check if the input is of correct length
+    let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
 
-  //   //Check if the input is of correct length
-  //   let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+    if (match) {
+      return "(" + match[1] + ")-" + match[2] + "-" + match[3];
+    }
+    return null;
+  };
 
-  //   if (match) {
-  //     return "(" + match[1] + ")-" + match[2] + "-" + match[3];
-  //   }
-
-  //   return null;
-  // };
-  //kiwVnMm.png
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <div className="pagewrap">
       <Header />
-      <Banner image={"VfeSojP.png"}></Banner>
       <div className="EmpresaView">
         <div className="EmpresaView__up">
           <div className="EmpresaView__pp EmpresaView__pp--mob">
@@ -91,7 +86,14 @@ const EmpresaViewPage = ({
           <div className="EmpresaView__bio EmpresaView__bio--b">
             <div className="EmpresaView__bioleft">
               <h2>Biografía</h2>
-              <span>{`${orgInfo?.name}`}</span>
+              <span className="profile__header">
+                <span>{`${orgInfo?.name}`}</span>
+                {typeof orgInfo?.isVerified && orgInfo?.isVerified === true ? (
+                  <div className="profile__validated tooltip"><span className="tooltiptext">Esta organización está verificada</span><i className="fa fa-check profile__validatedicon"></i></div>
+                ) : (
+                    ""
+                  )}
+              </span>
               <p>{orgInfo?.bio}</p>
             </div>
           </div>
@@ -101,7 +103,7 @@ const EmpresaViewPage = ({
               <span>Email:</span>
               <a href={`mailto:${orgInfo?.email}`}>{`${orgInfo?.email}`}</a>
               <span>Telefono:</span>
-              <p>{`${orgInfo?.phone}`}</p>
+              <p>{formatPhoneNumber(orgInfo?.phone)}</p>
             </div>
             <div className="EmpresaView__metrics EmpresaView__metrics--mob EmpresaView__metrics--b">
               <h2>Información</h2>

@@ -12,22 +12,18 @@ import categoryContext from "../../utils/categoryContext";
 import CategoryInput from "../input-components/CategoryInput";
 import tagsContext from "../../utils/tagsContext";
 import TagsInput from "../input-components/TagsInput";
-
+const HOST = process.env.REACT_APP_STAGING_HOST;
 const CreateOfferPage = ({ hide, setMyOffers }) => {
   const { register, handleSubmit, errors } = useForm({
     // mode: "onBlur",
   });
-  const [selectedCategory, setSelectedCategory] = useState({ label: "health" });
+  const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [showSuccess, setSuccess] = useState(false);
 
-  // let MyDictionary = {};
-  // MyDictionary["offerer"] = "Ofertante";
-  // MyDictionary["applicant"] = "Aplicante";
-
   const onSubmit = (data) => {
     data.category = selectedCategory.value;
-    console.log(data.category);
+    console.log("LOL", data);
     let newArray = [];
     selectedTags.forEach((tag) => newArray.push(tag.value));
     data.tags = newArray;
@@ -43,8 +39,8 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
     if (!data.salaryRange[0] || !data.salaryRange[1]) {
       delete data["salaryRange"];
     }
+    console.log("After deletion", data);
     createOffer(data).then((res) => {
-      console.log(res);
       if (res === "success") {
         setSuccess(true);
         store.addNotification({
@@ -64,6 +60,10 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
         getMyOffers().then((res) => {
           setMyOffers(res.data.data.offers);
         });
+
+        setTimeout(() => {
+          hide();
+        }, 1500);
       } else {
         store.addNotification({
           title: "Ha ocurrido un error",
@@ -80,7 +80,6 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
         });
       }
     });
-    console.log(data);
   };
 
   return (
@@ -90,7 +89,6 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
           <form
             onSubmit={handleSubmit((data) => {
               onSubmit(data);
-              hide();
             })}
             className="sizing-container"
           >
@@ -98,10 +96,6 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
               <h1 className="create-offer__header-title">
                 Creación de ofertas
               </h1>
-              {/* <i
-                className="fa fa-times offerstrip__icon offerstrip__delete"
-                onClick={hide}
-              ></i> */}
             </div>
             <div className="create-offer__paired-input">
               <span>Título</span>
@@ -118,7 +112,7 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                 name="title"
                 render={({ message }) => (
                   <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
+                    <i className="fa fa-asterisk"></i> {message}
                   </div>
                 )}
               />
@@ -139,52 +133,60 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
                 name="description"
                 render={({ message }) => (
                   <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
+                    <i className="fa fa-asterisk"></i> {message}
                   </div>
                 )}
               />
             </div>
-            <div className="create-offer__paired-input">
-              <span>Tipo de oferta</span>
+            <div className="create-offer__input-row">
+              <div className="create-offer__paired-input create-offer__paired-input--half">
+                <span>Tipo de oferta</span>
 
-              <select
-                name="offerType"
-                ref={register({
-                  required: "Por favor seleccione un tipo de oferta",
-                })}
-              >
-                <option value="free">Freelancer</option>
-                <option value="fixed">Fijo/Indefinido</option>
-              </select>
+                <select
+                  name="offerType"
+                  ref={register({
+                    required: true,
+                  })}
+                >
+                  <option value="">--Seleccionar--</option>
+                  <option value="free">Freelancer</option>
+                  <option value="fixed">Fijo/Indefinido</option>
+                </select>
 
-              <ErrorMessage
-                errors={errors}
-                name="offerType"
-                render={({ message }) => (
-                  <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
-                  </div>
-                )}
-              />
+                <ErrorMessage
+                  errors={errors}
+                  name="offerType"
+                  message="Por favor, seleccione un tipo de oferta"
+                  render={({ message }) => (
+                    <div className="input__msg input__msg--error">
+                      <i className="fa fa-asterisk"></i> {message}
+                    </div>
+                  )}
+                />
+              </div>
+              <div className="create-offer__paired-input create-offer__paired-input--half">
+                <span>Fecha de cierre</span>
+
+                <input
+                  type="date"
+                  name="closingDate"
+                  placeholder="Fecha de cierre [opcional]"
+                  className="create-offer__date"
+                  title="Por favor, ingrese la fecha de cierre de la oferta"
+                  ref={register}
+                />
+              </div>
             </div>
+
             <div className="create-offer__paired-input">
               <span>Ubicación</span>
-
-              <input
-                type="text"
-                placeholder="Ubicación [opcional]"
-                title="Por favor, ingrese la Ubicacion de la oferta [opcional]"
+              <textarea
+                type="textarea"
                 name="location"
+                placeholder="Localización [opcional]"
+                title="Por favor, ingrese la Localización de la oferta [opcional]"
+                className="create-offer__description-input"
                 ref={register}
-              />
-              <ErrorMessage
-                errors={errors}
-                name="location"
-                render={({ message }) => (
-                  <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
-                  </div>
-                )}
               />
             </div>
             <div className="create-offer__paired-input">
@@ -211,73 +213,60 @@ const CreateOfferPage = ({ hide, setMyOffers }) => {
               </span>
 
               <TagsInput
-                query={`http://stagingworknbackend-env.eba-hgtcjrfm.us-east-2.elasticbeanstalk.com/api/v1/categories/${selectedCategory.value}/tags`}
-                defaultInputValue={"health"}
+                query={`${HOST}/api/v1/categories/${selectedCategory.value}/tags`}
               ></TagsInput>
             </div>
 
             <div className="create-offer__paired-input">
               <span>Rango Salarial</span>
 
-              <input
-                type="number"
-                step="any"
-                name="salaryRangeFrom"
-                placeholder="Desde [opcional]"
-                className="create-offer__salaryRangeFrom"
-                ref={register}
-                title="Por favor, ingrese el rango inicial sin comas [opcional]"
-              />
+              <div className="create-offer__input-row">
+                <div className="create-offer__money-range">
+                  <input
+                    type="number"
+                    step="any"
+                    name="salaryRangeFrom"
+                    placeholder="Desde [opcional]"
+                    className="create-offer__salaryRangeFrom c-o__paired-input--money"
+                    ref={register}
+                    title="Por favor, ingrese el rango inicial sin comas [opcional]"
+                  />
+                  <span>RD$</span>
+                </div>
 
-              <ErrorMessage
-                errors={errors}
-                name="salaryRangeFrom"
-                render={({ message }) => (
-                  <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
-                  </div>
-                )}
-              />
-              <input
-                type="number"
-                step="any"
-                name="salaryRangeTo"
-                placeholder="Hasta [opcional]"
-                className="create-offer__salaryRangeFrom"
-                ref={register}
-                title="Por favor, ingrese el rango final [opcional]"
-              />
+                <ErrorMessage
+                  errors={errors}
+                  name="salaryRangeFrom"
+                  render={({ message }) => (
+                    <div className="input__msg input__msg--error">
+                      <i className="fa fa-asterisk"></i> {message}
+                    </div>
+                  )}
+                />
 
-              <ErrorMessage
-                errors={errors}
-                name="salaryRangeTo"
-                render={({ message }) => (
-                  <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
-                  </div>
-                )}
-              />
-            </div>
-            <div className="create-offer__paired-input">
-              <span>Fecha de cierre</span>
+                <div className="create-offer__money-range">
+                  <input
+                    type="number"
+                    step="any"
+                    name="salaryRangeTo"
+                    placeholder="Hasta [opcional]"
+                    className="create-offer__salaryRangeFrom c-o__paired-input--money"
+                    ref={register}
+                    title="Por favor, ingrese el rango final [opcional]"
+                  />
+                  <span>RD$</span>
+                </div>
 
-              <input
-                type="date"
-                name="closingDate"
-                placeholder="Fecha de cierre"
-                className="create-offer__date"
-                ref={register}
-                title="Por favor, ingrese la fecha de cierre de la oferta"
-              />
-              <ErrorMessage
-                errors={errors}
-                name="closingDate"
-                render={({ message }) => (
-                  <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
-                  </div>
-                )}
-              />
+                <ErrorMessage
+                  errors={errors}
+                  name="salaryRangeTo"
+                  render={({ message }) => (
+                    <div className="input__msg input__msg--error">
+                      <i className="fa fa-asterisk"></i> {message}
+                    </div>
+                  )}
+                />
+              </div>
             </div>
 
             <input

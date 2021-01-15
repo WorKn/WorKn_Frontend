@@ -96,3 +96,8 @@
     width: 80%;
   }
 }
+
+.fa.fa-address-card.cta-container__profile-icon {
+  font-size: 25px;
+  margin-right: 5px;
+}

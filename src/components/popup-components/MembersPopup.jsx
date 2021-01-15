@@ -74,7 +74,7 @@ const MembersPopup = () => {
             name="email"
             render={({ message }) => (
               <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
+                <i className="fa fa-asterisk"></i> {message}
               </div>
             )}
           />
@@ -96,7 +96,7 @@ const MembersPopup = () => {
         {/* {typeof invited.data !== "undefined" &&
           invited.data.status === "success" ? (
             <div className="input__msg input__msg--success">
-              <i class="fa fa-check"></i> Usuario invitado correctamente
+              <i className="fa fa-check"></i> Usuario invitado correctamente
             </div>
           ) : (
             ""

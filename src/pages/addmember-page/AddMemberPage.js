@@ -8,6 +8,9 @@ import { ErrorMessage } from "@hookform/error-message";
 import { getAge } from "../../utils/ageCalculation";
 import auth from "../../utils/authHelper";
 import Cookies from "js-cookie";
+import Header from "../../components/navbar-components/Navbar";
+import Footer from "../../components/footer-components/Footer";
+import { store } from 'react-notifications-component';
 import {
   signUpOrganizationMember,
   getInvitationInfo,
@@ -26,21 +29,53 @@ const AddMember = ({
   });
   const { push } = useHistory();
   const onSubmit = (data) => {
-    // action(data);
     data.token = token;
     action(data);
+    action({ hasCreatedAccount: true })
+    signUpOrganizationMember(data).then((res) => {
+      if (res.status === "fail") {
+        store.addNotification({
+          title: "Ha ocurrido un error",
+          message: res.message + ", probablemente ya se ha registrado este correo.",
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true
+          }
+        });
+      }
+      setUserObject(res);
+    });
   };
 
-  useEffect(() => {
-    if (state.userInformation) {
-      signUpOrganizationMember(state.userInformation).then((res) => {
-        console.log(res);
-        setUserObject(res);
-      });
-    } else {
-      console.log("loading");
-    }
-  }, [state.userInformation]);
+
+  // useEffect(() => {
+  //   if (state.userInformation) {
+  //     signUpOrganizationMember(state.userInformation).then((res) => {
+  //       if (res.status === "fail") {
+  //         store.addNotification({
+  //           title: "Ha ocurrido un error",
+  //           message: res.message,
+  //           type: "danger",
+  //           insert: "top",
+  //           container: "top-right",
+  //           animationIn: ["animate__animated", "animate__fadeIn"],
+  //           animationOut: ["animate__animated", "animate__fadeOut"],
+  //           dismiss: {
+  //             duration: 10000,
+  //             onScreen: true
+  //           }
+  //         });
+  //       } else {
+  //         setUserObject(res);
+  //       }
+  //     });
+  //   }
+  // }, [state.userInformation]);
 
   useEffect(() => {
     if (userObject.data !== undefined && userObject.data.status === "success") {
@@ -56,7 +91,6 @@ const AddMember = ({
 
   useEffect(() => {
     getInvitationInfo(token).then((res) => {
-      console.log(res);
       setOrgInfo(res);
     });
   }, [token]);
@@ -65,70 +99,72 @@ const AddMember = ({
   password.current = watch("password", "");
 
   return (
-    <div className="register-wrapper">
-      <div className="green-line">
-        <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
-          <div className="logo-container">
-            <img
-              className="logo-header"
-              src="https://i.imgur.com/klMjRck.png"
-              alt="logo"
-            />
-          </div>
-          <span className="popup-title">Registra tu cuenta </span>
-          {typeof orgInfo.data !== "undefined" &&
-            orgInfo.data.status === "success" ? (
-              <span className="sub-title">
-                Estás siendo invitado a {orgInfo.data.data.organization.name} con
+    <div>
+      <Header />
+      <div className="login-wrapper">
+        <div className="green-line">
+          <form className="sizing-container" onSubmit={handleSubmit(onSubmit)}>
+            <div className="logo-container">
+              <img
+                className="logo-header"
+                src="https://i.imgur.com/klMjRck.png"
+                alt="logo"
+              />
+            </div>
+            <span className="popup-title">Registra tu cuenta </span>
+            {typeof orgInfo.data !== "undefined" &&
+              orgInfo.data.status === "success" ? (
+                <span className="sub-title">
+                  Estás siendo invitado a {orgInfo.data.data.organization.name} con
               el rol de {orgInfo.data.data.invitedRole}{" "}
-              </span>
-            ) : (
-              ""
-            )}
+                </span>
+              ) : (
+                ""
+              )}
 
-          <div className="paired-container">
-            <div className="paired-input">
-              <span className="popup-text">Nombre</span>
-              <input
-                className="form-input"
-                type="text"
-                name="name"
-                pattern="[a-zA-Z]*"
-                title="Por favor no incluya números en su nombre"
-                ref={register({ required: "Por favor ingrese su nombre" })}
-              />
-              <ErrorMessage
-                errors={errors}
-                name="name"
-                render={({ message }) => (
-                  <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
-                  </div>
-                )}
-              />
+            <div className="paired-container">
+              <div className="paired-input">
+                <span className="popup-text">Nombre</span>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="name"
+                  pattern="[a-zA-Z]*"
+                  title="Por favor no incluya números en su nombre"
+                  ref={register({ required: "Por favor ingrese su nombre" })}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="name"
+                  render={({ message }) => (
+                    <div className="input__msg input__msg--error">
+                      <i className="fa fa-asterisk"></i> {message}
+                    </div>
+                  )}
+                />
+              </div>
+              <div className="paired-input lspacer">
+                <span className="popup-text">Apellido</span>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="lastname"
+                  pattern="[a-zA-Z]*"
+                  title="Por favor no incluya números en su apellido"
+                  ref={register({ required: "Por favor ingrese su apellido" })}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="lastname"
+                  render={({ message }) => (
+                    <div className="input__msg input__msg--error">
+                      <i className="fa fa-asterisk"></i> {message}
+                    </div>
+                  )}
+                />
+              </div>
             </div>
-            <div className="paired-input lspacer">
-              <span className="popup-text">Apellido</span>
-              <input
-                className="form-input"
-                type="text"
-                name="lastname"
-                pattern="[a-zA-Z]*"
-                title="Por favor no incluya números en su apellido"
-                ref={register({ required: "Por favor ingrese su apellido" })}
-              />
-              <ErrorMessage
-                errors={errors}
-                name="lastname"
-                render={({ message }) => (
-                  <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
-                  </div>
-                )}
-              />
-            </div>
-          </div>
-          {/* <span className="popup-text">Correo</span>
+            {/* <span className="popup-text">Correo</span>
           <input
             className="form-input"
             type="email"
@@ -140,116 +176,105 @@ const AddMember = ({
             name="email"
             render={({ message }) => (
               <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
+                <i className="fa fa-asterisk"></i> {message}
               </div>
             )}
           /> */}
-          <div class="paired-container">
-            <div class="paired-input">
-              <span className="popup-text">Contraseña</span>
-              <input
-                className="form-input"
-                name="password"
-                type="password"
-                ref={register({
-                  required: "Por favor ingrese su contraseña",
-                  minLength: {
-                    value: 8,
-                    message: "Su contraseña debe tener al menos 8 caracteres",
-                  },
-                })}
-              />
-              <ErrorMessage
-                errors={errors}
-                name="password"
-                render={({ message }) => (
-                  <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
-                  </div>
-                )}
-              />
-            </div>
-            <div className="paired-input lspacer">
-              <span className="popup-text">Confirmar contraseña</span>
-              <input
-                className="form-input"
-                name="passwordConfirm"
-                type="password"
-                ref={register({
-                  validate: (value) =>
-                    value === password.current ||
-                    "Las contraseñas no coinciden",
-                })}
-              />
-              <ErrorMessage
-                errors={errors}
-                name="passwordConfirm"
-                render={({ message }) => (
-                  <div className="input__msg input__msg--error">
-                    <i class="fa fa-asterisk"></i> {message}
-                  </div>
-                )}
-              />
-            </div>
-          </div>
-          <span className="popup-text">Fecha de nacimiento</span>
-          <input
-            className="form-input"
-            name="birthday"
-            id="birthday"
-            type="date"
-            min="1899-01-01"
-            ref={register({
-              required: "Por favor ingrese su fecha de nacimiento",
-              validate: (value) =>
-                getAge(value) >= 16 ||
-                "Debes ser mayor de 16 años para utilizar WorKn",
-            })}
-          />
-          <ErrorMessage
-            errors={errors}
-            name="birthday"
-            render={({ message }) => (
-              <div className="input__msg input__msg--error">
-                <i class="fa fa-asterisk"></i> {message}
+            <div className="paired-container">
+              <div className="paired-input">
+                <span className="popup-text">Contraseña</span>
+                <input
+                  className="form-input"
+                  name="password"
+                  type="password"
+                  ref={register({
+                    required: "Por favor ingrese su contraseña",
+                    minLength: {
+                      value: 8,
+                      message: "Su contraseña debe tener al menos 8 caracteres",
+                    },
+                  })}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="password"
+                  render={({ message }) => (
+                    <div className="input__msg input__msg--error">
+                      <i className="fa fa-asterisk"></i> {message}
+                    </div>
+                  )}
+                />
               </div>
-            )}
-          />
-          <input
-            className="custom-button bg-green"
-            type="submit"
-            value="Siguiente"
-          />
-          <div className="ctext-separator">
-            <span className="remind-me">
-              Ya tienes cuenta? {""}
-              <a className="popup-link " href="/loginpage">
-                Inicia sesión
+              <div className="paired-input lspacer">
+                <span className="popup-text">Confirmar contraseña</span>
+                <input
+                  className="form-input"
+                  name="passwordConfirm"
+                  type="password"
+                  ref={register({
+                    validate: (value) =>
+                      value === password.current ||
+                      "Las contraseñas no coinciden",
+                  })}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="passwordConfirm"
+                  render={({ message }) => (
+                    <div className="input__msg input__msg--error">
+                      <i className="fa fa-asterisk"></i> {message}
+                    </div>
+                  )}
+                />
+              </div>
+            </div>
+            <span className="popup-text">Fecha de nacimiento</span>
+            <input
+              className="form-input"
+              name="birthday"
+              id="birthday"
+              type="date"
+              min="1899-01-01"
+              ref={register({
+                required: "Por favor ingrese su fecha de nacimiento",
+                validate: (value) =>
+                  getAge(value) >= 16 ||
+                  "Debes ser mayor de 16 años para utilizar WorKn",
+              })}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="birthday"
+              render={({ message }) => (
+                <div className="input__msg input__msg--error">
+                  <i className="fa fa-asterisk"></i> {message}
+                </div>
+              )}
+            />
+            <input
+              className="custom-button bg-green"
+              type="submit"
+              value="Siguiente"
+            />
+            <div className="line-separator">
+              <span className="hl"></span>
+              <span className="spacer">o</span>
+              <span className="hl"></span>
+            </div>
+            <div className="ctext-separator">
+              <span className="remind-me">
+                Ya tienes cuenta? {""}
+                <a className="popup-link " href="/login">
+                  Inicia sesión
               </a>
-            </span>
-          </div>
-          <div className="line-separator">
-            <span className="hl"></span>
-            <span className="spacer">o</span>
-            <span className="hl"></span>
-          </div>
-          <span className="custom-button bg-blue">
-            <div className="inner-container">
-              <i class="fa fa-facebook-official"></i>
-              <span className="vl"></span>
-              <span>Regístrate con Facebook</span>
+              </span>
             </div>
-          </span>
-          <span className="custom-button bg-red">
-            <div className="inner-container">
-              <i class="fa fa-google"></i>
-              <span className="vl"></span>
-              <span>Regístrate con Google</span>
-            </div>
-          </span>
-        </form>
+          </form>
+        </div>
       </div>
+      <Footer />
     </div>
+
   );
 };
 

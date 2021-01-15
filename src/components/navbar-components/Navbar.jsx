@@ -27,7 +27,7 @@ const Navbar = () => {
   }, [state.userInformation._id]);
 
   return (
-    <div className="navbar">
+    <div className="navbar navbar__sticky">
       <div className="navbar__left-items navbar__logo-link">
         <Link to="/" className="navbar__link">
           <img
@@ -43,10 +43,22 @@ const Navbar = () => {
               ? "navbar__link navbar__link--hidden navbar__hide-on-mobile"
               : "navbar__link navbar__link--hidden"
           }
-          to="#"
+          to="/recommendations"
         >
           Recomendaciones
         </Link>
+        {state.userInformation.userType === "offerer" ? (
+          <Link
+            className={
+              hideOnMobile
+                ? "navbar__link navbar__link--hidden navbar__hide-on-mobile"
+                : "navbar__link navbar__link--hidden"
+            }
+            to="/manageoffers"
+          >
+            Ofertas
+          </Link>
+        ) : null}
         <Link
           className={
             hideOnMobile
@@ -73,7 +85,7 @@ const Navbar = () => {
               ? "navbar__link navbar__link--hidden navbar__hide-on-mobile"
               : "navbar__link navbar__link--hidden"
           }
-          to="/summary"
+          to="/chat"
         >
           Mensajeria
         </Link>
@@ -107,37 +119,37 @@ const Navbar = () => {
           </div>
         </div>
       ) : (
-        <div className="navbar__right-items">
-          <Link
-            className={
-              hideOnMobile
-                ? "navbar__link navbar__link--highlighted navbar__hide-on-mobile"
-                : "navbar__link navbar__link--highlighted"
-            }
-            to="/login"
-          >
-            Iniciar sesión
+          <div className="navbar__right-items">
+            <Link
+              className={
+                hideOnMobile
+                  ? "navbar__link navbar__link--highlighted navbar__hide-on-mobile"
+                  : "navbar__link navbar__link--highlighted"
+              }
+              to="/login"
+            >
+              Iniciar sesión
           </Link>
-          <Link
-            className={
-              hideOnMobile
-                ? "navbar__link navbar__link--highlighted navbar__hide-on-mobile"
-                : "navbar__link navbar__link--highlighted"
-            }
-            to="/login"
-            onClick={() => {
-              action({ isUserFromNav: true });
-            }}
-          >
-            Registrate
+            <Link
+              className={
+                hideOnMobile
+                  ? "navbar__link navbar__link--highlighted navbar__hide-on-mobile"
+                  : "navbar__link navbar__link--highlighted"
+              }
+              to="/login"
+              onClick={() => {
+                action({ isUserFromNav: true });
+              }}
+            >
+              Registrate
           </Link>
-          <i
-            className="fa fa-bars icon-2x"
-            id="navbar__hidden"
-            onClick={toggleHiddenMobile}
-          ></i>
-        </div>
-      )}
+            <i
+              className="fa fa-bars icon-2x"
+              id="navbar__hidden"
+              onClick={toggleHiddenMobile}
+            ></i>
+          </div>
+        )}
     </div>
   );
 };

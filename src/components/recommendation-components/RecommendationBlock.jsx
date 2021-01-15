@@ -6,7 +6,7 @@ import RecommendationCard from "./RecommendationCard";
 const RecommendationBlock = ({ rec }) => {
   const [itemsToShow, setItemsToShow] = useState(4);
 
-  const showThreeMoreRecommendations = useCallback(() => {
+  const showMoreRecommendations = useCallback(() => {
     setItemsToShow(itemsToShow + 4);
   }, [itemsToShow]);
 
@@ -35,7 +35,7 @@ const RecommendationBlock = ({ rec }) => {
         <div className="manageoffers__activecontainer">
           <div
             className="addoffer__newbutton"
-            onClick={showThreeMoreRecommendations}
+            onClick={showMoreRecommendations}
           >
             <i className="fa fas fa-plus manageoffers__icon"></i>
             <span className="manageoffers__title--dark">Cargar más</span>

@@ -11,7 +11,6 @@ import updateAction from "../../updateAction";
 import { useModal } from "../../hooks/useModal";
 import PasswordPopup from "../../components/popup-components/PasswordPopup";
 import AnnouncementBanner from "../../components/announcemnet-components/Announcement-Banner";
-import { Link } from "react-router-dom";
 import { store } from 'react-notifications-component';
 
 
@@ -24,12 +23,20 @@ const UserProfilePage = (props) => {
     // hide: hideQuestionModal,
   } = useModal();
 
+  const redirectToManageOrg = () => {
+    props.history.push("/organizationprofile")
+  }
+
+  const redirectToManageOffers = () => {
+    props.history.push("/manageoffers")
+  }
+
   useEffect(() => {
     if (state.userInformation.hasCreatedAccount !== "undefined" && state.userInformation.hasCreatedAccount === true) {
       setTimeout(() => {
         store.addNotification({
           title: "Bienvenido " + state.userInformation.name + " tu cuenta ha sido creada exitosamente",
-          message: "Procede a completar tu perfil para poder navegar en nuestro sitio",
+          message: "Procede a completar tu perfil para poder navegar en nuestro sitio, recuerda que debes validar tu cuenta.",
           type: "success",
           insert: "top",
           container: "top-right",
@@ -44,9 +51,7 @@ const UserProfilePage = (props) => {
       setTimeout(() => {
         action({ hasCreatedAccount: false })
       }, 5000);
-    } else (
-      console.log("Loading...")
-    )
+    }
   }, [state.userInformation.hasCreatedAccount, action, state.userInformation.name])
 
   return (
@@ -71,32 +76,31 @@ const UserProfilePage = (props) => {
               dar tu constraseña a ningún usuario a través de WorKn, los
               administradores nunca te la solicitarán.
             </span>
-            <button className="userprofile__action" onClick={showPasswordModal}>
-              <i className="fa fa-cog userprofile__icon"></i>
-              Cambiar constraseña
-            </button>
+            {typeof state.userInformation.signUpMethod !== "undefined" && state.userInformation.signUpMethod !== "google" ? (
+              <button className="userprofile__action" onClick={showPasswordModal}>
+                <i className="fa fa-cog userprofile__icon"></i>
+            Cambiar constraseña
+              </button>
+            ) : null
+            }
             {(typeof (state.userInformation.organizationRole !== "undefined") &&
               state.userInformation.organizationRole === "owner") ||
               state.userInformation.organizationRole === "member" ||
               state.userInformation.organizationRole === "supervisor" ? (
-                <Link to="/organizationprofile" style={{ textDecoration: "none" }}>
-                  <button className="userprofile__action">
-                    <i className="fa fa-cog userprofile__icon"></i>
+                <button className="userprofile__action" onClick={redirectToManageOrg}>
+                  <i className="fa fa-cog userprofile__icon"></i>
                   Manejar organización
                 </button>
-                </Link>
               ) : (
                 ""
               )}
             {typeof state.userInformation !== "undefined" &&
               state.userInformation.organizationRole === "" &&
               state.userInformation.userType === "offerer" ? (
-                <Link to="/manageoffers" style={{ textDecoration: "none" }}>
-                  <button className="userprofile__action">
-                    <i className="fa fa-cog userprofile__icon"></i>
+                <button className="userprofile__action" onClick={redirectToManageOffers}>
+                  <i className="fa fa-cog userprofile__icon"></i>
                   Manejar ofertas
                 </button>
-                </Link>
               ) : (
                 ""
               )}

@@ -15,7 +15,6 @@ const PictureContainer = ({ newInfo, isOrg }) => {
           action({ profilePicture: newInfo });
         }
       } else {
-        console.log("loading");
       }
     } else {
       if (state.userInformation.data?.profilePicture) {
@@ -24,7 +23,6 @@ const PictureContainer = ({ newInfo, isOrg }) => {
           action({ data: newInfo });
         }
       } else {
-        console.log("loading");
       }
     }
   };

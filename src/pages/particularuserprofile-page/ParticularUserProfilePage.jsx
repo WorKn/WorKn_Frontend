@@ -4,12 +4,12 @@ import { getUserById } from "../../utils/apiRequests";
 import { getCategoryById } from "../../utils/apiRequests";
 import { getOffersByUserId } from "../../utils/apiRequests";
 import { getAllReviews } from "../../utils/apiRequests";
-import { getXReviews } from "../../utils/apiRequests";
+
 import { getReviewValidation } from "../../utils/apiRequests";
+import { ErrorMessage } from "@hookform/error-message";
 import { createReview } from "../../utils/apiRequests";
 import { useHistory } from "react-router-dom";
 import Header from "../../components/navbar-components/Navbar";
-import Banner from "../../components/banner-components/Banner";
 import Footer from "../../components/footer-components/Footer";
 import Tag from "../../components/tag-components/Tag";
 import StarRating from "../../components/starrating-components/StarRating";
@@ -18,7 +18,7 @@ import { useStateMachine } from "little-state-machine";
 import updateAction from "../../updateAction";
 import { useForm } from "react-hook-form";
 import OfferCard from "../../components/offer-components/OfferCard";
-
+import { store } from "react-notifications-component";
 import "./ParticularUserProfilePage-Style.css";
 
 const EmpresaViewPage = ({
@@ -32,7 +32,6 @@ const EmpresaViewPage = ({
   //user ID Albert ofertante: 5f70dc57f0880f2d975bd1ff
 
   const [userInfo, setUserInfo] = useState();
-
   const [isOfferer, setIsOfferer] = useState(false);
   const [category, setCategory] = useState();
   const [myoffers, setMyOffers] = useState([]);
@@ -41,10 +40,8 @@ const EmpresaViewPage = ({
   const [canReview, setCanReview] = useState();
   const { state } = useStateMachine(updateAction);
   const [starValue, setStarValue] = useState();
-  const { register, handleSubmit } = useForm();
-  const [couldComment, setCouldComment] = useState();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [canLoadMoreReviews, setCanLoadMoreReviews] = useState(true);
+  const { register, handleSubmit, errors } = useForm();
+  const [itemsToShow, setItemsToShow] = useState(5);
 
   let MyDictionary = {};
   MyDictionary["offerer"] = "Ofertante";
@@ -55,35 +52,59 @@ const EmpresaViewPage = ({
   const onSubmit = (data) => {
     data.starValue = starValue;
     createReview(id, data).then((res) => {
-      getAllReviews(id).then((res) => {
-        setReviews(res.data?.data.data);
-      });
-    });
-    setCouldComment(true);
-  };
-
-  const LoadMoreReviews = () => {
-    getXReviews(id, currentPage + 1, 5).then((res) => {
-      if (res?.data?.data?.data.length > 0) {
-        setCurrentPage(currentPage + 1);
-        const newArray = reviews.concat(res.data?.data?.data);
-        setReviews(newArray);
-
-        if (res?.data?.data?.data.length < 5) {
-          setCanLoadMoreReviews(false);
-        }
+      if (res.data.status === "success") {
+        getAllReviews(id).then((res) => {
+          setReviews(res.data?.data.data);
+        });
+        store.addNotification({
+          title: "Tu review ha sido creada",
+          message: "Nos aseguraremos de que sea recibida por el usuario.",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true,
+          },
+        });
       } else {
-        setCanLoadMoreReviews(false);
-        console.log(canLoadMoreReviews);
+        store.addNotification({
+          title: "Ha ocurrido un error",
+          message:
+            "No hemos podido crear tu review, asegurate de que hayas seleccionado una puntuación",
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 10000,
+            onScreen: true,
+          },
+        });
       }
     });
   };
+
+  const LoadMoreReviews = () => {
+    // if (itemsToShow + 5 <= reviews.length) {
+    //   setCanLoadMoreReviews(false);
+    // }
+    setItemsToShow(itemsToShow + 5);
+  };
+
+  useEffect(() => {
+    getAllReviews(id).then((res) => {
+      setReviews(res.data?.data.data);
+    });
+  }, [id]);
 
   useEffect(() => {
     getUserById(id).then((res) => {
       if (res.status === "success") {
         setUserInfo(res.data.data);
-
         if (
           res.data.data.userType === "offerer" &&
           res.data.data.organization
@@ -103,8 +124,8 @@ const EmpresaViewPage = ({
             setCategory(resp.data.data[0].name);
           });
 
-          getXReviews(res.data?.data?._id, currentPage, 5).then((resp) => {
-            setReviews(resp.data?.data.data);
+          getAllReviews(id).then((res) => {
+            setReviews(res?.data.data.data);
           });
         }
       } else {
@@ -134,7 +155,6 @@ const EmpresaViewPage = ({
   return (
     <div className="pagewrap">
       <Header />
-      <Banner image={"VfeSojP.png"}></Banner>
       <div className="pprofilepage">
         <div className="pprofilepage__up">
           <div className="pprofilepage__pp pprofilepage__pp--mob">
@@ -161,7 +181,7 @@ const EmpresaViewPage = ({
             {!isOfferer && (
               <div className="pprofilepage__tags pprofilepage__tags--mob">
                 <h2>{category}</h2>
-                <div className="tags-container">
+                <div className="ppptags-container">
                   {userInfo?.tags &&
                     userInfo?.tags.map((tag) => (
                       <Tag
@@ -192,34 +212,35 @@ const EmpresaViewPage = ({
 
         <div className="pprofilepage__rating">
           <h2 className="pprofilepage__rating-title">Reviews</h2>
-          {!reviews ? (
+          {!reviews || reviews.length === 0 ? (
             <p style={{ marginLeft: "30px" }}>
               Este usuario no tiene reviews públicas aun
             </p>
           ) : (
-            <div className="pprofilepage__rating-container">
-              {reviews?.map((review) => (
-                <Review
-                  key={review._id}
-                  review={review}
-                  userId={id}
-                  setReviews={setReviews}
-                ></Review>
-              ))}
-
-              {canLoadMoreReviews && (
-                <div
-                  className="addoffer__newbutton load-reviews__submit"
-                  onClick={LoadMoreReviews}
-                >
-                  <i className="fa fas fa-plus manageoffers__icon"></i>
-                  <span className="load-reviews__title">
-                    Cargar más reviews
-                  </span>
+              <div className="pprofilepage__rating-container">
+                <div className="profilepage__reviewcontainer">
+                  {reviews?.slice(0, itemsToShow).map((review) => (
+                    <Review
+                      key={review._id}
+                      review={review}
+                      userId={id}
+                      setReviews={setReviews}
+                    ></Review>
+                  ))}
                 </div>
-              )}
-            </div>
-          )}
+                {itemsToShow < reviews?.length && (
+                  <div
+                    className="addoffer__newbutton load-reviews__submit"
+                    onClick={LoadMoreReviews}
+                  >
+                    <i className="fa fas fa-plus manageoffers__icon"></i>
+                    <span className="load-reviews__title">
+                      Cargar más reviews
+                  </span>
+                  </div>
+                )}
+              </div>
+            )}
           <div className="pprofilepage__rating-container">
             {canReview && (
               <div className="pprofilepage__rate-body">
@@ -238,16 +259,29 @@ const EmpresaViewPage = ({
                       <StarRating
                         starValue={starValue}
                         setStarValue={setStarValue}
+                        ref={register({
+                          required: "Por favor ingrese la descripción",
+                        })}
                       />
                       <textarea
                         type="textarea"
                         name="review"
-                        placeholder="Description"
+                        placeholder="Descripción"
                         title="Por favor, ingrese los detalles de su review"
                         className="create-review__textarea"
                         ref={register({
                           required: "Por favor ingrese la descripción",
                         })}
+                      />
+
+                      <ErrorMessage
+                        errors={errors}
+                        name="review"
+                        render={({ message }) => (
+                          <div className="input__msg input__msg--error">
+                            <i className="fa fa-asterisk"></i> {message}
+                          </div>
+                        )}
                       />
                       <div className="create-rate__buttons">
                         <input
@@ -261,12 +295,12 @@ const EmpresaViewPage = ({
                           className="create-review__submit create-review__submit--light"
                         ></input>
                       </div>
-                      {couldComment && (
+                      {/* {couldComment && (
                         <span className="create-review__success">
                           <i className="fa fa-check-circle"></i>Comentario
                           publicado correctamente
                         </span>
-                      )}
+                      )} */}
                     </form>
                   </div>
                 </div>

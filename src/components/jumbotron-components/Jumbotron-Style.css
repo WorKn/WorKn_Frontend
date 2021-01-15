@@ -11,22 +11,21 @@
   flex: 0 1 37vw;
   display: flex;
   flex-wrap: wrap;
-  justify-content: right;
 }
 
 .jumbotron-container__title {
   margin-bottom: 15px;
   font-size: 24px;
   color: #333234;
-  width: auto;
-  text-align: right;
+  width: 100%;
+  text-align: end;
 }
 
 .jumbotron-container__description {
   margin-bottom: 35px;
   color: #7e7e7e;
   font-size: 18px;
-  text-align: right;
+  text-align: end;
 }
 
 .jumbotron-container__image {
@@ -64,6 +63,7 @@
   .jumbotron-container__title {
     margin-bottom: 20px;
     font-size: 22px;
+    text-align: center;
   }
   .jumbotron-container__description {
     text-align: center;

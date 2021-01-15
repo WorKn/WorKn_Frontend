@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import "./StarRating-Style.css";
 
-const StarRating = ({ ratingNumber, starValue, setStarValue }) => {
+const StarRating = ({ ratingNumber, starValue, setStarValue, ref }) => {
   const [hover, setHover] = useState(null);
 
   return (

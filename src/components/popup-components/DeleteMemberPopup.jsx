@@ -1,14 +1,57 @@
 import React from "react";
 import "./DeleteOfferPopup-Style.css";
 import { removeMember } from "../../utils/apiRequests";
+import { store } from "react-notifications-component";
+import updateAction from "../../updateAction";
+import { useStateMachine } from "little-state-machine";
 
 const DeleteOfferPopup = ({ memberId, hide }) => {
+
+  const updateMembers = () => {
+    if (state.userInformation.hasMemberBeenDeleted === true) {
+      action({ hasMemberBeenDeleted: false });
+    } else {
+      action({ hasMemberBeenDeleted: true });
+    }
+  };
+
+  const { state, action } = useStateMachine(updateAction);
   const handleDelete = () => {
     removeMember(memberId).then((res) => {
       if (res.data !== undefined) {
-        console.log(res);
+        if (res?.data?.status && res?.data?.status === "success") {
+          updateMembers()
+          store.addNotification({
+            title: "Usuario eliminado correctamente",
+            message:
+              "El miembro fue eliminado de " +
+              res?.data?.data?.organization?.name,
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true,
+            },
+          });
+        } else if (res?.data?.status && res?.data?.status === "fail") {
+          store.addNotification({
+            title: "Ha ocurrido un error",
+            message: res?.data?.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 10000,
+              onScreen: true,
+            },
+          });
+        }
         hide();
-        window.confirm("Usuario borrado");
       }
     });
   };
