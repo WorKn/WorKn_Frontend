@@ -20,7 +20,7 @@ const EditOfferPopup = ({ hide, offerInfo, setMyOffers }) => {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [showSuccess, setSuccess] = useState(false);
-  const { state, action } = useStateMachine(updateAction);
+  const { state } = useStateMachine(updateAction);
 
   const onSubmit = (data) => {
     if (state.userInformation.userType === "applicant") {
