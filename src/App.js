@@ -24,6 +24,7 @@ import ExplorePage from "./pages/explore-page/ExplorePage";
 import TermsOfServicePage from "./pages/termsofservice/TermsOfServicePage";
 import ParticularUserProfilePage from "./pages/particularuserprofile-page/ParticularUserProfilePage";
 import EmpresaViewPage from "./pages/viewside-page/EmpresaViewPage";
+import FAQPage from "./pages/FAQ-page/FAQPage";
 import GoogleAuthPage from "./pages/googleauth-page/GoogleAuthPage";
 import ReactNotification from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
@@ -113,6 +114,8 @@ function App() {
             <Route exact path="/addMember/:token" component={AddMember} />
             <ProtectedRoute exact path="/summary" component={SummaryPage} />
             <Route exact path="/explore" component={ExplorePage} />
+            <Route exact path="/faq" component={FAQPage} />
+            <Route exact path="/addMember/:token" component={AddMember} />
             <Route exact path="/managemembers" component={ManagePopup} />
             <Route path="/googleAuth" component={GoogleAuthPage} />
             {/* <Route exact path="/chat" component={ChatPage} /> */}

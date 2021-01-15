@@ -93,12 +93,14 @@
   justify-content: space-between;
   width: 8vw;
   height: 20%;
+  /* background-color: rebeccapurple; */
 }
 
 .icon-footer img {
   width: 25px;
   height: 25px;
   margin-right: 5px;
+  /* background-color: orangered; */
 }
 
 .left-foot__down-content {
